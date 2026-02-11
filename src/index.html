@@ -3,36 +3,111 @@
     <head>
         <title>Metajurasic</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz@9..40&family=Monomaniac+One&family=Gluten&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz@9..40&family=Monomaniac_One&family=Gluten&display=swap" rel="stylesheet">
     </head>
 
     <body>
-        <div class="bg-sunset">
-            <div class="flex flex-col items-center min-h-screen max-w-4xl mx-auto px-4 pt-24">
-                <header class="w-full p-4">
-                    <div class="flex items-center justify-center">
-                        <h1 class="font-['Gluten'] text-white">
+        <div class="bg-sunset h-screen flex items-center justify-center">
+            <div class="flex flex-col items-center w-1/2 px-6 py-16 h-full">
+                <header class="w-full mb-12">
+                    <div class="flex items-center justify-center mb-6">
+                        <h1 class="font-['Gluten'] text-white text-5xl">
                             Metajurasic
                         </h1>
                     </div>
-                    <hr class="border-black dark:border-white my-1 block">
+                    <hr class="border-white border-opacity-40 block">
                 </header>
 
-                <main class="flex-1 w-full flex flex-col items-center justify-center">
-                    <h2 class="font-['DM_Sans'] text-white text-2xl mb-4">
-                        A Jurassic Park themed metaverse experience
-                    </h2>
-                    <a href="https://metajurasic.com" class="bg-white text-black font-['Monomaniac_One'] px-6 py-3 rounded-full hover:bg-gray-200 transition duration-300">
-                        Visit Metajurasic
-                    </a>
+                <main class="flex-1 w-full flex mb-12" style="gap: 64px;">
+                    <!-- Left Column: Guess Box -->
+                    <div class="flex-1 flex flex-col bg-white bg-opacity-10 backdrop-blur-sm rounded-lg p-8">
+                        <h2 class="font-['Gluten'] text-white text-4xl font-bold mb-10" id="animalTitle">
+                            Animal #001
+                        </h2>
+
+                        <!-- Input Section -->
+                        <div style="margin-bottom: 60px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                                <label class="text-white font-['DM_Sans'] font-semibold text-lg">
+                                    Guess any species to begin!
+                                </label>
+                                <span class="text-white font-['DM_Sans'] text-sm opacity-75" id="remainingGuesses">
+                                    (20 remaining)
+                                </span>
+                            </div>
+                            <div style="display: flex; gap: 12px;">
+                                <input
+                                    type="text"
+                                    id="guessInput"
+                                    class="flex-1 px-4 py-3 rounded-lg font-['DM_Sans'] bg-white bg-opacity-80 focus:outline-none focus:ring-2 focus:ring-white focus:bg-white text-black placeholder-gray-400"
+                                    style="font-size: 16px;"
+                                />
+                                <button
+                                    id="guessButton"
+                                    style="background: white; color: #1f2937; padding: 12px 32px; border-radius: 8px; border: none; cursor: pointer; font-weight: 600; white-space: nowrap; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); transition: all 0.3s ease; font-family: 'DM_Sans'; font-size: 15px;"
+                                    onmouseover="this.style.background = '#f3f4f6'; this.style.color = '#92400e'; this.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.15)';"
+                                    onmouseout="this.style.background = 'white'; this.style.color = '#1f2937'; this.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';"
+                                    onmousedown="this.style.transform = 'scale(0.98)';"
+                                    onmouseup="this.style.transform = 'scale(1)';"
+                                >
+                                    Guess
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Hint Section -->
+                        <div style="margin-bottom: 48px; background: rgba(255, 255, 255, 0.15); border-radius: 8px; padding: 24px; box-shadow: 0 8px 12px -2px rgba(0, 0, 0, 0.1); border: 1px solid rgba(255, 255, 255, 0.2);">
+                            <h3 style="font-family: 'DM_Sans'; color: #1f2937; font-weight: 600; margin-bottom: 16px; font-size: 15px;">
+                                💡 Hint
+                            </h3>
+                            <p style="font-family: 'DM_Sans'; color: #374151; font-size: 14px; line-height: 1.6;" id="hintText">
+                                This prehistoric creature was one of the largest land animals to ever exist. It was an herbivore that walked on four powerful legs and had a long neck for reaching high vegetation.
+                            </p>
+                        </div>
+
+                        <!-- Guesses List -->
+                        <div>
+                            <h3 class="font-['DM_Sans'] text-white font-semibold mb-5 text-base">
+                                Your Guesses
+                            </h3>
+                            <ul id="guessesList" class="space-y-4">
+                                <li class="text-white font-['DM_Sans'] text-sm opacity-60">
+                                    No guesses yet...
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Guess Tree -->
+                    <div class="flex-1 flex flex-col bg-white bg-opacity-10 backdrop-blur-sm rounded-lg p-8">
+                        <h2 class="font-['Gluten'] text-white text-4xl font-bold mb-10">
+                            Family Tree
+                        </h2>
+
+                        <div id="guessTree" class="text-white font-['DM_Sans'] space-y-4 overflow-y-auto flex-1 pr-4">
+                            <div class="opacity-70">
+                                The animal family tree will appear here as you make guesses.
+                            </div>
+                            <div class="pt-6 border-t border-white border-opacity-20">
+                                <p class="text-sm opacity-60 leading-relaxed">
+                                    Guesses are organized by characteristics to help narrow down the correct answer.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </main>
 
-                <footer class="w-full p-4">
-                    <hr class="border-black dark:border-white my-1 block">
-                    <div class="flex items-center justify-center">
-                        <p class="font-['DM_Sans'] text-white text-sm">
-                            &copy; 2026 Metajurasic. All rights reserved.
-                        </p>
+                <footer class="w-full border-t border-white border-opacity-30 pt-8">
+                    <div class="flex items-center justify-between flex-wrap gap-6">
+                        <a href="https://github.com/alexjercan/metajurasic" target="_blank" class="text-white font-['DM_Sans'] hover:underline transition">
+                            GitHub
+                        </a>
+                        <a href="https://metazooa.com" target="_blank" class="text-white font-['DM_Sans'] hover:underline transition">
+                            Inspired by Metazooa
+                        </a>
+                        <a href="/faq" class="text-white font-['DM_Sans'] hover:underline transition">
+                            Have a question? Check out the FAQ
+                        </a>
                     </div>
                 </footer>
             </div>
