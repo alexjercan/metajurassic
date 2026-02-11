@@ -130,6 +130,7 @@
           packages = [
             virtualenv
             pkgs.uv
+            pkgs.nodejs
           ];
           env = {
             # Prevent uv from managing a virtual environment, this is managed by uv2nix.
