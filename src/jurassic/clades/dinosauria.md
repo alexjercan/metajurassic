@@ -1,5 +1,3 @@
-# Dinosauria
-
 Dinosauria is the major group of reptiles that dominated terrestrial ecosystems
 for over 160 million years.
 

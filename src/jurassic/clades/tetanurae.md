@@ -1,5 +1,3 @@
-# Tetanurae
-
 Tetanurae means "stiff tails."
 
 This clade includes most advanced theropods. Members developed more rigid tails

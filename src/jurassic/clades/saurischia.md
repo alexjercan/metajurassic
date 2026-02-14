@@ -1,5 +1,3 @@
-# Saurischia
-
 Saurischia means "lizard-hipped." It is one of the two primary divisions of
 dinosaurs.
 

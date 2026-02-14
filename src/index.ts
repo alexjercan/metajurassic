@@ -10,12 +10,8 @@ import {
     getDayOfYear
 } from './game';
 
-declare const require: {
-    context(path: string, deep: boolean, filter: RegExp): {
-        (key: string): any;
-        keys(): string[];
-    };
-};
+// Import marked for markdown parsing
+import { marked } from 'marked';
 
 // Game state
 let species: Species[] = [];
@@ -32,22 +28,21 @@ async function loadGameData(): Promise<void> {
     const cladeList: Clade[] = [];
     const cladeVisited: Set<string> = new Set();
 
-    const speciesContext = require.context('./jurassic/species', false, /\.md$/);
-    const cladesContext = require.context('./jurassic/clades', false, /\.md$/);
-
     const response = await fetch('./jurassic/_index.json');
     const data = await response.json();
 
     for (const spec of data) {
-        console.log(`Loading species: ${spec}`);
         const id: string = spec.id;
         const name: string = spec.name;
         const cladeArray: string[] = spec.clade;
 
         try {
-            const speciesKey = `./${id}.md`;
-            const module = speciesContext(speciesKey);
-            const description = module.default;
+            // Fetch the species markdown file as text
+            const speciesResponse = await fetch(`./jurassic/species/${id}.md`);
+            if (!speciesResponse.ok) {
+                throw new Error(`Failed to fetch species markdown: ${speciesResponse.status}`);
+            }
+            const description = await speciesResponse.text();
 
             speciesList.push({ id, name, clade: cladeArray, description });
 
@@ -56,13 +51,20 @@ async function loadGameData(): Promise<void> {
                 if (!cladeVisited.has(cladeName)) {
                     cladeVisited.add(cladeName);
                     const cladeId = cladeName.toLowerCase().replace(/\s+/g, '-');
-                    const cladeKey = `./${cladeId}.md`;
+
                     try {
-                        const cladeModule = cladesContext(cladeKey);
-                        const cladeDescription = cladeModule.default;
+                        const cladeResponse = await fetch(`./jurassic/clades/${cladeId}.md`);
+                        let cladeDescription = "Description not available.";
+
+                        if (cladeResponse.ok) {
+                            cladeDescription = await cladeResponse.text();
+                        } else {
+                            console.warn(`Clade markdown not found for ${cladeName}`);
+                        }
+
                         cladeList.push({ name: cladeName, parent: cladeParent, description: cladeDescription });
                     } catch (error) {
-                        console.warn(`Clade markdown not found for ${cladeName}`);
+                        console.warn(`Failed to fetch clade markdown for ${cladeName}:`, error);
                         cladeList.push({ name: cladeName, parent: cladeParent, description: "Description not available." });
                     }
                 }
@@ -151,16 +153,29 @@ function updateHintSection(): void {
     if (!hintContent) return;
 
     if (!currentLCA) {
-        // Initial state: show hint to make first guess
-        hintContent.innerHTML = '<p class="hint-empty">Make your first guess to reveal clues!</p>';
+        // Initial state: show the root clade (the one with no parent)
+        const rootClade = Array.from(clades.values()).find(c => !c.parent);
+
+        if (rootClade) {
+            const htmlDescription = marked(rootClade.description);
+            hintContent.innerHTML = `
+                <div class="hint-clade">📊 ${rootClade.name}</div>
+                <div class="hint-description">${htmlDescription}</div>
+            `;
+        } else {
+            hintContent.innerHTML = '<p class="hint-empty">Make your first guess to reveal clues!</p>';
+        }
     } else {
-        // Show the current LCA clade name and its description
+        // Show the current LCA clade name and its description (parsed as markdown)
         const clade = clades.get(currentLCA);
         const cladeDescription = clade?.description || "Description not available.";
 
+        // Parse markdown to HTML
+        const htmlDescription = marked(cladeDescription);
+
         hintContent.innerHTML = `
             <div class="hint-clade">📊 ${currentLCA}</div>
-            <p class="hint-description">${cladeDescription}</p>
+            <div class="hint-description">${htmlDescription}</div>
         `;
     }
 }

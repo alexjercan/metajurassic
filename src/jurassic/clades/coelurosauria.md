@@ -1,5 +1,3 @@
-# Coelurosauria
-
 Coelurosauria includes theropods more closely related to birds than to
 Allosaurus.
 

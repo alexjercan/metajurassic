@@ -1,5 +1,3 @@
-# Tyrannosauroidea
-
 Tyrannosauroidea includes Tyrannosaurus rex and its close relatives.
 
 Early members were small and lightly built, but later species evolved into
