@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Metajurasic - Guess the Dinosaur!
+Metajurassic - Guess the Dinosaur!
 
 A phylogenetic guessing game where the player must identify
 a randomly selected dinosaur species using clade feedback.
@@ -186,13 +186,13 @@ def __evaluate_guess(
 
 
 class Arguments(BaseModel):
-    """ Command-line arguments for the Metajurasic game. """
+    """ Command-line arguments for the Metajurassic game. """
 
-    data: str = Field(default="jurasic", description="The data set to use for the game (default: jurasic)")
+    data: str = Field(default="jurassic", description="The data set to use for the game (default: jurassic)")
 
 
 def main(args: Arguments):
-    """ Main function to run the Metajurasic game. """
+    """ Main function to run the Metajurassic game. """
 
     species_list, clade_list = __ensure_data_format(args.data)
     clade_tree = __compute_clade_tree(species_list)
@@ -200,7 +200,7 @@ def main(args: Arguments):
 
     target = random.choice(species_list)
 
-    print("🎮 Welcome to Metajurasic - Guess the species!")
+    print("🎮 Welcome to Metajurassic - Guess the species!")
     print("=" * 80)
     print("I'm thinking of a dinosaur species. Can you guess which one it is?")
 
@@ -239,12 +239,12 @@ def main(args: Arguments):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        description="Play Metajurasic - Guess the species!"
+        description="Play Metajurassic - Guess the species!"
     )
     parser.add_argument(
         "--data",
-        default="jurasic",
-        help="The data set to use for the game (default: jurasic)",
+        default=os.path.join("src", "jurassic"),
+        help="The data set to use for the game (default: src/jurassic)",
     )
 
     args = parser.parse_args()

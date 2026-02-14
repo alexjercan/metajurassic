@@ -48,7 +48,7 @@
       # Use environment variable pointing to editable root directory
       root = "$REPO_ROOT";
       # Optional: Only enable editable for these packages
-      # members = [ "metajurasic" ];
+      # members = [ "metajurassic" ];
     };
   in
     flake-parts.lib.mkFlake {inherit inputs;} {
@@ -92,10 +92,10 @@
             })
           ]
         );
-        # virtualenv = pythonSet.mkVirtualEnv "metajurasic-dev-env" workspace.deps.all;
+        # virtualenv = pythonSet.mkVirtualEnv "metajurassic-dev-env" workspace.deps.all;
         # Uv2nix supports editable packages, but requires you to generate a separate overlay & package set for them:
         editablePythonSet = pythonSet.overrideScope editableOverlay;
-        virtualenv = editablePythonSet.mkVirtualEnv "metajurasic-dev-env" workspace.deps.all;
+        virtualenv = editablePythonSet.mkVirtualEnv "metajurassic-dev-env" workspace.deps.all;
         inherit (pkgs.callPackages pyproject-nix.build.util {}) mkApplication;
       in {
         # Per-system attributes can be defined here. The self' and inputs'
@@ -117,13 +117,13 @@
         #
         # Are excluded but things like binaries, man pages, systemd units etc are included.
         packages.default = mkApplication {
-          venv = pythonSet.mkVirtualEnv "metajurasic-env" workspace.deps.default;
-          package = pythonSet.metajurasic;
+          venv = pythonSet.mkVirtualEnv "metajurassic-env" workspace.deps.default;
+          package = pythonSet.metajurassic;
         };
 
         apps.default = {
           type = "app";
-          program = "${self.packages.${system}.default}/bin/metajurasic";
+          program = "${self.packages.${system}.default}/bin/metajurassic";
         };
 
         devShells.default = pkgs.mkShell {
