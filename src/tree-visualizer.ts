@@ -53,9 +53,7 @@ export class TreeVisualizer {
         this.g = this.svg.append("g");
 
         // Create tree layout
-        this.tree = d3
-            .tree<TreeNode>()
-            .size([this.width - 80, this.height - 80]);
+        this.tree = d3.tree<TreeNode>().size([this.width - 80, this.height - 80]);
     }
 
     render(data: TreeNode): void {
@@ -92,18 +90,20 @@ export class TreeVisualizer {
             .data(root.descendants())
             .join("g")
             .attr("class", "node")
-            .attr(
-                "transform",
-                (d) => `translate(${d.x + offsetX},${d.y + offsetY})`
-            );
+            .attr("transform", (d) => `translate(${d.x + offsetX},${d.y + offsetY})`);
 
-        // Add circles
+        // Add rectangles instead of circles
         nodes
-            .append("circle")
-            .attr("r", this.nodeRadius)
+            .append("rect")
+            .attr("width", (d) => this.getNodeWidth(d.data))
+            .attr("height", 40)
+            .attr("x", (d) => -this.getNodeWidth(d.data) / 2)
+            .attr("y", -20)
             .attr("fill", (d) => this.getNodeColor(d.data))
             .attr("stroke", (d) => this.getNodeStroke(d.data))
             .attr("stroke-width", (d) => (this.isSpecial(d.data) ? 3 : 2))
+            .attr("rx", 6)
+            .attr("ry", 6)
             .style("cursor", "pointer");
 
         // Add text labels
@@ -111,9 +111,9 @@ export class TreeVisualizer {
             .append("text")
             .attr("text-anchor", "middle")
             .attr("dy", "0.3em")
-            .attr("font-size", "10px")
+            .attr("font-size", "11px")
             .attr("font-weight", "600")
-            .attr("fill", "#1f2937")
+            .attr("fill", (d) => this.getTextColor(d.data))
             .style("pointer-events", "none")
             .text((d) => this.formatLabel(d.data.name))
             .each(function (d) {
@@ -123,10 +123,11 @@ export class TreeVisualizer {
                 if (words.length > 1 && d.data.name !== "???") {
                     text.text("");
                     words.forEach((word, i) => {
-                        text.append("tspan")
+                        text
+                            .append("tspan")
                             .attr("x", 0)
                             .attr("dy", i > 0 ? "1.1em" : 0)
-                            .attr("font-size", "9px")
+                            .attr("font-size", "10px")
                             .text(word);
                     });
                 }
@@ -145,26 +146,40 @@ export class TreeVisualizer {
 
     private getNodeColor(node: TreeNode): string {
         if (node.isTarget) {
-            return "rgba(59, 130, 246, 0.8)"; // Blue for target (???)
+            return "#22c55e"; // Green for target
         }
         if (node.isGuess) {
-            return "rgba(239, 68, 68, 0.8)"; // Red for incorrect guess
+            return "white"; // White background for guesses
         }
-        return "rgba(255, 255, 255, 0.7)"; // White for clades
+        return "#d4a574"; // Brown/tan for clades
     }
 
     private getNodeStroke(node: TreeNode): string {
         if (node.isTarget) {
-            return "#3b82f6";
+            return "#16a34a"; // Darker green
         }
         if (node.isGuess) {
-            return "#ef4444";
+            return "#000000"; // Black outline for guesses
         }
-        return "rgba(0, 0, 0, 0.25)";
+        return "#8b6f47"; // Darker brown for clades
+    }
+
+    private getTextColor(node: TreeNode): string {
+        if (node.isGuess) {
+            return "#000000"; // Black text for white background
+        }
+        return "white"; // White text for colored backgrounds
     }
 
     private isSpecial(node: TreeNode): boolean {
         return !!(node.isTarget || node.isGuess);
+    }
+
+    private getNodeWidth(node: TreeNode): number {
+        // Estimate width based on text length
+        const baseWidth = 60;
+        const charWidth = 6;
+        return Math.max(baseWidth, node.name.length * charWidth);
     }
 
     private formatLabel(name: string): string {
@@ -172,8 +187,8 @@ export class TreeVisualizer {
         if (name.length <= 3) {
             return name;
         }
-        if (name.length > 12) {
-            return name.substring(0, 10) + "...";
+        if (name.length > 20) {
+            return name.substring(0, 17) + "...";
         }
         return name;
     }
@@ -189,8 +204,7 @@ export class TreeVisualizer {
             return;
         }
 
-        const scale =
-            0.75 / Math.max(fullWidth / this.width, fullHeight / this.height);
+        const scale = 0.75 / Math.max(fullWidth / this.width, fullHeight / this.height);
         const translate = [
             this.width / 2 - scale * midX,
             this.height / 2 - scale * midY,
@@ -201,9 +215,7 @@ export class TreeVisualizer {
             .duration(this.animationDuration)
             .call(
                 this.zoom.transform as any,
-                d3.zoomIdentity
-                    .translate(translate[0], translate[1])
-                    .scale(scale)
+                d3.zoomIdentity.translate(translate[0], translate[1]).scale(scale)
             );
     }
 }
