@@ -13,6 +13,7 @@ export interface TreeVisualizerOptions {
     height?: number;
     nodeRadius?: number;
     animationDuration?: number;
+    onNodeClick?: (nodeName: string) => void;
 }
 
 export class TreeVisualizer {
@@ -24,12 +25,14 @@ export class TreeVisualizer {
     private nodeRadius: number;
     private animationDuration: number;
     private zoom: d3.ZoomBehavior<SVGSVGElement, unknown>;
+    private onNodeClick?: (nodeName: string) => void;
 
     constructor(options: TreeVisualizerOptions) {
         this.width = options.width || 600;
         this.height = options.height || 400;
         this.nodeRadius = options.nodeRadius || 28;
         this.animationDuration = options.animationDuration || 300;
+        this.onNodeClick = options.onNodeClick;
 
         // Create SVG with responsive sizing
         this.svg = d3
@@ -105,6 +108,14 @@ export class TreeVisualizer {
             .attr("rx", 6)
             .attr("ry", 6)
             .style("cursor", "pointer");
+
+        // Add click handlers
+        nodes.on("click", (event, d) => {
+            event.stopPropagation();
+            if (this.onNodeClick) {
+                this.onNodeClick(d.data.name);
+            }
+        });
 
         // Add text labels
         nodes

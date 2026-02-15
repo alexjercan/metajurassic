@@ -1,5 +1,3 @@
-# Allosaurus
-
 **Period:** Late Jurassic (~155–145 million years ago)
 
 Allosaurus was one of the top predators of the Late Jurassic. Much larger and

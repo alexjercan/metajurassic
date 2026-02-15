@@ -1,5 +1,3 @@
-# Tyrannosaurus rex
-
 **Period:** Late Cretaceous (~68–66 million years ago)
 
 Tyrannosaurus rex was one of the largest land predators to ever live. It had an

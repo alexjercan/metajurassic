@@ -27,6 +27,7 @@ let guessHistory: Array<{
     isCorrect: boolean;
 }> = [];
 let currentLCA: string | null = null;
+let selectedNode: string | null = null;
 let treeVisualizer: TreeVisualizer | null = null;
 
 async function loadGameData(): Promise<void> {
@@ -117,6 +118,7 @@ function startNewGame(): void {
     guessedSpecies.clear();
     guessHistory = [];
     currentLCA = null;
+    selectedNode = null;
 }
 
 function makeGuess(guessName: string): {
@@ -175,31 +177,55 @@ function updateHintSection(): void {
     const hintContent = document.getElementById("hintContent");
     if (!hintContent) return;
 
-    if (!currentLCA) {
-        const rootClade = Array.from(clades.values()).find((c) => !c.parent);
+    let displayName = "";
+    let description = "";
 
-        if (rootClade) {
-            const htmlDescription = marked(rootClade.description);
-            hintContent.innerHTML = `
-                <div class="hint-clade">🧬 ${rootClade.name}</div>
-                <div class="hint-description">${htmlDescription}</div>
-            `;
+    // If a node is selected, show its description
+    if (selectedNode) {
+        displayName = selectedNode;
+
+        // Check if it's a clade or species
+        const clade = clades.get(selectedNode);
+        if (clade) {
+            description = clade.description;
         } else {
-            hintContent.innerHTML =
-                '<p class="hint-empty">Make your first guess to reveal clues!</p>';
+            // Try to find it as a species
+            const spec = species.find((s) => s.name === selectedNode);
+            if (spec) {
+                description = spec.description;
+            } else {
+                description = "Description not available.";
+            }
         }
     } else {
-        const clade = clades.get(currentLCA);
-        const cladeDescription =
-            clade?.description || "Description not available.";
-
-        const htmlDescription = marked(cladeDescription);
-
-        hintContent.innerHTML = `
-            <div class="hint-clade">🧬 ${currentLCA}</div>
-            <div class="hint-description">${htmlDescription}</div>
-        `;
+        // Default: show the current LCA or root clade
+        if (!currentLCA) {
+            const rootClade = Array.from(clades.values()).find((c) => !c.parent);
+            if (rootClade) {
+                displayName = rootClade.name;
+                description = rootClade.description;
+            } else {
+                hintContent.innerHTML =
+                    '<p class="hint-empty">Make your first guess to reveal clues!</p>';
+                return;
+            }
+        } else {
+            const clade = clades.get(currentLCA);
+            displayName = currentLCA;
+            description = clade?.description || "Description not available.";
+        }
     }
+
+    const htmlDescription = marked(description);
+    hintContent.innerHTML = `
+        <div class="hint-clade">🧬 ${displayName}</div>
+        <div class="hint-description">${htmlDescription}</div>
+    `;
+}
+
+function onNodeClick(nodeName: string): void {
+    selectedNode = nodeName;
+    updateHintSection();
 }
 
 function updateTreeVisualization(): void {
@@ -230,6 +256,7 @@ function updateTreeVisualization(): void {
         height: 400,
         nodeRadius: 25,
         animationDuration: 300,
+        onNodeClick: onNodeClick,
     });
 
     treeVisualizer.render(treeData);
@@ -261,6 +288,9 @@ function handleGuess(): void {
 
         input.value = "";
         closeAutocomplete();
+
+        // Reset selected node to default on new guess
+        selectedNode = null;
 
         updateUI();
     } catch (error) {

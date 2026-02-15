@@ -1,5 +1,3 @@
-# Coelophysis
-
 **Period:** Late Triassic (~210 million years ago)
 
 Coelophysis was one of the earliest known theropod dinosaurs. It was small,
