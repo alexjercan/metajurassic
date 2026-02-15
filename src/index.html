@@ -33,12 +33,15 @@
                                 >
                             </div>
                             <div class="input-group">
-                                <input
-                                    type="text"
-                                    id="guessInput"
-                                    placeholder="e.g. Triceratops"
-                                    autocomplete="off"
-                                />
+                                <div class="autocomplete-wrapper">
+                                    <input
+                                        type="text"
+                                        id="guessInput"
+                                        placeholder="e.g. Triceratops"
+                                        autocomplete="off"
+                                    />
+                                    <ul id="autocompleteList" class="autocomplete-list"></ul>
+                                </div>
                                 <button id="guessButton">Guess</button>
                             </div>
                         </div>
@@ -63,10 +66,7 @@
                                 >0 / 20</span
                             >
                         </div>
-                        <div
-                            id="treeVisualization"
-                            style="flex: 1; overflow: hidden"
-                        >
+                        <div id="treeVisualization" style="flex: 1; overflow: hidden;">
                             <div class="empty-state">No guesses yet...</div>
                         </div>
                     </div>

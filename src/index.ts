@@ -260,11 +260,57 @@ function handleGuess(): void {
         });
 
         input.value = "";
+        closeAutocomplete();
 
         updateUI();
     } catch (error) {
         alert(`Error: ${(error as Error).message}`);
         input.value = "";
+    }
+}
+
+function updateAutocomplete(inputValue: string): void {
+    const autocompleteList = document.getElementById("autocompleteList") as HTMLUListElement;
+
+    if (!inputValue.trim()) {
+        closeAutocomplete();
+        return;
+    }
+
+    const filtered = species.filter((s) =>
+        s.name.toLowerCase().includes(inputValue.toLowerCase())
+    );
+
+    if (filtered.length === 0) {
+        autocompleteList.innerHTML = '<li class="autocomplete-no-results">No matches found</li>';
+        autocompleteList.classList.add("active");
+        return;
+    }
+
+    autocompleteList.innerHTML = filtered
+        .slice(0, 10)
+        .map((s) => `<li class="autocomplete-item">${s.name}</li>`)
+        .join("");
+
+    autocompleteList.classList.add("active");
+
+    // Add click handlers to autocomplete items
+    const items = autocompleteList.querySelectorAll(".autocomplete-item");
+    items.forEach((item) => {
+        item.addEventListener("click", () => {
+            const input = document.getElementById("guessInput") as HTMLInputElement;
+            input.value = item.textContent || "";
+            closeAutocomplete();
+            handleGuess();
+        });
+    });
+}
+
+function closeAutocomplete(): void {
+    const autocompleteList = document.getElementById("autocompleteList");
+    if (autocompleteList) {
+        autocompleteList.classList.remove("active");
+        autocompleteList.innerHTML = "";
     }
 }
 
@@ -291,6 +337,15 @@ async function initGame(): Promise<void> {
                 if (e.key === "Enter") {
                     handleGuess();
                 }
+            });
+
+            guessInput.addEventListener("input", (e) => {
+                const value = (e.target as HTMLInputElement).value;
+                updateAutocomplete(value);
+            });
+
+            guessInput.addEventListener("blur", () => {
+                setTimeout(() => closeAutocomplete(), 200);
             });
         }
 
