@@ -12,6 +12,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.18",
+    "@types/canvas-confetti": "^1.9.0",
     "@types/d3": "^7.4.3",
     "autoprefixer": "^10.4.24",
     "copy-webpack-plugin": "^13.0.1",
@@ -28,6 +29,7 @@
     "webpack-dev-server": "^5.2.3"
   },
   "dependencies": {
+    "canvas-confetti": "^1.9.4",
     "d3": "^7.9.0",
     "marked": "^17.0.2"
   }

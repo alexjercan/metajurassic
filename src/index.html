@@ -10,6 +10,17 @@
     </head>
 
     <body class="bg-sunset">
+        <!-- Win Modal -->
+        <div id="winModal" class="win-modal hidden">
+            <div class="win-modal-content">
+                <h2>🎉 You Won! 🎉</h2>
+                <p class="win-text">You found the creature:</p>
+                <p class="win-creature" id="winCreatureName"></p>
+                <p class="win-guesses" id="winGuessCount"></p>
+                <button class="win-button" id="nextGameButton">Close</button>
+            </div>
+        </div>
+
         <div class="container">
             <div class="content-wrapper">
                 <header>

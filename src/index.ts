@@ -12,7 +12,7 @@ import {
 
 import { TreeVisualizer } from "./tree-visualizer";
 import { buildGameTree, GameTreeState, Guess } from "./tree-builder";
-
+import confetti from "canvas-confetti";
 import { marked } from "marked";
 
 let species: Species[] = [];
@@ -29,6 +29,7 @@ let guessHistory: Array<{
 let currentLCA: string | null = null;
 let selectedNode: string | null = null;
 let treeVisualizer: TreeVisualizer | null = null;
+let gameWon: boolean = false;
 
 async function loadGameData(): Promise<void> {
     const speciesList: Species[] = [];
@@ -119,6 +120,7 @@ function startNewGame(): void {
     guessHistory = [];
     currentLCA = null;
     selectedNode = null;
+    gameWon = false;
 }
 
 function makeGuess(guessName: string): {
@@ -155,7 +157,13 @@ function updateUI(): void {
 
     const puzzleNumber = document.getElementById("puzzleNumber");
     if (puzzleNumber) {
-        puzzleNumber.textContent = generatePuzzleNumber();
+        if (gameWon) {
+            puzzleNumber.textContent = `${generatePuzzleNumber()} - ${target.name}`;
+            puzzleNumber.style.color = "#22c55e";
+        } else {
+            puzzleNumber.textContent = generatePuzzleNumber();
+            puzzleNumber.style.color = "";
+        }
     }
 
     const remainingGuesses = document.getElementById("remainingGuesses");
@@ -262,6 +270,47 @@ function updateTreeVisualization(): void {
     treeVisualizer.render(treeData);
 }
 
+function triggerConfetti(): void {
+    if (typeof confetti !== "undefined") {
+        // Launch confetti from multiple angles
+        confetti({
+            particleCount: 100,
+            spread: 70,
+            origin: { y: 0.6 },
+        });
+
+        setTimeout(() => {
+            confetti({
+                particleCount: 50,
+                spread: 100,
+                origin: { y: 0.5 },
+            });
+        }, 250);
+
+        setTimeout(() => {
+            confetti({
+                particleCount: 80,
+                spread: 60,
+                origin: { y: 0.4 },
+            });
+        }, 500);
+    }
+}
+
+function showWinModal(): void {
+    triggerConfetti();
+
+    const winModal = document.getElementById("winModal");
+    const winCreatureName = document.getElementById("winCreatureName");
+    const winGuessCount = document.getElementById("winGuessCount");
+
+    if (winModal && winCreatureName && winGuessCount && target) {
+        winCreatureName.textContent = target.name;
+        winGuessCount.textContent = `You found it in ${guessesUsed} ${guessesUsed === 1 ? "guess" : "guesses"}!`;
+        winModal.classList.remove("hidden");
+    }
+}
+
 function handleGuess(): void {
     const input = document.getElementById("guessInput") as HTMLInputElement;
     const guessName = input.value.trim();
@@ -292,7 +341,14 @@ function handleGuess(): void {
         // Reset selected node to default on new guess
         selectedNode = null;
 
-        updateUI();
+        // Check if player won
+        if (result.isCorrect) {
+            gameWon = true;
+            updateUI();
+            setTimeout(showWinModal, 300);
+        } else {
+            updateUI();
+        }
     } catch (error) {
         alert(`Error: ${(error as Error).message}`);
         input.value = "";
@@ -357,6 +413,16 @@ async function initGame(): Promise<void> {
         const guessInput = document.getElementById(
             "guessInput"
         ) as HTMLInputElement;
+        const nextGameButton = document.getElementById("nextGameButton");
+
+        if (nextGameButton) {
+            nextGameButton.addEventListener("click", () => {
+                const winModal = document.getElementById("winModal");
+                if (winModal) {
+                    winModal.classList.add("hidden");
+                }
+            });
+        }
 
         if (guessButton) {
             guessButton.addEventListener("click", handleGuess);
@@ -378,6 +444,8 @@ async function initGame(): Promise<void> {
                 setTimeout(() => closeAutocomplete(), 200);
             });
         }
+
+
 
         updateUI();
     } catch (error) {
