@@ -15,7 +15,7 @@ export interface GameTreeState {
 /**
  * Build a tree structure showing the clade hierarchy with incorrect guesses and the hidden target.
  * - Builds paths to all guess LCAs
- * - Places ??? at the deepest (most specific) guess LCA (best case scenario)
+ * - Shows the correct species name if guessed, otherwise shows ???
  * - Adds all guesses at their respective LCA nodes
  */
 export function buildGameTree(state: GameTreeState): TreeNode {
@@ -32,7 +32,9 @@ export function buildGameTree(state: GameTreeState): TreeNode {
     };
 
     const incorrectGuesses = guesses.filter((g) => !g.isCorrect);
-    if (incorrectGuesses.length === 0) {
+    const correctGuess = guesses.find((g) => g.isCorrect);
+
+    if (incorrectGuesses.length === 0 && !correctGuess) {
         root.children!.push({
             name: "???",
             isTarget: true,
@@ -70,8 +72,10 @@ export function buildGameTree(state: GameTreeState): TreeNode {
 
     const deepestLCANode = nodeMap.get(deepestLCA) || root;
     deepestLCANode.children = deepestLCANode.children || [];
+
+    const targetDisplayName = correctGuess ? correctGuess.species.name : "???";
     deepestLCANode.children.push({
-        name: "???",
+        name: targetDisplayName,
         isTarget: true,
     });
 

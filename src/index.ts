@@ -204,7 +204,7 @@ function updateHintSection(): void {
 
 function updateTreeVisualization(): void {
     const treeVizContainer = document.getElementById("treeVisualization");
-    if (!treeVizContainer || !target) return;
+    if (!treeVizContainer) return;
 
     treeVizContainer.innerHTML = "";
 
@@ -261,12 +261,7 @@ function handleGuess(): void {
 
         input.value = "";
 
-        if (result.isCorrect) {
-            updateUI();
-            alert(`🎉 Correct! The answer was ${target?.name}!`);
-        } else {
-            updateUI();
-        }
+        updateUI();
     } catch (error) {
         alert(`Error: ${(error as Error).message}`);
         input.value = "";
