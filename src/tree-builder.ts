@@ -1,19 +1,27 @@
 import { Species, Clade } from "./game";
 import { TreeNode } from "./tree-visualizer";
 
+export interface Guess {
+    species: Species;
+    clade: string | null;
+    isCorrect: boolean;
+}
+
 export interface GameTreeState {
     target: Species;
-    guesses: Array<{ species: Species; isCorrect: boolean }>;
+    guesses: Guess[];
     clades: Map<string, Clade>;
 }
 
 /**
- * Build a tree structure showing the clade hierarchy with incorrect guesses and the hidden target
+ * Build a tree structure showing the clade hierarchy with incorrect guesses and the hidden target.
+ * - Builds paths to all guess LCAs
+ * - Places ??? at the deepest (most specific) guess LCA (best case scenario)
+ * - Adds all guesses at their respective LCA nodes
  */
 export function buildGameTree(state: GameTreeState): TreeNode {
     const { target, guesses, clades } = state;
 
-    // Find root clade
     const rootClade = Array.from(clades.values()).find((c) => !c.parent);
     if (!rootClade) {
         throw new Error("No root clade found");
@@ -24,10 +32,7 @@ export function buildGameTree(state: GameTreeState): TreeNode {
         children: [],
     };
 
-    // Get incorrect guesses only (not correct ones)
     const incorrectGuesses = guesses.filter((g) => !g.isCorrect);
-
-    // If no guesses yet, just show ??? under root
     if (incorrectGuesses.length === 0) {
         root.children!.push({
             name: "???",
@@ -36,72 +41,108 @@ export function buildGameTree(state: GameTreeState): TreeNode {
         return root;
     }
 
-    // Find the most specific common clade between target and all guesses
-    const allSpecies = [target, ...incorrectGuesses.map((g) => g.species)];
-    const commonClades = findCommonClades(allSpecies.map((s) => s.clade));
-    const mostSpecificCommonClade =
-        commonClades.length > 0 ? commonClades[commonClades.length - 1] : rootClade.name;
+    // Get all guess LCAs and find the deepest (best case scenario)
+    const guessLCAs = incorrectGuesses.map((g) => g.clade || rootClade.name);
+    const deepestLCA = findDeepestClade(guessLCAs, clades) || rootClade.name;
 
-    // Build tree from root down to the most specific common clade
-    let currentNode = root;
-    let currentCladeName = rootClade.name;
+    // For each guess LCA, build the complete path and add it to the tree
+    const nodeMap = new Map<string, TreeNode>();
+    nodeMap.set(root.name, root);
 
-    // Walk through the clade hierarchy until we reach the most specific common clade
-    while (currentCladeName !== mostSpecificCommonClade) {
-        // Find the next clade in the path to the target
-        const nextClade = Array.from(clades.values()).find(
-            (c) => c.parent === currentCladeName && allSpecies.some((s) => s.clade.includes(c.name))
-        );
+    // Build paths for all guess LCAs
+    incorrectGuesses.forEach((guess) => {
+        const lcaClade = guess.clade || rootClade.name;
+        const pathToLCA = getCladePathFromRoot(lcaClade, clades);
 
-        if (!nextClade) {
-            break;
+        let currentNode = root;
+        for (const cladeName of pathToLCA) {
+            if (cladeName === root.name) continue;
+
+            let cladeNode = nodeMap.get(cladeName);
+            if (!cladeNode) {
+                cladeNode = {
+                    name: cladeName,
+                    children: [],
+                };
+                currentNode.children!.push(cladeNode);
+                nodeMap.set(cladeName, cladeNode);
+            }
+
+            currentNode = cladeNode;
         }
+    });
 
-        const cladeNode: TreeNode = {
-            name: nextClade.name,
-            children: [],
-        };
-        currentNode.children!.push(cladeNode);
-        currentNode = cladeNode;
-        currentCladeName = nextClade.name;
-    }
-
-    // At the most specific common clade, add ??? and incorrect guesses
-    const unknownNode: TreeNode = {
+    // Add ??? at the deepest (best case) LCA
+    const deepestLCANode = nodeMap.get(deepestLCA) || root;
+    deepestLCANode.children = deepestLCANode.children || [];
+    deepestLCANode.children.push({
         name: "???",
         isTarget: true,
-    };
-    currentNode.children!.push(unknownNode);
+    });
 
-    // Add incorrect guesses as siblings to ???
+    // Add guesses at their respective LCA positions
     incorrectGuesses.forEach((guess) => {
-        const guessNode: TreeNode = {
-            name: guess.species.name,
-            isGuess: true,
-        };
-        currentNode.children!.push(guessNode);
+        const lcaClade = guess.clade || rootClade.name;
+        const parentNode = nodeMap.get(lcaClade);
+
+        if (parentNode) {
+            parentNode.children = parentNode.children || [];
+            parentNode.children.push({
+                name: guess.species.name,
+                isGuess: true,
+            });
+        }
     });
 
     return root;
 }
 
 /**
- * Find common clades across multiple species clade paths
+ * Find the deepest (most specific) clade from a list of clades
  */
-function findCommonClades(cladePaths: string[][]): string[] {
-    if (cladePaths.length === 0) return [];
+function findDeepestClade(cladeNames: string[], clades: Map<string, Clade>): string | null {
+    if (cladeNames.length === 0) return null;
 
-    const commonClades: string[] = [];
-    const minLength = Math.min(...cladePaths.map((c) => c.length));
+    let deepest = cladeNames[0];
 
-    for (let i = 0; i < minLength; i++) {
-        const cladeAtIndex = cladePaths[0][i];
-        if (cladePaths.every((path) => path[i] === cladeAtIndex)) {
-            commonClades.push(cladeAtIndex);
-        } else {
-            break;
+    for (const cladeName of cladeNames) {
+        // If cladeName is a descendant of deepest, it's deeper
+        if (isDescendantOf(cladeName, deepest, clades)) {
+            deepest = cladeName;
         }
     }
 
-    return commonClades;
+    return deepest;
+}
+
+/**
+ * Check if descendantClade is a descendant of ancestorClade
+ */
+function isDescendantOf(descendantClade: string, ancestorClade: string, clades: Map<string, Clade>): boolean {
+    if (descendantClade === ancestorClade) return false;
+
+    let current = clades.get(descendantClade);
+    while (current) {
+        if (current.parent === ancestorClade) {
+            return true;
+        }
+        current = current.parent ? clades.get(current.parent) : undefined;
+    }
+
+    return false;
+}
+
+/**
+ * Get the path from root to a specific clade
+ */
+function getCladePathFromRoot(targetClade: string, clades: Map<string, Clade>): string[] {
+    const path: string[] = [];
+    let current = clades.get(targetClade);
+
+    while (current) {
+        path.unshift(current.name);
+        current = current.parent ? clades.get(current.parent) : undefined;
+    }
+
+    return path;
 }

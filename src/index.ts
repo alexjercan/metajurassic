@@ -11,11 +11,10 @@ import {
 } from "./game";
 
 import { TreeVisualizer } from "./tree-visualizer";
-import { buildGameTree, GameTreeState } from "./tree-builder";
+import { buildGameTree, GameTreeState, Guess } from "./tree-builder";
 
 import { marked } from "marked";
 
-// Game state
 let species: Species[] = [];
 let clades: Map<string, Clade> = new Map();
 let target: Species | null = null;
@@ -207,25 +206,25 @@ function updateTreeVisualization(): void {
     const treeVizContainer = document.getElementById("treeVisualization");
     if (!treeVizContainer || !target) return;
 
-    // Clear existing SVG
     treeVizContainer.innerHTML = "";
 
-    // Build tree data from guesses (even if empty)
+    const guessArray: Guess[] = guessHistory.map((guess) => {
+        const guessSpecies = findSpeciesByName(guess.name, species);
+        return {
+            species: guessSpecies!,
+            clade: guess.clade,
+            isCorrect: guess.isCorrect,
+        };
+    });
+
     const treeState: GameTreeState = {
         target,
-        guesses: guessHistory.map((guess) => {
-            const guessSpecies = findSpeciesByName(guess.name, species);
-            return {
-                species: guessSpecies!,
-                isCorrect: guess.isCorrect,
-            };
-        }),
+        guesses: guessArray,
         clades,
     };
 
     const treeData = buildGameTree(treeState);
 
-    // Create and render visualizer
     treeVisualizer = new TreeVisualizer({
         containerId: "treeVisualization",
         width: 600,
@@ -308,7 +307,6 @@ async function initGame(): Promise<void> {
     }
 }
 
-// Start the game when the DOM is ready
 if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", initGame);
 } else {
