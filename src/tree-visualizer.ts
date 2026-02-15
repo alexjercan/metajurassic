@@ -96,9 +96,9 @@ export class TreeVisualizer {
         nodes
             .append("rect")
             .attr("width", (d) => this.getNodeWidth(d.data))
-            .attr("height", 40)
+            .attr("height", 50)
             .attr("x", (d) => -this.getNodeWidth(d.data) / 2)
-            .attr("y", -20)
+            .attr("y", -25)
             .attr("fill", (d) => this.getNodeColor(d.data))
             .attr("stroke", (d) => this.getNodeStroke(d.data))
             .attr("stroke-width", (d) => (this.isSpecial(d.data) ? 3 : 2))
@@ -177,7 +177,7 @@ export class TreeVisualizer {
 
     private getNodeWidth(node: TreeNode): number {
         // Estimate width based on text length
-        const baseWidth = 60;
+        const baseWidth = 80;
         const charWidth = 6;
         return Math.max(baseWidth, node.name.length * charWidth);
     }
