@@ -31,6 +31,78 @@ let selectedNode: string | null = null;
 let treeVisualizer: TreeVisualizer | null = null;
 let gameWon: boolean = false;
 
+/**
+ * Get the localStorage key for today's puzzle
+ */
+function getSavedGameKey(): string {
+    return `metajurassic-puzzle-${generatePuzzleNumber()}`;
+}
+
+/**
+ * Save current game state to localStorage
+ */
+function saveGameState(): void {
+    if (!target) return;
+
+    const gameState = {
+        puzzleNumber: generatePuzzleNumber(),
+        targetId: target.id,
+        guessesUsed,
+        guessHistory,
+        currentLCA,
+        gameWon,
+        selectedNode,
+    };
+
+    try {
+        localStorage.setItem(getSavedGameKey(), JSON.stringify(gameState));
+    } catch (error) {
+        console.warn("Failed to save game state:", error);
+    }
+}
+
+/**
+ * Load game state from localStorage for today's puzzle
+ * Returns true if successfully loaded, false if no save or invalid
+ */
+function loadGameState(): boolean {
+    try {
+        const key = getSavedGameKey();
+        const saved = localStorage.getItem(key);
+
+        if (!saved) {
+            return false;
+        }
+
+        const gameState = JSON.parse(saved);
+
+        if (gameState.puzzleNumber !== generatePuzzleNumber()) {
+            return false;
+        }
+
+        target = species.find((s) => s.id === gameState.targetId) || null;
+        if (!target) {
+            return false;
+        }
+
+        guessesUsed = gameState.guessesUsed;
+        guessHistory = gameState.guessHistory;
+        currentLCA = gameState.currentLCA;
+        gameWon = gameState.gameWon;
+        selectedNode = gameState.selectedNode;
+
+        guessedSpecies.clear();
+        guessHistory.forEach((guess) => {
+            guessedSpecies.add(guess.name.toLowerCase());
+        });
+
+        return true;
+    } catch (error) {
+        console.warn("Failed to load game state:", error);
+        return false;
+    }
+}
+
 async function loadGameData(): Promise<void> {
     const speciesList: Species[] = [];
     const cladeList: Clade[] = [];
@@ -188,16 +260,13 @@ function updateHintSection(): void {
     let displayName = "";
     let description = "";
 
-    // If a node is selected, show its description
     if (selectedNode) {
         displayName = selectedNode;
 
-        // Check if it's a clade or species
         const clade = clades.get(selectedNode);
         if (clade) {
             description = clade.description;
         } else {
-            // Try to find it as a species
             const spec = species.find((s) => s.name === selectedNode);
             if (spec) {
                 description = spec.description;
@@ -206,7 +275,6 @@ function updateHintSection(): void {
             }
         }
     } else {
-        // Default: show the current LCA or root clade
         if (!currentLCA) {
             const rootClade = Array.from(clades.values()).find((c) => !c.parent);
             if (rootClade) {
@@ -272,7 +340,6 @@ function updateTreeVisualization(): void {
 
 function triggerConfetti(): void {
     if (typeof confetti !== "undefined") {
-        // Launch confetti from multiple angles
         confetti({
             particleCount: 100,
             spread: 70,
@@ -338,12 +405,12 @@ function handleGuess(): void {
         input.value = "";
         closeAutocomplete();
 
-        // Reset selected node to default on new guess
         selectedNode = null;
+        saveGameState();
 
-        // Check if player won
         if (result.isCorrect) {
             gameWon = true;
+            saveGameState();
             updateUI();
             setTimeout(showWinModal, 300);
         } else {
@@ -380,7 +447,6 @@ function updateAutocomplete(inputValue: string): void {
 
     autocompleteList.classList.add("active");
 
-    // Add click handlers to autocomplete items
     const items = autocompleteList.querySelectorAll(".autocomplete-item");
     items.forEach((item) => {
         item.addEventListener("click", () => {
@@ -407,7 +473,13 @@ async function initGame(): Promise<void> {
             `Loaded ${species.length} species and ${clades.size} clades`
         );
 
-        startNewGame();
+        const loadedSavedGame = loadGameState();
+
+        if (!loadedSavedGame) {
+            startNewGame();
+        } else {
+            console.log("Resuming saved game");
+        }
 
         const guessButton = document.getElementById("guessButton");
         const guessInput = document.getElementById(
@@ -444,8 +516,6 @@ async function initGame(): Promise<void> {
                 setTimeout(() => closeAutocomplete(), 200);
             });
         }
-
-
 
         updateUI();
     } catch (error) {
