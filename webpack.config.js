@@ -15,9 +15,7 @@ const config = {
             template: "src/index.html",
         }),
         new CopyPlugin({
-            patterns: [
-                { from: "src/jurassic", to: "jurassic" },
-            ],
+            patterns: [{ from: "src/jurassic", to: "jurassic" }],
         }),
     ],
     resolve: {
@@ -31,12 +29,8 @@ const config = {
                 exclude: /node_modules/,
             },
             {
-              test: /\.css$/i,
-              use: [
-                "style-loader",
-                "css-loader",
-                "postcss-loader",
-              ],
+                test: /\.css$/i,
+                use: ["style-loader", "css-loader", "postcss-loader"],
             },
             {
                 test: /\.(md|json)$/i,

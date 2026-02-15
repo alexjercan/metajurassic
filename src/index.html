@@ -3,7 +3,10 @@
     <head>
         <title>Metajurassic</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz@9..40&family=Gluten&display=swap" rel="stylesheet">
+        <link
+            href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz@9..40&family=Gluten&display=swap"
+            rel="stylesheet"
+        />
     </head>
 
     <body class="bg-sunset">
@@ -18,50 +21,64 @@
                 </header>
 
                 <main>
-                <!-- Left Panel: Input & Hint -->
-                <div class="panel">
-                    <h2 id="puzzleNumber">Animal #001</h2>
+                    <!-- Left Panel: Input & Hint -->
+                    <div class="panel">
+                        <h2 id="puzzleNumber">Animal #001</h2>
 
-                    <div class="input-section">
-                        <div class="input-label">
-                            <span>Enter a species name</span>
-                            <span class="remaining" id="remainingGuesses">(20 remaining)</span>
+                        <div class="input-section">
+                            <div class="input-label">
+                                <span>Enter a species name</span>
+                                <span class="remaining" id="remainingGuesses"
+                                    >(20 remaining)</span
+                                >
+                            </div>
+                            <div class="input-group">
+                                <input
+                                    type="text"
+                                    id="guessInput"
+                                    placeholder="e.g. Triceratops"
+                                    autocomplete="off"
+                                />
+                                <button id="guessButton">Guess</button>
+                            </div>
                         </div>
-                        <div class="input-group">
-                            <input
-                                type="text"
-                                id="guessInput"
-                                placeholder="e.g. Triceratops"
-                                autocomplete="off"
-                            />
-                            <button id="guessButton">Guess</button>
+
+                        <div class="hint-box">
+                            <h3>💡 Hint</h3>
+                            <div id="hintContent">
+                                <p class="hint-empty">
+                                    Make your first guess to reveal clues!
+                                </p>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="hint-box">
-                        <h3>💡 Hint</h3>
-                        <div id="hintContent">
-                            <p class="hint-empty">Make your first guess to reveal clues!</p>
+                    <!-- Right Panel: Guess History -->
+                    <div class="panel">
+                        <div class="history-header">
+                            <h2 style="margin: 0; font-size: 28px">
+                                Guess History
+                            </h2>
+                            <span class="history-count" id="guessCount"
+                                >0 / 20</span
+                            >
+                        </div>
+                        <div id="guessHistory" class="empty-state">
+                            No guesses yet...
                         </div>
                     </div>
-                </div>
-
-                <!-- Right Panel: Guess History -->
-                <div class="panel">
-                    <div class="history-header">
-                        <h2 style="margin: 0; font-size: 28px;">Guess History</h2>
-                        <span class="history-count" id="guessCount">0 / 20</span>
-                    </div>
-                    <div id="guessHistory" class="empty-state">
-                        No guesses yet...
-                    </div>
-                </div>
-            </main>
+                </main>
             </div>
 
             <footer>
-                <a href="https://github.com/alexjercan/metajurassic" target="_blank">GitHub</a>
-                <a href="https://metazooa.com" target="_blank">Inspired by Metazooa</a>
+                <a
+                    href="https://github.com/alexjercan/metajurassic"
+                    target="_blank"
+                    >GitHub</a
+                >
+                <a href="https://metazooa.com" target="_blank"
+                    >Inspired by Metazooa</a
+                >
                 <a href="/faq">FAQ</a>
             </footer>
         </div>

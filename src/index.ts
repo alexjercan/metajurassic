@@ -7,11 +7,10 @@ import {
     checkGuess,
     isAlreadyGuessed,
     formatPuzzleId,
-    getDayOfYear
-} from './game';
+    getDayOfYear,
+} from "./game";
 
-// Import marked for markdown parsing
-import { marked } from 'marked';
+import { marked } from "marked";
 
 // Game state
 let species: Species[] = [];
@@ -20,15 +19,19 @@ let target: Species | null = null;
 let guessesUsed: number = 0;
 let maxGuesses: number = 20;
 let guessedSpecies: Set<string> = new Set();
-let guessHistory: Array<{ name: string; clade: string | null; isCorrect: boolean }> = [];
-let currentLCA: string | null = null; // Track the most recent LCA for hint display
+let guessHistory: Array<{
+    name: string;
+    clade: string | null;
+    isCorrect: boolean;
+}> = [];
+let currentLCA: string | null = null;
 
 async function loadGameData(): Promise<void> {
     const speciesList: Species[] = [];
     const cladeList: Clade[] = [];
     const cladeVisited: Set<string> = new Set();
 
-    const response = await fetch('./jurassic/_index.json');
+    const response = await fetch("./jurassic/_index.json");
     const data = await response.json();
 
     for (const spec of data) {
@@ -37,10 +40,11 @@ async function loadGameData(): Promise<void> {
         const cladeArray: string[] = spec.clade;
 
         try {
-            // Fetch the species markdown file as text
             const speciesResponse = await fetch(`./jurassic/species/${id}.md`);
             if (!speciesResponse.ok) {
-                throw new Error(`Failed to fetch species markdown: ${speciesResponse.status}`);
+                throw new Error(
+                    `Failed to fetch species markdown: ${speciesResponse.status}`
+                );
             }
             const description = await speciesResponse.text();
 
@@ -50,22 +54,39 @@ async function loadGameData(): Promise<void> {
             for (const cladeName of cladeArray) {
                 if (!cladeVisited.has(cladeName)) {
                     cladeVisited.add(cladeName);
-                    const cladeId = cladeName.toLowerCase().replace(/\s+/g, '-');
+                    const cladeId = cladeName
+                        .toLowerCase()
+                        .replace(/\s+/g, "-");
 
                     try {
-                        const cladeResponse = await fetch(`./jurassic/clades/${cladeId}.md`);
+                        const cladeResponse = await fetch(
+                            `./jurassic/clades/${cladeId}.md`
+                        );
                         let cladeDescription = "Description not available.";
 
                         if (cladeResponse.ok) {
                             cladeDescription = await cladeResponse.text();
                         } else {
-                            console.warn(`Clade markdown not found for ${cladeName}`);
+                            console.warn(
+                                `Clade markdown not found for ${cladeName}`
+                            );
                         }
 
-                        cladeList.push({ name: cladeName, parent: cladeParent, description: cladeDescription });
+                        cladeList.push({
+                            name: cladeName,
+                            parent: cladeParent,
+                            description: cladeDescription,
+                        });
                     } catch (error) {
-                        console.warn(`Failed to fetch clade markdown for ${cladeName}:`, error);
-                        cladeList.push({ name: cladeName, parent: cladeParent, description: "Description not available." });
+                        console.warn(
+                            `Failed to fetch clade markdown for ${cladeName}:`,
+                            error
+                        );
+                        cladeList.push({
+                            name: cladeName,
+                            parent: cladeParent,
+                            description: "Description not available.",
+                        });
                     }
                 }
                 cladeParent = cladeName;
@@ -76,7 +97,7 @@ async function loadGameData(): Promise<void> {
     }
 
     species = speciesList;
-    clades = new Map(cladeList.map(c => [c.name, c]));
+    clades = new Map(cladeList.map((c) => [c.name, c]));
 }
 
 function generatePuzzleNumber(): string {
@@ -87,7 +108,7 @@ function startNewGame(): void {
     if (species.length === 0) {
         throw new Error("No species available to start the game.");
     }
-    // Pass current date to ensure same species for all players on the same day
+
     target = getRandomSpecies(species, new Date());
     guessesUsed = 0;
     guessedSpecies.clear();
@@ -95,13 +116,18 @@ function startNewGame(): void {
     currentLCA = null;
 }
 
-function makeGuess(guessName: string): { isCorrect: boolean; clade: string | null } {
+function makeGuess(guessName: string): {
+    isCorrect: boolean;
+    clade: string | null;
+} {
     if (!target) {
         throw new Error("Game has not been started.");
     }
 
     if (guessesUsed >= maxGuesses) {
-        throw new Error(`Maximum number of guesses (${maxGuesses}) has been reached.`);
+        throw new Error(
+            `Maximum number of guesses (${maxGuesses}) has been reached.`
+        );
     }
 
     const guessedSpec = findSpeciesByName(guessName, species);
@@ -122,39 +148,33 @@ function makeGuess(guessName: string): { isCorrect: boolean; clade: string | nul
 function updateUI(): void {
     if (!target) return;
 
-    // Update puzzle number
-    const puzzleNumber = document.getElementById('puzzleNumber');
+    const puzzleNumber = document.getElementById("puzzleNumber");
     if (puzzleNumber) {
         puzzleNumber.textContent = generatePuzzleNumber();
     }
 
-    // Update remaining guesses
-    const remainingGuesses = document.getElementById('remainingGuesses');
+    const remainingGuesses = document.getElementById("remainingGuesses");
     if (remainingGuesses) {
         const remaining = maxGuesses - guessesUsed;
         remainingGuesses.textContent = `(${remaining} remaining)`;
     }
 
-    // Update guess count
-    const guessCount = document.getElementById('guessCount');
+    const guessCount = document.getElementById("guessCount");
     if (guessCount) {
         guessCount.textContent = `${guessesUsed} / ${maxGuesses}`;
     }
 
-    // Update hint section
     updateHintSection();
 
-    // Update guess history
     updateGuessHistory();
 }
 
 function updateHintSection(): void {
-    const hintContent = document.getElementById('hintContent');
+    const hintContent = document.getElementById("hintContent");
     if (!hintContent) return;
 
     if (!currentLCA) {
-        // Initial state: show the root clade (the one with no parent)
-        const rootClade = Array.from(clades.values()).find(c => !c.parent);
+        const rootClade = Array.from(clades.values()).find((c) => !c.parent);
 
         if (rootClade) {
             const htmlDescription = marked(rootClade.description);
@@ -163,14 +183,14 @@ function updateHintSection(): void {
                 <div class="hint-description">${htmlDescription}</div>
             `;
         } else {
-            hintContent.innerHTML = '<p class="hint-empty">Make your first guess to reveal clues!</p>';
+            hintContent.innerHTML =
+                '<p class="hint-empty">Make your first guess to reveal clues!</p>';
         }
     } else {
-        // Show the current LCA clade name and its description (parsed as markdown)
         const clade = clades.get(currentLCA);
-        const cladeDescription = clade?.description || "Description not available.";
+        const cladeDescription =
+            clade?.description || "Description not available.";
 
-        // Parse markdown to HTML
         const htmlDescription = marked(cladeDescription);
 
         hintContent.innerHTML = `
@@ -181,20 +201,24 @@ function updateHintSection(): void {
 }
 
 function updateGuessHistory(): void {
-    const guessHistoryContainer = document.getElementById('guessHistory');
+    const guessHistoryContainer = document.getElementById("guessHistory");
     if (!guessHistoryContainer) return;
 
     if (guessHistory.length === 0) {
-        guessHistoryContainer.innerHTML = '<div class="empty-state">No guesses yet...</div>';
+        guessHistoryContainer.innerHTML =
+            '<div class="empty-state">No guesses yet...</div>';
         return;
     }
 
-    guessHistoryContainer.innerHTML = guessHistory.map((guess, index) => {
-        const iconEmoji = guess.isCorrect ? '✅' : '❌';
-        const itemClass = guess.isCorrect ? 'correct' : 'incorrect';
-        const cladeText = guess.clade ? `<div class="guess-clade">→ ${guess.clade}</div>` : '';
+    guessHistoryContainer.innerHTML = guessHistory
+        .map((guess, _) => {
+            const iconEmoji = guess.isCorrect ? "✅" : "❌";
+            const itemClass = guess.isCorrect ? "correct" : "incorrect";
+            const cladeText = guess.clade
+                ? `<div class="guess-clade">→ ${guess.clade}</div>`
+                : "";
 
-        return `
+            return `
             <div class="guess-item ${itemClass}">
                 <div class="guess-name">
                     <span class="guess-icon">${iconEmoji}</span>${guess.name}
@@ -202,21 +226,22 @@ function updateGuessHistory(): void {
                 ${cladeText}
             </div>
         `;
-    }).join('');
+        })
+        .join("");
 }
 
 function handleGuess(): void {
-    const input = document.getElementById('guessInput') as HTMLInputElement;
+    const input = document.getElementById("guessInput") as HTMLInputElement;
     const guessName = input.value.trim();
 
     if (!guessName) {
-        alert('Please enter a species name');
+        alert("Please enter a species name");
         return;
     }
 
     if (isAlreadyGuessed(guessName, guessedSpecies)) {
-        alert('You already guessed that species!');
-        input.value = '';
+        alert("You already guessed that species!");
+        input.value = "";
         return;
     }
 
@@ -226,10 +251,10 @@ function handleGuess(): void {
         guessHistory.push({
             name: guessName,
             clade: result.clade,
-            isCorrect: result.isCorrect
+            isCorrect: result.isCorrect,
         });
 
-        input.value = '';
+        input.value = "";
 
         if (result.isCorrect) {
             updateUI();
@@ -239,28 +264,31 @@ function handleGuess(): void {
         }
     } catch (error) {
         alert(`Error: ${(error as Error).message}`);
-        input.value = '';
+        input.value = "";
     }
 }
 
 async function initGame(): Promise<void> {
     try {
         await loadGameData();
-        console.log(`Loaded ${species.length} species and ${clades.size} clades`);
+        console.log(
+            `Loaded ${species.length} species and ${clades.size} clades`
+        );
 
         startNewGame();
 
-        // Set up event listeners
-        const guessButton = document.getElementById('guessButton');
-        const guessInput = document.getElementById('guessInput') as HTMLInputElement;
+        const guessButton = document.getElementById("guessButton");
+        const guessInput = document.getElementById(
+            "guessInput"
+        ) as HTMLInputElement;
 
         if (guessButton) {
-            guessButton.addEventListener('click', handleGuess);
+            guessButton.addEventListener("click", handleGuess);
         }
 
         if (guessInput) {
-            guessInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
+            guessInput.addEventListener("keypress", (e) => {
+                if (e.key === "Enter") {
                     handleGuess();
                 }
             });
@@ -268,14 +296,14 @@ async function initGame(): Promise<void> {
 
         updateUI();
     } catch (error) {
-        console.error('Failed to initialize game:', error);
-        alert('Failed to load game data. Check the console for details.');
+        console.error("Failed to initialize game:", error);
+        alert("Failed to load game data. Check the console for details.");
     }
 }
 
 // Start the game when the DOM is ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initGame);
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initGame);
 } else {
     initGame();
 }

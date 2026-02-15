@@ -22,7 +22,6 @@ export interface GuessResult {
  * and returns the first clade found in clade2.
  */
 export function computeLCA(clade1: string[], clade2: string[]): string | null {
-    // Start from the most specific clade (end of array) and work backwards
     for (let i = clade1.length - 1; i >= 0; i--) {
         if (clade2.includes(clade1[i])) {
             return clade1[i];
@@ -36,7 +35,10 @@ export function computeLCA(clade1: string[], clade2: string[]): string | null {
  * Uses the current day of year as the seed to ensure the same species
  * is selected for all players on the same day.
  */
-export function getRandomSpecies(species: Species[], date: Date = new Date()): Species {
+export function getRandomSpecies(
+    species: Species[],
+    date: Date = new Date()
+): Species {
     if (species.length === 0) {
         throw new Error("Cannot get random species from empty list");
     }
@@ -49,7 +51,10 @@ export function getRandomSpecies(species: Species[], date: Date = new Date()): S
  * Generate a seeded random index for daily puzzles.
  * Uses the current day of year to ensure consistency throughout the day.
  */
-export function getRandomIndexForDate(arrayLength: number, date: Date = new Date()): number {
+export function getRandomIndexForDate(
+    arrayLength: number,
+    date: Date = new Date()
+): number {
     if (arrayLength <= 0) {
         throw new Error("Array length must be positive");
     }
@@ -84,24 +89,24 @@ export function getDayOfYear(date: Date = new Date()): number {
  * Example: 5 -> "Animal #005", 365 -> "Animal #365"
  */
 export function formatPuzzleId(dayOfYear: number): string {
-    return `Animal #${String(dayOfYear).padStart(3, '0')}`;
+    return `Animal #${String(dayOfYear).padStart(3, "0")}`;
 }
 
 /**
  * Validate if a species name exists in the species list (case-insensitive).
  */
-export function findSpeciesByName(name: string, species: Species[]): Species | null {
+export function findSpeciesByName(
+    name: string,
+    species: Species[]
+): Species | null {
     const normalizedName = name.trim().toLowerCase();
-    return species.find(s => s.name.toLowerCase() === normalizedName) || null;
+    return species.find((s) => s.name.toLowerCase() === normalizedName) || null;
 }
 
 /**
  * Check if a guess is correct and compute feedback.
  */
-export function checkGuess(
-    guess: Species,
-    target: Species
-): GuessResult {
+export function checkGuess(guess: Species, target: Species): GuessResult {
     if (guess.id === target.id) {
         return { isCorrect: true, clade: null };
     }
@@ -117,6 +122,9 @@ export function checkGuess(
 /**
  * Validate that a species hasn't already been guessed.
  */
-export function isAlreadyGuessed(speciesName: string, guessedSpecies: Set<string>): boolean {
+export function isAlreadyGuessed(
+    speciesName: string,
+    guessedSpecies: Set<string>
+): boolean {
     return guessedSpecies.has(speciesName.toLowerCase());
 }
