@@ -8,7 +8,6 @@ export interface Guess {
 }
 
 export interface GameTreeState {
-    target: Species;
     guesses: Guess[];
     clades: Map<string, Clade>;
 }
@@ -20,7 +19,7 @@ export interface GameTreeState {
  * - Adds all guesses at their respective LCA nodes
  */
 export function buildGameTree(state: GameTreeState): TreeNode {
-    const { target, guesses, clades } = state;
+    const { guesses, clades } = state;
 
     const rootClade = Array.from(clades.values()).find((c) => !c.parent);
     if (!rootClade) {
@@ -41,15 +40,12 @@ export function buildGameTree(state: GameTreeState): TreeNode {
         return root;
     }
 
-    // Get all guess LCAs and find the deepest (best case scenario)
     const guessLCAs = incorrectGuesses.map((g) => g.clade || rootClade.name);
     const deepestLCA = findDeepestClade(guessLCAs, clades) || rootClade.name;
 
-    // For each guess LCA, build the complete path and add it to the tree
     const nodeMap = new Map<string, TreeNode>();
     nodeMap.set(root.name, root);
 
-    // Build paths for all guess LCAs
     incorrectGuesses.forEach((guess) => {
         const lcaClade = guess.clade || rootClade.name;
         const pathToLCA = getCladePathFromRoot(lcaClade, clades);
@@ -72,7 +68,6 @@ export function buildGameTree(state: GameTreeState): TreeNode {
         }
     });
 
-    // Add ??? at the deepest (best case) LCA
     const deepestLCANode = nodeMap.get(deepestLCA) || root;
     deepestLCANode.children = deepestLCANode.children || [];
     deepestLCANode.children.push({
@@ -80,7 +75,6 @@ export function buildGameTree(state: GameTreeState): TreeNode {
         isTarget: true,
     });
 
-    // Add guesses at their respective LCA positions
     incorrectGuesses.forEach((guess) => {
         const lcaClade = guess.clade || rootClade.name;
         const parentNode = nodeMap.get(lcaClade);
@@ -100,13 +94,15 @@ export function buildGameTree(state: GameTreeState): TreeNode {
 /**
  * Find the deepest (most specific) clade from a list of clades
  */
-function findDeepestClade(cladeNames: string[], clades: Map<string, Clade>): string | null {
+function findDeepestClade(
+    cladeNames: string[],
+    clades: Map<string, Clade>
+): string | null {
     if (cladeNames.length === 0) return null;
 
     let deepest = cladeNames[0];
 
     for (const cladeName of cladeNames) {
-        // If cladeName is a descendant of deepest, it's deeper
         if (isDescendantOf(cladeName, deepest, clades)) {
             deepest = cladeName;
         }
@@ -118,7 +114,11 @@ function findDeepestClade(cladeNames: string[], clades: Map<string, Clade>): str
 /**
  * Check if descendantClade is a descendant of ancestorClade
  */
-function isDescendantOf(descendantClade: string, ancestorClade: string, clades: Map<string, Clade>): boolean {
+function isDescendantOf(
+    descendantClade: string,
+    ancestorClade: string,
+    clades: Map<string, Clade>
+): boolean {
     if (descendantClade === ancestorClade) return false;
 
     let current = clades.get(descendantClade);
@@ -135,7 +135,10 @@ function isDescendantOf(descendantClade: string, ancestorClade: string, clades: 
 /**
  * Get the path from root to a specific clade
  */
-function getCladePathFromRoot(targetClade: string, clades: Map<string, Clade>): string[] {
+function getCladePathFromRoot(
+    targetClade: string,
+    clades: Map<string, Clade>
+): string[] {
     const path: string[] = [];
     let current = clades.get(targetClade);
 

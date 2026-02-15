@@ -218,7 +218,6 @@ function updateTreeVisualization(): void {
     });
 
     const treeState: GameTreeState = {
-        target,
         guesses: guessArray,
         clades,
     };

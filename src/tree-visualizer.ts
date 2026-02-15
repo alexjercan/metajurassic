@@ -53,7 +53,9 @@ export class TreeVisualizer {
         this.g = this.svg.append("g");
 
         // Create tree layout
-        this.tree = d3.tree<TreeNode>().size([this.width - 80, this.height - 80]);
+        this.tree = d3
+            .tree<TreeNode>()
+            .size([this.width - 80, this.height - 80]);
     }
 
     render(data: TreeNode): void {
@@ -90,7 +92,10 @@ export class TreeVisualizer {
             .data(root.descendants())
             .join("g")
             .attr("class", "node")
-            .attr("transform", (d) => `translate(${d.x + offsetX},${d.y + offsetY})`);
+            .attr(
+                "transform",
+                (d) => `translate(${d.x + offsetX},${d.y + offsetY})`
+            );
 
         // Add circles
         nodes
@@ -118,8 +123,7 @@ export class TreeVisualizer {
                 if (words.length > 1 && d.data.name !== "???") {
                     text.text("");
                     words.forEach((word, i) => {
-                        text
-                            .append("tspan")
+                        text.append("tspan")
                             .attr("x", 0)
                             .attr("dy", i > 0 ? "1.1em" : 0)
                             .attr("font-size", "9px")
@@ -185,7 +189,8 @@ export class TreeVisualizer {
             return;
         }
 
-        const scale = 0.75 / Math.max(fullWidth / this.width, fullHeight / this.height);
+        const scale =
+            0.75 / Math.max(fullWidth / this.width, fullHeight / this.height);
         const translate = [
             this.width / 2 - scale * midX,
             this.height / 2 - scale * midY,
@@ -196,7 +201,9 @@ export class TreeVisualizer {
             .duration(this.animationDuration)
             .call(
                 this.zoom.transform as any,
-                d3.zoomIdentity.translate(translate[0], translate[1]).scale(scale)
+                d3.zoomIdentity
+                    .translate(translate[0], translate[1])
+                    .scale(scale)
             );
     }
 }
