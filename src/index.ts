@@ -10,6 +10,9 @@ import {
     getDayOfYear,
 } from "./game";
 
+import { TreeVisualizer } from "./tree-visualizer";
+import { buildGameTree, GameTreeState } from "./tree-builder";
+
 import { marked } from "marked";
 
 // Game state
@@ -25,6 +28,7 @@ let guessHistory: Array<{
     isCorrect: boolean;
 }> = [];
 let currentLCA: string | null = null;
+let treeVisualizer: TreeVisualizer | null = null;
 
 async function loadGameData(): Promise<void> {
     const speciesList: Species[] = [];
@@ -165,8 +169,7 @@ function updateUI(): void {
     }
 
     updateHintSection();
-
-    updateGuessHistory();
+    updateTreeVisualization();
 }
 
 function updateHintSection(): void {
@@ -179,7 +182,7 @@ function updateHintSection(): void {
         if (rootClade) {
             const htmlDescription = marked(rootClade.description);
             hintContent.innerHTML = `
-                <div class="hint-clade">📊 ${rootClade.name}</div>
+                <div class="hint-clade">🧬 ${rootClade.name}</div>
                 <div class="hint-description">${htmlDescription}</div>
             `;
         } else {
@@ -194,40 +197,44 @@ function updateHintSection(): void {
         const htmlDescription = marked(cladeDescription);
 
         hintContent.innerHTML = `
-            <div class="hint-clade">📊 ${currentLCA}</div>
+            <div class="hint-clade">🧬 ${currentLCA}</div>
             <div class="hint-description">${htmlDescription}</div>
         `;
     }
 }
 
-function updateGuessHistory(): void {
-    const guessHistoryContainer = document.getElementById("guessHistory");
-    if (!guessHistoryContainer) return;
+function updateTreeVisualization(): void {
+    const treeVizContainer = document.getElementById("treeVisualization");
+    if (!treeVizContainer || !target) return;
 
-    if (guessHistory.length === 0) {
-        guessHistoryContainer.innerHTML =
-            '<div class="empty-state">No guesses yet...</div>';
-        return;
-    }
+    // Clear existing SVG
+    treeVizContainer.innerHTML = "";
 
-    guessHistoryContainer.innerHTML = guessHistory
-        .map((guess, _) => {
-            const iconEmoji = guess.isCorrect ? "✅" : "❌";
-            const itemClass = guess.isCorrect ? "correct" : "incorrect";
-            const cladeText = guess.clade
-                ? `<div class="guess-clade">→ ${guess.clade}</div>`
-                : "";
+    // Build tree data from guesses (even if empty)
+    const treeState: GameTreeState = {
+        target,
+        guesses: guessHistory.map((guess) => {
+            const guessSpecies = findSpeciesByName(guess.name, species);
+            return {
+                species: guessSpecies!,
+                isCorrect: guess.isCorrect,
+            };
+        }),
+        clades,
+    };
 
-            return `
-            <div class="guess-item ${itemClass}">
-                <div class="guess-name">
-                    <span class="guess-icon">${iconEmoji}</span>${guess.name}
-                </div>
-                ${cladeText}
-            </div>
-        `;
-        })
-        .join("");
+    const treeData = buildGameTree(treeState);
+
+    // Create and render visualizer
+    treeVisualizer = new TreeVisualizer({
+        containerId: "treeVisualization",
+        width: 600,
+        height: 400,
+        nodeRadius: 25,
+        animationDuration: 300,
+    });
+
+    treeVisualizer.render(treeData);
 }
 
 function handleGuess(): void {
