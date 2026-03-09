@@ -1,5 +1,5 @@
 ---
-species: Tyrannosaurus rex
+species: Tyrannosaurus Rex
 clade: Coelurosauria
 period: Late Cretaceous
 size: 12-13 meters
