@@ -1,4 +1,5 @@
 import "./style.css";
+import { MAX_GUESSES } from "./constants";
 import { loadGameState } from "./gameState";
 import { loadGameData } from "./markdownLoader";
 import { setupAutocomplete } from "./ui";
@@ -8,6 +9,7 @@ const autocompleteBox = document.getElementById(
     "autocomplete-box"
 ) as HTMLDivElement;
 const playerInput = document.getElementById("player-input") as HTMLInputElement;
+const statBox = document.getElementById("stat-box") as HTMLDivElement;
 
 const data = await loadGameData();
 const speciesNames = data.species.map((s) => s.species);
@@ -26,6 +28,10 @@ setupAutocomplete({
 
 function updateUI() {
     playerInput.value = "";
+    if (statBox) {
+        const guessesLeft = Math.max(0, MAX_GUESSES - state.numberOfGuesses());
+        statBox.textContent = `Guesses Left: ${guessesLeft}`;
+    }
     // TODO: Create a nice graph with the LCA and stuff
 }
 
@@ -47,3 +53,5 @@ playerInput.addEventListener("keydown", (event) => {
         }
     }
 });
+
+updateUI();
