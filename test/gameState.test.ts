@@ -71,6 +71,7 @@ describe("GameState", () => {
         expect(result.isCorrect).toBe(true);
         expect(state.isWin()).toBe(true);
         expect(state.isGameOver()).toBe(true);
+        expect(state.lastGuessId).toBe("trex");
     });
 
     test("tracks guesses and LCA when incorrect", () => {
@@ -83,6 +84,7 @@ describe("GameState", () => {
         expect(result.isCorrect).toBe(false);
         expect(result.lca).toBe("theropoda");
         expect(state.guesses.has("allosaurus")).toBe(true);
+        expect(state.lastGuessId).toBe("allosaurus");
         expect(state.isWin()).toBe(false);
         expect(state.isGameOver()).toBe(false);
     });

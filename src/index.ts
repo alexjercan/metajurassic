@@ -3,6 +3,7 @@ import { MAX_GUESSES } from "./constants";
 import { loadGameState } from "./gameState";
 import { loadGameData } from "./markdownLoader";
 import { setupAutocomplete } from "./ui";
+import { renderLastGuess } from "./ui/panel";
 
 const inputEl = document.getElementById("player-input") as HTMLInputElement;
 const autocompleteBox = document.getElementById(
@@ -32,6 +33,7 @@ function updateUI() {
         const guessesLeft = Math.max(0, MAX_GUESSES - state.numberOfGuesses());
         statBox.textContent = `Guesses Left: ${guessesLeft}`;
     }
+    renderLastGuess(state, data);
     // TODO: Create a nice graph with the LCA and stuff
 }
 

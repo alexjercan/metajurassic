@@ -1,2 +1,2 @@
 export { setupAutocomplete } from "./autocomplete";
-export { closePanel } from "./panel";
+export { closePanel, renderLastGuess } from "./panel";

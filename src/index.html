@@ -1,61 +1,86 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Metajurassic</title>
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Metajurassic</title>
-</head>
-
-<body>
-    <header>
-    </header>
-    <main>
-        <div class="game-container">
-            <div class="top-bar">
-                <div class="stat-box" id="stat-box">Guesses Left: 25</div>
-                <div class="hint-box" id="hint-box">
-                    <div class="hint-text" id="hint-text">
-                        <strong>Hint:</strong><span>Cost 3 Guesses</span>
-                    </div>
-                </div>
-            </div>
-            <div class="game-area">
-                <div class="arena-wrapper" id="arena-wrapper">
-                    <div class="arena" id="arena">
-                        <div class="tree" id="tree-container"></div>
-                    </div>
-                </div>
-                <div class="info-panel" id="info-panel">
-                    <div class="close-panel" onclick="closePanel()">✖</div>
-                    <div class="museum-card">
-                        <div class="card-image-area" id="card-image-area">[ Hologram Render ]</div>
-                        <div class="card-content">
-                            <h2 class="card-title" id="card-title">Name</h2>
-                            <div class="card-stats"><strong>Translation:</strong> <span
-                                    id="card-trans">...</span><br><strong>Era:</strong> <span
-                                    id="card-era">...</span><br><strong><span id="card-size-label">Info</span>:</strong> <span
-                                    id="card-size">...</span></div>
-                            <div style="font-size: 0.95rem; color: #ddd; margin-top: 10px;"><strong>Museum Fact:</strong> <span
-                                    id="card-fact">...</span></div>
+    <body>
+        <header></header>
+        <main>
+            <div class="game-container">
+                <div class="top-bar">
+                    <div class="stat-box" id="stat-box">Guesses Left: 25</div>
+                    <div class="hint-box" id="hint-box">
+                        <div class="hint-text" id="hint-text">
+                            <strong>Hint:</strong><span>Cost 3 Guesses</span>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="bottom-bar">
-                <div class="input-wrapper">
-                    <div class="autocomplete-box" id="autocomplete-box"></div>
-                    <input type="text" class="player-input"
-                        id="player-input" placeholder="Enter a dinosaur..." autocomplete="off">
+                <div class="game-area">
+                    <div class="arena-wrapper" id="arena-wrapper">
+                        <div class="arena" id="arena">
+                            <div class="tree" id="tree-container"></div>
+                        </div>
+                    </div>
+                    <div class="info-panel" id="info-panel">
+                        <div class="close-panel" onclick="closePanel()">✖</div>
+                        <div class="museum-card">
+                            <div class="card-image-area" id="card-image-area">
+                                [ Hologram Render ]
+                            </div>
+                            <div class="card-content">
+                                <h2 class="card-title" id="card-title">Name</h2>
+                                <div class="card-stats">
+                                    <strong>Clade:</strong>
+                                    <span id="card-clade">...</span
+                                    ><br /><strong>Era:</strong>
+                                    <span id="card-era">...</span><br /><strong
+                                        ><span id="card-size-label">Info</span
+                                        >:</strong
+                                    >
+                                    <span id="card-size">...</span>
+                                </div>
+                                <div
+                                    style="
+                                        font-size: 0.95rem;
+                                        color: #ddd;
+                                        margin-top: 10px;
+                                    "
+                                >
+                                    <strong>Museum Fact:</strong>
+                                    <span id="card-fact">...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bottom-bar">
+                    <div class="input-wrapper">
+                        <div
+                            class="autocomplete-box"
+                            id="autocomplete-box"
+                        ></div>
+                        <input
+                            type="text"
+                            class="player-input"
+                            id="player-input"
+                            placeholder="Enter a dinosaur..."
+                            autocomplete="off"
+                        />
+                    </div>
                 </div>
             </div>
-        </div>
-    </main>
-    <footer>
-        <a href="https://github.com/alexjercan/metajurassic" target="_blank">GitHub</a>
-        <a href="https://metazooa.com" target="_blank">Inspired by Metazooa</a>
-        <a href="/faq">FAQ</a>
-    </footer>
-</body>
-
+        </main>
+        <footer>
+            <a href="https://github.com/alexjercan/metajurassic" target="_blank"
+                >GitHub</a
+            >
+            <a href="https://metazooa.com" target="_blank"
+                >Inspired by Metazooa</a
+            >
+            <a href="/faq">FAQ</a>
+        </footer>
+    </body>
 </html>

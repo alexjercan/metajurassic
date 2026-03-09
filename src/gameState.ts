@@ -23,7 +23,8 @@ export function loadGameState(
                 gameData,
                 parsed.targetId,
                 new Set(parsed.guesses),
-                storage
+                storage,
+                parsed.lastGuessId
             );
         } catch (error) {
             console.warn(
@@ -42,7 +43,8 @@ export class GameState {
         public readonly gameData: GameData,
         public readonly targetId: string,
         public guesses: Set<string> = new Set(),
-        private storage: StorageProvider = defaultStorage()
+        private storage: StorageProvider = defaultStorage(),
+        public lastGuessId?: string
     ) {}
 
     save(): void {
@@ -50,6 +52,7 @@ export class GameState {
         const gameState = {
             targetId: this.targetId,
             guesses: Array.from(this.guesses),
+            lastGuessId: this.lastGuessId,
         };
 
         this.storage.setItem(
@@ -86,6 +89,7 @@ export class GameState {
             throw new Error(`Species "${species}" has already been guessed`);
         }
         this.guesses.add(guessSpecies.id);
+        this.lastGuessId = guessSpecies.id;
         this.save();
 
         const isCorrect = guessSpecies.id === this.targetId;
