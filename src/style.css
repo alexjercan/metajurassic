@@ -3,17 +3,23 @@
 @tailwind utilities;
 
 :root {
-    --bg-dark: #0a0c10; --amber-glow: #e6a861; --amber-dim: rgba(230, 168, 97, 0.2);
-    --glass-bg: rgba(20, 24, 32, 0.85); --glass-border: rgba(230, 168, 97, 0.4);
-    --text-main: #e0e0e0; --victory-gold: #ffd700; --danger-red: #ff4a4a;
-    --node-bg: #151820; --line-color: #555;
+    --bg-dark: #0a0c10;
+    --amber-glow: #e6a861;
+    --amber-dim: rgba(230, 168, 97, 0.2);
+    --glass-bg: rgba(20, 24, 32, 0.85);
+    --glass-border: rgba(230, 168, 97, 0.4);
+    --text-main: #e0e0e0;
+    --victory-gold: #ffd700;
+    --danger-red: #ff4a4a;
+    --node-bg: #151820;
+    --line-color: #555;
 }
 
 body {
     margin: 0;
     background-color: var(--bg-dark);
     color: var(--text-main);
-    font-family: 'Segoe UI', Tahoma, sans-serif;
+    font-family: "Segoe UI", Tahoma, sans-serif;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -144,7 +150,11 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background: linear-gradient(90deg, rgba(10, 12, 16, 0.9) 0%, rgba(20, 24, 32, 1) 100%);
+    background: linear-gradient(
+        90deg,
+        rgba(10, 12, 16, 0.9) 0%,
+        rgba(20, 24, 32, 1) 100%
+    );
     backdrop-filter: blur(10px);
     transform: translateX(105%);
     transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -164,6 +174,37 @@ main {
     cursor: pointer;
     font-size: 1.5rem;
     transition: 0.2s;
+}
+
+.panel-pull {
+    position: absolute;
+    top: 16px;
+    right: 435px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #1f2937;
+    color: #f3f4f6;
+    border: 1px solid var(--glass-border);
+    border-left: none;
+    border-radius: 10px 0 0 10px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
+    cursor: pointer;
+    transition:
+        transform 0.2s ease,
+        opacity 0.2s ease;
+    font-size: 1.1rem;
+    transform: translateX(12px);
+}
+
+.panel-pull:hover {
+    transform: translateX(-4px);
+}
+
+.panel-pull.hidden {
+    display: none;
 }
 
 .close-panel:hover {

@@ -3,7 +3,7 @@ import { MAX_GUESSES } from "./constants";
 import { loadGameState } from "./gameState";
 import { loadGameData } from "./markdownLoader";
 import { setupAutocomplete } from "./ui";
-import { renderLastGuess } from "./ui/panel";
+import { renderLastGuess, openPanel } from "./ui/panel";
 
 const inputEl = document.getElementById("player-input") as HTMLInputElement;
 const autocompleteBox = document.getElementById(
@@ -11,6 +11,7 @@ const autocompleteBox = document.getElementById(
 ) as HTMLDivElement;
 const playerInput = document.getElementById("player-input") as HTMLInputElement;
 const statBox = document.getElementById("stat-box") as HTMLDivElement;
+const openPanelBtn = document.getElementById("open-panel") as HTMLButtonElement;
 
 const data = await loadGameData();
 const speciesNames = data.species.map((s) => s.species);
@@ -27,6 +28,15 @@ setupAutocomplete({
     },
 });
 
+if (openPanelBtn) {
+    openPanelBtn.addEventListener("click", () => {
+        if (state.lastGuessId) {
+            renderLastGuess(state, data);
+        }
+        openPanel();
+    });
+}
+
 function updateUI() {
     playerInput.value = "";
     if (statBox) {
@@ -39,7 +49,11 @@ function updateUI() {
 
 playerInput.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
-        if (state.isGameOver()) return;
+        if (state.isGameOver()) {
+            alert("Game over! Please refresh to start a new game.");
+            updateUI();
+            return;
+        }
 
         const guess = playerInput.value.trim();
         if (!guess) return;
@@ -49,7 +63,6 @@ playerInput.addEventListener("keydown", (event) => {
             console.log("Result:", result);
         } catch (error) {
             alert(error instanceof Error ? error.message : "Invalid guess");
-            return;
         } finally {
             updateUI();
         }

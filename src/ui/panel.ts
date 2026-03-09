@@ -3,6 +3,7 @@ import { GameState } from "../gameState";
 
 const arenaWrapper = document.getElementById("arena-wrapper");
 const panel = document.getElementById("info-panel");
+const panelPull = document.getElementById("open-panel");
 const cardTitle = document.getElementById("card-title");
 const cardEra = document.getElementById("card-era");
 const cardSize = document.getElementById("card-size");
@@ -14,9 +15,16 @@ const cardImage = document.getElementById("card-image-area");
 export function closePanel() {
     panel?.classList.remove("active");
     arenaWrapper?.classList.remove("panel-open");
+    panelPull?.classList.remove("hidden");
 }
 
 (window as typeof window & { closePanel: () => void }).closePanel = closePanel;
+
+export function openPanel() {
+    panel?.classList.add("active");
+    arenaWrapper?.classList.add("panel-open");
+    panelPull?.classList.add("hidden");
+}
 
 export function renderLastGuess(state: GameState, data: GameData) {
     if (!state.lastGuessId) return;
@@ -33,6 +41,5 @@ export function renderLastGuess(state: GameState, data: GameData) {
     if (cardClade) cardClade.textContent = clade ? clade.name : "";
     if (cardImage) cardImage.textContent = "[ Hologram Render ]";
 
-    panel?.classList.add("active");
-    arenaWrapper?.classList.add("panel-open");
+    openPanel();
 }
