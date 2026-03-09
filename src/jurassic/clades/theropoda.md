@@ -1,3 +1,8 @@
+---
+clade: Theropoda
+parent: Saurischia
+---
+
 Theropods were primarily bipedal carnivorous dinosaurs.
 
 They ranged from small, fast hunters to massive apex predators. Theropods are

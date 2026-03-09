@@ -1,4 +1,10 @@
-**Period:** Late Cretaceous (~68–66 million years ago)
+---
+species: Tyrannosaurus rex
+clade: Coelurosauria
+period: Late Cretaceous
+size: 12-13 meters
+weight: 8-14 tons
+---
 
 Tyrannosaurus rex was one of the largest land predators to ever live. It had an
 enormous skull, powerful jaws, and one of the strongest bite forces known in

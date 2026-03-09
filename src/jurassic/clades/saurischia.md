@@ -1,3 +1,8 @@
+---
+clade: Saurischia
+parent: Dinosauria
+---
+
 Saurischia means "lizard-hipped." It is one of the two primary divisions of
 dinosaurs.
 

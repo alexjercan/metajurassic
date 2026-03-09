@@ -1,4 +1,10 @@
-**Period:** Late Jurassic (~155–145 million years ago)
+---
+species: Allosaurus
+clade: Tetanurae
+period: Late Jurassic
+size: 8-12 meters
+weight: 2-3 tons
+---
 
 Allosaurus was one of the top predators of the Late Jurassic. Much larger and
 more powerful than early theropods, it had strong legs, sharp teeth, and

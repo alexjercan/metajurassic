@@ -1,4 +1,10 @@
-**Period:** Late Triassic (~210 million years ago)
+---
+species: Coelophysis
+clade: Theropoda
+period: Late Triassic
+size: 2-3 meters
+weight: 15-20 kg
+---
 
 Coelophysis was one of the earliest known theropod dinosaurs. It was small,
 lightweight, and built for speed.
