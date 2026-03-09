@@ -5,15 +5,14 @@
         "moduleResolution": "node",
         "esModuleInterop": true,
         "resolveJsonModule": true,
+        "types": ["jest", "node"],
         "noImplicitAny": false,
         "removeComments": true,
         "preserveConstEnums": true,
-        "sourceMap": true
+        "sourceMap": true,
+        "paths": {
+            "src/*": ["./src/*"]
+        }
     },
-    "include": [
-        "src/**/*", "index.d.ts"
-    ],
-    "exclude": [
-        "**/*.spec.ts"
-    ]
+    "include": ["src/**/*", "test/**/*", "index.d.ts", "jest.config.js"]
 }

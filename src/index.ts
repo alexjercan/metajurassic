@@ -1,9 +1,8 @@
 import "./style.css";
-import { loadGameData } from "./loader";
-import { loadGameState } from "./state";
+import { loadGameState } from "./gameState";
+import { loadGameData } from "./markdownLoader";
+import { setupAutocomplete } from "./ui";
 
-const arenaWrapper = document.getElementById("arena-wrapper");
-const panel = document.getElementById("info-panel");
 const inputEl = document.getElementById("player-input") as HTMLInputElement;
 const autocompleteBox = document.getElementById(
     "autocomplete-box"
@@ -14,65 +13,16 @@ const data = await loadGameData();
 const speciesNames = data.species.map((s) => s.species);
 const state = loadGameState(data);
 
-const findMatches = (query: string): string[] => {
-    const normalized = query.trim().toLowerCase();
-    if (!normalized) return [];
-
-    return speciesNames
-        .filter((name) => name.toLowerCase().includes(normalized))
-        .slice(0, 8);
-};
-
-const renderSuggestions = (query: string) => {
-    autocompleteBox.innerHTML = "";
-    const matches = findMatches(query).filter((name) => {
+setupAutocomplete({
+    inputEl,
+    autocompleteBox,
+    speciesNames,
+    isGuessed: (name) => {
         const species = data.species.find((s) => s.species === name);
-        if (!species) return true;
-        return !state.guesses.has(species.id);
-    });
-
-    if (!matches.length) {
-        autocompleteBox.style.display = "none";
-        return;
-    }
-
-    matches.forEach((name) => {
-        const item = document.createElement("div");
-        item.className = "autocomplete-item";
-        item.textContent = name;
-
-        item.addEventListener("mousedown", (event) => {
-            event.preventDefault();
-            inputEl.value = name;
-            autocompleteBox.style.display = "none";
-        });
-
-        autocompleteBox.appendChild(item);
-    });
-
-    autocompleteBox.style.display = "block";
-};
-
-inputEl.addEventListener("input", () => {
-    renderSuggestions(inputEl.value);
+        if (!species) return false;
+        return state.guesses.has(species.id);
+    },
 });
-
-inputEl.addEventListener("focus", () => {
-    renderSuggestions(inputEl.value);
-});
-
-inputEl.addEventListener("blur", () => {
-    setTimeout(() => {
-        autocompleteBox.style.display = "none";
-    }, 100);
-});
-
-export function closePanel() {
-    panel.classList.remove("active");
-    arenaWrapper.classList.remove("panel-open");
-}
-
-(window as typeof window & { closePanel: () => void }).closePanel = closePanel;
 
 function updateUI() {
     playerInput.value = "";

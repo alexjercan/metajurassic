@@ -1,20 +1,20 @@
-import { GameData } from "./game";
-
-const MAX_GUESSES = 25;
-
-export interface GuessResult {
-    isCorrect: boolean;
-    lca: string | null;
-}
+import { MAX_GUESSES } from "./constants";
+import { GameData } from "./gameData";
+import { StorageProvider, defaultStorage } from "./storage";
+import { GuessResult } from "./types";
 
 function formatPuzzleId(gameData: GameData, date: Date = new Date()): string {
     const index = gameData.speciesIndexForDate(date);
     return `animal-#${(index + 1).toString().padStart(3, "0")}`;
 }
 
-export function loadGameState(gameData: GameData, date: Date = new Date()): GameState {
+export function loadGameState(
+    gameData: GameData,
+    date: Date = new Date(),
+    storage: StorageProvider = defaultStorage()
+): GameState {
     const puzzleId = formatPuzzleId(gameData, date);
-    const savedState = localStorage.getItem(`gameState-${puzzleId}`);
+    const savedState = storage.getItem(`gameState-${puzzleId}`);
 
     if (savedState) {
         try {
@@ -22,15 +22,19 @@ export function loadGameState(gameData: GameData, date: Date = new Date()): Game
             return new GameState(
                 gameData,
                 parsed.targetId,
-                new Set(parsed.guesses)
+                new Set(parsed.guesses),
+                storage
             );
         } catch (error) {
-            console.warn("Failed to parse saved game state, starting fresh", error);
+            console.warn(
+                "Failed to parse saved game state, starting fresh",
+                error
+            );
         }
     }
 
     const targetId = gameData.getRandomSpecies(date);
-    return new GameState(gameData, targetId);
+    return new GameState(gameData, targetId, new Set(), storage);
 }
 
 export class GameState {
@@ -38,7 +42,8 @@ export class GameState {
         public readonly gameData: GameData,
         public readonly targetId: string,
         public guesses: Set<string> = new Set(),
-    ) { }
+        private storage: StorageProvider = defaultStorage()
+    ) {}
 
     save(): void {
         const puzzleId = formatPuzzleId(this.gameData);
@@ -47,7 +52,10 @@ export class GameState {
             guesses: Array.from(this.guesses),
         };
 
-        localStorage.setItem(`gameState-${puzzleId}`, JSON.stringify(gameState));
+        this.storage.setItem(
+            `gameState-${puzzleId}`,
+            JSON.stringify(gameState)
+        );
     }
 
     isGameOver(): boolean {
@@ -85,7 +93,10 @@ export class GameState {
             return { isCorrect: true, lca: null };
         }
 
-        const lcaClade = this.gameData.computeLCA(guessSpecies.id, this.targetId);
+        const lcaClade = this.gameData.computeLCA(
+            guessSpecies.id,
+            this.targetId
+        );
         return { isCorrect: false, lca: lcaClade };
     }
 }
