@@ -4,6 +4,7 @@ import { loadGameState, saveGameState } from "./gameState";
 import { loadGameData } from "./markdownLoader";
 import { setupAutocomplete } from "./ui";
 import { renderLastGuess, openPanel } from "./ui/panel";
+import { buildGuessTree } from "./treeBuilder";
 
 const inputEl = document.getElementById("player-input") as HTMLInputElement;
 const autocompleteBox = document.getElementById(
@@ -61,6 +62,7 @@ playerInput.addEventListener("keydown", (event) => {
         try {
             let result = state.makeGuess(guess);
             saveGameState(state);
+            console.log(buildGuessTree(state));
 
             console.log("Result:", result);
         } catch (error) {
