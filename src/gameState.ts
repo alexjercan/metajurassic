@@ -42,7 +42,10 @@ export function loadGameState(
     return new GameState(gameData, targetId, new Set());
 }
 
-export function saveGameState(state: GameState, storage: StorageProvider = defaultStorage()): void {
+export function saveGameState(
+    state: GameState,
+    storage: StorageProvider = defaultStorage()
+): void {
     const key = gameStateKey(state.gameData);
     const gameState = {
         targetId: state.targetId,
@@ -50,10 +53,7 @@ export function saveGameState(state: GameState, storage: StorageProvider = defau
         lastGuessId: state.lastGuessId,
     };
 
-    storage.setItem(
-        key,
-        JSON.stringify(gameState)
-    );
+    storage.setItem(key, JSON.stringify(gameState));
 }
 
 export class GameState {
@@ -62,7 +62,7 @@ export class GameState {
         public readonly targetId: string,
         public guesses: Set<string> = new Set(),
         public lastGuessId?: string
-    ) { }
+    ) {}
 
     isGameOver(): boolean {
         return (

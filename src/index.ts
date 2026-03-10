@@ -3,7 +3,12 @@ import { MAX_GUESSES } from "./constants";
 import { loadGameState, saveGameState } from "./gameState";
 import { loadGameData } from "./markdownLoader";
 import { setupAutocomplete } from "./ui";
-import { renderLastGuess, openPanel } from "./ui/panel";
+import {
+    renderLastGuess,
+    openPanel,
+    renderCladeCard,
+    renderSpeciesCard,
+} from "./ui/panel";
 import { renderTree } from "./ui/treeVisualizer";
 import { buildGuessTree } from "./treeBuilder";
 
@@ -49,7 +54,26 @@ function updateUI() {
     const roots = buildGuessTree(state);
     const treeContainer = document.getElementById("tree-container");
     if (treeContainer) {
-        renderTree({ container: treeContainer, roots });
+        renderTree({
+            container: treeContainer,
+            roots,
+            gameData: data,
+            onSelect: (node) => {
+                if (node.type === "species") {
+                    const species = data.findSpeciesById(node.speciesId);
+                    if (!species) return;
+                    const clade = data.findCladeById(species.clade);
+                    renderSpeciesCard(species, clade || undefined);
+                } else {
+                    const clade = data.findCladeById(node.cladeId);
+                    if (!clade) return;
+                    const parent = clade.parent
+                        ? data.findCladeById(clade.parent)
+                        : null;
+                    renderCladeCard(clade, parent || undefined);
+                }
+            },
+        });
     }
 }
 

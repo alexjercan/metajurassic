@@ -12,6 +12,12 @@ const cardFact = document.getElementById("card-fact");
 const cardClade = document.getElementById("card-clade");
 const cardImage = document.getElementById("card-image-area");
 
+const speciesCard = document.getElementById("species-card");
+const cladeCard = document.getElementById("clade-card");
+const cladeTitle = document.getElementById("clade-title");
+const cladeParent = document.getElementById("clade-parent");
+const cladeDescription = document.getElementById("clade-description");
+
 export function closePanel() {
     panel?.classList.remove("active");
     arenaWrapper?.classList.remove("panel-open");
@@ -31,7 +37,18 @@ export function renderLastGuess(state: GameState, data: GameData) {
     const species = data.findSpeciesById(state.lastGuessId);
     if (!species) return;
     const clade = data.findCladeById(species.clade);
+    renderSpeciesCard(species, clade || undefined);
+    openPanel();
+}
 
+export function renderSpeciesCard(
+    species: import("../types").Species,
+    clade?: import("../types").Clade | null
+) {
+    if (speciesCard && cladeCard) {
+        speciesCard.style.display = "block";
+        cladeCard.style.display = "none";
+    }
     if (cardTitle) cardTitle.textContent = species.species || "Unknown";
     if (cardEra) cardEra.textContent = species.period || "";
     if (cardSizeLabel)
@@ -40,6 +57,18 @@ export function renderLastGuess(state: GameState, data: GameData) {
     if (cardFact) cardFact.textContent = species.description || "";
     if (cardClade) cardClade.textContent = clade ? clade.name : "";
     if (cardImage) cardImage.textContent = "[ Hologram Render ]";
+}
 
-    openPanel();
+export function renderCladeCard(
+    clade: import("../types").Clade,
+    parent?: import("../types").Clade | null
+) {
+    if (speciesCard && cladeCard) {
+        speciesCard.style.display = "none";
+        cladeCard.style.display = "block";
+    }
+    if (cladeTitle) cladeTitle.textContent = clade.name || "Unknown";
+    if (cladeParent) cladeParent.textContent = parent ? parent.name : "—";
+    if (cladeDescription)
+        cladeDescription.textContent = clade.description || "No description.";
 }
