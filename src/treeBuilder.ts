@@ -1,5 +1,6 @@
+import { GameData } from "./gameData";
 import { GameState } from "./gameState";
-import type { Clade, Species } from "./types";
+import type { Species } from "./types";
 
 type NodeBase = {
     id: string;
@@ -31,219 +32,233 @@ export function isSpeciesNode(node: TreeNode): node is SpeciesNode {
     return node.type === "species";
 }
 
-export function squashLinearClades(roots: CladeNode[]): CladeNode[] {
-    const containsTarget = (node: TreeNode): boolean => {
-        if (node.type === "species") return node.isTarget;
-        return node.children.some(containsTarget);
-    };
-
-    const collapse = (node: CladeNode): CladeNode => {
-        node.children = node.children.map((child) =>
-            child.type === "clade" ? collapse(child) : child
-        );
-
-        while (
-            node.children.length === 1 &&
-            node.children[0].type === "clade" &&
-            node.children[0].children.length === 1
-        ) {
-            const middle = node.children[0] as CladeNode;
-            const grandchild = middle.children[0];
-            grandchild.parentId = node.id;
-            node.children = [grandchild];
-        }
-
-        const flattened: TreeNode[] = [];
-        const cladeChildCount = node.children.filter(
-            (c) => c.type === "clade"
-        ).length;
-        for (const child of node.children) {
-            if (child.type === "clade") {
-                if (cladeChildCount > 1) {
-                    flattened.push(child);
-                    continue;
-                }
-
-                const hasSubClades = child.children.some(
-                    (c) => c.type === "clade"
-                );
-                const hasTarget = containsTarget(child);
-                const isOnlySpecies = !hasSubClades;
-
-                if (isOnlySpecies && !hasTarget) {
-                    for (const grand of child.children) {
-                        grand.parentId = node.id;
-                        flattened.push(grand);
-                    }
-                    continue;
-                }
-            }
-            flattened.push(child);
-        }
-        node.children = flattened;
-
-        const cladeChildren = node.children.filter((c) => c.type === "clade");
-        const speciesChildren = node.children.filter(
-            (c) => c.type === "species"
-        );
-        if (
-            speciesChildren.length === 0 &&
-            cladeChildren.length === 1 &&
-            !containsTarget(node)
-        ) {
-            const onlyClade = cladeChildren[0] as CladeNode;
-            onlyClade.parentId = node.parentId;
-            return onlyClade;
-        }
-
-        return node;
-    };
-
-    return roots.map((root) => collapse(root));
-}
-
 export function buildGuessTree(state: GameState): CladeNode[] {
-    const { gameData, guesses, targetId } = state;
-
-    const cladeNodes = new Map<string, CladeNode>();
-
+    const { gameData, targetId, guesses } = state;
     const targetSpecies = gameData.findSpeciesById(targetId);
-    if (!targetSpecies) {
-        throw new Error(
-            `Target species id "${targetId}" not found in game data`
-        );
-    }
+    if (!targetSpecies) return [];
 
+    // Find the root clade (last in the target's lineage)
     const targetLineage = gameData.lineage(targetSpecies.clade);
-    if (targetLineage.length === 0) {
-        throw new Error(
-            `Missing lineage for target clade "${targetSpecies.clade}"`
-        );
-    }
-
+    if (targetLineage.length === 0) return [];
     const rootCladeId = targetLineage[targetLineage.length - 1];
 
-    const depthInTarget = new Map<string, number>();
-    targetLineage.forEach((id, idx) => depthInTarget.set(id, idx));
-
-    const targetGuessed = guesses.has(targetId);
-
-    let bestHintCladeId = rootCladeId;
-    let bestHintDepth = targetLineage.length - 1;
-
-    if (!targetGuessed) {
-        for (const guessId of guesses) {
-            if (guessId === targetId) continue;
-            const lca = gameData.computeLCA(guessId, targetId);
-            if (!lca) continue;
-            const depth = depthInTarget.get(lca);
-            if (depth !== undefined && depth < bestHintDepth) {
-                bestHintCladeId = lca;
-                bestHintDepth = depth;
-            }
-        }
-    } else {
-        bestHintCladeId = targetSpecies.clade;
-        bestHintDepth = 0;
+    // Collect all guessed species (excluding the target itself for LCA computation)
+    const guessedSpecies: Species[] = [];
+    for (const guessId of guesses) {
+        const sp = gameData.findSpeciesById(guessId);
+        if (sp) guessedSpecies.push(sp);
     }
 
-    const getCladeNode = (clade: Clade, parentId?: string): CladeNode => {
-        const existing = cladeNodes.get(clade.id);
-        if (existing) {
-            if (!existing.parentId && parentId) {
-                existing.parentId = parentId;
-            }
-            return existing;
-        }
+    // Determine the set of clades that should be revealed in the tree.
+    // A clade is revealed if:
+    //   - It is the root clade, OR
+    //   - It is the LCA between the target and a guess, OR
+    //   - It is on the path between the root and an LCA clade, OR
+    //   - It is the lowest common ancestor among guessed species that share a clade
+    const revealedClades = new Set<string>();
+    revealedClades.add(rootCladeId);
 
-        const node: CladeNode = {
-            id: clade.id,
-            cladeId: clade.id,
-            name: clade.name,
-            parentId,
-            type: "clade",
-            children: [],
-        };
-        cladeNodes.set(clade.id, node);
-        return node;
+    if (guessedSpecies.length === 0) {
+        // No guesses: just root with a placeholder
+        return [
+            buildCladeSubtree(
+                gameData,
+                rootCladeId,
+                targetSpecies,
+                [],
+                revealedClades
+            ),
+        ];
+    }
+
+    // Compute LCA between target and each non-target guess
+    const lcaClades = new Set<string>();
+    for (const guess of guessedSpecies) {
+        if (guess.id === targetId) continue;
+        const lca = gameData.computeLCA(targetId, guess.id);
+        if (lca) lcaClades.add(lca);
+    }
+
+    // Add all LCA clades (but NOT intermediate path clades)
+    for (const lcaId of lcaClades) {
+        revealedClades.add(lcaId);
+    }
+
+    // Also find common clades among guessed species to group them
+    // For each pair of guessed (non-target) species, compute their LCA
+    const nonTargetGuesses = guessedSpecies.filter((s) => s.id !== targetId);
+    for (let i = 0; i < nonTargetGuesses.length; i++) {
+        for (let j = i + 1; j < nonTargetGuesses.length; j++) {
+            const lca = gameData.computeLCA(
+                nonTargetGuesses[i].id,
+                nonTargetGuesses[j].id
+            );
+            if (lca) {
+                revealedClades.add(lca);
+            }
+        }
+    }
+
+    return [
+        buildCladeSubtree(
+            gameData,
+            rootCladeId,
+            targetSpecies,
+            guessedSpecies,
+            revealedClades
+        ),
+    ];
+}
+
+/**
+ * Recursively builds a CladeNode subtree for a given clade.
+ * Only includes child clades that are in the revealedClades set.
+ * Places species leaves where appropriate.
+ */
+function buildCladeSubtree(
+    gameData: GameData,
+    cladeId: string,
+    targetSpecies: Species,
+    guessedSpecies: Species[],
+    revealedClades: Set<string>,
+    parentId?: string
+): CladeNode {
+    const clade = gameData.findCladeById(cladeId)!;
+    const nodeId = `clade-${cladeId}`;
+
+    const cladeNode: CladeNode = {
+        id: nodeId,
+        name: clade.name,
+        type: "clade",
+        cladeId: clade.id,
+        parentId,
+        children: [],
     };
 
-    const addSpeciesToTree = (
-        species: Species,
-        opts: { isTarget?: boolean; isPlaceholder?: boolean } = {}
-    ) => {
-        const lineage = gameData.lineage(species.clade);
-        if (lineage.length === 0) {
-            throw new Error(`Missing clade lineage for species ${species.id}`);
+    // Find which revealed clades are direct children of this clade
+    const childClades: string[] = [];
+    for (const revCladeId of revealedClades) {
+        if (revCladeId === cladeId) continue;
+        const revClade = gameData.findCladeById(revCladeId);
+        if (!revClade) continue;
+
+        // Check if this revealed clade's nearest revealed ancestor is the current clade
+        if (
+            getNearestRevealedAncestor(gameData, revCladeId, revealedClades) ===
+            cladeId
+        ) {
+            childClades.push(revCladeId);
         }
+    }
 
-        const cladesInOrder = [...lineage].reverse();
-        let parentNode: CladeNode | undefined;
-
-        for (const cladeId of cladesInOrder) {
-            const clade = gameData.findCladeById(cladeId);
-            if (!clade) {
-                throw new Error(`Unknown clade id "${cladeId}" in lineage`);
-            }
-
-            const cladeNode = getCladeNode(clade, parentNode?.id);
-            if (parentNode && !parentNode.children.includes(cladeNode)) {
-                parentNode.children.push(cladeNode);
-            }
-            parentNode = cladeNode;
-        }
-
-        if (!parentNode) return;
-
-        const speciesNode: SpeciesNode = {
-            id: species.id,
-            speciesId: species.id,
-            name: species.species,
-            parentId: parentNode.id,
-            type: "species",
-            isTarget: opts.isTarget === true,
-            isPlaceholder: opts.isPlaceholder === true,
-            children: [],
-        };
-
-        const alreadyPresent = parentNode.children.some(
-            (child) => child.type === "species" && child.id === speciesNode.id
+    // Find which guessed species belong directly under this clade
+    // (i.e., their lineage hits this clade before hitting any child revealed clade)
+    const directSpecies: Species[] = [];
+    for (const sp of guessedSpecies) {
+        const nearestClade = getNearestRevealedClade(
+            gameData,
+            sp,
+            revealedClades
         );
-        if (!alreadyPresent) {
-            parentNode.children.push(speciesNode);
+        if (nearestClade === cladeId) {
+            directSpecies.push(sp);
         }
-    };
+    }
 
-    const targetForTree: Species = targetGuessed
-        ? targetSpecies
-        : {
-              id: targetSpecies.id,
-              species: "?",
-              clade: bestHintCladeId,
-              period: targetSpecies.period,
-              size: targetSpecies.size,
-              weight: targetSpecies.weight,
-              description: targetSpecies.description,
-          };
+    // Check if the target belongs directly under this clade
+    const targetNearestClade = getNearestRevealedClade(
+        gameData,
+        targetSpecies,
+        revealedClades
+    );
+    const targetIsDirectChild = targetNearestClade === cladeId;
 
-    addSpeciesToTree(targetForTree, {
-        isTarget: true,
-        isPlaceholder: !targetGuessed,
-    });
+    // Build child clade nodes
+    for (const childCladeId of childClades) {
+        cladeNode.children.push(
+            buildCladeSubtree(
+                gameData,
+                childCladeId,
+                targetSpecies,
+                guessedSpecies,
+                revealedClades,
+                nodeId
+            )
+        );
+    }
 
-    for (const guessId of guesses) {
-        const species = gameData.findSpeciesById(guessId);
-        if (!species) {
-            throw new Error(`Species id "${guessId}" not found in game data`);
-        }
-        addSpeciesToTree(species, {
-            isTarget: species.id === targetId,
+    // Add direct species leaves
+    for (const sp of directSpecies) {
+        const isTarget = sp.id === targetSpecies.id;
+        cladeNode.children.push({
+            id: `species-${sp.id}`,
+            name: sp.species,
+            type: "species",
+            speciesId: sp.id,
+            isTarget,
             isPlaceholder: false,
+            parentId: nodeId,
+            children: [],
         });
     }
 
-    const tree = Array.from(cladeNodes.values()).filter(
-        (node) => !node.parentId
-    );
-    return squashLinearClades(tree);
+    // Add the target placeholder/revealed node if it belongs here
+    if (targetIsDirectChild) {
+        const targetAlreadyAdded = directSpecies.some(
+            (s) => s.id === targetSpecies.id
+        );
+        if (!targetAlreadyAdded) {
+            // Target is not in guessed species, show as placeholder
+            cladeNode.children.push({
+                id: `species-${targetSpecies.id}`,
+                name: "?",
+                type: "species",
+                speciesId: targetSpecies.id,
+                isTarget: true,
+                isPlaceholder: true,
+                parentId: nodeId,
+                children: [],
+            });
+        }
+    }
+
+    return cladeNode;
+}
+
+/**
+ * Given a clade, find its nearest ancestor that is in the revealed set.
+ * Returns undefined if no revealed ancestor is found.
+ */
+function getNearestRevealedAncestor(
+    gameData: GameData,
+    cladeId: string,
+    revealedClades: Set<string>
+): string | undefined {
+    const clade = gameData.findCladeById(cladeId);
+    if (!clade || !clade.parent) return undefined;
+
+    const lineage = gameData.lineage(clade.parent);
+    for (const ancestorId of lineage) {
+        if (revealedClades.has(ancestorId)) {
+            return ancestorId;
+        }
+    }
+    return undefined;
+}
+
+/**
+ * Given a species, find the nearest revealed clade in its lineage.
+ */
+function getNearestRevealedClade(
+    gameData: GameData,
+    species: Species,
+    revealedClades: Set<string>
+): string | undefined {
+    const lineage = gameData.lineage(species.clade);
+    for (const cladeId of lineage) {
+        if (revealedClades.has(cladeId)) {
+            return cladeId;
+        }
+    }
+    return undefined;
 }

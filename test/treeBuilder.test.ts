@@ -1,222 +1,532 @@
 import { GameData } from "../src/gameData";
 import { GameState } from "../src/gameState";
+import { Clade, Species } from "../src/types";
 import {
-    squashLinearClades,
     buildGuessTree,
-    CladeNode,
-    SpeciesNode,
+    isCladeNode,
+    isSpeciesNode,
 } from "../src/treeBuilder";
 
-const findClade = (node: CladeNode, id: string): CladeNode | undefined => {
-    if (node.id === id) return node;
-    for (const child of node.children) {
-        if (child.type === "clade") {
-            const found = findClade(child, id);
-            if (found) return found;
-        }
-    }
-    return undefined;
+// Tree structure from the comment:
+//
+//                    CladeA
+//                    /    \
+//                   v      v
+//                 CladeB  CladeC
+//                 /  \       \
+//                v    v       v
+//          Species1  CladeD    CladeE
+//                      |        |    \
+//                      v        v     v
+//                  Species2  Species3  Species4
+//
+// Lineages:
+//   Species1 -> CladeB -> CladeA
+//   Species2 -> CladeD -> CladeB -> CladeA
+//   Species3 -> CladeE -> CladeC -> CladeA
+//   Species4 -> CladeE -> CladeC -> CladeA
+
+const species: Species[] = [
+    {
+        id: "species1",
+        species: "Species1",
+        clade: "cladeb",
+        period: "",
+        size: "",
+        weight: "",
+        description: "",
+    },
+    {
+        id: "species2",
+        species: "Species2",
+        clade: "claded",
+        period: "",
+        size: "",
+        weight: "",
+        description: "",
+    },
+    {
+        id: "species3",
+        species: "Species3",
+        clade: "cladee",
+        period: "",
+        size: "",
+        weight: "",
+        description: "",
+    },
+    {
+        id: "species4",
+        species: "Species4",
+        clade: "cladee",
+        period: "",
+        size: "",
+        weight: "",
+        description: "",
+    },
+];
+
+const clades: Record<string, Clade> = {
+    cladea: {
+        id: "cladea",
+        name: "CladeA",
+        description: "",
+    },
+    cladeb: {
+        id: "cladeb",
+        name: "CladeB",
+        parent: "cladea",
+        description: "",
+    },
+    cladec: {
+        id: "cladec",
+        name: "CladeC",
+        parent: "cladea",
+        description: "",
+    },
+    claded: {
+        id: "claded",
+        name: "CladeD",
+        parent: "cladeb",
+        description: "",
+    },
+    cladee: {
+        id: "cladee",
+        name: "CladeE",
+        parent: "cladec",
+        description: "",
+    },
 };
 
-const findSpeciesNode = (
-    node: CladeNode,
-    predicate: (s: SpeciesNode) => boolean
-): SpeciesNode | undefined => {
-    for (const child of node.children) {
-        if (child.type === "species" && predicate(child)) return child;
-        if (child.type === "clade") {
-            const found = findSpeciesNode(child, predicate);
-            if (found) return found;
-        }
-    }
-    return undefined;
-};
-
-const makeGameData = () => {
-    const species = [
-        {
-            id: "trex",
-            species: "Tyrannosaurus Rex",
-            clade: "tyrannosauroidea",
-            period: "Cretaceous",
-            size: "12 m",
-            weight: "8 t",
-            description: "",
-        },
-        {
-            id: "allosaurus",
-            species: "Allosaurus",
-            clade: "theropoda",
-            period: "Jurassic",
-            size: "8.5 m",
-            weight: "2 t",
-            description: "",
-        },
-    ];
-
-    const clades = {
-        tyrannosauroidea: {
-            id: "tyrannosauroidea",
-            name: "Tyrannosauroidea",
-            parent: "coelurosauria",
-            description: "",
-        },
-        coelurosauria: {
-            id: "coelurosauria",
-            name: "Coelurosauria",
-            parent: "theropoda",
-            description: "",
-        },
-        theropoda: {
-            id: "theropoda",
-            name: "Theropoda",
-            parent: "saurischia",
-            description: "",
-        },
-        saurischia: {
-            id: "saurischia",
-            name: "Saurischia",
-            parent: "dinosauria",
-            description: "",
-        },
-        dinosauria: {
-            id: "dinosauria",
-            name: "Dinosauria",
-            description: "",
-        },
-    } as const;
-
+function makeGameData(): GameData {
     return new GameData(species, clades);
-};
+}
+
+function makeState(targetId: string, guessIds: string[] = []): GameState {
+    return new GameState(makeGameData(), targetId, new Set(guessIds));
+}
 
 describe("buildGuessTree", () => {
-    test("places target as placeholder at hint clade when not guessed", () => {
-        const data = makeGameData();
-        const state = new GameState(data, "trex", new Set(["allosaurus"]));
+    // ================================================================
+    // INITIAL CASE (no guesses)
+    // ================================================================
 
+    test("target=Species1, no guesses => CladeA with ? child", () => {
+        // Expected:
+        //   CladeA
+        //     |
+        //     ?
+        const state = makeState("species1");
         const roots = buildGuessTree(state);
+
         expect(roots).toHaveLength(1);
-        const dinosauria = roots[0];
-        expect(dinosauria.cladeId).toBe("dinosauria");
+        const root = roots[0];
+        expect(root.name).toBe("CladeA");
+        expect(root.cladeId).toBe("cladea");
+        expect(root.children).toHaveLength(1);
 
-        // Should have Theropoda branch with placeholder target ("?") and guess
-        const theropoda = findClade(dinosauria, "theropoda");
-        expect(theropoda).toBeDefined();
-
-        const speciesLeaves = theropoda?.children.filter(
-            (c): c is SpeciesNode => c.type === "species"
-        );
-        expect(speciesLeaves?.some((s) => s.isPlaceholder && s.isTarget)).toBe(
-            true
-        );
-        expect(
-            speciesLeaves?.some((s) => !s.isPlaceholder && !s.isTarget)
-        ).toBe(true);
+        const child = root.children[0];
+        expect(isSpeciesNode(child)).toBe(true);
+        if (isSpeciesNode(child)) {
+            expect(child.isTarget).toBe(true);
+            expect(child.isPlaceholder).toBe(true);
+            expect(child.name).toBe("?");
+        }
     });
 
-    test("reveals target at its exact clade when guessed", () => {
-        const data = makeGameData();
-        const state = new GameState(
-            data,
-            "trex",
-            new Set(["allosaurus", "trex"])
-        );
-
-        const roots = buildGuessTree(state);
-        const dinosauria = roots[0];
-        const theropoda = findClade(dinosauria, "theropoda");
-        const targetLeaf = theropoda
-            ? findSpeciesNode(theropoda, (s) => s.isTarget)
-            : undefined;
-        expect(targetLeaf).toBeDefined();
-        expect(targetLeaf && targetLeaf.isPlaceholder).toBe(false);
-    });
-});
-
-describe("squashLinearClades", () => {
-    test("collapses single-child clade chains", () => {
-        const data = makeGameData();
-        const state = new GameState(data, "trex", new Set(["allosaurus"]));
+    test("target=Species4, no guesses => CladeA with ? child", () => {
+        // Expected:
+        //   CladeA
+        //     |
+        //     ?
+        const state = makeState("species4");
         const roots = buildGuessTree(state);
 
-        const squashed = squashLinearClades(roots);
-        const root = squashed[0];
+        expect(roots).toHaveLength(1);
+        const root = roots[0];
+        expect(root.name).toBe("CladeA");
+        expect(root.cladeId).toBe("cladea");
+        expect(root.children).toHaveLength(1);
 
-        // Expect Dinosauria -> Theropoda (Saurischia collapsed away)
-        const theropoda = findClade(root, "theropoda");
-        expect(theropoda).toBeDefined();
-        expect(findClade(root, "saurischia")).toBeUndefined();
+        const child = root.children[0];
+        expect(isSpeciesNode(child)).toBe(true);
+        if (isSpeciesNode(child)) {
+            expect(child.isTarget).toBe(true);
+            expect(child.isPlaceholder).toBe(true);
+            expect(child.name).toBe("?");
+        }
     });
 
-    test("keeps branching clades", () => {
-        // Construct a simple branching tree manually
-        const root: CladeNode = {
-            id: "root",
-            name: "Root",
-            cladeId: "root",
-            type: "clade",
-            children: [
-                {
-                    id: "a",
-                    name: "A",
-                    cladeId: "a",
-                    type: "clade",
-                    children: [
-                        {
-                            id: "b",
-                            name: "B",
-                            cladeId: "b",
-                            type: "clade",
-                            children: [
-                                {
-                                    id: "sp1",
-                                    name: "sp1",
-                                    speciesId: "sp1",
-                                    isTarget: false,
-                                    isPlaceholder: false,
-                                    type: "species",
-                                    children: [],
-                                    parentId: "b",
-                                },
-                            ],
-                            parentId: "a",
-                        },
-                        {
-                            id: "c",
-                            name: "C",
-                            cladeId: "c",
-                            type: "clade",
-                            children: [
-                                {
-                                    id: "sp2",
-                                    name: "sp2",
-                                    speciesId: "sp2",
-                                    isTarget: false,
-                                    isPlaceholder: false,
-                                    type: "species",
-                                    children: [],
-                                    parentId: "c",
-                                },
-                            ],
-                            parentId: "a",
-                        },
-                    ],
-                    parentId: "root",
-                },
-            ],
-        };
+    // ================================================================
+    // SINGLE GUESS cases
+    // ================================================================
 
-        const squashed = squashLinearClades([root]);
-        const top = squashed[0];
+    test("target=Species1, guessed Species4 => CladeA with ? and Species4", () => {
+        // LCA(Species1, Species4) = CladeA
+        // Expected:
+        //     CladeA
+        //     /    \
+        //    ?    Species4
+        const state = makeState("species1", ["species4"]);
+        const roots = buildGuessTree(state);
 
-        // The first clade "a" has two children, so it should NOT be collapsed
-        const aNode = findClade(top, "a");
-        expect(aNode).toBeDefined();
-        expect(
-            aNode?.children.some((c) => c.type === "clade" && c.id === "b")
-        ).toBe(true);
-        expect(
-            aNode?.children.some((c) => c.type === "clade" && c.id === "c")
-        ).toBe(true);
+        expect(roots).toHaveLength(1);
+        const root = roots[0];
+        expect(root.name).toBe("CladeA");
+        expect(root.children).toHaveLength(2);
+
+        // One child should be the target placeholder, the other the guess
+        const targetChild = root.children.find(
+            (c) => isSpeciesNode(c) && c.isTarget && c.isPlaceholder
+        );
+        const guessChild = root.children.find(
+            (c) => isSpeciesNode(c) && c.speciesId === "species4"
+        );
+
+        expect(targetChild).toBeDefined();
+        expect(guessChild).toBeDefined();
+        if (isSpeciesNode(guessChild!)) {
+            expect(guessChild!.name).toBe("Species4");
+            expect(guessChild!.isPlaceholder).toBe(false);
+        }
+    });
+
+    test("target=Species1, guessed Species2 => CladeA > CladeB with ? and Species2", () => {
+        // LCA(Species1, Species2) = CladeB
+        // Expected:
+        //     CladeA
+        //       |
+        //     CladeB
+        //     /    \
+        //    ?    Species2
+        const state = makeState("species1", ["species2"]);
+        const roots = buildGuessTree(state);
+
+        expect(roots).toHaveLength(1);
+        const root = roots[0];
+        expect(root.name).toBe("CladeA");
+        expect(root.children).toHaveLength(1);
+
+        const cladeB = root.children[0];
+        expect(isCladeNode(cladeB)).toBe(true);
+        if (isCladeNode(cladeB)) {
+            expect(cladeB.name).toBe("CladeB");
+            expect(cladeB.children).toHaveLength(2);
+
+            const targetChild = cladeB.children.find(
+                (c) => isSpeciesNode(c) && c.isTarget && c.isPlaceholder
+            );
+            const guessChild = cladeB.children.find(
+                (c) => isSpeciesNode(c) && c.speciesId === "species2"
+            );
+            expect(targetChild).toBeDefined();
+            expect(guessChild).toBeDefined();
+        }
+    });
+
+    // ================================================================
+    // MULTIPLE GUESS cases
+    // ================================================================
+
+    test("target=Species1, guessed Species2 and Species3 => CladeA with CladeB and Species3", () => {
+        // LCA(Species1, Species2) = CladeB
+        // LCA(Species1, Species3) = CladeA
+        // Expected:
+        //       CladeA
+        //       /    \
+        //    CladeB  Species3
+        //    /    \
+        //   ?    Species2
+        const state = makeState("species1", ["species2", "species3"]);
+        const roots = buildGuessTree(state);
+
+        expect(roots).toHaveLength(1);
+        const root = roots[0];
+        expect(root.name).toBe("CladeA");
+        expect(root.children).toHaveLength(2);
+
+        // One child is CladeB, the other is Species3
+        const cladeB = root.children.find(
+            (c) => isCladeNode(c) && c.cladeId === "cladeb"
+        );
+        const species3 = root.children.find(
+            (c) => isSpeciesNode(c) && c.speciesId === "species3"
+        );
+
+        expect(cladeB).toBeDefined();
+        expect(species3).toBeDefined();
+
+        if (isCladeNode(cladeB!)) {
+            expect(cladeB!.children).toHaveLength(2);
+            const targetChild = cladeB!.children.find(
+                (c) => isSpeciesNode(c) && c.isTarget && c.isPlaceholder
+            );
+            const species2 = cladeB!.children.find(
+                (c) => isSpeciesNode(c) && c.speciesId === "species2"
+            );
+            expect(targetChild).toBeDefined();
+            expect(species2).toBeDefined();
+        }
+    });
+
+    test("target=Species1, guessed Species2, Species3, and Species4 => full tree revealed", () => {
+        // LCA(Species1, Species2) = CladeB
+        // LCA(Species1, Species3) = CladeA
+        // LCA(Species1, Species4) = CladeA
+        // Species3 and Species4 share CladeE
+        // Expected:
+        //          CladeA
+        //         /      \
+        //      CladeB   CladeE
+        //      /   \     /    \
+        //     ?  Species2 Species3 Species4
+        const state = makeState("species1", [
+            "species2",
+            "species3",
+            "species4",
+        ]);
+        const roots = buildGuessTree(state);
+
+        expect(roots).toHaveLength(1);
+        const root = roots[0];
+        expect(root.name).toBe("CladeA");
+        expect(root.children).toHaveLength(2);
+
+        const cladeB = root.children.find(
+            (c) => isCladeNode(c) && c.cladeId === "cladeb"
+        );
+        const cladeE = root.children.find(
+            (c) => isCladeNode(c) && c.cladeId === "cladee"
+        );
+
+        expect(cladeB).toBeDefined();
+        expect(cladeE).toBeDefined();
+
+        if (isCladeNode(cladeB!)) {
+            expect(cladeB!.children).toHaveLength(2);
+            const targetChild = cladeB!.children.find(
+                (c) => isSpeciesNode(c) && c.isTarget
+            );
+            const species2 = cladeB!.children.find(
+                (c) => isSpeciesNode(c) && c.speciesId === "species2"
+            );
+            expect(targetChild).toBeDefined();
+            expect(species2).toBeDefined();
+        }
+
+        if (isCladeNode(cladeE!)) {
+            expect(cladeE!.children).toHaveLength(2);
+            const species3 = cladeE!.children.find(
+                (c) => isSpeciesNode(c) && c.speciesId === "species3"
+            );
+            const species4 = cladeE!.children.find(
+                (c) => isSpeciesNode(c) && c.speciesId === "species4"
+            );
+            expect(species3).toBeDefined();
+            expect(species4).toBeDefined();
+        }
+    });
+
+    // ================================================================
+    // DEEPER NESTING
+    // ================================================================
+
+    test("target=Species2, guessed Species1 => CladeA > CladeB with Species1 and ?", () => {
+        // LCA(Species2, Species1) = CladeB
+        // Expected:
+        //     CladeA
+        //       |
+        //     CladeB
+        //     /    \
+        //  Species1  ?
+        const state = makeState("species2", ["species1"]);
+        const roots = buildGuessTree(state);
+
+        expect(roots).toHaveLength(1);
+        const root = roots[0];
+        expect(root.name).toBe("CladeA");
+        expect(root.children).toHaveLength(1);
+
+        const cladeB = root.children[0];
+        expect(isCladeNode(cladeB)).toBe(true);
+        if (isCladeNode(cladeB)) {
+            expect(cladeB.name).toBe("CladeB");
+            expect(cladeB.children).toHaveLength(2);
+            const targetChild = cladeB.children.find(
+                (c) => isSpeciesNode(c) && c.isTarget && c.isPlaceholder
+            );
+            const species1 = cladeB.children.find(
+                (c) => isSpeciesNode(c) && c.speciesId === "species1"
+            );
+            expect(targetChild).toBeDefined();
+            expect(species1).toBeDefined();
+        }
+    });
+
+    test("target=Species3, guessed Species4 => CladeA > CladeE with ? and Species4", () => {
+        // LCA(Species3, Species4) = CladeE
+        // Expected:
+        //     CladeA
+        //       |
+        //     CladeE
+        //     /    \
+        //    ?   Species4
+        //
+        // CladeC is between CladeA and CladeE in the full hierarchy,
+        // but only LCA clades are revealed (not intermediates).
+        const state = makeState("species3", ["species4"]);
+        const roots = buildGuessTree(state);
+
+        expect(roots).toHaveLength(1);
+        const root = roots[0];
+        expect(root.name).toBe("CladeA");
+        expect(root.children).toHaveLength(1);
+
+        const cladeE = root.children[0];
+        expect(isCladeNode(cladeE)).toBe(true);
+        if (isCladeNode(cladeE)) {
+            expect(cladeE.cladeId).toBe("cladee");
+            expect(cladeE.children).toHaveLength(2);
+        }
+    });
+
+    // ================================================================
+    // EDGE CASES
+    // ================================================================
+
+    test("target=Species3, no guesses => CladeA with ?", () => {
+        const state = makeState("species3");
+        const roots = buildGuessTree(state);
+
+        expect(roots).toHaveLength(1);
+        expect(roots[0].name).toBe("CladeA");
+        expect(roots[0].children).toHaveLength(1);
+        const child = roots[0].children[0];
+        expect(isSpeciesNode(child)).toBe(true);
+        if (isSpeciesNode(child)) {
+            expect(child.isTarget).toBe(true);
+            expect(child.isPlaceholder).toBe(true);
+        }
+    });
+
+    test("target guessed correctly shows target revealed (not placeholder)", () => {
+        // When the target has been guessed, it should appear as a
+        // non-placeholder node.
+        const state = makeState("species1", ["species1"]);
+        const roots = buildGuessTree(state);
+
+        expect(roots).toHaveLength(1);
+        const root = roots[0];
+
+        // Find the target node somewhere in the tree
+        function findTarget(nodes: any[]): any {
+            for (const n of nodes) {
+                if (isSpeciesNode(n) && n.speciesId === "species1") return n;
+                if (isCladeNode(n)) {
+                    const found = findTarget(n.children);
+                    if (found) return found;
+                }
+            }
+            return null;
+        }
+
+        const target = findTarget(root.children);
+        expect(target).toBeDefined();
+        expect(target.isTarget).toBe(true);
+        expect(target.isPlaceholder).toBe(false);
+        expect(target.name).toBe("Species1");
+    });
+
+    test("each node has an id and correct parentId relationships", () => {
+        const state = makeState("species1", ["species2"]);
+        const roots = buildGuessTree(state);
+
+        // Root has no parentId
+        const root = roots[0];
+        expect(root.parentId).toBeUndefined();
+
+        // All children should have parentId set to their parent's id
+        function checkParentIds(node: any, expectedParentId?: string) {
+            expect(node.parentId).toBe(expectedParentId);
+            if (isCladeNode(node)) {
+                for (const child of node.children) {
+                    checkParentIds(child, node.id);
+                }
+            }
+        }
+        checkParentIds(root, undefined);
+    });
+
+    test("target=Species4, guessed Species3 => sibling in same clade", () => {
+        // LCA(Species4, Species3) = CladeE (same parent clade)
+        // Expected:
+        //     CladeA
+        //       |
+        //     ... (chain to CladeE)
+        //     CladeE
+        //     /    \
+        //    ?   Species3
+        const state = makeState("species4", ["species3"]);
+        const roots = buildGuessTree(state);
+
+        expect(roots).toHaveLength(1);
+
+        // Find CladeE somewhere in the tree
+        function findClade(nodes: any[], cladeId: string): any {
+            for (const n of nodes) {
+                if (isCladeNode(n) && n.cladeId === cladeId) return n;
+                if (isCladeNode(n)) {
+                    const found = findClade(n.children, cladeId);
+                    if (found) return found;
+                }
+            }
+            return null;
+        }
+
+        const cladeE = findClade(roots, "cladee");
+        expect(cladeE).toBeDefined();
+        expect(cladeE.children).toHaveLength(2);
+
+        const targetChild = cladeE.children.find(
+            (c: any) => isSpeciesNode(c) && c.isTarget && c.isPlaceholder
+        );
+        const guessChild = cladeE.children.find(
+            (c: any) => isSpeciesNode(c) && c.speciesId === "species3"
+        );
+        expect(targetChild).toBeDefined();
+        expect(guessChild).toBeDefined();
+    });
+
+    test("multiple guesses in the same LCA clade are grouped together", () => {
+        // target=Species1, guessed Species3 and Species4
+        // LCA(Species1, Species3) = CladeA
+        // LCA(Species1, Species4) = CladeA
+        // Species3 and Species4 both belong to CladeE
+        // Expected:
+        //       CladeA
+        //       /    \
+        //      ?    CladeE
+        //           /    \
+        //       Species3 Species4
+        const state = makeState("species1", ["species3", "species4"]);
+        const roots = buildGuessTree(state);
+
+        expect(roots).toHaveLength(1);
+        const root = roots[0];
+        expect(root.name).toBe("CladeA");
+        expect(root.children).toHaveLength(2);
+
+        const targetChild = root.children.find(
+            (c) => isSpeciesNode(c) && c.isTarget
+        );
+        const cladeE = root.children.find(
+            (c) => isCladeNode(c) && c.cladeId === "cladee"
+        );
+
+        expect(targetChild).toBeDefined();
+        expect(cladeE).toBeDefined();
+
+        if (isCladeNode(cladeE!)) {
+            expect(cladeE!.children).toHaveLength(2);
+        }
     });
 });
