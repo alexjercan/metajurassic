@@ -139,6 +139,308 @@ main {
     padding-bottom: 50px;
 }
 
+.tree {
+    min-width: max-content;
+    display: flex;
+    justify-content: center;
+    padding: 0 50px;
+}
+
+.tree ul {
+    padding-top: 20px;
+    position: relative;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    padding-left: 0;
+}
+
+.tree li {
+    float: left;
+    text-align: center;
+    list-style-type: none;
+    position: relative;
+    padding: 20px 15px 0 15px;
+    transition: all 0.3s ease;
+}
+
+.tree li::before,
+.tree li::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 50%;
+    border-top: 2px solid var(--line-color);
+    width: 50%;
+    height: 20px;
+}
+
+.tree li::after {
+    right: auto;
+    left: 50%;
+    border-left: 2px solid var(--line-color);
+}
+
+.tree li:only-child::after,
+.tree li:only-child::before {
+    display: none;
+}
+
+.tree li:only-child {
+    padding-top: 0;
+}
+
+.tree li:first-child::before,
+.tree li:last-child::after {
+    border: 0 none;
+}
+
+.tree li:last-child::before {
+    border-right: 2px solid var(--line-color);
+    border-radius: 0 5px 0 0;
+}
+
+.tree li:first-child::after {
+    border-radius: 5px 0 0 0;
+}
+
+.tree ul ul::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    border-left: 2px solid var(--line-color);
+    width: 0;
+    height: 20px;
+}
+
+.node-box {
+    display: inline-block;
+    padding: 12px 18px;
+    border-radius: 8px;
+    background: var(--node-bg);
+    border: 2px solid var(--line-color);
+    font-weight: bold;
+    font-size: 1rem;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.node-box:hover {
+    filter: brightness(1.2);
+    transform: scale(1.04);
+}
+
+.node-root {
+    border-color: #888;
+    color: #ccc;
+    font-size: 1.05rem;
+    background: #222;
+}
+
+.node-clade {
+    color: var(--amber-glow);
+    border-color: var(--amber-glow);
+}
+
+.node-species {
+    color: #a1bced;
+    border-color: #5b7199;
+}
+
+.node-mystery {
+    border: 2px dashed var(--danger-red);
+    color: var(--danger-red);
+    background: rgba(255, 74, 74, 0.1);
+    font-size: 1.05rem;
+    animation: pulseMystery 2s infinite alternate;
+}
+
+.node-winner {
+    border-color: var(--victory-gold);
+    background: var(--victory-gold);
+    color: #000;
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+    transform: scale(1.08);
+    z-index: 10;
+}
+
+@keyframes pulseMystery {
+    from {
+        box-shadow: 0 0 5px rgba(255, 74, 74, 0.2);
+    }
+    to {
+        box-shadow: 0 0 20px rgba(255, 74, 74, 0.6);
+    }
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0.5) translateY(-10px);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+}
+
+.tree {
+    min-width: max-content;
+    display: flex;
+    justify-content: center;
+    padding: 0 50px;
+}
+
+.tree ul {
+    padding-top: 20px;
+    position: relative;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    padding-left: 0;
+}
+
+.tree li {
+    float: left;
+    text-align: center;
+    list-style-type: none;
+    position: relative;
+    padding: 20px 15px 0 15px;
+    transition: all 0.3s ease;
+}
+
+.tree li::before,
+.tree li::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 50%;
+    border-top: 2px solid var(--line-color);
+    width: 50%;
+    height: 20px;
+}
+
+.tree li::after {
+    right: auto;
+    left: 50%;
+    border-left: 2px solid var(--line-color);
+}
+
+.tree li:only-child::after,
+.tree li:only-child::before {
+    display: none;
+}
+
+.tree li:only-child {
+    padding-top: 0;
+}
+
+.tree li:first-child::before,
+.tree li:last-child::after {
+    border: 0 none;
+}
+
+.tree li:last-child::before {
+    border-right: 2px solid var(--line-color);
+    border-radius: 0 5px 0 0;
+}
+
+.tree li:first-child::after {
+    border-radius: 5px 0 0 0;
+}
+
+.tree ul ul::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    border-left: 2px solid var(--line-color);
+    width: 0;
+    height: 20px;
+}
+
+.node-box {
+    display: inline-block;
+    padding: 12px 18px;
+    border-radius: 8px;
+    background: var(--node-bg);
+    border: 2px solid var(--line-color);
+    font-weight: bold;
+    font-size: 1rem;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.node-box:hover {
+    filter: brightness(1.2);
+    transform: scale(1.04);
+}
+
+.node-root {
+    border-color: #888;
+    color: #ccc;
+    font-size: 1.05rem;
+    background: #222;
+}
+
+.node-clade {
+    color: var(--amber-glow);
+    border-color: var(--amber-glow);
+}
+
+.node-species {
+    color: #a1bced;
+    border-color: #5b7199;
+}
+
+.node-mystery {
+    border: 2px dashed var(--danger-red);
+    color: var(--danger-red);
+    background: rgba(255, 74, 74, 0.1);
+    font-size: 1.05rem;
+    animation: pulseMystery 2s infinite alternate;
+}
+
+.node-winner {
+    border-color: var(--victory-gold);
+    background: var(--victory-gold);
+    color: #000;
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+    transform: scale(1.08);
+    z-index: 10;
+}
+
+@keyframes pulseMystery {
+    from {
+        box-shadow: 0 0 5px rgba(255, 74, 74, 0.2);
+    }
+    to {
+        box-shadow: 0 0 20px rgba(255, 74, 74, 0.6);
+    }
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0.5) translateY(-10px);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+}
+
 .info-panel {
     position: absolute;
     top: 0;

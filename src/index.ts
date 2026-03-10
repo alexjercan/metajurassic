@@ -4,6 +4,7 @@ import { loadGameState, saveGameState } from "./gameState";
 import { loadGameData } from "./markdownLoader";
 import { setupAutocomplete } from "./ui";
 import { renderLastGuess, openPanel } from "./ui/panel";
+import { renderTree } from "./ui/treeVisualizer";
 import { buildGuessTree } from "./treeBuilder";
 
 const inputEl = document.getElementById("player-input") as HTMLInputElement;
@@ -45,7 +46,11 @@ function updateUI() {
         statBox.textContent = `Guesses Left: ${guessesLeft}`;
     }
     renderLastGuess(state, data);
-    // TODO: Create a nice graph with the LCA and stuff
+    const roots = buildGuessTree(state);
+    const treeContainer = document.getElementById("tree-container");
+    if (treeContainer) {
+        renderTree({ container: treeContainer, roots });
+    }
 }
 
 playerInput.addEventListener("keydown", (event) => {
@@ -62,8 +67,6 @@ playerInput.addEventListener("keydown", (event) => {
         try {
             let result = state.makeGuess(guess);
             saveGameState(state);
-            console.log(buildGuessTree(state));
-
             console.log("Result:", result);
         } catch (error) {
             alert(error instanceof Error ? error.message : "Invalid guess");
