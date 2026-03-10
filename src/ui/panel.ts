@@ -17,6 +17,7 @@ const cladeCard = document.getElementById("clade-card");
 const cladeTitle = document.getElementById("clade-title");
 const cladeParent = document.getElementById("clade-parent");
 const cladeDescription = document.getElementById("clade-description");
+const cladeImage = document.getElementById("clade-image-area");
 
 export function closePanel() {
     panel?.classList.remove("active");
@@ -71,4 +72,5 @@ export function renderCladeCard(
     if (cladeParent) cladeParent.textContent = parent ? parent.name : "—";
     if (cladeDescription)
         cladeDescription.textContent = clade.description || "No description.";
+    if (cladeImage) cladeImage.textContent = "[ Hologram Render ]";
 }
