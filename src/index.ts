@@ -1,6 +1,6 @@
 import "./style.css";
 import { MAX_GUESSES } from "./constants";
-import { loadGameState } from "./gameState";
+import { loadGameState, saveGameState } from "./gameState";
 import { loadGameData } from "./markdownLoader";
 import { setupAutocomplete } from "./ui";
 import { renderLastGuess, openPanel } from "./ui/panel";
@@ -60,6 +60,8 @@ playerInput.addEventListener("keydown", (event) => {
 
         try {
             let result = state.makeGuess(guess);
+            saveGameState(state);
+
             console.log("Result:", result);
         } catch (error) {
             alert(error instanceof Error ? error.message : "Invalid guess");

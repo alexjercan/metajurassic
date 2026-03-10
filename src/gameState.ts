@@ -8,13 +8,18 @@ function formatPuzzleId(gameData: GameData, date: Date = new Date()): string {
     return `animal-#${(index + 1).toString().padStart(3, "0")}`;
 }
 
+function gameStateKey(gameData: GameData, date: Date = new Date()): string {
+    const puzzleId = formatPuzzleId(gameData, date);
+    return `gameState-${puzzleId}`;
+}
+
 export function loadGameState(
     gameData: GameData,
     date: Date = new Date(),
     storage: StorageProvider = defaultStorage()
 ): GameState {
-    const puzzleId = formatPuzzleId(gameData, date);
-    const savedState = storage.getItem(`gameState-${puzzleId}`);
+    const key = gameStateKey(gameData, date);
+    const savedState = storage.getItem(key);
 
     if (savedState) {
         try {
@@ -23,7 +28,6 @@ export function loadGameState(
                 gameData,
                 parsed.targetId,
                 new Set(parsed.guesses),
-                storage,
                 parsed.lastGuessId
             );
         } catch (error) {
@@ -35,7 +39,21 @@ export function loadGameState(
     }
 
     const targetId = gameData.getRandomSpecies(date);
-    return new GameState(gameData, targetId, new Set(), storage);
+    return new GameState(gameData, targetId, new Set());
+}
+
+export function saveGameState(state: GameState, storage: StorageProvider = defaultStorage()): void {
+    const key = gameStateKey(state.gameData);
+    const gameState = {
+        targetId: state.targetId,
+        guesses: Array.from(state.guesses),
+        lastGuessId: state.lastGuessId,
+    };
+
+    storage.setItem(
+        key,
+        JSON.stringify(gameState)
+    );
 }
 
 export class GameState {
@@ -43,23 +61,8 @@ export class GameState {
         public readonly gameData: GameData,
         public readonly targetId: string,
         public guesses: Set<string> = new Set(),
-        private storage: StorageProvider = defaultStorage(),
         public lastGuessId?: string
-    ) {}
-
-    save(): void {
-        const puzzleId = formatPuzzleId(this.gameData);
-        const gameState = {
-            targetId: this.targetId,
-            guesses: Array.from(this.guesses),
-            lastGuessId: this.lastGuessId,
-        };
-
-        this.storage.setItem(
-            `gameState-${puzzleId}`,
-            JSON.stringify(gameState)
-        );
-    }
+    ) { }
 
     isGameOver(): boolean {
         return (
@@ -90,7 +93,6 @@ export class GameState {
         }
         this.guesses.add(guessSpecies.id);
         this.lastGuessId = guessSpecies.id;
-        this.save();
 
         const isCorrect = guessSpecies.id === this.targetId;
         if (isCorrect) {

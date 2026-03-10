@@ -2,19 +2,6 @@ import { GameData } from "../src/gameData";
 import { GameState } from "../src/gameState";
 import { Clade, Species } from "../src/types";
 
-const createMemoryStorage = () => {
-    const store: Record<string, string> = {};
-    return {
-        getItem: (key: string) => store[key] ?? null,
-        setItem: (key: string, value: string) => {
-            store[key] = value;
-        },
-        removeItem: (key: string) => {
-            delete store[key];
-        },
-    };
-};
-
 const makeGameData = () => {
     const species: Species[] = [
         {
@@ -63,8 +50,7 @@ const makeGameData = () => {
 describe("GameState", () => {
     test("wins when guessing target", () => {
         const data = makeGameData();
-        const storage = createMemoryStorage();
-        const state = new GameState(data, "trex", new Set(), storage);
+        const state = new GameState(data, "trex", new Set());
 
         const result = state.makeGuess("Tyrannosaurus rex");
 
@@ -76,8 +62,7 @@ describe("GameState", () => {
 
     test("tracks guesses and LCA when incorrect", () => {
         const data = makeGameData();
-        const storage = createMemoryStorage();
-        const state = new GameState(data, "trex", new Set(), storage);
+        const state = new GameState(data, "trex", new Set());
 
         const result = state.makeGuess("Allosaurus");
 
@@ -91,8 +76,7 @@ describe("GameState", () => {
 
     test("prevents duplicate guesses", () => {
         const data = makeGameData();
-        const storage = createMemoryStorage();
-        const state = new GameState(data, "trex", new Set(), storage);
+        const state = new GameState(data, "trex", new Set());
 
         state.makeGuess("Allosaurus");
         expect(() => state.makeGuess("Allosaurus")).toThrow(
