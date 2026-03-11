@@ -11,6 +11,7 @@ import {
 } from "./ui/panel";
 import { renderTree } from "./ui/treeVisualizer";
 import { buildGuessTree } from "./treeBuilder";
+import { showWinModal, showLossModal } from "./ui/modal";
 
 const inputEl = document.getElementById("player-input") as HTMLInputElement;
 const autocompleteBox = document.getElementById(
@@ -24,10 +25,19 @@ const data = await loadGameData();
 const speciesNames = data.species.map((s) => s.species);
 const state = loadGameState(data);
 
+function showGameOverModal() {
+    const target = data.findSpeciesById(state.targetId);
+    const targetName = target ? target.species : "Unknown";
+    if (state.isWin()) {
+        showWinModal(targetName, state.numberOfGuesses());
+    } else if (state.isLoss()) {
+        showLossModal(targetName);
+    }
+}
+
 function submitGuess(guess: string) {
     if (state.isGameOver()) {
-        alert("Game over! Please refresh to start a new game.");
-        updateUI();
+        showGameOverModal();
         return;
     }
 
@@ -41,6 +51,13 @@ function submitGuess(guess: string) {
         alert(error instanceof Error ? error.message : "Invalid guess");
     } finally {
         updateUI();
+
+        if (state.isGameOver()) {
+            showGameOverModal();
+        }
+        if (state.isGameOver()) {
+            showGameOverModal();
+        }
     }
 }
 
