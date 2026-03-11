@@ -1,7 +1,7 @@
 ---
 species: Cryolophosaurus
 translation: Frozen Crested Lizard
-clade: Theropoda
+clade: theropoda
 period: Early Jurassic (194–188 Ma)
 size: 6.5 meters
 weight: 465 kilograms

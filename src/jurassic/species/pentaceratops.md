@@ -1,7 +1,7 @@
 ---
 species: Pentaceratops
 translation: Five-Horned Face
-clade: Chasmosaurinae
+clade: chasmosaurinae
 period: Late Cretaceous (76–73 Ma)
 size: 6 meters
 weight: 5,000 kilograms

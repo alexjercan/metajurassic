@@ -1,7 +1,7 @@
 ---
 species: Staurikosaurus
 translation: Southern Cross Lizard
-clade: Herrerasauridae
+clade: herrerasauridae
 period: Late Triassic (233–225 Ma)
 size: 2.2 meters
 weight: 30 kilograms

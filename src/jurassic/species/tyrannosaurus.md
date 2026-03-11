@@ -1,7 +1,7 @@
 ---
 species: Tyrannosaurus
 translation: Tyrant Lizard King
-clade: Tyrannosaurini
+clade: tyrannosaurini
 period: Late Cretaceous (68–66 Ma)
 size: 12.3 meters
 weight: 8,400 kilograms

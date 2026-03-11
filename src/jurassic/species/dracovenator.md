@@ -1,7 +1,7 @@
 ---
 species: Dracovenator
 translation: Dragon Hunter
-clade: Theropoda
+clade: theropoda
 period: Early Jurassic (201–199 Ma)
 size: 6 meters
 weight: 400 kilograms

@@ -1,7 +1,7 @@
 ---
 species: Giraffatitan
 translation: Giant Giraffe
-clade: Brachiosauridae
+clade: brachiosauridae
 period: Late Jurassic (154–142 Ma)
 size: 23 meters
 weight: 40,000 kilograms

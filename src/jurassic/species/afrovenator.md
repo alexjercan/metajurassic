@@ -1,7 +1,7 @@
 ---
 species: Afrovenator
 translation: African Hunter
-clade: Megalosauridae
+clade: megalosauridae
 period: Middle Jurassic (167–161 Ma)
 size: 8 meters
 weight: 1,000 kilograms

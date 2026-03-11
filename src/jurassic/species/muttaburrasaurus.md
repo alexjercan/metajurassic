@@ -1,7 +1,7 @@
 ---
 species: Muttaburrasaurus
 translation: Muttaburra Lizard
-clade: Rhabdodontomorpha
+clade: rhabdodontomorpha
 period: Early Cretaceous (107–103 Ma)
 size: 8 meters
 weight: 2,800 kilograms

@@ -1,7 +1,7 @@
 ---
 species: Shunosaurus
 translation: Shu Lizard
-clade: Eusauropoda
+clade: eusauropoda
 period: Middle Jurassic (165–159 Ma)
 size: 9.5 meters
 weight: 3,000 kilograms

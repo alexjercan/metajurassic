@@ -1,7 +1,7 @@
 ---
 species: Scelidosaurus
 translation: Limb Lizard
-clade: Ankylosauromorpha
+clade: ankylosauromorpha
 period: Early Jurassic (191 Ma)
 size: 4 meters
 weight: 270 kilograms

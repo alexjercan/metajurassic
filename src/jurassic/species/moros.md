@@ -1,7 +1,7 @@
 ---
 species: Moros
 translation: Intrepid Doom
-clade: Pantyrannosauria
+clade: pantyrannosauria
 period: Late Cretaceous (96 Ma)
 size: 1.2 meters
 weight: 78 kilograms

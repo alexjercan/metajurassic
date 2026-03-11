@@ -1,7 +1,7 @@
 ---
 species: Carcharodontosaurus
 translation: Shark-Toothed Lizard
-clade: Carcharodontosaurinae
+clade: carcharodontosaurinae
 period: Late Cretaceous (99–94 Ma)
 size: 12 meters
 weight: 6,200 kilograms

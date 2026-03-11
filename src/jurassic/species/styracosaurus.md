@@ -1,7 +1,7 @@
 ---
 species: Styracosaurus
 translation: Spiked Lizard
-clade: Centrosaurini
+clade: centrosaurini
 period: Late Cretaceous (75 Ma)
 size: 5.5 meters
 weight: 2,700 kilograms

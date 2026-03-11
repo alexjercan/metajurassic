@@ -1,7 +1,7 @@
 ---
 species: Sinoceratops
 translation: Chinese Horned Face
-clade: Eucentrosaura
+clade: eucentrosaura
 period: Late Cretaceous (73 Ma)
 size: 6 meters
 weight: 2,000 kilograms

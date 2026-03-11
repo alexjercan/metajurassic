@@ -1,7 +1,7 @@
 ---
 species: Stegosaurus
 translation: Roof Lizard
-clade: Stegosaurinae
+clade: stegosaurinae
 period: Late Jurassic (155–150 Ma)
 size: 9 meters
 weight: 5,000 kilograms

@@ -1,7 +1,7 @@
 ---
 species: Brontosaurus
 translation: Thunder Lizard
-clade: Apatosaurinae
+clade: apatosaurinae
 period: Late Jurassic (155–152 Ma)
 size: 22 meters
 weight: 15,000 kilograms

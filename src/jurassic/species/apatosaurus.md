@@ -1,7 +1,7 @@
 ---
 species: Apatosaurus
 translation: Deceptive Lizard
-clade: Apatosaurinae
+clade: apatosaurinae
 period: Late Jurassic (152–145 Ma)
 size: 21 meters
 weight: 22,000 kilograms

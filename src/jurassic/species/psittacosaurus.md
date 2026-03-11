@@ -1,7 +1,7 @@
 ---
 species: Psittacosaurus
 translation: Parrot Lizard
-clade: Ceratopsia
+clade: ceratopsia
 period: Early Cretaceous (126–101 Ma)
 size: 2 meters
 weight: 20 kilograms

@@ -1,7 +1,7 @@
 ---
 species: Hadrosaurus
 translation: Sturdy Lizard
-clade: Hadrosauridae
+clade: hadrosauridae
 period: Late Cretaceous (80–75 Ma)
 size: 8 meters
 weight: 3,000 kilograms

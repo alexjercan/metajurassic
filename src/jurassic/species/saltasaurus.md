@@ -1,7 +1,7 @@
 ---
 species: Saltasaurus
 translation: Salta Lizard
-clade: Titanosauria
+clade: titanosauria
 period: Late Cretaceous (70 Ma)
 size: 8.5 meters
 weight: 2,500 kilograms

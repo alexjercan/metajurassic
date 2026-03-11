@@ -1,7 +1,7 @@
 ---
 species: Sauropelta
 translation: Shield Lizard
-clade: Nodosaurinae
+clade: nodosaurinae
 period: Early Cretaceous (108 Ma)
 size: 5.2 meters
 weight: 1,500 kilograms

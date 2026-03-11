@@ -1,7 +1,7 @@
 ---
 species: Lokiceratops
 translation: Loki's Horned Face
-clade: Centrosaurinae
+clade: centrosaurinae
 period: Late Cretaceous (78 Ma)
 size: 6.7 meters
 weight: 5,000 kilograms

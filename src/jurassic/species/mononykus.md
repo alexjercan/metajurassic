@@ -1,7 +1,7 @@
 ---
 species: Mononykus
 translation: Single Claw
-clade: Maniraptora
+clade: maniraptora
 period: Late Cretaceous (70 Ma)
 size: 1 meter
 weight: 3 kilograms

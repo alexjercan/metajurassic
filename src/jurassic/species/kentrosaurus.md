@@ -1,7 +1,7 @@
 ---
 species: Kentrosaurus
 translation: Spiked Lizard
-clade: Stegosauridae
+clade: stegosauridae
 period: Late Jurassic (152 Ma)
 size: 4.5 meters
 weight: 2,000 kilograms

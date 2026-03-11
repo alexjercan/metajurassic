@@ -1,7 +1,7 @@
 ---
 species: Dreadnoughtus
 translation: Fears Nothing
-clade: Titanosauria
+clade: titanosauria
 period: Late Cretaceous (77–70 Ma)
 size: 26 meters
 weight: 48,000 kilograms

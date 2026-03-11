@@ -1,7 +1,7 @@
 ---
 species: Gallimimus
 translation: Chicken Mimic
-clade: Ornithomimidae
+clade: ornithomimidae
 period: Late Cretaceous (70 Ma)
 size: 6 meters
 weight: 450 kilograms

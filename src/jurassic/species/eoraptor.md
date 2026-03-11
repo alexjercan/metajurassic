@@ -1,7 +1,7 @@
 ---
 species: Eoraptor
 translation: Dawn Thief
-clade: Sauropodomorpha
+clade: sauropodomorpha
 period: Late Triassic (231–228 Ma)
 size: 1 meter
 weight: 10 kilograms

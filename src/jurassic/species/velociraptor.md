@@ -1,7 +1,7 @@
 ---
 species: Velociraptor
 translation: Swift Seizer
-clade: Velociraptorinae
+clade: velociraptorinae
 period: Late Cretaceous (75–71 Ma)
 size: 2 meters
 weight: 15 kilograms

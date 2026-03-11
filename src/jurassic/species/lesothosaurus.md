@@ -1,7 +1,7 @@
 ---
 species: Lesothosaurus
 translation: Lesotho Lizard
-clade: Neornithischia
+clade: neornithischia
 period: Early Jurassic (199–189 Ma)
 size: 2 meters
 weight: 8 kilograms

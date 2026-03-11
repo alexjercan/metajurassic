@@ -1,7 +1,7 @@
 ---
 species: Centrosaurus
 translation: Pointed Lizard
-clade: Centrosaurini
+clade: centrosaurini
 period: Late Cretaceous (76 Ma)
 size: 5.5 meters
 weight: 2,300 kilograms

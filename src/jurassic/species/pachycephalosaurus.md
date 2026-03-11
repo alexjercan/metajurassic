@@ -1,7 +1,7 @@
 ---
 species: Pachycephalosaurus
 translation: Thick-Headed Lizard
-clade: Pachycephalosaurinae
+clade: pachycephalosaurinae
 period: Late Cretaceous (68–66 Ma)
 size: 4.5 meters
 weight: 450 kilograms

@@ -1,7 +1,7 @@
 ---
 species: Tyrannotitan
 translation: Tyrant Titan
-clade: Giganotosaurini
+clade: giganotosaurini
 period: Early Cretaceous (118 Ma)
 size: 12.2 meters
 weight: 4,800 kilograms

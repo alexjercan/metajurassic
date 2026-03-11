@@ -1,7 +1,7 @@
 ---
 species: Megalosaurus
 translation: Great Lizard
-clade: Megalosaurinae
+clade: megalosaurinae
 period: Middle Jurassic (166 Ma)
 size: 6 meters
 weight: 700 kilograms

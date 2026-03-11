@@ -1,7 +1,7 @@
 ---
 species: Shantungosaurus
 translation: Shandong Lizard
-clade: Edmontosaurini
+clade: edmontosaurini
 period: Late Cretaceous (73 Ma)
 size: 15 meters
 weight: 16,000 kilograms

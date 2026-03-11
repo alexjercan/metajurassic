@@ -1,7 +1,7 @@
 ---
 species: Pelecanimimus
 translation: Pelican Mimic
-clade: Ornithomimosauria
+clade: ornithomimosauria
 period: Early Cretaceous (130 Ma)
 size: 2.5 meters
 weight: 30 kilograms

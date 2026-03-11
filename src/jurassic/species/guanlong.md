@@ -1,7 +1,7 @@
 ---
 species: Guanlong
 translation: Crowned Dragon
-clade: Proceratosauridae
+clade: proceratosauridae
 period: Late Jurassic (161–156 Ma)
 size: 3 meters
 weight: 75 kilograms

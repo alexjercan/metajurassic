@@ -1,7 +1,7 @@
 ---
 species: Tenontosaurus
 translation: Sinew Lizard
-clade: Iguanodontia
+clade: iguanodontia
 period: Early Cretaceous (115–108 Ma)
 size: 7 meters
 weight: 1,000 kilograms

@@ -1,7 +1,7 @@
 ---
 species: Coelophysis
 translation: Hollow Form
-clade: Theropoda
+clade: theropoda
 period: Late Triassic (225–190 Ma)
 size: 3 meters
 weight: 27 kilograms

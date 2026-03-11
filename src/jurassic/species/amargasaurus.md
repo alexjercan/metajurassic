@@ -1,7 +1,7 @@
 ---
 species: Amargasaurus
 translation: La Amarga Lizard
-clade: Dicraeosauridae
+clade: dicraeosauridae
 period: Early Cretaceous (132–127 Ma)
 size: 10 meters
 weight: 2,600 kilograms

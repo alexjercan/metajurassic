@@ -1,7 +1,7 @@
 ---
 species: Ankylosaurus
 translation: Fused Lizard
-clade: Ankylosaurini
+clade: ankylosaurini
 period: Late Cretaceous (68–66 Ma)
 size: 8 meters
 weight: 6,000 kilograms

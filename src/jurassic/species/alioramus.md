@@ -1,7 +1,7 @@
 ---
 species: Alioramus
 translation: Different Branch
-clade: Alioramini
+clade: alioramini
 period: Late Cretaceous (71–67 Ma)
 size: 6 meters
 weight: 370 kilograms

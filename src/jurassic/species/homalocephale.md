@@ -1,7 +1,7 @@
 ---
 species: Homalocephale
 translation: Even Head
-clade: Pachycephalosaurinae
+clade: pachycephalosaurinae
 period: Late Cretaceous (70 Ma)
 size: 1.8 meters
 weight: 43 kilograms

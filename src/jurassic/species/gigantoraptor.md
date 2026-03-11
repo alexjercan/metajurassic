@@ -1,7 +1,7 @@
 ---
 species: Gigantoraptor
 translation: Giant Thief
-clade: Oviraptorosauria
+clade: oviraptorosauria
 period: Late Cretaceous (85 Ma)
 size: 8 meters
 weight: 1,400 kilograms

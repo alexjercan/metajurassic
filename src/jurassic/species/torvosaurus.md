@@ -1,7 +1,7 @@
 ---
 species: Torvosaurus
 translation: Savage Lizard
-clade: Megalosaurinae
+clade: megalosaurinae
 period: Late Jurassic (153–148 Ma)
 size: 10 meters
 weight: 4,000 kilograms

@@ -1,7 +1,7 @@
 ---
 species: Tarbosaurus
 translation: Alarming Lizard
-clade: Tyrannosaurini
+clade: tyrannosaurini
 period: Late Cretaceous (70 Ma)
 size: 12 meters
 weight: 5,000 kilograms

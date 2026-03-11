@@ -1,7 +1,7 @@
 ---
 species: Pachyrhinosaurus
 translation: Thick-Nosed Lizard
-clade: Eucentrosaura
+clade: eucentrosaura
 period: Late Cretaceous (73–69 Ma)
 size: 8 meters
 weight: 4,000 kilograms

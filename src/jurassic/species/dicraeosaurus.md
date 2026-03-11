@@ -1,7 +1,7 @@
 ---
 species: Dicraeosaurus
 translation: Forked Lizard
-clade: Dicraeosauridae
+clade: dicraeosauridae
 period: Late Jurassic (155–150 Ma)
 size: 12 meters
 weight: 4,000 kilograms

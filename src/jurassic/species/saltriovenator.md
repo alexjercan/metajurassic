@@ -1,7 +1,7 @@
 ---
 species: Saltriovenator
 translation: Saltrio Hunter
-clade: Ceratosauria
+clade: ceratosauria
 period: Early Jurassic (199–197 Ma)
 size: 7.5 meters
 weight: 1,000 kilograms

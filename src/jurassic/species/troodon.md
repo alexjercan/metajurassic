@@ -1,7 +1,7 @@
 ---
 species: Troodon
 translation: Wounding Tooth
-clade: Paraves
+clade: paraves
 period: Late Cretaceous (77–74 Ma)
 size: 2.5 meters
 weight: 50 kilograms

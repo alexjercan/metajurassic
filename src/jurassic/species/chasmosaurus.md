@@ -1,7 +1,7 @@
 ---
 species: Chasmosaurus
 translation: Opening Lizard
-clade: Chasmosaurinae
+clade: chasmosaurinae
 period: Late Cretaceous (76–75 Ma)
 size: 5 meters
 weight: 2,000 kilograms

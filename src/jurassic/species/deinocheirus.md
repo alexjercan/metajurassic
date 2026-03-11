@@ -1,7 +1,7 @@
 ---
 species: Deinocheirus
 translation: Terrible Hand
-clade: Ornithomimosauria
+clade: ornithomimosauria
 period: Late Cretaceous (70 Ma)
 size: 11 meters
 weight: 6,300 kilograms

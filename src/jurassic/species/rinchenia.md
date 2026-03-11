@@ -1,7 +1,7 @@
 ---
 species: Rinchenia
 translation: Rinchen's (Lizard)
-clade: Oviraptoridae
+clade: oviraptoridae
 period: Late Cretaceous (70 Ma)
 size: 1.7 meters
 weight: 40 kilograms

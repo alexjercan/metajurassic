@@ -1,7 +1,7 @@
 ---
 species: Archaeopteryx
 translation: Ancient Wing
-clade: Avialae
+clade: avialae
 period: Late Jurassic (150–148 Ma)
 size: 0.5 meters
 weight: 1 kilogram

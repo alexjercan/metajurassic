@@ -1,7 +1,7 @@
 ---
 species: Therizinosaurus
 translation: Scythe Lizard
-clade: Therizinosauridae
+clade: therizinosauridae
 period: Late Cretaceous (70 Ma)
 size: 10 meters
 weight: 5,000 kilograms

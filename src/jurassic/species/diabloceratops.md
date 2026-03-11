@@ -1,7 +1,7 @@
 ---
 species: Diabloceratops
 translation: Devil Horned Face
-clade: Centrosaurinae
+clade: centrosaurinae
 period: Late Cretaceous (79 Ma)
 size: 5.5 meters
 weight: 2,000 kilograms

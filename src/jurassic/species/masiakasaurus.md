@@ -1,7 +1,7 @@
 ---
 species: Masiakasaurus
 translation: Vicious Lizard
-clade: Abelisauroidea
+clade: abelisauroidea
 period: Late Cretaceous (70–66 Ma)
 size: 2 meters
 weight: 20 kilograms

@@ -1,7 +1,7 @@
 ---
 species: Kosmoceratops
 translation: Ornate Horned Face
-clade: Chasmosaurinae
+clade: chasmosaurinae
 period: Late Cretaceous (76 Ma)
 size: 5 meters
 weight: 2,500 kilograms

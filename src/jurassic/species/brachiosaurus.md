@@ -1,7 +1,7 @@
 ---
 species: Brachiosaurus
 translation: Arm Lizard
-clade: Brachiosauridae
+clade: brachiosauridae
 period: Late Jurassic (154–153 Ma)
 size: 21 meters
 weight: 46,900 kilograms

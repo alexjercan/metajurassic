@@ -1,7 +1,7 @@
 ---
 species: Proceratosaurus
 translation: Before Ceratosaurus
-clade: Proceratosauridae
+clade: proceratosauridae
 period: Middle Jurassic (166 Ma)
 size: 3 meters
 weight: 40 kilograms

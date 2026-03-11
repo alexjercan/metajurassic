@@ -1,7 +1,7 @@
 ---
 species: Erlikosaurus
 translation: Erlik's Lizard
-clade: Therizinosauridae
+clade: therizinosauridae
 period: Late Cretaceous (90 Ma)
 size: 6 meters
 weight: 500 kilograms

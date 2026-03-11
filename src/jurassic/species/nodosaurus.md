@@ -1,7 +1,7 @@
 ---
 species: Nodosaurus
 translation: Knobbed Lizard
-clade: Nodosaurinae
+clade: nodosaurinae
 period: Late Cretaceous (95 Ma)
 size: 6 meters
 weight: 2,500 kilograms

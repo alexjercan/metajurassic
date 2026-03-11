@@ -1,7 +1,7 @@
 ---
 species: Zalmoxes
 translation: After Zalmoxis (Deity)
-clade: Rhabdodontomorpha
+clade: rhabdodontomorpha
 period: Late Cretaceous (70 Ma)
 size: 2.5 meters
 weight: 350 kilograms

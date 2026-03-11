@@ -1,7 +1,7 @@
 ---
 species: Gigantspinosaurus
 translation: Giant Spined Lizard
-clade: Huayangosauridae
+clade: huayangosauridae
 period: Late Jurassic (160 Ma)
 size: 4 meters
 weight: 700 kilograms

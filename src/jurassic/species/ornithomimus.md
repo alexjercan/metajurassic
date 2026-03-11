@@ -1,7 +1,7 @@
 ---
 species: Ornithomimus
 translation: Bird Mimic
-clade: Ornithomimidae
+clade: ornithomimidae
 period: Late Cretaceous (76 Ma)
 size: 3.8 meters
 weight: 170 kilograms

@@ -1,7 +1,7 @@
 ---
 species: Minmi
 translation: From Minmi Crossing
-clade: Thyreophora
+clade: thyreophora
 period: Early Cretaceous (120–112 Ma)
 size: 3 meters
 weight: 300 kilograms

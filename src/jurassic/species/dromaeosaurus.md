@@ -1,7 +1,7 @@
 ---
 species: Dromaeosaurus
 translation: Running Lizard
-clade: Dromaeosaurinae
+clade: dromaeosaurinae
 period: Late Cretaceous (76–74 Ma)
 size: 2 meters
 weight: 15 kilograms

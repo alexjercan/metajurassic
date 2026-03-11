@@ -1,7 +1,7 @@
+import csv
+import json
 import os
 import re
-import json
-import csv
 
 
 def name_to_id(name: str) -> str:
@@ -45,7 +45,7 @@ if __name__ == "__main__":
         species_id = name_to_id(name)
         assert species_id in species, f"{species_id} not found in species.csv"
 
-        species[species_id]["clade"] = clade
+        species[species_id]["clade"] = name_to_id(clade)
 
     for species_id, data in species.items():
         with open(os.path.join("src", "jurassic", "species", f"{species_id}.md"), "w") as f:

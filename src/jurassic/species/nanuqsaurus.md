@@ -1,7 +1,7 @@
 ---
 species: Nanuqsaurus
 translation: Polar Bear Lizard
-clade: Tyrannosaurinae
+clade: tyrannosaurinae
 period: Late Cretaceous (70–69 Ma)
 size: 6 meters
 weight: 1,000 kilograms

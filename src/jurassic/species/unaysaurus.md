@@ -1,7 +1,7 @@
 ---
 species: Unaysaurus
 translation: Water of Black Lizard
-clade: Plateosauridae
+clade: plateosauridae
 period: Late Triassic (225 Ma)
 size: 2.5 meters
 weight: 70 kilograms

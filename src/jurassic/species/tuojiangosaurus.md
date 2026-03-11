@@ -1,7 +1,7 @@
 ---
 species: Tuojiangosaurus
 translation: Tuo River Lizard
-clade: Stegosauridae
+clade: stegosauridae
 period: Late Jurassic (161–155 Ma)
 size: 7 meters
 weight: 2,800 kilograms

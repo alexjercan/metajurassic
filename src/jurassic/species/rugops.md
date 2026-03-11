@@ -1,7 +1,7 @@
 ---
 species: Rugops
 translation: Wrinkle Face
-clade: Abelisauridae
+clade: abelisauridae
 period: Late Cretaceous (95 Ma)
 size: 6 meters
 weight: 750 kilograms

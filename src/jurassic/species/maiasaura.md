@@ -1,7 +1,7 @@
 ---
 species: Maiasaura
 translation: Good Mother Lizard
-clade: Saurolophinae
+clade: saurolophinae
 period: Late Cretaceous (76 Ma)
 size: 9 meters
 weight: 2,500 kilograms

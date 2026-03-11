@@ -1,7 +1,7 @@
 ---
 species: Stegoceras
 translation: Horned Roof
-clade: Pachycephalosauridae
+clade: pachycephalosauridae
 period: Late Cretaceous (77–74 Ma)
 size: 2 meters
 weight: 40 kilograms

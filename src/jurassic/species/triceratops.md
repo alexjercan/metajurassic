@@ -1,7 +1,7 @@
 ---
 species: Triceratops
 translation: Three-Horned Face
-clade: Triceratopsini
+clade: triceratopsini
 period: Late Cretaceous (68–66 Ma)
 size: 9 meters
 weight: 10,000 kilograms

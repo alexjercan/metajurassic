@@ -1,7 +1,7 @@
 ---
 species: Fukuisaurus
 translation: Fukui Lizard
-clade: Styracosterna
+clade: styracosterna
 period: Early Cretaceous (125 Ma)
 size: 4.5 meters
 weight: 400 kilograms

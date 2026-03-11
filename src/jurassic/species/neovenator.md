@@ -1,7 +1,7 @@
 ---
 species: Neovenator
 translation: New Hunter
-clade: Carcharodontosauridae
+clade: carcharodontosauridae
 period: Early Cretaceous (125 Ma)
 size: 7.6 meters
 weight: 2,000 kilograms

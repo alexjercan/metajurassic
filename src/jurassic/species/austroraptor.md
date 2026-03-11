@@ -1,7 +1,7 @@
 ---
 species: Austroraptor
 translation: Southern Thief
-clade: Unenlagiina
+clade: unenlagiina
 period: Late Cretaceous (70 Ma)
 size: 5 meters
 weight: 300 kilograms

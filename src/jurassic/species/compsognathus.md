@@ -1,7 +1,7 @@
 ---
 species: Compsognathus
 translation: Elegant Jaw
-clade: Coelurosauria
+clade: coelurosauria
 period: Late Jurassic (150 Ma)
 size: 1 meter
 weight: 3 kilograms

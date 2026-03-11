@@ -1,7 +1,7 @@
 ---
 species: Acrocanthosaurus
 translation: High-Spined Lizard
-clade: Carcharodontosauridae
+clade: carcharodontosauridae
 period: Early Cretaceous (113–110 Ma)
 size: 11.5 meters
 weight: 6,200 kilograms

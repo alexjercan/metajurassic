@@ -1,7 +1,7 @@
 ---
 species: Vulcanodon
 translation: Volcano Tooth
-clade: Sauropoda
+clade: sauropoda
 period: Early Jurassic (199–188 Ma)
 size: 6.5 meters
 weight: 3,500 kilograms

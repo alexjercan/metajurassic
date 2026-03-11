@@ -1,7 +1,7 @@
 ---
 species: Microraptor
 translation: Small Thief
-clade: Dromaeosauridae
+clade: dromaeosauridae
 period: Early Cretaceous (120 Ma)
 size: 0.8 meters
 weight: 1 kilogram

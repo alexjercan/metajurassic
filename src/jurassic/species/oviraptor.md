@@ -1,7 +1,7 @@
 ---
 species: Oviraptor
 translation: Egg Thief
-clade: Oviraptoridae
+clade: oviraptoridae
 period: Late Cretaceous (75 Ma)
 size: 1.6 meters
 weight: 35 kilograms

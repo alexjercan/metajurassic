@@ -1,7 +1,7 @@
 ---
 species: Corythosaurus
 translation: Helmet Lizard
-clade: Lambeosaurini
+clade: lambeosaurini
 period: Late Cretaceous (77–75 Ma)
 size: 9 meters
 weight: 3,000 kilograms

@@ -1,7 +1,7 @@
 ---
 species: Albertosaurus
 translation: Alberta Lizard
-clade: Albertosaurinae
+clade: albertosaurinae
 period: Late Cretaceous (71–68 Ma)
 size: 9 meters
 weight: 2,500 kilograms

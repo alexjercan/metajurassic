@@ -1,7 +1,7 @@
 ---
 species: Halszkaraptor
 translation: Halszka's Thief
-clade: Unenlagiina
+clade: unenlagiina
 period: Late Cretaceous (75–71 Ma)
 size: 0.6 meters
 weight: 2 kilograms

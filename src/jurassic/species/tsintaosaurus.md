@@ -1,7 +1,7 @@
 ---
 species: Tsintaosaurus
 translation: Qingdao Lizard
-clade: Lambeosaurinae
+clade: lambeosaurinae
 period: Late Cretaceous (70 Ma)
 size: 10 meters
 weight: 3,000 kilograms

@@ -1,7 +1,7 @@
 ---
 species: Zuniceratops
 translation: Zuni Horned Face
-clade: Ceratopsoidea
+clade: ceratopsoidea
 period: Late Cretaceous (91 Ma)
 size: 3.5 meters
 weight: 150 kilograms

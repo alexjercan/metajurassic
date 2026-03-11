@@ -1,7 +1,7 @@
 ---
 species: Utahraptor
 translation: Utah's Thief
-clade: Dromaeosaurinae
+clade: dromaeosaurinae
 period: Early Cretaceous (126 Ma)
 size: 7 meters
 weight: 500 kilograms

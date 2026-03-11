@@ -1,7 +1,7 @@
 ---
 species: Giganotosaurus
 translation: Giant Southern Lizard
-clade: Giganotosaurini
+clade: giganotosaurini
 period: Late Cretaceous (98–97 Ma)
 size: 13 meters
 weight: 8,000 kilograms

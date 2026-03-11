@@ -1,7 +1,7 @@
 ---
 species: Gorgosaurus
 translation: Dreadful Lizard
-clade: Albertosaurinae
+clade: albertosaurinae
 period: Late Cretaceous (77–76 Ma)
 size: 8.5 meters
 weight: 2,400 kilograms

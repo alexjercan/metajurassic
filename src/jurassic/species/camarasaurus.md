@@ -1,7 +1,7 @@
 ---
 species: Camarasaurus
 translation: Chambered Lizard
-clade: Macronaria
+clade: macronaria
 period: Late Jurassic (155–145 Ma)
 size: 23 meters
 weight: 20,000 kilograms

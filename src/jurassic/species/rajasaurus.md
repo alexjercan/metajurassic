@@ -1,7 +1,7 @@
 ---
 species: Rajasaurus
 translation: Princely Lizard
-clade: Majungasaurinae
+clade: majungasaurinae
 period: Late Cretaceous (67 Ma)
 size: 9 meters
 weight: 3,000 kilograms

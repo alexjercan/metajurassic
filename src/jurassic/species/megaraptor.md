@@ -1,7 +1,7 @@
 ---
 species: Megaraptor
 translation: Giant Thief
-clade: Megaraptoridae
+clade: megaraptoridae
 period: Late Cretaceous (91–86 Ma)
 size: 8 meters
 weight: 1,000 kilograms

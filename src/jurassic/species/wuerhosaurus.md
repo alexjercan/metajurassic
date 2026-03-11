@@ -1,7 +1,7 @@
 ---
 species: Wuerhosaurus
 translation: Wuerho Lizard
-clade: Stegosaurinae
+clade: stegosaurinae
 period: Early Cretaceous (113 Ma)
 size: 7 meters
 weight: 4,000 kilograms

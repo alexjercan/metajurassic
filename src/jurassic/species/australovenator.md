@@ -1,7 +1,7 @@
 ---
 species: Australovenator
 translation: Southern Hunter
-clade: Megaraptoridae
+clade: megaraptoridae
 period: Late Cretaceous (95–93 Ma)
 size: 6 meters
 weight: 500 kilograms

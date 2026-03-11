@@ -1,7 +1,7 @@
 ---
 species: Monolophosaurus
 translation: Single-Crested Lizard
-clade: Allosauroidea
+clade: allosauroidea
 period: Middle Jurassic (165 Ma)
 size: 5 meters
 weight: 475 kilograms

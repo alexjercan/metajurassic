@@ -1,7 +1,7 @@
 ---
 species: Struthiomimus
 translation: Ostrich Mimic
-clade: Ornithomimidae
+clade: ornithomimidae
 period: Late Cretaceous (77–76 Ma)
 size: 4.3 meters
 weight: 150 kilograms

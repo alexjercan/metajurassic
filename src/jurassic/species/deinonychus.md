@@ -1,7 +1,7 @@
 ---
 species: Deinonychus
 translation: Terrible Claw
-clade: Velociraptorinae
+clade: velociraptorinae
 period: Early Cretaceous (115–108 Ma)
 size: 3.4 meters
 weight: 73 kilograms

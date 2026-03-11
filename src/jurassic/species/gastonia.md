@@ -1,7 +1,7 @@
 ---
 species: Gastonia
 translation: Gaston's (Lizard)
-clade: Nodosauridae
+clade: nodosauridae
 period: Early Cretaceous (125 Ma)
 size: 5 meters
 weight: 1,900 kilograms

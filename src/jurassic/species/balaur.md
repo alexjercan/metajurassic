@@ -1,7 +1,7 @@
 ---
 species: Balaur
 translation: Dragon (Romanian Myth)
-clade: Paraves
+clade: paraves
 period: Late Cretaceous (70 Ma)
 size: 2 meters
 weight: 20 kilograms

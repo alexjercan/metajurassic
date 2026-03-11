@@ -1,7 +1,7 @@
 ---
 species: Nanotyrannus
 translation: Pygmy Tyrant
-clade: Eutyrannosauria
+clade: eutyrannosauria
 period: Late Cretaceous (68–66 Ma)
 size: 5 meters
 weight: 600 kilograms

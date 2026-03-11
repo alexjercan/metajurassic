@@ -1,7 +1,7 @@
 ---
 species: Herrerasaurus
 translation: Herrera's Lizard
-clade: Herrerasauridae
+clade: herrerasauridae
 period: Late Triassic (231–228 Ma)
 size: 6 meters
 weight: 350 kilograms

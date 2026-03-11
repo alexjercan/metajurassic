@@ -1,7 +1,7 @@
 ---
 species: Cetiosaurus
 translation: Whale Lizard
-clade: Eusauropoda
+clade: eusauropoda
 period: Middle Jurassic (170–166 Ma)
 size: 16 meters
 weight: 25,000 kilograms

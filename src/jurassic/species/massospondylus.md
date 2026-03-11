@@ -1,7 +1,7 @@
 ---
 species: Massospondylus
 translation: Long Vertebra
-clade: Massopoda
+clade: massopoda
 period: Early Jurassic (200–183 Ma)
 size: 4 meters
 weight: 1,000 kilograms

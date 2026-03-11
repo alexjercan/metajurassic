@@ -1,7 +1,7 @@
 ---
 species: Lythronax
 translation: King of Gore
-clade: Tyrannosaurinae
+clade: tyrannosaurinae
 period: Late Cretaceous (80 Ma)
 size: 7.3 meters
 weight: 2,500 kilograms

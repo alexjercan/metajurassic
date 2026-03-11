@@ -1,7 +1,7 @@
 ---
 species: Dilophosaurus
 translation: Two-Crested Lizard
-clade: Theropoda
+clade: theropoda
 period: Early Jurassic (193–188 Ma)
 size: 7 meters
 weight: 400 kilograms

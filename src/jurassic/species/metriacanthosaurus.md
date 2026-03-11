@@ -1,7 +1,7 @@
 ---
 species: Metriacanthosaurus
 translation: Moderately-Spined Lizard
-clade: Metriacanthosauridae
+clade: metriacanthosauridae
 period: Late Jurassic (160 Ma)
 size: 8 meters
 weight: 1,000 kilograms

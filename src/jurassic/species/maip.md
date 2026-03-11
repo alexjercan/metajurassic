@@ -1,7 +1,7 @@
 ---
 species: Maip
 translation: Shadow of Death
-clade: Megaraptoridae
+clade: megaraptoridae
 period: Late Cretaceous (70 Ma)
 size: 9.5 meters
 weight: 5,000 kilograms
