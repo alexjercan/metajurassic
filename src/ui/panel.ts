@@ -7,9 +7,11 @@ const arenaWrapper = document.getElementById("arena-wrapper");
 const panel = document.getElementById("info-panel");
 const panelPull = document.getElementById("open-panel");
 const cardTitle = document.getElementById("card-title");
+const cardTranslation = document.getElementById("card-translation");
 const cardEra = document.getElementById("card-era");
 const cardSize = document.getElementById("card-size");
 const cardSizeLabel = document.getElementById("card-size-label");
+const cardWeight = document.getElementById("card-weight");
 const cardFact = document.getElementById("card-fact");
 const cardClade = document.getElementById("card-clade");
 const cardImage = document.getElementById("card-image-area");
@@ -78,10 +80,15 @@ export function renderSpeciesCard(
         cladeCard.style.display = "none";
     }
     if (cardTitle) cardTitle.textContent = species.species || "Unknown";
+    if (cardTranslation)
+        cardTranslation.textContent = species.translation
+            ? `"${species.translation}"`
+            : "";
     if (cardEra) cardEra.textContent = species.period || "";
     if (cardSizeLabel)
         cardSizeLabel.textContent = species.size ? "Size" : "Info";
     if (cardSize) cardSize.textContent = species.size || "";
+    if (cardWeight) cardWeight.textContent = species.weight || "";
     if (cardFact) cardFact.textContent = species.description || "";
     if (cardClade) cardClade.textContent = clade ? clade.name : "";
     if (cardImage) cardImage.textContent = "[ Hologram Render ]";

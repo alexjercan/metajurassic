@@ -31,6 +31,7 @@ const species: Species[] = [
     {
         id: "species1",
         species: "Species1",
+        translation: "",
         clade: "cladeb",
         period: "",
         size: "",
@@ -40,6 +41,7 @@ const species: Species[] = [
     {
         id: "species2",
         species: "Species2",
+        translation: "",
         clade: "claded",
         period: "",
         size: "",
@@ -49,6 +51,7 @@ const species: Species[] = [
     {
         id: "species3",
         species: "Species3",
+        translation: "",
         clade: "cladee",
         period: "",
         size: "",
@@ -58,6 +61,7 @@ const species: Species[] = [
     {
         id: "species4",
         species: "Species4",
+        translation: "",
         clade: "cladee",
         period: "",
         size: "",

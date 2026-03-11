@@ -1,6 +1,7 @@
 export interface Species {
     id: string;
     species: string;
+    translation: string;
     clade: string;
     period: string;
     size: string;

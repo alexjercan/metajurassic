@@ -81,7 +81,8 @@ export async function loadGameData(): Promise<GameData> {
         (attrs, body, id) => ({
             id,
             species: attrs.species || "",
-            clade: attrs.clade.toLowerCase() || "",
+            translation: attrs.translation || "",
+            clade: attrs.clade || "",
             period: attrs.period || "",
             size: attrs.size || "",
             weight: attrs.weight || "",

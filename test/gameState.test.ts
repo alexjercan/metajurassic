@@ -8,6 +8,7 @@ const makeGameData = () => {
         {
             id: "trex",
             species: "Tyrannosaurus rex",
+            translation: "Tyrant Lizard King",
             clade: "tyrannosauroidea",
             period: "Cretaceous",
             size: "12 m",
@@ -17,6 +18,7 @@ const makeGameData = () => {
         {
             id: "allosaurus",
             species: "Allosaurus",
+            translation: "Different Lizard",
             clade: "theropoda",
             period: "Jurassic",
             size: "8.5 m",
