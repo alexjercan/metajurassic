@@ -61,7 +61,9 @@ export function setupAutocomplete(options: AutocompleteOptions) {
             autocompleteBox.appendChild(item);
         });
 
+        activeIndex = 0;
         autocompleteBox.style.display = "block";
+        updateHighlight();
     };
 
     inputEl.addEventListener("input", () => {
