@@ -1,12 +1,6 @@
 ---
 clade: Coelurosauria
-parent: Theropoda
+parent: avetheropoda
 ---
 
-Coelurosauria includes theropods more closely related to birds than to
-Allosaurus.
-
-This group contains a wide range of species, from small feathered dinosaurs to
-massive tyrannosaurs.
-
-Many members of this clade show clear evidence of feathers.
+The most diverse group of theropods; fossil evidence suggests that nearly all members of this group possessed some form of feathers or "fuzz."

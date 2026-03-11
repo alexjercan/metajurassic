@@ -1,0 +1,10 @@
+---
+species: Muttaburrasaurus
+translation: Muttaburra Lizard
+clade: Rhabdodontomorpha
+period: Early Cretaceous (107–103 Ma)
+size: 8 meters
+weight: 2,800 kilograms
+---
+
+Featured a large, hollow bulge on its snout that may have been used to amplify its voice or inflate for visual displays.

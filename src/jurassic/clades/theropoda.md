@@ -1,12 +1,6 @@
 ---
 clade: Theropoda
-parent: Saurischia
+parent: eusaurischia
 ---
 
-Theropods were primarily bipedal carnivorous dinosaurs.
-
-They ranged from small, fast hunters to massive apex predators. Theropods are
-characterized by hollow bones, three-toed limbs, and sharp claws.
-
-Birds evolved from within Theropoda, making them living theropods today.
-
+Defined by hollow, air-filled bones and three-toed feet. This is the only lineage of dinosaurs that survives today as modern birds.

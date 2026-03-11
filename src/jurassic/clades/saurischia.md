@@ -1,14 +1,6 @@
 ---
 clade: Saurischia
-parent: Dinosauria
+parent: dinosauria
 ---
 
-Saurischia means "lizard-hipped." It is one of the two primary divisions of
-dinosaurs.
-
-This group includes both the long-necked sauropods and the carnivorous
-theropods. Despite the name, modern birds evolved from this group.
-
-The hip structure differs from Ornithischia ("bird-hipped" dinosaurs), even
-though birds are not descended from them.
-
+Characterized by a three-pronged pelvic structure, this lineage produced the largest land animals and the most fearsome land predators in history. Although they are the "lizard-hipped" dinosaurs, the advanced raptor clades and modern birds independently re-evolved "bird hips," making the name a huge historical irony.

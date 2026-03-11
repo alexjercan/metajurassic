@@ -1,0 +1,10 @@
+---
+species: Qianzhousaurus
+translation: Qianzhou Lizard
+clade: Alioramini
+period: Late Cretaceous (67–66 Ma)
+size: 9 meters
+weight: 750 kilograms
+---
+
+Nicknamed "Pinocchio rex" due to its elongated snout, it was a specialized, graceful predator from the Late Cretaceous of China.
