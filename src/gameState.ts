@@ -1,4 +1,4 @@
-import { MAX_GUESSES } from "./constants";
+import { MAX_GUESSES, HINT_COST } from "./constants";
 import { GameData } from "./gameData";
 import { StorageProvider, defaultStorage } from "./storage";
 import { GuessResult } from "./types";
@@ -28,7 +28,8 @@ export function loadGameState(
                 gameData,
                 parsed.targetId,
                 new Set(parsed.guesses),
-                parsed.lastGuessId
+                parsed.lastGuessId,
+                new Set(parsed.hintClades ?? [])
             );
         } catch (error) {
             console.warn(
@@ -51,6 +52,7 @@ export function saveGameState(
         targetId: state.targetId,
         guesses: Array.from(state.guesses),
         lastGuessId: state.lastGuessId,
+        hintClades: Array.from(state.hintClades),
     };
 
     storage.setItem(key, JSON.stringify(gameState));
@@ -61,12 +63,14 @@ export class GameState {
         public readonly gameData: GameData,
         public readonly targetId: string,
         public guesses: Set<string> = new Set(),
-        public lastGuessId?: string
+        public lastGuessId?: string,
+        public hintClades: Set<string> = new Set()
     ) {}
 
     isGameOver(): boolean {
         return (
-            this.guesses.has(this.targetId) || this.guesses.size >= MAX_GUESSES
+            this.guesses.has(this.targetId) ||
+            this.numberOfGuesses() >= MAX_GUESSES
         );
     }
 
@@ -79,7 +83,25 @@ export class GameState {
     }
 
     numberOfGuesses(): number {
-        return this.guesses.size;
+        return this.guesses.size + this.hintClades.size * HINT_COST;
+    }
+
+    guessesLeft(): number {
+        return Math.max(0, MAX_GUESSES - this.numberOfGuesses());
+    }
+
+    canAffordHint(): boolean {
+        return this.guessesLeft() >= HINT_COST;
+    }
+
+    useHint(cladeId: string): void {
+        if (!this.canAffordHint()) {
+            throw new Error("Not enough guesses left to use a hint");
+        }
+        if (this.hintClades.has(cladeId)) {
+            throw new Error("This clade has already been revealed by a hint");
+        }
+        this.hintClades.add(cladeId);
     }
 
     makeGuess(species: string): GuessResult {

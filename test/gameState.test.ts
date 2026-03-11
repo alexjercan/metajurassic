@@ -1,6 +1,7 @@
 import { GameData } from "../src/gameData";
 import { GameState } from "../src/gameState";
 import { Clade, Species } from "../src/types";
+import { HINT_COST } from "../src/constants";
 
 const makeGameData = () => {
     const species: Species[] = [
@@ -82,5 +83,97 @@ describe("GameState", () => {
         expect(() => state.makeGuess("Allosaurus")).toThrow(
             /already been guessed/i
         );
+    });
+
+    test("useHint adds clade to hintClades and costs guesses", () => {
+        const data = makeGameData();
+        const state = new GameState(data, "trex", new Set());
+
+        expect(state.numberOfGuesses()).toBe(0);
+        state.useHint("theropoda");
+        expect(state.hintClades.has("theropoda")).toBe(true);
+        expect(state.numberOfGuesses()).toBe(HINT_COST);
+        expect(state.guessesLeft()).toBe(25 - HINT_COST);
+    });
+
+    test("useHint prevents duplicate hints", () => {
+        const data = makeGameData();
+        const state = new GameState(data, "trex", new Set());
+
+        state.useHint("theropoda");
+        expect(() => state.useHint("theropoda")).toThrow(
+            /already been revealed/i
+        );
+    });
+
+    test("canAffordHint returns false when not enough guesses left", () => {
+        const data = makeGameData();
+        // Fill up most of the guesses budget with hints
+        // MAX_GUESSES = 25, each hint costs 3
+        // 8 hints = 24 guesses used, leaving 1 (< HINT_COST)
+        const state = new GameState(
+            data,
+            "trex",
+            new Set(),
+            undefined,
+            new Set([
+                "hint1",
+                "hint2",
+                "hint3",
+                "hint4",
+                "hint5",
+                "hint6",
+                "hint7",
+                "hint8",
+            ])
+        );
+        expect(state.canAffordHint()).toBe(false);
+    });
+
+    test("useHint throws when cannot afford", () => {
+        const data = makeGameData();
+        const state = new GameState(
+            data,
+            "trex",
+            new Set(),
+            undefined,
+            new Set([
+                "hint1",
+                "hint2",
+                "hint3",
+                "hint4",
+                "hint5",
+                "hint6",
+                "hint7",
+                "hint8",
+            ])
+        );
+        expect(() => state.useHint("newclade")).toThrow(/not enough guesses/i);
+    });
+
+    test("hints count toward game over", () => {
+        const data = makeGameData();
+        // 8 hints = 24, + 1 guess = 25 => game over
+        const state = new GameState(
+            data,
+            "trex",
+            new Set(),
+            undefined,
+            new Set([
+                "hint1",
+                "hint2",
+                "hint3",
+                "hint4",
+                "hint5",
+                "hint6",
+                "hint7",
+                "hint8",
+            ])
+        );
+        expect(state.isGameOver()).toBe(false);
+
+        state.makeGuess("Allosaurus");
+        expect(state.isGameOver()).toBe(true);
+        expect(state.isLoss()).toBe(true);
     });
 });

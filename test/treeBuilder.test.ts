@@ -3,6 +3,7 @@ import { GameState } from "../src/gameState";
 import { Clade, Species } from "../src/types";
 import {
     buildGuessTree,
+    findNextHintCladeId,
     isCladeNode,
     isSpeciesNode,
 } from "../src/treeBuilder";
@@ -101,8 +102,18 @@ function makeGameData(): GameData {
     return new GameData(species, clades);
 }
 
-function makeState(targetId: string, guessIds: string[] = []): GameState {
-    return new GameState(makeGameData(), targetId, new Set(guessIds));
+function makeState(
+    targetId: string,
+    guessIds: string[] = [],
+    hintCladeIds: string[] = []
+): GameState {
+    return new GameState(
+        makeGameData(),
+        targetId,
+        new Set(guessIds),
+        undefined,
+        new Set(hintCladeIds)
+    );
 }
 
 describe("buildGuessTree", () => {
@@ -527,6 +538,174 @@ describe("buildGuessTree", () => {
 
         if (isCladeNode(cladeE!)) {
             expect(cladeE!.children).toHaveLength(2);
+        }
+    });
+});
+
+// ================================================================
+// HINT FUNCTIONALITY
+// ================================================================
+
+describe("findNextHintCladeId", () => {
+    test("no guesses: returns the clade one step below root in target lineage", () => {
+        // Species1 lineage: CladeB -> CladeA
+        // Root = CladeA (revealed). Next hint = CladeB.
+        const state = makeState("species1");
+        const nextHint = findNextHintCladeId(state);
+        expect(nextHint).toBe("cladeb");
+    });
+
+    test("target with deeper lineage: returns clade just below root", () => {
+        // Species2 lineage: CladeD -> CladeB -> CladeA
+        // Root = CladeA (revealed). Next hint = CladeB (one step down from root).
+        const state = makeState("species2");
+        const nextHint = findNextHintCladeId(state);
+        expect(nextHint).toBe("cladeb");
+    });
+
+    test("after a guess that reveals an intermediate clade, skips it", () => {
+        // Species2 lineage: CladeD -> CladeB -> CladeA
+        // Guess Species1 => LCA(Species2, Species1) = CladeB (revealed)
+        // Now revealed: CladeA, CladeB. Next hint = CladeD.
+        const state = makeState("species2", ["species1"]);
+        const nextHint = findNextHintCladeId(state);
+        expect(nextHint).toBe("claded");
+    });
+
+    test("returns null when all clades in target lineage are revealed", () => {
+        // Species1 lineage: CladeB -> CladeA
+        // If CladeB is revealed (by a guess), all clades are revealed.
+        const state = makeState("species1", ["species2"]);
+        // LCA(Species1, Species2) = CladeB => both CladeA and CladeB revealed
+        const nextHint = findNextHintCladeId(state);
+        expect(nextHint).toBeNull();
+    });
+
+    test("after one hint, returns the next clade down", () => {
+        // Species2 lineage: CladeD -> CladeB -> CladeA
+        // Hint reveals CladeB. Next should be CladeD.
+        const state = makeState("species2", [], ["cladeb"]);
+        const nextHint = findNextHintCladeId(state);
+        expect(nextHint).toBe("claded");
+    });
+
+    test("after all hints used, returns null", () => {
+        // Species2 lineage: CladeD -> CladeB -> CladeA
+        // Hints: CladeB, CladeD => all revealed.
+        const state = makeState("species2", [], ["cladeb", "claded"]);
+        const nextHint = findNextHintCladeId(state);
+        expect(nextHint).toBeNull();
+    });
+});
+
+describe("buildGuessTree with hints", () => {
+    test("hint reveals a clade in the tree", () => {
+        // Species2 lineage: CladeD -> CladeB -> CladeA
+        // Hint: CladeB. Expected tree:
+        //     CladeA
+        //       |
+        //     CladeB
+        //       |
+        //       ?
+        const state = makeState("species2", [], ["cladeb"]);
+        const roots = buildGuessTree(state);
+
+        expect(roots).toHaveLength(1);
+        const root = roots[0];
+        expect(root.name).toBe("CladeA");
+        expect(root.children).toHaveLength(1);
+
+        const cladeB = root.children[0];
+        expect(isCladeNode(cladeB)).toBe(true);
+        if (isCladeNode(cladeB)) {
+            expect(cladeB.cladeId).toBe("cladeb");
+            expect(cladeB.children).toHaveLength(1);
+
+            const placeholder = cladeB.children[0];
+            expect(isSpeciesNode(placeholder)).toBe(true);
+            if (isSpeciesNode(placeholder)) {
+                expect(placeholder.isTarget).toBe(true);
+                expect(placeholder.isPlaceholder).toBe(true);
+            }
+        }
+    });
+
+    test("two hints reveal nested clades", () => {
+        // Species2 lineage: CladeD -> CladeB -> CladeA
+        // Hints: CladeB, CladeD. Expected tree:
+        //     CladeA
+        //       |
+        //     CladeB
+        //       |
+        //     CladeD
+        //       |
+        //       ?
+        const state = makeState("species2", [], ["cladeb", "claded"]);
+        const roots = buildGuessTree(state);
+
+        expect(roots).toHaveLength(1);
+        const root = roots[0];
+        expect(root.name).toBe("CladeA");
+        expect(root.children).toHaveLength(1);
+
+        const cladeB = root.children[0];
+        expect(isCladeNode(cladeB)).toBe(true);
+        if (isCladeNode(cladeB)) {
+            expect(cladeB.cladeId).toBe("cladeb");
+            expect(cladeB.children).toHaveLength(1);
+
+            const cladeD = cladeB.children[0];
+            expect(isCladeNode(cladeD)).toBe(true);
+            if (isCladeNode(cladeD)) {
+                expect(cladeD.cladeId).toBe("claded");
+                expect(cladeD.children).toHaveLength(1);
+
+                const placeholder = cladeD.children[0];
+                expect(isSpeciesNode(placeholder)).toBe(true);
+                if (isSpeciesNode(placeholder)) {
+                    expect(placeholder.isTarget).toBe(true);
+                    expect(placeholder.isPlaceholder).toBe(true);
+                }
+            }
+        }
+    });
+
+    test("hint combined with guess", () => {
+        // Species2 lineage: CladeD -> CladeB -> CladeA
+        // Guess Species3 (LCA with Species2 = CladeA)
+        // Hint: CladeB
+        // Expected tree:
+        //       CladeA
+        //       /    \
+        //    CladeB  Species3
+        //      |
+        //      ?
+        const state = makeState("species2", ["species3"], ["cladeb"]);
+        const roots = buildGuessTree(state);
+
+        expect(roots).toHaveLength(1);
+        const root = roots[0];
+        expect(root.name).toBe("CladeA");
+        expect(root.children).toHaveLength(2);
+
+        const cladeB = root.children.find(
+            (c) => isCladeNode(c) && c.cladeId === "cladeb"
+        );
+        const species3 = root.children.find(
+            (c) => isSpeciesNode(c) && c.speciesId === "species3"
+        );
+
+        expect(cladeB).toBeDefined();
+        expect(species3).toBeDefined();
+
+        if (isCladeNode(cladeB!)) {
+            expect(cladeB!.children).toHaveLength(1);
+            const placeholder = cladeB!.children[0];
+            expect(isSpeciesNode(placeholder)).toBe(true);
+            if (isSpeciesNode(placeholder)) {
+                expect(placeholder.isTarget).toBe(true);
+                expect(placeholder.isPlaceholder).toBe(true);
+            }
         }
     });
 });

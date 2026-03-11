@@ -34,6 +34,60 @@ export function isSpeciesNode(node: TreeNode): node is SpeciesNode {
 }
 
 /**
+ * Find the next clade in the target's lineage that can be revealed as a hint.
+ * Walks the lineage from the target's immediate clade up to the root and
+ * returns the deepest clade that is not yet in the revealedClades set.
+ *
+ * The revealedClades set should contain all clades currently visible in the
+ * tree (root, LCA clades, and previously hinted clades).
+ *
+ * Returns null if every clade in the target's lineage is already revealed
+ * (i.e. no further hints can be given).
+ */
+export function findNextHintCladeId(state: GameState): string | null {
+    const { gameData, targetId } = state;
+    const targetSpecies = gameData.findSpeciesById(targetId);
+    if (!targetSpecies) return null;
+
+    const targetLineage = gameData.lineage(targetSpecies.clade);
+    if (targetLineage.length === 0) return null;
+
+    // Build the current set of revealed clades (same logic as buildGuessTree)
+    const rootCladeId = targetLineage[targetLineage.length - 1];
+    const revealedClades = new Set<string>();
+    revealedClades.add(rootCladeId);
+
+    for (const hintCladeId of state.hintClades) {
+        revealedClades.add(hintCladeId);
+    }
+
+    const guessedSpecies = [];
+    for (const guessId of state.guesses) {
+        const sp = gameData.findSpeciesById(guessId);
+        if (sp) guessedSpecies.push(sp);
+    }
+
+    for (const guess of guessedSpecies) {
+        if (guess.id === targetId) continue;
+        const lca = gameData.computeLCA(targetId, guess.id);
+        if (lca) revealedClades.add(lca);
+    }
+
+    // Walk the target lineage from most specific to root.
+    // Find the first (deepest) clade that is NOT revealed yet.
+    // The lineage is ordered [immediate_clade, parent, ..., root].
+    // We want the deepest unrevealed clade, which is the last unrevealed
+    // one before the first revealed one when walking from specific to root.
+    for (let i = targetLineage.length - 1; i >= 0; i--) {
+        if (!revealedClades.has(targetLineage[i])) {
+            return targetLineage[i];
+        }
+    }
+
+    return null;
+}
+
+/**
  * Walk the tree to find the clade node that is the direct parent of the "?"
  * placeholder. This is the deepest revealed clade in the target's lineage —
  * i.e. the best hint the player has uncovered so far.
@@ -95,8 +149,14 @@ export function buildGuessTree(
     //   - It is the LCA between the target and a guess, OR
     //   - It is on the path between the root and an LCA clade, OR
     //   - It is the lowest common ancestor among guessed species that share a clade
+    //   - It was revealed by a hint
     const revealedClades = new Set<string>();
     revealedClades.add(rootCladeId);
+
+    // Add hint-revealed clades
+    for (const hintCladeId of state.hintClades) {
+        revealedClades.add(hintCladeId);
+    }
 
     if (guessedSpecies.length === 0) {
         // No guesses: just root with a placeholder

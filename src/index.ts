@@ -1,5 +1,4 @@
 import "./style.css";
-import { MAX_GUESSES } from "./constants";
 import { loadGameState, saveGameState } from "./gameState";
 import { loadGameData } from "./markdownLoader";
 import { setupAutocomplete } from "./ui";
@@ -10,7 +9,7 @@ import {
     renderSpeciesCard,
 } from "./ui/panel";
 import { renderTree } from "./ui/treeVisualizer";
-import { buildGuessTree } from "./treeBuilder";
+import { buildGuessTree, findNextHintCladeId } from "./treeBuilder";
 import { showWinModal, showLossModal } from "./ui/modal";
 
 const playerInput = document.getElementById("player-input") as HTMLInputElement;
@@ -19,6 +18,7 @@ const autocompleteBox = document.getElementById(
 ) as HTMLDivElement;
 const statBox = document.getElementById("stat-box") as HTMLDivElement;
 const openPanelBtn = document.getElementById("open-panel") as HTMLButtonElement;
+const hintBox = document.getElementById("hint-box") as HTMLDivElement;
 
 const data = await loadGameData();
 const speciesNames = data.species.map((s) => s.species);
@@ -85,6 +85,37 @@ if (openPanelBtn) {
     });
 }
 
+if (hintBox) {
+    hintBox.addEventListener("click", () => {
+        if (state.isGameOver()) return;
+
+        const nextCladeId = findNextHintCladeId(state);
+        if (!nextCladeId || !state.canAffordHint()) return;
+
+        state.useHint(nextCladeId);
+        saveGameState(state);
+        updateUI();
+
+        if (state.isGameOver()) {
+            showGameOverModal();
+        }
+    });
+}
+
+function updateHintButton() {
+    if (!hintBox) return;
+
+    const nextCladeId = findNextHintCladeId(state);
+    const canHint =
+        !state.isGameOver() && nextCladeId !== null && state.canAffordHint();
+
+    if (canHint) {
+        hintBox.classList.remove("disabled");
+    } else {
+        hintBox.classList.add("disabled");
+    }
+}
+
 function updateUI() {
     playerInput.value = "";
 
@@ -93,9 +124,10 @@ function updateUI() {
     }
 
     if (statBox) {
-        const guessesLeft = Math.max(0, MAX_GUESSES - state.numberOfGuesses());
-        statBox.textContent = `Guesses Left: ${guessesLeft}`;
+        statBox.textContent = `Guesses Left: ${state.guessesLeft()}`;
     }
+
+    updateHintButton();
     const roots = buildGuessTree(state, state.isGameOver());
     renderLastGuess(state, data, roots);
     const treeContainer = document.getElementById("tree-container");
