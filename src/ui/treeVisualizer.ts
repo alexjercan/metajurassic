@@ -35,7 +35,11 @@ function renderNode(node: TreeNode, onSelect?: NodeSelectHandler): HTMLElement {
         box.textContent = node.name;
     }
 
-    box.addEventListener("click", () => onSelect?.(node));
+    const isPlaceholder =
+        node.type === "species" && node.isTarget && node.isPlaceholder;
+    if (!isPlaceholder) {
+        box.addEventListener("click", () => onSelect?.(node));
+    }
 
     li.appendChild(box);
 

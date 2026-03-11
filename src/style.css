@@ -259,6 +259,8 @@ main {
     background: rgba(255, 74, 74, 0.1);
     font-size: 1.05rem;
     animation: pulseMystery 2s infinite alternate;
+    cursor: default;
+    pointer-events: none;
 }
 
 .node-winner {
@@ -410,6 +412,8 @@ main {
     background: rgba(255, 74, 74, 0.1);
     font-size: 1.05rem;
     animation: pulseMystery 2s infinite alternate;
+    cursor: default;
+    pointer-events: none;
 }
 
 .node-winner {
