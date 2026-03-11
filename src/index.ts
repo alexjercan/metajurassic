@@ -35,6 +35,12 @@ function showGameOverModal() {
     }
 }
 
+function disableInput() {
+    playerInput.disabled = true;
+    playerInput.placeholder = "";
+    autocompleteBox.style.display = "none";
+}
+
 function submitGuess(guess: string) {
     if (state.isGameOver()) {
         showGameOverModal();
@@ -52,9 +58,6 @@ function submitGuess(guess: string) {
     } finally {
         updateUI();
 
-        if (state.isGameOver()) {
-            showGameOverModal();
-        }
         if (state.isGameOver()) {
             showGameOverModal();
         }
@@ -84,6 +87,10 @@ if (openPanelBtn) {
 }
 
 function updateUI() {
+    if (state.isGameOver()) {
+        disableInput();
+    }
+
     playerInput.value = "";
     if (statBox) {
         const guessesLeft = Math.max(0, MAX_GUESSES - state.numberOfGuesses());
