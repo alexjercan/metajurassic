@@ -27,8 +27,9 @@ function renderNode(node: TreeNode, onSelect?: NodeSelectHandler): HTMLElement {
         box.classList.add("node-species");
         if (node.isTarget && node.isPlaceholder)
             box.classList.add("node-mystery");
-        if (node.isTarget && !node.isPlaceholder)
+        if (node.isTarget && !node.isPlaceholder && !node.isRevealed)
             box.classList.add("node-winner");
+        if (node.isRevealed) box.classList.add("node-revealed");
         box.textContent = node.name;
     }
 
@@ -51,11 +52,7 @@ function renderNode(node: TreeNode, onSelect?: NodeSelectHandler): HTMLElement {
     return li;
 }
 
-export function renderTree({
-    container,
-    roots,
-    onSelect,
-}: RenderOptions) {
+export function renderTree({ container, roots, onSelect }: RenderOptions) {
     container.innerHTML = "";
     const ul = el("ul");
     roots.forEach((root) => ul.appendChild(renderNode(root, onSelect)));

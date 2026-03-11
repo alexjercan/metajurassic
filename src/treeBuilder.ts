@@ -21,6 +21,7 @@ export type SpeciesNode = NodeBase & {
     speciesId: string;
     isTarget: boolean;
     isPlaceholder: boolean;
+    isRevealed: boolean;
     children: [];
 };
 
@@ -68,7 +69,10 @@ export function findBestHintCladeId(roots: CladeNode[]): string | null {
     return null;
 }
 
-export function buildGuessTree(state: GameState): CladeNode[] {
+export function buildGuessTree(
+    state: GameState,
+    revealTarget = false
+): CladeNode[] {
     const { gameData, targetId, guesses } = state;
     const targetSpecies = gameData.findSpeciesById(targetId);
     if (!targetSpecies) return [];
@@ -102,7 +106,8 @@ export function buildGuessTree(state: GameState): CladeNode[] {
                 rootCladeId,
                 targetSpecies,
                 [],
-                revealedClades
+                revealedClades,
+                revealTarget
             ),
         ];
     }
@@ -141,7 +146,8 @@ export function buildGuessTree(state: GameState): CladeNode[] {
             rootCladeId,
             targetSpecies,
             guessedSpecies,
-            revealedClades
+            revealedClades,
+            revealTarget
         ),
     ];
 }
@@ -157,6 +163,7 @@ function buildCladeSubtree(
     targetSpecies: Species,
     guessedSpecies: Species[],
     revealedClades: Set<string>,
+    revealTarget: boolean,
     parentId?: string
 ): CladeNode {
     const clade = gameData.findCladeById(cladeId)!;
@@ -218,6 +225,7 @@ function buildCladeSubtree(
                 targetSpecies,
                 guessedSpecies,
                 revealedClades,
+                revealTarget,
                 nodeId
             )
         );
@@ -233,6 +241,7 @@ function buildCladeSubtree(
             speciesId: sp.id,
             isTarget,
             isPlaceholder: false,
+            isRevealed: false,
             parentId: nodeId,
             children: [],
         });
@@ -244,14 +253,15 @@ function buildCladeSubtree(
             (s) => s.id === targetSpecies.id
         );
         if (!targetAlreadyAdded) {
-            // Target is not in guessed species, show as placeholder
+            // Target is not in guessed species, show as placeholder or revealed
             cladeNode.children.push({
                 id: `species-${targetSpecies.id}`,
-                name: "?",
+                name: revealTarget ? targetSpecies.species : "?",
                 type: "species",
                 speciesId: targetSpecies.id,
                 isTarget: true,
-                isPlaceholder: true,
+                isPlaceholder: !revealTarget,
+                isRevealed: revealTarget,
                 parentId: nodeId,
                 children: [],
             });
