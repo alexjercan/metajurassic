@@ -13,11 +13,10 @@ import { renderTree } from "./ui/treeVisualizer";
 import { buildGuessTree } from "./treeBuilder";
 import { showWinModal, showLossModal } from "./ui/modal";
 
-const inputEl = document.getElementById("player-input") as HTMLInputElement;
+const playerInput = document.getElementById("player-input") as HTMLInputElement;
 const autocompleteBox = document.getElementById(
     "autocomplete-box"
 ) as HTMLDivElement;
-const playerInput = document.getElementById("player-input") as HTMLInputElement;
 const statBox = document.getElementById("stat-box") as HTMLDivElement;
 const openPanelBtn = document.getElementById("open-panel") as HTMLButtonElement;
 
@@ -65,7 +64,7 @@ function submitGuess(guess: string) {
 }
 
 setupAutocomplete({
-    inputEl,
+    inputEl: playerInput,
     autocompleteBox,
     speciesNames,
     isGuessed: (name) => {
@@ -87,11 +86,12 @@ if (openPanelBtn) {
 }
 
 function updateUI() {
+    playerInput.value = "";
+
     if (state.isGameOver()) {
         disableInput();
     }
 
-    playerInput.value = "";
     if (statBox) {
         const guessesLeft = Math.max(0, MAX_GUESSES - state.numberOfGuesses());
         statBox.textContent = `Guesses Left: ${guessesLeft}`;
@@ -125,6 +125,7 @@ function updateUI() {
 
 playerInput.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
+        if (playerInput.disabled) return;
         const guess = playerInput.value.trim();
         if (!guess) return;
         submitGuess(guess);

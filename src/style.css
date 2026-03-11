@@ -645,6 +645,13 @@ main {
     box-shadow: 0 0 20px rgba(230, 168, 97, 0.4);
 }
 
+.player-input:disabled {
+    opacity: 0.4;
+    border-color: rgba(230, 168, 97, 0.3);
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
 footer {
     flex-shrink: 0;
     display: flex;
