@@ -72,6 +72,7 @@ function updateUI() {
                         : null;
                     renderCladeCard(clade, parent || undefined);
                 }
+                openPanel();
             },
         });
     }
