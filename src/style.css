@@ -621,6 +621,12 @@ main {
     padding-left: 30px;
 }
 
+.autocomplete-active {
+    background: rgba(230, 168, 97, 0.2);
+    color: var(--amber-glow);
+    padding-left: 30px;
+}
+
 .player-input {
     width: 100%;
     box-sizing: border-box;

@@ -24,6 +24,26 @@ const data = await loadGameData();
 const speciesNames = data.species.map((s) => s.species);
 const state = loadGameState(data);
 
+function submitGuess(guess: string) {
+    if (state.isGameOver()) {
+        alert("Game over! Please refresh to start a new game.");
+        updateUI();
+        return;
+    }
+
+    if (!guess.trim()) return;
+
+    try {
+        let result = state.makeGuess(guess);
+        saveGameState(state);
+        console.log("Result:", result);
+    } catch (error) {
+        alert(error instanceof Error ? error.message : "Invalid guess");
+    } finally {
+        updateUI();
+    }
+}
+
 setupAutocomplete({
     inputEl,
     autocompleteBox,
@@ -33,6 +53,7 @@ setupAutocomplete({
         if (!species) return false;
         return state.guesses.has(species.id);
     },
+    onSelect: (name) => submitGuess(name),
 });
 
 if (openPanelBtn) {
@@ -80,24 +101,9 @@ function updateUI() {
 
 playerInput.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
-        if (state.isGameOver()) {
-            alert("Game over! Please refresh to start a new game.");
-            updateUI();
-            return;
-        }
-
         const guess = playerInput.value.trim();
         if (!guess) return;
-
-        try {
-            let result = state.makeGuess(guess);
-            saveGameState(state);
-            console.log("Result:", result);
-        } catch (error) {
-            alert(error instanceof Error ? error.message : "Invalid guess");
-        } finally {
-            updateUI();
-        }
+        submitGuess(guess);
     }
 });
 
