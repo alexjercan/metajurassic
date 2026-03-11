@@ -7,6 +7,7 @@ const modalIcon = document.getElementById("modal-icon");
 const modalTitle = document.getElementById("modal-title");
 const modalMessage = document.getElementById("modal-message");
 const modalStats = document.getElementById("modal-stats");
+const modalCloseBtn = document.getElementById("modal-close-btn");
 
 function showModal() {
     overlay?.classList.add("active");
@@ -15,6 +16,14 @@ function showModal() {
 function hideModal() {
     overlay?.classList.remove("active");
 }
+
+// Close when clicking the backdrop (but not the modal itself)
+overlay?.addEventListener("click", (e) => {
+    if (e.target === overlay) hideModal();
+});
+
+// Close via the OK button
+modalCloseBtn?.addEventListener("click", () => hideModal());
 
 export function showWinModal(speciesName: string, guessCount: number) {
     if (modalIcon) modalIcon.textContent = "🏆";

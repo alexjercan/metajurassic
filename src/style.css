@@ -770,6 +770,25 @@ footer a + a::before {
     letter-spacing: 0.5px;
 }
 
+.modal-close-btn {
+    display: block;
+    margin: 24px auto 0;
+    padding: 10px 40px;
+    background: transparent;
+    border: 1px solid var(--glass-border);
+    border-radius: 30px;
+    color: #ccc;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.modal-close-btn:hover {
+    background: var(--amber-dim);
+    color: var(--amber-glow);
+    border-color: var(--amber-glow);
+}
+
 @keyframes modalIn {
     0% {
         transform: scale(0.8) translateY(20px);
