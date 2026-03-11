@@ -3,16 +3,25 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 
 const config = {
-    entry: "./src/index.ts",
+    entry: {
+        index: "./src/index.ts",
+        faq: "./src/faq.ts",
+    },
     output: {
         path: path.resolve(__dirname, "dist"),
-        filename: "index.js",
+        filename: "[name].js",
         assetModuleFilename: "assets/[name][ext]",
         clean: true,
     },
     plugins: [
         new HtmlWebpackPlugin({
             template: "src/index.html",
+            chunks: ["index"],
+        }),
+        new HtmlWebpackPlugin({
+            template: "src/faq.html",
+            filename: "faq/index.html",
+            chunks: ["faq"],
         }),
         new CopyPlugin({
             patterns: [{ from: "src/jurassic", to: "jurassic" }],
@@ -45,6 +54,9 @@ const config = {
     devServer: {
         static: path.join(__dirname, "dist"),
         port: 8080,
+        historyApiFallback: {
+            rewrites: [{ from: /^\/faq/, to: "/faq/index.html" }],
+        },
     },
     experiments: {
         asyncWebAssembly: true,

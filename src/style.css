@@ -20,10 +20,9 @@ body {
     background-color: var(--bg-dark);
     color: var(--text-main);
     font-family: "Segoe UI", Tahoma, sans-serif;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
 }
 
 main {
@@ -46,6 +45,7 @@ main {
     align-items: center;
     position: relative;
     width: 100%;
+    overflow: hidden;
 }
 
 .top-bar {
@@ -643,4 +643,100 @@ main {
 
 .player-input:focus {
     box-shadow: 0 0 20px rgba(230, 168, 97, 0.4);
+}
+
+footer {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    padding: 14px 20px;
+    background: #080a0d;
+    border-top: 1px solid #222;
+    z-index: 20;
+}
+
+footer a {
+    color: #8a93a5;
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    transition: color 0.2s;
+}
+
+footer a:hover {
+    color: var(--amber-glow);
+}
+
+footer a + a {
+    position: relative;
+    padding-left: 24px;
+}
+
+footer a + a::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 14px;
+    background: #333;
+}
+
+/* FAQ page */
+
+.faq-container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 60px 24px 40px;
+}
+
+.faq-title {
+    font-size: 2rem;
+    color: var(--amber-glow);
+    margin: 0 0 40px 0;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+.faq-item {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+}
+
+.faq-question {
+    font-size: 1.1rem;
+    color: var(--amber-glow);
+    margin: 0 0 8px 0;
+}
+
+.faq-answer {
+    font-size: 0.95rem;
+    color: #bbb;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.faq-back {
+    text-align: center;
+    margin-top: 32px;
+}
+
+.faq-back a {
+    color: var(--amber-glow);
+    text-decoration: none;
+    font-size: 1rem;
+    border: 1px solid var(--glass-border);
+    padding: 10px 28px;
+    border-radius: 30px;
+    transition: 0.2s;
+}
+
+.faq-back a:hover {
+    background: var(--amber-dim);
 }
