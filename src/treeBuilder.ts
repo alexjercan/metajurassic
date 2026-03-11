@@ -32,6 +32,42 @@ export function isSpeciesNode(node: TreeNode): node is SpeciesNode {
     return node.type === "species";
 }
 
+/**
+ * Walk the tree to find the clade node that is the direct parent of the "?"
+ * placeholder. This is the deepest revealed clade in the target's lineage —
+ * i.e. the best hint the player has uncovered so far.
+ * Returns the cladeId, or null if no placeholder exists (e.g. game is won).
+ */
+export function findBestHintCladeId(roots: CladeNode[]): string | null {
+    function walk(node: TreeNode): string | null {
+        if (node.type === "species") return null;
+        // Check if any direct child is the "?" placeholder
+        for (const child of node.children) {
+            if (
+                child.type === "species" &&
+                child.isTarget &&
+                child.isPlaceholder
+            ) {
+                return node.cladeId;
+            }
+        }
+        // Recurse into child clades
+        for (const child of node.children) {
+            if (child.type === "clade") {
+                const result = walk(child);
+                if (result) return result;
+            }
+        }
+        return null;
+    }
+
+    for (const root of roots) {
+        const result = walk(root);
+        if (result) return result;
+    }
+    return null;
+}
+
 export function buildGuessTree(state: GameState): CladeNode[] {
     const { gameData, targetId, guesses } = state;
     const targetSpecies = gameData.findSpeciesById(targetId);

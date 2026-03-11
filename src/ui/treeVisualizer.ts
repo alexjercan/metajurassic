@@ -1,13 +1,10 @@
 import type { CladeNode, TreeNode } from "../treeBuilder";
-import { GameData } from "../gameData";
-import { renderCladeCard, renderSpeciesCard } from "./panel";
 
 type NodeSelectHandler = (node: TreeNode) => void;
 
 type RenderOptions = {
     container: HTMLElement;
     roots: CladeNode[];
-    gameData: GameData;
     onSelect?: NodeSelectHandler;
 };
 
@@ -57,7 +54,6 @@ function renderNode(node: TreeNode, onSelect?: NodeSelectHandler): HTMLElement {
 export function renderTree({
     container,
     roots,
-    gameData,
     onSelect,
 }: RenderOptions) {
     container.innerHTML = "";
@@ -74,27 +70,5 @@ export function renderTree({
                 behavior: "smooth",
             });
         });
-    }
-
-    if (roots.length > 0) {
-        const root = roots[0];
-        const autoSelect =
-            onSelect ??
-            ((node: TreeNode) => {
-                if (node.type === "species") {
-                    const species = gameData.findSpeciesById(node.speciesId);
-                    const clade = species
-                        ? gameData.findCladeById(species.clade)
-                        : null;
-                    if (species) renderSpeciesCard(species, clade || undefined);
-                } else {
-                    const clade = gameData.findCladeById(node.cladeId);
-                    const parent = clade?.parent
-                        ? gameData.findCladeById(clade.parent)
-                        : null;
-                    if (clade) renderCladeCard(clade, parent);
-                }
-            });
-        autoSelect(root);
     }
 }

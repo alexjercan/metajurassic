@@ -38,7 +38,8 @@ setupAutocomplete({
 if (openPanelBtn) {
     openPanelBtn.addEventListener("click", () => {
         if (state.lastGuessId) {
-            renderLastGuess(state, data);
+            const roots = buildGuessTree(state);
+            renderLastGuess(state, data, roots);
         }
         openPanel();
     });
@@ -50,14 +51,13 @@ function updateUI() {
         const guessesLeft = Math.max(0, MAX_GUESSES - state.numberOfGuesses());
         statBox.textContent = `Guesses Left: ${guessesLeft}`;
     }
-    renderLastGuess(state, data);
     const roots = buildGuessTree(state);
+    renderLastGuess(state, data, roots);
     const treeContainer = document.getElementById("tree-container");
     if (treeContainer) {
         renderTree({
             container: treeContainer,
             roots,
-            gameData: data,
             onSelect: (node) => {
                 if (node.type === "species") {
                     const species = data.findSpeciesById(node.speciesId);
