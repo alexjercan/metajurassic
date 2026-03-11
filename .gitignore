@@ -153,3 +153,4 @@ vite.config.ts.timestamp-*
 
 # Extra stuff
 tmp
+*metajurassic.json
