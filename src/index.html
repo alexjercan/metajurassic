@@ -34,15 +34,17 @@
                     <div class="info-panel" id="info-panel">
                         <div class="close-panel" onclick="closePanel()">✖</div>
                         <div class="museum-card" id="species-card">
-                            <div class="card-image-area" id="card-image-area">
-                                [ Hologram Render ]
-                            </div>
-                            <div class="card-content">
+                            <div class="card-header">
                                 <h2 class="card-title" id="card-title">Name</h2>
                                 <div
                                     class="card-subtitle"
                                     id="card-translation"
                                 ></div>
+                            </div>
+                            <div class="card-image-area" id="card-image-area">
+                                [ Hologram Render ]
+                            </div>
+                            <div class="card-content">
                                 <div class="card-stats">
                                     <strong>Clade:</strong>
                                     <span id="card-clade">...</span
@@ -68,13 +70,15 @@
                             id="clade-card"
                             style="display: none"
                         >
+                            <div class="card-header">
+                                <h2 class="card-title" id="clade-title">
+                                    Clade
+                                </h2>
+                            </div>
                             <div class="card-image-area" id="clade-image-area">
                                 [ Hologram Render ]
                             </div>
                             <div class="card-content">
-                                <h2 class="card-title" id="clade-title">
-                                    Clade
-                                </h2>
                                 <div class="card-stats">
                                     <strong>Parent:</strong>
                                     <span id="clade-parent">—</span><br />
