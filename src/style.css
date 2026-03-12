@@ -645,9 +645,14 @@ footer a + a::before {
     letter-spacing: 0.5px;
 }
 
-.modal-close-btn {
-    display: block;
-    margin: 24px auto 0;
+.modal-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 24px;
+}
+
+.modal-btn {
     padding: 10px 40px;
     background: transparent;
     border: 1px solid var(--glass-border);
@@ -656,9 +661,10 @@ footer a + a::before {
     font-size: 1rem;
     cursor: pointer;
     transition: 0.2s;
+    text-decoration: none;
 }
 
-.modal-close-btn:hover {
+.modal-btn:hover {
     background: var(--amber-dim);
     color: var(--amber-glow);
     border-color: var(--amber-glow);

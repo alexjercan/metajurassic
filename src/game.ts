@@ -181,4 +181,8 @@ export function initGame({ data, state, saveState }: GameOptions) {
     });
 
     updateUI();
+
+    if (state.isGameOver()) {
+        showGameOverModal();
+    }
 }
