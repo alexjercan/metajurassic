@@ -5,6 +5,7 @@ import re
 JURASSIC_PATH = os.path.join("src", "jurassic")
 CLADES_PATH = os.path.join(JURASSIC_PATH, "clades")
 SPECIES_PATH = os.path.join(JURASSIC_PATH, "species")
+INDEX_JSON_PATH = os.path.join(JURASSIC_PATH, "index.json")
 
 
 def parse_markdown_file(filepath: str) -> dict:
@@ -96,7 +97,7 @@ if __name__ == "__main__":
         "clades": clades_data,
     }
 
-    with open("metajurassic.json", "w") as f:
+    with open(INDEX_JSON_PATH, "w") as f:
         json.dump(data, f, indent=4)
 
     tree = build_tree(data)

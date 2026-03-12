@@ -10,11 +10,16 @@ import {
 import { renderTree } from "./ui/treeVisualizer";
 import { buildGuessTree, findNextHintCladeId } from "./treeBuilder";
 import { showWinModal, showLossModal } from "./ui/modal";
+import { loadGameData } from "./jsonLoader";
 
 export interface GameOptions {
     data: GameData;
     state: GameState;
     saveState?: (state: GameState) => void;
+}
+
+export async function loadData(): Promise<GameData> {
+    return await loadGameData();
 }
 
 export function initGame({ data, state, saveState }: GameOptions) {

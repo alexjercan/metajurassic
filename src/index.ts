@@ -1,9 +1,8 @@
 import "./style.css";
 import { loadGameState, saveGameState } from "./gameState";
-import { loadGameData } from "./markdownLoader";
-import { initGame } from "./game";
+import { loadData, initGame } from "./game";
 
-const data = await loadGameData();
+const data = await loadData();
 const state = loadGameState(data);
 
 initGame({
