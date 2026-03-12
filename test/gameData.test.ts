@@ -1,4 +1,4 @@
-import { GameData } from "../src/gameData";
+import { dateToSeed, GameData } from "../src/gameData";
 import { Clade, Species } from "../src/types";
 
 const species: Species[] = [
@@ -69,9 +69,10 @@ describe("GameData", () => {
 
     test("returns deterministic daily index", () => {
         const date = new Date("2024-01-15T00:00:00Z");
-        const idx = gameData.speciesIndexForDate(date);
+        const seed = dateToSeed(date);
+        const idx = gameData.speciesIndexForDate(seed);
         expect(idx).toBeGreaterThanOrEqual(0);
         expect(idx).toBeLessThan(species.length);
-        expect(gameData.speciesIndexForDate(date)).toBe(idx);
+        expect(gameData.speciesIndexForDate(seed)).toBe(idx);
     });
 });

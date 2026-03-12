@@ -1,24 +1,28 @@
 import { MAX_GUESSES, HINT_COST } from "./constants";
-import { GameData } from "./gameData";
+import { dateToSeed, GameData } from "./gameData";
 import { StorageProvider, defaultStorage } from "./storage";
 import { GuessResult } from "./types";
 
-function formatPuzzleId(gameData: GameData, date: Date = new Date()): string {
-    const index = gameData.speciesIndexForDate(date);
+function getTodaySeed(): number {
+    return dateToSeed(new Date());
+}
+
+function formatPuzzleId(gameData: GameData, seed: number): string {
+    const index = gameData.speciesIndexForDate(seed);
     return `animal-#${(index + 1).toString().padStart(3, "0")}`;
 }
 
-function gameStateKey(gameData: GameData, date: Date = new Date()): string {
-    const puzzleId = formatPuzzleId(gameData, date);
+function gameStateKey(gameData: GameData, seed: number): string {
+    const puzzleId = formatPuzzleId(gameData, seed);
     return `gameState-${puzzleId}`;
 }
 
 export function loadGameState(
     gameData: GameData,
-    date: Date = new Date(),
+    seed: number = getTodaySeed(),
     storage: StorageProvider = defaultStorage()
 ): GameState {
-    const key = gameStateKey(gameData, date);
+    const key = gameStateKey(gameData, seed);
     const savedState = storage.getItem(key);
 
     if (savedState) {
@@ -39,15 +43,16 @@ export function loadGameState(
         }
     }
 
-    const targetId = gameData.getRandomSpecies(date);
+    const targetId = gameData.getRandomSpecies(seed);
     return new GameState(gameData, targetId, new Set());
 }
 
 export function saveGameState(
     state: GameState,
+    seed: number = getTodaySeed(),
     storage: StorageProvider = defaultStorage()
 ): void {
-    const key = gameStateKey(state.gameData);
+    const key = gameStateKey(state.gameData, seed);
     const gameState = {
         targetId: state.targetId,
         guesses: Array.from(state.guesses),
@@ -65,7 +70,7 @@ export class GameState {
         public guesses: Set<string> = new Set(),
         public lastGuessId?: string,
         public hintClades: Set<string> = new Set()
-    ) {}
+    ) { }
 
     isGameOver(): boolean {
         return (

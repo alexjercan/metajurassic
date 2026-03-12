@@ -1,5 +1,17 @@
 import { Clade, Species } from "./types";
 
+export function dateToSeed(date: Date): number {
+    const msPerDay = 1000 * 60 * 60 * 24;
+
+    return (
+        Math.floor(
+            (date.getTime() -
+                new Date(date.getFullYear(), 0, 0).getTime()) /
+            msPerDay
+        )
+    );
+}
+
 export class GameData {
     constructor(
         public readonly species: Species[],
@@ -61,24 +73,16 @@ export class GameData {
         return null;
     }
 
-    speciesIndexForDate(date: Date): number {
-        const msPerDay = 1000 * 60 * 60 * 24;
-
-        return (
-            Math.floor(
-                (date.getTime() -
-                    new Date(date.getFullYear(), 0, 0).getTime()) /
-                    msPerDay
-            ) % this.species.length
-        );
+    speciesIndexForDate(seed: number): number {
+        return seed % this.species.length;
     }
 
-    getRandomSpecies(date: Date = new Date()): string {
+    getRandomSpecies(seed: number): string {
         if (this.species.length === 0) {
             throw new Error("No species available in game data");
         }
 
-        const index = this.speciesIndexForDate(date);
+        const index = this.speciesIndexForDate(seed);
         return this.species[index].id;
     }
 }
