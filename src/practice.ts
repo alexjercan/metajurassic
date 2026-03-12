@@ -1,13 +1,13 @@
 import "./style.css";
-import { loadGameState, saveGameState } from "./gameState";
+import { createNewGameState } from "./gameState";
 import { loadGameData } from "./markdownLoader";
 import { initGame } from "./game";
 
 const data = await loadGameData();
-const state = loadGameState(data);
+const seed = Math.floor(Math.random() * 1_000_000);
+const state = createNewGameState(data, seed);
 
 initGame({
     data,
     state,
-    saveState: (s) => saveGameState(s),
 });

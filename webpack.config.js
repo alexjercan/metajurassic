@@ -5,6 +5,7 @@ const CopyPlugin = require("copy-webpack-plugin");
 const config = {
     entry: {
         index: "./src/index.ts",
+        practice: "./src/practice.ts",
         faq: "./src/faq.ts",
     },
     output: {
@@ -17,6 +18,11 @@ const config = {
         new HtmlWebpackPlugin({
             template: "src/index.html",
             chunks: ["index"],
+        }),
+        new HtmlWebpackPlugin({
+            template: "src/index.html",
+            filename: "practice/index.html",
+            chunks: ["practice"],
         }),
         new HtmlWebpackPlugin({
             template: "src/faq.html",
@@ -55,7 +61,10 @@ const config = {
         static: path.join(__dirname, "dist"),
         port: 8080,
         historyApiFallback: {
-            rewrites: [{ from: /^\/faq/, to: "/faq/index.html" }],
+            rewrites: [
+                { from: /^\/practice/, to: "/practice/index.html" },
+                { from: /^\/faq/, to: "/faq/index.html" },
+            ],
         },
     },
     experiments: {
