@@ -17,6 +17,14 @@ function gameStateKey(gameData: GameData, seed: number): string {
     return `gameState-${puzzleId}`;
 }
 
+export function createNewGameState(
+    gameData: GameData,
+    seed: number = getTodaySeed(),
+): GameState {
+    const targetId = gameData.getRandomSpecies(seed);
+    return new GameState(gameData, targetId, new Set());
+}
+
 export function loadGameState(
     gameData: GameData,
     seed: number = getTodaySeed(),
