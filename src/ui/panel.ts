@@ -81,9 +81,7 @@ export function renderSpeciesCard(
     }
     if (cardTitle) cardTitle.textContent = species.species || "Unknown";
     if (cardTranslation)
-        cardTranslation.textContent = species.translation
-            ? `"${species.translation}"`
-            : "";
+        cardTranslation.textContent = species.translation || "";
     if (cardEra) cardEra.textContent = species.period || "";
     if (cardSizeLabel)
         cardSizeLabel.textContent = species.size ? "Size" : "Info";
