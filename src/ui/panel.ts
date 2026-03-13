@@ -5,7 +5,6 @@ import { findBestHintCladeId } from "../treeBuilder";
 
 const arenaWrapper = document.getElementById("arena-wrapper");
 const panel = document.getElementById("info-panel");
-const panelPull = document.getElementById("open-panel");
 const cardTitle = document.getElementById("card-title");
 const cardTranslation = document.getElementById("card-translation");
 const cardEra = document.getElementById("card-era");
@@ -26,15 +25,15 @@ const cladeImage = document.getElementById("clade-image-area");
 export function closePanel() {
     panel?.classList.remove("active");
     arenaWrapper?.classList.remove("panel-open");
-    panelPull?.classList.remove("hidden");
 }
-
-(window as typeof window & { closePanel: () => void }).closePanel = closePanel;
 
 export function openPanel() {
     panel?.classList.add("active");
     arenaWrapper?.classList.add("panel-open");
-    panelPull?.classList.add("hidden");
+}
+
+export function isPanelOpen() {
+    return panel?.classList.contains("active") ?? false;
 }
 
 export function renderLastGuess(

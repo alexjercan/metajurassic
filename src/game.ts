@@ -4,6 +4,8 @@ import { setupAutocomplete } from "./ui";
 import {
     renderLastGuess,
     openPanel,
+    closePanel,
+    isPanelOpen,
     renderCladeCard,
     renderSpeciesCard,
 } from "./ui/panel";
@@ -151,6 +153,10 @@ export function initGame({ data, state, saveState }: GameOptions) {
 
     if (openPanelBtn) {
         openPanelBtn.addEventListener("click", () => {
+            if (isPanelOpen()) {
+                closePanel();
+                return;
+            }
             if (state.lastGuessId) {
                 const roots = buildGuessTree(state, state.isGameOver());
                 renderLastGuess(state, data, roots);

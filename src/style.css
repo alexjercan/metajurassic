@@ -328,20 +328,10 @@ main {
     box-shadow: -10px 0 30px rgba(0, 0, 0, 0.8);
 }
 
-.close-panel {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    color: #888;
-    cursor: pointer;
-    font-size: 1.5rem;
-    transition: 0.2s;
-}
-
 .panel-pull {
     position: absolute;
-    top: 16px;
-    right: 0px;
+    top: 8px;
+    right: -5px;
     width: 36px;
     height: 36px;
     display: flex;
@@ -363,15 +353,7 @@ main {
 
 .panel-pull:hover {
     filter: brightness(1.3);
-}
-
-.panel-pull.hidden {
-    display: none;
-}
-
-.close-panel:hover {
-    color: #fff;
-    transform: scale(1.1);
+    transform: translateX(-5px);
 }
 
 .museum-card {
@@ -788,11 +770,6 @@ footer a + a::before {
 
     .arena-wrapper.panel-open {
         margin-right: 0;
-    }
-
-    .close-panel {
-        top: 12px;
-        left: 12px;
     }
 
     .card-title {
