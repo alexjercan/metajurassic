@@ -73,12 +73,26 @@ export function findNextHintCladeId(state: GameState): string | null {
         if (lca) revealedClades.add(lca);
     }
 
-    // Walk the target lineage from most specific to root.
-    // Find the first (deepest) clade that is NOT revealed yet.
     // The lineage is ordered [immediate_clade, parent, ..., root].
-    // We want the deepest unrevealed clade, which is the last unrevealed
-    // one before the first revealed one when walking from specific to root.
-    for (let i = targetLineage.length - 1; i >= 0; i--) {
+    // Find the deepest (most specific) clade that is already revealed.
+    // A useful hint must be strictly more specific than that clade, so we
+    // only consider clades at a lower index.  If no unrevealed clade exists
+    // below the current deepest revealed one the hint would be *less*
+    // specific than what the player already knows, which is pointless.
+    let deepestRevealedIdx = -1;
+    for (let i = 0; i < targetLineage.length; i++) {
+        if (revealedClades.has(targetLineage[i])) {
+            deepestRevealedIdx = i;
+            break;
+        }
+    }
+
+    // No revealed clade at all — shouldn't happen (root is always revealed)
+    if (deepestRevealedIdx < 0) return null;
+
+    // Walk from just below the deepest revealed clade toward the most
+    // specific clade, and return the first unrevealed one we find.
+    for (let i = deepestRevealedIdx - 1; i >= 0; i--) {
         if (!revealedClades.has(targetLineage[i])) {
             return targetLineage[i];
         }

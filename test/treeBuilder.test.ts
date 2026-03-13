@@ -600,6 +600,36 @@ describe("findNextHintCladeId", () => {
         const nextHint = findNextHintCladeId(state);
         expect(nextHint).toBeNull();
     });
+
+    test("returns null when a guess already reveals the target's immediate clade", () => {
+        // Species1 lineage: CladeB -> CladeA
+        // Guess Species2 => LCA(Species1, Species2) = CladeB
+        // CladeB is the deepest clade in Species1's lineage, so there are
+        // no more specific clades to hint. Should return null, not a
+        // less-specific clade.
+        const state = makeState("species1", ["species2"]);
+        const nextHint = findNextHintCladeId(state);
+        expect(nextHint).toBeNull();
+    });
+
+    test("returns null when a guess reveals a deep clade, skipping intermediates", () => {
+        // Species3 lineage: CladeE -> CladeC -> CladeA
+        // Guess Species4 => LCA(Species3, Species4) = CladeE
+        // CladeE is the immediate clade of Species3, so no further hint is useful.
+        // CladeC is unrevealed but *less* specific than CladeE — must NOT be returned.
+        const state = makeState("species3", ["species4"]);
+        const nextHint = findNextHintCladeId(state);
+        expect(nextHint).toBeNull();
+    });
+
+    test("returns the next deeper clade when an intermediate is revealed but deeper ones remain", () => {
+        // Species2 lineage: CladeD -> CladeB -> CladeA
+        // Hint reveals CladeB (intermediate). CladeD is still unrevealed
+        // and is deeper, so it should be returned.
+        const state = makeState("species2", [], ["cladeb"]);
+        const nextHint = findNextHintCladeId(state);
+        expect(nextHint).toBe("claded");
+    });
 });
 
 describe("buildGuessTree with hints", () => {
