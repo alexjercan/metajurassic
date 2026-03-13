@@ -129,7 +129,7 @@ main {
 }
 
 .arena-wrapper.panel-open {
-    margin-right: 380px;
+    margin-right: 0;
 }
 
 .arena {
