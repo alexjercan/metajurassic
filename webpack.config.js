@@ -7,6 +7,8 @@ const config = {
         index: "./src/index.ts",
         practice: "./src/practice.ts",
         faq: "./src/faq.ts",
+        species: "./src/species.ts",
+        clades: "./src/clades.ts",
     },
     output: {
         path: path.resolve(__dirname, "dist"),
@@ -28,6 +30,16 @@ const config = {
             template: "src/faq.html",
             filename: "faq/index.html",
             chunks: ["faq"],
+        }),
+        new HtmlWebpackPlugin({
+            template: "src/species.html",
+            filename: "species/index.html",
+            chunks: ["species"],
+        }),
+        new HtmlWebpackPlugin({
+            template: "src/clades.html",
+            filename: "clades/index.html",
+            chunks: ["clades"],
         }),
         new CopyPlugin({
             patterns: [{ from: "src/jurassic", to: "jurassic" }],
@@ -64,6 +76,8 @@ const config = {
             rewrites: [
                 { from: /^\/practice/, to: "/practice/index.html" },
                 { from: /^\/faq/, to: "/faq/index.html" },
+                { from: /^\/species/, to: "/species/index.html" },
+                { from: /^\/clades/, to: "/clades/index.html" },
             ],
         },
     },

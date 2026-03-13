@@ -726,6 +726,129 @@ footer a + a::before {
     background: var(--amber-dim);
 }
 
+/* Archive section in FAQ */
+
+.faq-archive {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.faq-archive h2 {
+    font-size: 1.4rem;
+    color: var(--amber-glow);
+    margin: 0 0 12px 0;
+    letter-spacing: 1px;
+}
+
+.faq-archive p {
+    font-size: 0.95rem;
+    color: #bbb;
+    margin: 0 0 20px 0;
+}
+
+.archive-links {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.archive-links a {
+    color: var(--amber-glow);
+    text-decoration: none;
+    font-size: 1rem;
+    border: 1px solid var(--glass-border);
+    padding: 10px 28px;
+    border-radius: 30px;
+    transition: 0.2s;
+}
+
+.archive-links a:hover {
+    background: var(--amber-dim);
+}
+
+/* Archive carousel pages */
+
+.archive-container {
+    width: 100%;
+    max-width: 100%;
+    padding: 40px 0 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+.archive-title {
+    font-size: 2rem;
+    color: var(--amber-glow);
+    margin: 0 0 8px 0;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+.archive-subtitle {
+    font-size: 0.95rem;
+    color: #8a93a5;
+    margin: 0 0 32px 0;
+    text-align: center;
+}
+
+.archive-carousel {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 0 40px 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.archive-carousel::-webkit-scrollbar {
+    height: 8px;
+}
+
+.archive-carousel::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+    border-radius: 4px;
+}
+
+.archive-carousel::-webkit-scrollbar-thumb {
+    background: var(--glass-border);
+    border-radius: 4px;
+}
+
+.archive-carousel::-webkit-scrollbar-thumb:hover {
+    background: var(--amber-glow);
+}
+
+.archive-card {
+    flex: 0 0 340px;
+    height: auto;
+    min-height: 420px;
+    scroll-snap-align: center;
+}
+
+.archive-back {
+    text-align: center;
+    margin-top: 24px;
+}
+
+.archive-back a {
+    color: var(--amber-glow);
+    text-decoration: none;
+    font-size: 1rem;
+    border: 1px solid var(--glass-border);
+    padding: 10px 28px;
+    border-radius: 30px;
+    transition: 0.2s;
+}
+
+.archive-back a:hover {
+    background: var(--amber-dim);
+}
+
 /* ── Mobile responsive ── */
 
 @media (max-width: 768px) {
@@ -811,5 +934,19 @@ footer a + a::before {
 
     footer a {
         font-size: 0.8rem;
+    }
+
+    .archive-carousel {
+        padding: 0 16px 16px;
+        gap: 16px;
+    }
+
+    .archive-card {
+        flex: 0 0 280px;
+        min-height: 380px;
+    }
+
+    .archive-title {
+        font-size: 1.5rem;
     }
 }
