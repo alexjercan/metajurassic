@@ -79,6 +79,8 @@ main {
     border: 2px solid #3a4150;
     border-bottom: 4px solid var(--amber-glow);
     padding: 8px 20px;
+    min-height: 52px;
+    box-sizing: border-box;
     border-radius: 8px;
     cursor: pointer;
     display: flex;
