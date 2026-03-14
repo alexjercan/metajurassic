@@ -5,7 +5,7 @@ clade: ankylosaurini
 period: Late Cretaceous (76–75 Ma)
 size: 6 meters
 weight: 2,500 kilograms
-image: https://images.dinosaurpictures.org/Euoplocephalus/Euoplocephalus_6807d049.jpg
+image: https://alexjercan.github.io/metajurassic-images/species/euoplocephalus.jpg
 ---
 
 One of the most common ankylosaurs; it had complex, looping nasal passages that likely helped it warm cold air or make loud calls.

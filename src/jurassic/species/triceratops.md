@@ -5,7 +5,7 @@ clade: triceratopsini
 period: Late Cretaceous (68–66 Ma)
 size: 9 meters
 weight: 10,000 kilograms
-image: https://images.dinosaurpictures.org/Triceratops/Triceratops_932bd8e6.jpg
+image: https://alexjercan.github.io/metajurassic-images/species/triceratops.jpg
 ---
 
 The "tank" of the Cretaceous; its solid bony frill was reinforced to withstand the impact of a charging rival or a hungry predator.

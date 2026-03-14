@@ -7,7 +7,7 @@
             "period": "Late Jurassic (153\u2013148 Ma)",
             "size": "6 meters",
             "weight": "700 kilograms",
-            "image": "https://images.dinosaurpictures.org/Ceratosaurus/Ceratosaurus_96215005.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/ceratosaurus.jpg",
             "description": "Possessed a prominent horn on its nose and small horns over its eyes, along with a row of bony plates (osteoderms) along its spine."
         },
         "saltriovenator": {
@@ -17,7 +17,7 @@
             "period": "Early Jurassic (199\u2013197 Ma)",
             "size": "7.5 meters",
             "weight": "1,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Saltriovenator/Saltriovenator_712fe919.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/saltriovenator.jpg",
             "description": "The oldest known large-bodied ceratosaur, proving that predatory dinosaurs reached massive sizes much earlier than previously thought."
         },
         "proceratosaurus": {
@@ -27,7 +27,7 @@
             "period": "Middle Jurassic (166 Ma)",
             "size": "3 meters",
             "weight": "40 kilograms",
-            "image": "https://images.dinosaurpictures.org/Proceratosaurus/Proceratosaurus_f982142a.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/proceratosaurus.jpg",
             "description": "Originally mistaken for an ancestor of Ceratosaurus, it is actually the earliest known member of the tyrannosaur lineage."
         },
         "fukuiraptor": {
@@ -37,7 +37,7 @@
             "period": "Early Cretaceous (127\u2013115 Ma)",
             "size": "4.2 meters",
             "weight": "300 kilograms",
-            "image": "https://images.dinosaurpictures.org/Fukuiraptor/Fukuiraptor_3257252a.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/fukuiraptor.jpg",
             "description": "The first carnivorous dinosaur found in Japan; it was initially mistaken for a dromaeosaurid due to its large, curved hand claws."
         },
         "saltasaurus": {
@@ -47,7 +47,7 @@
             "period": "Late Cretaceous (70 Ma)",
             "size": "8.5 meters",
             "weight": "2,500 kilograms",
-            "image": "https://images.dinosaurpictures.org/Saltasaurus/Saltasaurus_93cdebc0.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/saltasaurus.jpg",
             "description": "The first sauropod found with unmistakable armor; its back was covered in thousands of small, bony studs and larger plates."
         },
         "edmontosaurus": {
@@ -57,7 +57,7 @@
             "period": "Late Cretaceous (73\u201366 Ma)",
             "size": "12 meters",
             "weight": "4,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Edmontosaurus/Edmontosaurus_805c3dde.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/edmontosaurus.jpg",
             "description": "One of the most successful herbivores in history; a \"mummy\" fossil reveals they had a fleshy, rooster-like comb on their heads."
         },
         "balaur": {
@@ -67,7 +67,7 @@
             "period": "Late Cretaceous (70 Ma)",
             "size": "2 meters",
             "weight": "20 kilograms",
-            "image": "https://images.dinosaurpictures.org/Balaur/Balaur_d2ce3eba.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/balaur.jpg",
             "description": "A stocky, \"island-dwelling\" raptor with two sickle claws on each foot instead of one; it was a specialized apex predator of ancient Romania."
         },
         "yutyrannus": {
@@ -77,7 +77,7 @@
             "period": "Early Cretaceous (125 Ma)",
             "size": "9 meters",
             "weight": "1,400 kilograms",
-            "image": "https://images.dinosaurpictures.org/Yutyrannus/Yutyrannus_539e328f.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/yutyrannus.jpg",
             "description": "The largest dinosaur with direct evidence of feathers; it lived in a cold climate and likely used its \"coat\" to keep warm."
         },
         "pachyrhinosaurus": {
@@ -87,7 +87,7 @@
             "period": "Late Cretaceous (73\u201369 Ma)",
             "size": "8 meters",
             "weight": "4,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Pachyrhinosaurus/Pachyrhinosaurus_bfc827d8.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/pachyrhinosaurus.jpg",
             "description": "Instead of horns, it had a massive, flattened bony boss on its nose, which was likely used for head-shoving or battering rivals."
         },
         "nodosaurus": {
@@ -97,7 +97,7 @@
             "period": "Late Cretaceous (95 Ma)",
             "size": "6 meters",
             "weight": "2,500 kilograms",
-            "image": "https://images.dinosaurpictures.org/Nodosaurus/Nodosaurus_9a1a47cf.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/nodosaurus.jpg",
             "description": "Covered in \"knobby\" bony armor; it lacked a tail club, instead relying on its low-slung, spiked body to deter attackers."
         },
         "rajasaurus": {
@@ -107,7 +107,7 @@
             "period": "Late Cretaceous (67 Ma)",
             "size": "9 meters",
             "weight": "3,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Rajasaurus/Rajasaurus_79229ef8.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/rajasaurus.jpg",
             "description": "Identified by a low, rounded horn on its forehead, this predator was the dominant hunter in what is now modern-day India."
         },
         "stegosaurus": {
@@ -117,7 +117,7 @@
             "period": "Late Jurassic (155\u2013150 Ma)",
             "size": "9 meters",
             "weight": "5,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Stegosaurus/Stegosaurus_42a22ae9.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/stegosaurus.jpg",
             "description": "Possessed a brain the size of a walnut; its 17 bony back plates were likely used for temperature control or species recognition."
         },
         "australovenator": {
@@ -127,7 +127,7 @@
             "period": "Late Cretaceous (95\u201393 Ma)",
             "size": "6 meters",
             "weight": "500 kilograms",
-            "image": "https://images.dinosaurpictures.org/Australovenator/Australovenator_907ee00e.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/australovenator.jpg",
             "description": "Nicknamed \"Banjo,\" it is the most complete predatory dinosaur found in Australia and was a fast, lethal hunter of the Outback."
         },
         "megalosaurus": {
@@ -137,7 +137,7 @@
             "period": "Middle Jurassic (166 Ma)",
             "size": "6 meters",
             "weight": "700 kilograms",
-            "image": "https://images.dinosaurpictures.org/Megalosaurus/Megalosaurus_a909b917.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/megalosaurus.jpg",
             "description": "The first dinosaur ever to be scientifically described and named, decades before the word \"Dinosaur\" was even coined."
         },
         "masiakasaurus": {
@@ -147,7 +147,7 @@
             "period": "Late Cretaceous (70\u201366 Ma)",
             "size": "2 meters",
             "weight": "20 kilograms",
-            "image": "https://images.dinosaurpictures.org/Masiakasaurus/Masiakasaurus_161d73a0.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/masiakasaurus.jpg",
             "description": "Its front teeth projected forward rather than downward, a unique specialization likely used for snagging small, slippery fish or insects."
         },
         "australotitan": {
@@ -157,7 +157,7 @@
             "period": "Late Cretaceous (96\u201392 Ma)",
             "size": "30 meters",
             "weight": "65,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Australotitan/Australotitan_d9431bd2.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/australotitan.jpg",
             "description": "Nicknamed \"Cooper,\" it is the largest dinosaur ever found in Australia and occupied a similar niche to South American titans."
         },
         "sinosauropteryx": {
@@ -167,7 +167,7 @@
             "period": "Early Cretaceous (124\u2013122 Ma)",
             "size": "1 meter",
             "weight": "1 kilogram",
-            "image": "https://images.dinosaurpictures.org/Sinosauropteryx/Sinosauropteryx_8244dbfc.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/sinosauropteryx.jpg",
             "description": "The first dinosaur found with preserved evidence of color; it had a ginger-colored body and a striped, ringed tail."
         },
         "dryosaurus": {
@@ -177,7 +177,7 @@
             "period": "Late Jurassic (155\u2013150 Ma)",
             "size": "4 meters",
             "weight": "90 kilograms",
-            "image": "https://images.dinosaurpictures.org/Dryosaurus/Dryosaurus_07ecd182.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/dryosaurus.jpg",
             "description": "A very fast, gazelle-like herbivore with large eyes and long legs, relying entirely on flight over fight to escape predators."
         },
         "nanuqsaurus": {
@@ -187,7 +187,7 @@
             "period": "Late Cretaceous (70\u201369 Ma)",
             "size": "6 meters",
             "weight": "1,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Nanuqsaurus/Nanuqsaurus_6b1ca33b.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/nanuqsaurus.jpg",
             "description": "A \"pygmy\" tyrannosaur that lived in the Arctic Circle; it likely possessed a thick coat of feathers to survive the long, dark polar winters."
         },
         "maip": {
@@ -197,7 +197,7 @@
             "period": "Late Cretaceous (70 Ma)",
             "size": "9.5 meters",
             "weight": "5,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Maip/Maip_93a4c9b0.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/maip.jpg",
             "description": "Named after an evil spirit from Tehuelche mythology, it is the largest megaraptoran known, possessing massive claws for disemboweling prey."
         },
         "struthiomimus": {
@@ -207,7 +207,7 @@
             "period": "Late Cretaceous (77\u201376 Ma)",
             "size": "4.3 meters",
             "weight": "150 kilograms",
-            "image": "https://images.dinosaurpictures.org/Struthiomimus/Struthiomimus_612cbc74.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/struthiomimus.jpg",
             "description": "A common sight in Late Cretaceous North America, it relied on its powerful hind legs to sprint away from predators like Daspletosaurus."
         },
         "rinchenia": {
@@ -217,7 +217,7 @@
             "period": "Late Cretaceous (70 Ma)",
             "size": "1.7 meters",
             "weight": "40 kilograms",
-            "image": "https://images.dinosaurpictures.org/Rinchenia/Rinchenia_c329de10.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/rinchenia.jpg",
             "description": "An oviraptorid with an exceptionally high, dome-like crest on its head, which likely served as a colorful display for attracting mates."
         },
         "microraptor": {
@@ -227,7 +227,7 @@
             "period": "Early Cretaceous (120 Ma)",
             "size": "0.8 meters",
             "weight": "1 kilogram",
-            "image": "https://images.dinosaurpictures.org/Microraptor/Microraptor_056ddc5f.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/microraptor.jpg",
             "description": "A \"four-winged\" dinosaur with long feathers on both its arms and legs; it likely glided between trees like a flying squirrel."
         },
         "afrovenator": {
@@ -237,7 +237,7 @@
             "period": "Middle Jurassic (167\u2013161 Ma)",
             "size": "8 meters",
             "weight": "1,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Afrovenator/Afrovenator_bedc2b07.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/afrovenator.jpg",
             "description": "A slender, fast-moving megalosaurid that occupied the apex niche in North Africa before the rise of the carcharodontosaurids."
         },
         "apatosaurus": {
@@ -247,7 +247,7 @@
             "period": "Late Jurassic (152\u2013145 Ma)",
             "size": "21 meters",
             "weight": "22,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Apatosaurus/Apatosaurus_b18ed95c.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/apatosaurus.jpg",
             "description": "A massive, robust sauropod; its name \"Deceptive\" comes from its tail bones, which resemble those of sea-dwelling mosasaurs."
         },
         "austroraptor": {
@@ -257,7 +257,7 @@
             "period": "Late Cretaceous (70 Ma)",
             "size": "5 meters",
             "weight": "300 kilograms",
-            "image": "https://images.dinosaurpictures.org/Austroraptor/Austroraptor_2251ff43.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/austroraptor.jpg",
             "description": "A large, long-snouted raptor from Argentina; its conical teeth suggest it specialized in catching fish rather than large land prey."
         },
         "torosaurus": {
@@ -267,7 +267,7 @@
             "period": "Late Cretaceous (68\u201366 Ma)",
             "size": "8 meters",
             "weight": "6,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Torosaurus/Torosaurus_89ff3752.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/torosaurus.jpg",
             "description": "Possessed a skull that could reach 2.7 meters in length; its frill was smooth and elongated with two large circular openings."
         },
         "tuojiangosaurus": {
@@ -277,7 +277,7 @@
             "period": "Late Jurassic (161\u2013155 Ma)",
             "size": "7 meters",
             "weight": "2,800 kilograms",
-            "image": "https://images.dinosaurpictures.org/Tuojiangosaurus/Tuojiangosaurus_b7992e17.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/tuojiangosaurus.jpg",
             "description": "The most well-known Chinese stegosaur; it featured narrow, conical plates and a pair of long spikes on the end of its tail."
         },
         "daspletosaurus": {
@@ -287,7 +287,7 @@
             "period": "Late Cretaceous (77\u201374 Ma)",
             "size": "9 meters",
             "weight": "3,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Daspletosaurus/Daspletosaurus_2039d36d.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/daspletosaurus.jpg",
             "description": "A heavily-built tyrant that shared its habitat with Gorgosaurus; it likely specialized in hunting armored and horned dinosaurs."
         },
         "styracosaurus": {
@@ -297,7 +297,7 @@
             "period": "Late Cretaceous (75 Ma)",
             "size": "5.5 meters",
             "weight": "2,700 kilograms",
-            "image": "https://images.dinosaurpictures.org/Styracosaurus/Styracosaurus_2f8a90b9.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/styracosaurus.jpg",
             "description": "Features one of the most spectacular frills in the fossil record, lined with 6 long spikes and a massive 60-centimeter nose horn."
         },
         "chasmosaurus": {
@@ -307,7 +307,7 @@
             "period": "Late Cretaceous (76\u201375 Ma)",
             "size": "5 meters",
             "weight": "2,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Chasmosaurus/Chasmosaurus_27224344.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/chasmosaurus.jpg",
             "description": "Notable for its exceptionally large frill containing massive \"windows\" (fenestrae), making the shield lightweight but unsuitable for defense."
         },
         "zuniceratops": {
@@ -317,7 +317,7 @@
             "period": "Late Cretaceous (91 Ma)",
             "size": "3.5 meters",
             "weight": "150 kilograms",
-            "image": "https://images.dinosaurpictures.org/Zuniceratops/Zuniceratops_56491c72.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/zuniceratops.jpg",
             "description": "The earliest known ceratopsian to possess brow horns; it represents the crucial evolutionary bridge to the giant horned dinosaurs."
         },
         "sinosaurus": {
@@ -327,7 +327,7 @@
             "period": "Early Jurassic (196\u2013189 Ma)",
             "size": "5.6 meters",
             "weight": "350 kilograms",
-            "image": "https://images.dinosaurpictures.org/Sinosaurus/Sinosaurus_e3ccdc04.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/sinosaurus.jpg",
             "description": "One of the earliest theropods to show evidence of tooth loss during its lifetime, suggesting it may have survived significant injuries."
         },
         "lambeosaurus": {
@@ -337,7 +337,7 @@
             "period": "Late Cretaceous (76\u201375 Ma)",
             "size": "9 meters",
             "weight": "3,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Lambeosaurus/Lambeosaurus_1b35eb64.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/lambeosaurus.jpg",
             "description": "Known for its axe-shaped crest; different species within this genus can be identified by the specific angle and size of this headpiece."
         },
         "hypsilophodon": {
@@ -347,7 +347,7 @@
             "period": "Early Cretaceous (130\u2013125 Ma)",
             "size": "1.8 meters",
             "weight": "20 kilograms",
-            "image": "https://images.dinosaurpictures.org/Hypsilophodon/Hypsilophodon_bdfff378.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/hypsilophodon.jpg",
             "description": "A fast, agile plant-eater; early scientists wrongly thought it lived in trees, but it was actually a dedicated ground-runner."
         },
         "lesothosaurus": {
@@ -357,7 +357,7 @@
             "period": "Early Jurassic (199\u2013189 Ma)",
             "size": "2 meters",
             "weight": "8 kilograms",
-            "image": "https://images.dinosaurpictures.org/Lesothosaurus/Lesothosaurus_f6775d2a.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/lesothosaurus.jpg",
             "description": "A small, bipedal runner; it was so primitive that it still relied on speed rather than armor or horns to survive."
         },
         "gallimimus": {
@@ -367,7 +367,7 @@
             "period": "Late Cretaceous (70 Ma)",
             "size": "6 meters",
             "weight": "450 kilograms",
-            "image": "https://images.dinosaurpictures.org/Gallimimus/Gallimimus_7f6b8306.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/gallimimus.jpg",
             "description": "One of the largest \"ostrich-mimics,\" it was built for extreme speed and likely used its large eyes to spot danger from miles away."
         },
         "lythronax": {
@@ -377,7 +377,7 @@
             "period": "Late Cretaceous (80 Ma)",
             "size": "7.3 meters",
             "weight": "2,500 kilograms",
-            "image": "https://images.dinosaurpictures.org/Lythronax/Lythronax_8289e619.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/lythronax.jpg",
             "description": "The \"Gore King\" is the oldest known member of the true tyrannosaurids and featured forward-facing eyes for binocular vision."
         },
         "majungasaurus": {
@@ -387,7 +387,7 @@
             "period": "Late Cretaceous (70\u201366 Ma)",
             "size": "7 meters",
             "weight": "1,100 kilograms",
-            "image": "https://images.dinosaurpictures.org/Majungasaurus/Majungasaurus_a5a2d1db.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/majungasaurus.jpg",
             "description": "The apex predator of Madagascar; fossilized tooth marks on the bones of its own species provide rare evidence of dinosaur cannibalism."
         },
         "gigantspinosaurus": {
@@ -397,7 +397,7 @@
             "period": "Late Jurassic (160 Ma)",
             "size": "4 meters",
             "weight": "700 kilograms",
-            "image": "https://images.dinosaurpictures.org/Gigantspinosaurus/Gigantspinosaurus_564b1b20.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/gigantspinosaurus.jpg",
             "description": "Despite its name, it is a stegosaur; it is famous for the two massive, shoulder-mounted spikes that flared out from its sides."
         },
         "oviraptor": {
@@ -407,7 +407,7 @@
             "period": "Late Cretaceous (75 Ma)",
             "size": "1.6 meters",
             "weight": "35 kilograms",
-            "image": "https://images.dinosaurpictures.org/Oviraptor/Oviraptor_8847108e.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/oviraptor.jpg",
             "description": "Originally named \"Egg Thief\" when found near a nest, we now know it was actually the parent protecting its own eggs from a sandstorm."
         },
         "coelophysis": {
@@ -417,7 +417,7 @@
             "period": "Late Triassic (225\u2013190 Ma)",
             "size": "3 meters",
             "weight": "27 kilograms",
-            "image": "https://images.dinosaurpictures.org/Coelophysis/Coelophysis_ccc1c681.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/coelophysis.jpg",
             "description": "A sleek, primitive theropod with hollow bones; once wrongly thought to be a cannibal, but the \"young\" in its stomach were actually crocodiles."
         },
         "utahraptor": {
@@ -427,7 +427,7 @@
             "period": "Early Cretaceous (126 Ma)",
             "size": "7 meters",
             "weight": "500 kilograms",
-            "image": "https://images.dinosaurpictures.org/Utahraptor/Utahraptor_624ac6e3.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/utahraptor.jpg",
             "description": "The largest \"true\" raptor; its sickle-shaped toe claw was 24 centimeters long\u2014a massive blade for tackling large herbivores."
         },
         "dromaeosaurus": {
@@ -437,7 +437,7 @@
             "period": "Late Cretaceous (76\u201374 Ma)",
             "size": "2 meters",
             "weight": "15 kilograms",
-            "image": "https://images.dinosaurpictures.org/Dromaeosaurus/Dromaeosaurus_b6a44f8f.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/dromaeosaurus.jpg",
             "description": "Unlike the \"slashing\" Velociraptor, it had a much more robust skull and a powerful bite for a raptor, used to crush and grip prey."
         },
         "pentaceratops": {
@@ -447,7 +447,7 @@
             "period": "Late Cretaceous (76\u201373 Ma)",
             "size": "6 meters",
             "weight": "5,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Pentaceratops/Pentaceratops_f031f050.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/pentaceratops.jpg",
             "description": "Its name implies five horns, though two are actually protrusions of the cheek bones; it possessed one of the largest skulls of any land animal."
         },
         "brontosaurus": {
@@ -457,7 +457,7 @@
             "period": "Late Jurassic (155\u2013152 Ma)",
             "size": "22 meters",
             "weight": "15,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Brontosaurus/Brontosaurus_9cb76323.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/brontosaurus.jpg",
             "description": "Once considered identical to Apatosaurus, it was restored as a valid genus in 2015 due to its more robust neck and unique shoulder."
         },
         "herrerasaurus": {
@@ -467,7 +467,7 @@
             "period": "Late Triassic (231\u2013228 Ma)",
             "size": "6 meters",
             "weight": "350 kilograms",
-            "image": "https://images.dinosaurpictures.org/Herrerasaurus/Herrerasaurus_3ce72ecf.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/herrerasaurus.jpg",
             "description": "A basal predator with a flexible lower jaw joint, allowing it to slide back and forth to deliver a powerful grasping bite."
         },
         "nigersaurus": {
@@ -477,7 +477,7 @@
             "period": "Early Cretaceous (115\u2013105 Ma)",
             "size": "9 meters",
             "weight": "4,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Nigersaurus/Nigersaurus_8f125793.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/nigersaurus.jpg",
             "description": "Nicknamed the \"Mesozoic Lawnmower,\" its wide, straight snout contained over 500 teeth specialized for grazing at ground level."
         },
         "scelidosaurus": {
@@ -487,7 +487,7 @@
             "period": "Early Jurassic (191 Ma)",
             "size": "4 meters",
             "weight": "270 kilograms",
-            "image": "https://images.dinosaurpictures.org/Scelidosaurus/Scelidosaurus_1d4298cb.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/scelidosaurus.jpg",
             "description": "An early ancestor to both stegosaurs and ankylosaurs, it was covered in rows of small, bony studs set into its skin."
         },
         "heterodontosaurus": {
@@ -497,7 +497,7 @@
             "period": "Early Jurassic (200\u2013190 Ma)",
             "size": "1.2 meters",
             "weight": "3 kilograms",
-            "image": "https://images.dinosaurpictures.org/Heterodontosaurus/Heterodontosaurus_3af11f16.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/heterodontosaurus.jpg",
             "description": "Unique for having three different types of teeth: small incisors, sharp canine-like tusks, and flat grinding teeth for plants."
         },
         "baryonyx": {
@@ -507,7 +507,7 @@
             "period": "Early Cretaceous (130\u2013125 Ma)",
             "size": "9.5 meters",
             "weight": "1,700 kilograms",
-            "image": "https://images.dinosaurpictures.org/Baryonyx/Baryonyx_1d654e90.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/baryonyx.jpg",
             "description": "Its stomach was found to contain the scales of the fish Scheerstia, confirming its role as a specialized river hunter."
         },
         "monolophosaurus": {
@@ -517,7 +517,7 @@
             "period": "Middle Jurassic (165 Ma)",
             "size": "5 meters",
             "weight": "475 kilograms",
-            "image": "https://images.dinosaurpictures.org/Monolophosaurus/Monolophosaurus_cff07fcf.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/monolophosaurus.jpg",
             "description": "Distinguished by a single, hollow bony crest running down the center of its snout, which was likely used for vocalizing or display."
         },
         "torvosaurus": {
@@ -527,7 +527,7 @@
             "period": "Late Jurassic (153\u2013148 Ma)",
             "size": "10 meters",
             "weight": "4,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Torvosaurus/Torvosaurus_6650a4e8.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/torvosaurus.jpg",
             "description": "A massive, heavy-set predator that competed with Allosaurus; it had the largest teeth of any Jurassic meat-eater."
         },
         "sinoceratops": {
@@ -537,7 +537,7 @@
             "period": "Late Cretaceous (73 Ma)",
             "size": "6 meters",
             "weight": "2,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Sinoceratops/Sinoceratops_b9f93852.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/sinoceratops.jpg",
             "description": "The first large ceratopsid found outside of North America; its frill was decorated with a series of forward-curving, hook-like horns."
         },
         "alioramus": {
@@ -547,7 +547,7 @@
             "period": "Late Cretaceous (71\u201367 Ma)",
             "size": "6 meters",
             "weight": "370 kilograms",
-            "image": "https://images.dinosaurpictures.org/Alioramus/Alioramus_9e7f8806.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/alioramus.jpg",
             "description": "A long-snouted tyrannosaur with a row of five small bony horns along its nose; it was a specialist hunter of smaller, faster prey."
         },
         "cetiosaurus": {
@@ -557,7 +557,7 @@
             "period": "Middle Jurassic (170\u2013166 Ma)",
             "size": "16 meters",
             "weight": "25,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Cetiosaurus/Cetiosaurus_0e06ba80.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/cetiosaurus.jpg",
             "description": "The first sauropod ever discovered; Sir Richard Owen initially mistook its massive bones for those of a giant sea-dwelling crocodile."
         },
         "gigantoraptor": {
@@ -567,7 +567,7 @@
             "period": "Late Cretaceous (85 Ma)",
             "size": "8 meters",
             "weight": "1,400 kilograms",
-            "image": "https://images.dinosaurpictures.org/Gigantoraptor/Gigantoraptor_df83e6c5.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/gigantoraptor.jpg",
             "description": "The largest of the beaked \"egg-thieves\"; it was roughly the size of a school bus and was likely covered in vibrant, colorful feathers."
         },
         "velociraptor": {
@@ -577,7 +577,7 @@
             "period": "Late Cretaceous (75\u201371 Ma)",
             "size": "2 meters",
             "weight": "15 kilograms",
-            "image": "https://images.dinosaurpictures.org/Velociraptor/Velociraptor_41a51641.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/velociraptor.jpg",
             "description": "Roughly the size of a turkey and fully feathered; a famous fossil shows one locked in a death struggle with a Protoceratops."
         },
         "fukuisaurus": {
@@ -587,7 +587,7 @@
             "period": "Early Cretaceous (125 Ma)",
             "size": "4.5 meters",
             "weight": "400 kilograms",
-            "image": "https://images.dinosaurpictures.org/Fukuisaurus/Fukuisaurus_56d978e1.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/fukuisaurus.jpg",
             "description": "A primitive iguanodontian from Japan; its skull was less flexible than later relatives, meaning it chewed with a simpler vertical motion."
         },
         "tenontosaurus": {
@@ -597,7 +597,7 @@
             "period": "Early Cretaceous (115\u2013108 Ma)",
             "size": "7 meters",
             "weight": "1,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Tenontosaurus/Tenontosaurus_b46f5065.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/tenontosaurus.jpg",
             "description": "Characterized by an exceptionally long, stiff tail; it is famously depicted being hunted by packs of the raptor Deinonychus."
         },
         "halszkaraptor": {
@@ -607,7 +607,7 @@
             "period": "Late Cretaceous (75\u201371 Ma)",
             "size": "0.6 meters",
             "weight": "2 kilograms",
-            "image": "https://images.dinosaurpictures.org/Halszkaraptor/Halszkaraptor_5cb9ad8b.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/halszkaraptor.jpg",
             "description": "A bizarre, semi-aquatic raptor with a neck like a swan; it likely spent its time swimming in rivers, using its snout to snap up small fish."
         },
         "euoplocephalus": {
@@ -617,7 +617,7 @@
             "period": "Late Cretaceous (76\u201375 Ma)",
             "size": "6 meters",
             "weight": "2,500 kilograms",
-            "image": "https://images.dinosaurpictures.org/Euoplocephalus/Euoplocephalus_6807d049.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/euoplocephalus.jpg",
             "description": "One of the most common ankylosaurs; it had complex, looping nasal passages that likely helped it warm cold air or make loud calls."
         },
         "allosaurus": {
@@ -627,7 +627,7 @@
             "period": "Late Jurassic (155\u2013145 Ma)",
             "size": "9.5 meters",
             "weight": "2,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Allosaurus/Allosaurus_f614bc6d.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/allosaurus.jpg",
             "description": "The most famous hunter of the Jurassic; it had a \"hatchet\" bite, using its upper jaw to slash at prey like a biological axe."
         },
         "massospondylus": {
@@ -637,7 +637,7 @@
             "period": "Early Jurassic (200\u2013183 Ma)",
             "size": "4 meters",
             "weight": "1,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Massospondylus/Massospondylus_2a8ec4e0.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/massospondylus.jpg",
             "description": "Famous for the discovery of preserved eggs containing toothless embryos, suggesting the parents may have fed their young."
         },
         "centrosaurus": {
@@ -647,7 +647,7 @@
             "period": "Late Cretaceous (76 Ma)",
             "size": "5.5 meters",
             "weight": "2,300 kilograms",
-            "image": "https://images.dinosaurpictures.org/Centrosaurus/Centrosaurus_080d6f3a.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/centrosaurus.jpg",
             "description": "Identified by a single large horn on its nose that could curve forward or backward; they lived in vast herds that numbered in the thousands."
         },
         "diplodocus": {
@@ -657,7 +657,7 @@
             "period": "Late Jurassic (154\u2013152 Ma)",
             "size": "26 meters",
             "weight": "15,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Diplodocus/Diplodocus_1f4392bc.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/diplodocus.jpg",
             "description": "Its name refers to the \"double-beam\" chevron bones in its tail, which provided support and protected blood vessels from pressure."
         },
         "kosmoceratops": {
@@ -667,7 +667,7 @@
             "period": "Late Cretaceous (76 Ma)",
             "size": "5 meters",
             "weight": "2,500 kilograms",
-            "image": "https://images.dinosaurpictures.org/Kosmoceratops/Kosmoceratops_b7d1d4bc.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/kosmoceratops.jpg",
             "description": "Known as the most \"ornate\" dinosaur; its frill was decorated with 15 horns and spikes, including a unique row that curved downward."
         },
         "shunosaurus": {
@@ -677,7 +677,7 @@
             "period": "Middle Jurassic (165\u2013159 Ma)",
             "size": "9.5 meters",
             "weight": "3,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Shunosaurus/Shunosaurus_6e379e2a.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/shunosaurus.jpg",
             "description": "A unique sauropod that featured a bony, spiked club at the end of its tail, a defense mechanism more common in armored dinosaurs."
         },
         "archaeopteryx": {
@@ -687,7 +687,7 @@
             "period": "Late Jurassic (150\u2013148 Ma)",
             "size": "0.5 meters",
             "weight": "1 kilogram",
-            "image": "https://images.dinosaurpictures.org/Archaeopteryx/Archaeopteryx_6cee6a9f.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/archaeopteryx.jpg",
             "description": "The most famous \"missing link\" in history, featuring the feathers of a bird but the teeth and long bony tail of a dinosaur."
         },
         "unaysaurus": {
@@ -697,7 +697,7 @@
             "period": "Late Triassic (225 Ma)",
             "size": "2.5 meters",
             "weight": "70 kilograms",
-            "image": "https://images.dinosaurpictures.org/Unaysaurus/Unaysaurus_ad9a69f2.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/unaysaurus.jpg",
             "description": "A small, bipedal sauropodomorph from Brazil, closely related to European forms, proving early dinosaurs could migrate across Pangea."
         },
         "megaraptor": {
@@ -707,7 +707,7 @@
             "period": "Late Cretaceous (91\u201386 Ma)",
             "size": "8 meters",
             "weight": "1,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Megaraptor/Megaraptor_c1e3e76b.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/megaraptor.jpg",
             "description": "Once thought to be a giant raptor, we now know its signature \"sickle claw\" was actually on its thumb, not its toe."
         },
         "erlikosaurus": {
@@ -717,7 +717,7 @@
             "period": "Late Cretaceous (90 Ma)",
             "size": "6 meters",
             "weight": "500 kilograms",
-            "image": "https://images.dinosaurpictures.org/Erlikosaurus/Erlikosaurus_8f245990.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/erlikosaurus.jpg",
             "description": "A member of the \"scythe-claw\" family that still retained a very complex, bird-like skull, which helped scientists understand this group's evolution."
         },
         "dracovenator": {
@@ -727,7 +727,7 @@
             "period": "Early Jurassic (201\u2013199 Ma)",
             "size": "6 meters",
             "weight": "400 kilograms",
-            "image": "https://images.dinosaurpictures.org/Dracovenator/Dracovenator_5b68179c.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/dracovenator.jpg",
             "description": "A close relative of Dilophosaurus found in South Africa, it was one of the largest predators of its specific time and place."
         },
         "zalmoxes": {
@@ -737,7 +737,7 @@
             "period": "Late Cretaceous (70 Ma)",
             "size": "2.5 meters",
             "weight": "350 kilograms",
-            "image": "https://images.dinosaurpictures.org/Zalmoxes/Zalmoxes_151cc4a4.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/zalmoxes.jpg",
             "description": "A \"dwarf\" iguanodontian that lived on Hateg Island; it remained small due to the limited food resources of its island habitat."
         },
         "carnotaurus": {
@@ -747,7 +747,7 @@
             "period": "Late Cretaceous (72\u201369 Ma)",
             "size": "8 meters",
             "weight": "1,350 kilograms",
-            "image": "https://images.dinosaurpictures.org/Carnotaurus/Carnotaurus_fc889e5e.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/carnotaurus.jpg",
             "description": "Boasted thick horns above its eyes and extremely reduced arms; it is considered one of the fastest large theropods ever."
         },
         "triceratops": {
@@ -757,7 +757,7 @@
             "period": "Late Cretaceous (68\u201366 Ma)",
             "size": "9 meters",
             "weight": "10,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Triceratops/Triceratops_932bd8e6.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/triceratops.jpg",
             "description": "The \"tank\" of the Cretaceous; its solid bony frill was reinforced to withstand the impact of a charging rival or a hungry predator."
         },
         "carcharodontosaurus": {
@@ -767,7 +767,7 @@
             "period": "Late Cretaceous (99\u201394 Ma)",
             "size": "12 meters",
             "weight": "6,200 kilograms",
-            "image": "https://images.dinosaurpictures.org/Carcharodontosaurus/Carcharodontosaurus_87686283.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/carcharodontosaurus.jpg",
             "description": "Its teeth were thin, serrated, and razor-sharp, designed for inflicting massive blood loss on long-necked sauropods."
         },
         "troodon": {
@@ -777,7 +777,7 @@
             "period": "Late Cretaceous (77\u201374 Ma)",
             "size": "2.5 meters",
             "weight": "50 kilograms",
-            "image": "https://images.dinosaurpictures.org/Troodon/Troodon_513a35aa.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/troodon.jpg",
             "description": "Possessed the largest brain-to-body ratio of any dinosaur; its large, forward-facing eyes gave it excellent night vision for hunting."
         },
         "tarbosaurus": {
@@ -787,7 +787,7 @@
             "period": "Late Cretaceous (70 Ma)",
             "size": "12 meters",
             "weight": "5,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Tarbosaurus/Tarbosaurus_49303ebc.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/tarbosaurus.jpg",
             "description": "The Asian \"twin\" of T. rex; it was slightly slimmer and had even smaller arms, ruling the floodplains of Mongolia as the apex king."
         },
         "tyrannotitan": {
@@ -797,7 +797,7 @@
             "period": "Early Cretaceous (118 Ma)",
             "size": "12.2 meters",
             "weight": "4,800 kilograms",
-            "image": "https://images.dinosaurpictures.org/Tyrannotitan/Tyrannotitan_b3e3417c.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/tyrannotitan.jpg",
             "description": "A massive carcharodontosaurid with incredibly robust teeth, it was the apex predator of Argentina before Giganotosaurus appeared."
         },
         "irritator": {
@@ -807,7 +807,7 @@
             "period": "Early Cretaceous (110 Ma)",
             "size": "8 meters",
             "weight": "1,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Irritator/Irritator_36ed145a.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/irritator.jpg",
             "description": "Its name reflects the frustration of paleontologists who discovered the fossil had been artificially lengthened by illegal fossil dealers."
         },
         "mononykus": {
@@ -817,7 +817,7 @@
             "period": "Late Cretaceous (70 Ma)",
             "size": "1 meter",
             "weight": "3 kilograms",
-            "image": "https://images.dinosaurpictures.org/Mononykus/Mononykus_dc9d0554.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/mononykus.jpg",
             "description": "A tiny, feathered insectivore with a single, powerful thumb claw on each \"arm,\" which it likely used to break into termite mounds."
         },
         "tsintaosaurus": {
@@ -827,7 +827,7 @@
             "period": "Late Cretaceous (70 Ma)",
             "size": "10 meters",
             "weight": "3,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Tsintaosaurus/Tsintaosaurus_a5a9c316.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/tsintaosaurus.jpg",
             "description": "Initially thought to have a single \"unicorn\" spike, we now know it possessed a large, hollow, petal-shaped crest used for display."
         },
         "olorotitan": {
@@ -837,7 +837,7 @@
             "period": "Late Cretaceous (70\u201366 Ma)",
             "size": "8 meters",
             "weight": "3,100 kilograms",
-            "image": "https://images.dinosaurpictures.org/Olorotitan/Olorotitan_55dad6f7.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/olorotitan.jpg",
             "description": "Named for its unusually long neck (containing 18 vertebrae); it was one of the last and most spectacular lambeosaurines in Asia."
         },
         "albertosaurus": {
@@ -847,7 +847,7 @@
             "period": "Late Cretaceous (71\u201368 Ma)",
             "size": "9 meters",
             "weight": "2,500 kilograms",
-            "image": "https://images.dinosaurpictures.org/Albertosaurus/Albertosaurus_0b39f0df.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/albertosaurus.jpg",
             "description": "A sleeker, faster relative of T. rex; bonebeds suggest they may have hunted in packs to corner agile duck-billed dinosaurs."
         },
         "lokiceratops": {
@@ -857,7 +857,7 @@
             "period": "Late Cretaceous (78 Ma)",
             "size": "6.7 meters",
             "weight": "5,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Lokiceratops/Lokiceratops_e2890418.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/lokiceratops.jpg",
             "description": "A massive centrosaurine named after the Norse god; it possessed the largest frill horns ever seen in its group, lacking a nose horn entirely."
         },
         "psittacosaurus": {
@@ -867,7 +867,7 @@
             "period": "Early Cretaceous (126\u2013101 Ma)",
             "size": "2 meters",
             "weight": "20 kilograms",
-            "image": "https://images.dinosaurpictures.org/Psittacosaurus/Psittacosaurus_67a734a2.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/psittacosaurus.jpg",
             "description": "Named for its parrot-like beak; a rare fossil shows it had a row of long, quill-like structures on its tail, possibly for display."
         },
         "staurikosaurus": {
@@ -877,7 +877,7 @@
             "period": "Late Triassic (233\u2013225 Ma)",
             "size": "2.2 meters",
             "weight": "30 kilograms",
-            "image": "https://images.dinosaurpictures.org/Staurikosaurus/Staurikosaurus_fcbee253.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/staurikosaurus.jpg",
             "description": "Named after the Southern Cross constellation; it was a small, agile predator with a primitive, five-fingered hand."
         },
         "mapusaurus": {
@@ -887,7 +887,7 @@
             "period": "Late Cretaceous (97\u201393 Ma)",
             "size": "12.5 meters",
             "weight": "5,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Mapusaurus/Mapusaurus_68817d76.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/mapusaurus.jpg",
             "description": "Fossils of several individuals found together suggest this massive predator may have hunted in coordinated packs."
         },
         "pantydraco": {
@@ -897,7 +897,7 @@
             "period": "Late Triassic (205\u2013200 Ma)",
             "size": "3 meters",
             "weight": "50 kilograms",
-            "image": "https://images.dinosaurpictures.org/Pantydraco/Pantydraco_3e8a7894.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/pantydraco.jpg",
             "description": "Discovered in a Welsh quarry; it was a gracile, early sauropodomorph that likely used its slender hands to grasp vegetation."
         },
         "stegoceras": {
@@ -907,7 +907,7 @@
             "period": "Late Cretaceous (77\u201374 Ma)",
             "size": "2 meters",
             "weight": "40 kilograms",
-            "image": "https://images.dinosaurpictures.org/Stegoceras/Stegoceras_4b4d9e9b.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/stegoceras.jpg",
             "description": "A small, bipedal dinosaur with a thick, bony dome on its head; it is one of the most complete and best-studied pachycephalosaurs."
         },
         "deinocheirus": {
@@ -917,7 +917,7 @@
             "period": "Late Cretaceous (70 Ma)",
             "size": "11 meters",
             "weight": "6,300 kilograms",
-            "image": "https://images.dinosaurpictures.org/Deinocheirus/Deinocheirus_8a41b64c.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/deinocheirus.jpg",
             "description": "A bizarre, hump-backed \"ostrich dinosaur\" with 2.4-meter arms; it was an omnivore that used its duck-like beak to eat plants and fish."
         },
         "sinraptor": {
@@ -927,7 +927,7 @@
             "period": "Late Jurassic (161\u2013157 Ma)",
             "size": "7.6 meters",
             "weight": "1,300 kilograms",
-            "image": "https://images.dinosaurpictures.org/Sinraptor/Sinraptor_7e70feca.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/sinraptor.jpg",
             "description": "Despite its name, it is not a \"raptor\" but an early allosauroid; it was a dominant predator of the Jurassic Asian floodplains."
         },
         "dicraeosaurus": {
@@ -937,7 +937,7 @@
             "period": "Late Jurassic (155\u2013150 Ma)",
             "size": "12 meters",
             "weight": "4,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Dicraeosaurus/Dicraeosaurus_dd3d2281.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/dicraeosaurus.jpg",
             "description": "Characterized by its relatively short neck and tall, Y-shaped spines on its vertebrae that likely supported powerful muscles."
         },
         "deinonychus": {
@@ -947,7 +947,7 @@
             "period": "Early Cretaceous (115\u2013108 Ma)",
             "size": "3.4 meters",
             "weight": "73 kilograms",
-            "image": "https://images.dinosaurpictures.org/Deinonychus/Deinonychus_a075aed6.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/deinonychus.jpg",
             "description": "The discovery of this active predator sparked the \"Dinosaur Renaissance,\" proving dinosaurs were warm-blooded and bird-like."
         },
         "iguanodon": {
@@ -957,7 +957,7 @@
             "period": "Early Cretaceous (126\u2013122 Ma)",
             "size": "10 meters",
             "weight": "3,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Iguanodon/Iguanodon_8767aceb.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/iguanodon.jpg",
             "description": "The second dinosaur ever named; it possessed a conical thumb spike once mistakenly placed on its nose by early 19th-century scientists."
         },
         "tyrannosaurus": {
@@ -967,7 +967,7 @@
             "period": "Late Cretaceous (68\u201366 Ma)",
             "size": "12.3 meters",
             "weight": "8,400 kilograms",
-            "image": "http://images.dinosaurpictures.org/dinosaurs-tyrannosaurus_00336745_13a8.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/tyrannosaurus.jpg",
             "description": "Possessed a bite force of 35,000 Newtons\u2014enough to shatter bone; it is widely considered the most powerful land predator of all time."
         },
         "shantungosaurus": {
@@ -977,7 +977,7 @@
             "period": "Late Cretaceous (73 Ma)",
             "size": "15 meters",
             "weight": "16,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Shantungosaurus/Shantungosaurus_97f28162.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/shantungosaurus.jpg",
             "description": "The largest non-sauropod dinosaur ever discovered; it was roughly the size of a school bus and weighed as much as two African elephants."
         },
         "europasaurus": {
@@ -987,7 +987,7 @@
             "period": "Late Jurassic (154\u2013151 Ma)",
             "size": "6.2 meters",
             "weight": "1,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Europasaurus/Europasaurus_e68736b6.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/europasaurus.jpg",
             "description": "An example of \"insular dwarfism,\" this sauropod evolved to a small size to survive on a resource-limited island in modern Germany."
         },
         "corythosaurus": {
@@ -997,7 +997,7 @@
             "period": "Late Cretaceous (77\u201375 Ma)",
             "size": "9 meters",
             "weight": "3,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Corythosaurus/Corythosaurus_4e870a70.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/corythosaurus.jpg",
             "description": "Featuring a tall, semi-circular crest similar to a Corinthian helmet, which likely helped the animal recognize members of its own herd."
         },
         "metriacanthosaurus": {
@@ -1007,7 +1007,7 @@
             "period": "Late Jurassic (160 Ma)",
             "size": "8 meters",
             "weight": "1,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Metriacanthosaurus/Metriacanthosaurus_371b5c7d.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/metriacanthosaurus.jpg",
             "description": "Named for the height of its neural spines, which were taller than most theropods but shorter than those of the spinosaurids."
         },
         "acrocanthosaurus": {
@@ -1017,7 +1017,7 @@
             "period": "Early Cretaceous (113\u2013110 Ma)",
             "size": "11.5 meters",
             "weight": "6,200 kilograms",
-            "image": "https://images.dinosaurpictures.org/Acrocanthosaurus/Acrocanthosaurus_134d71e6.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/acrocanthosaurus.jpg",
             "description": "Notable for the very high neural spines along its back, which likely supported a ridge of muscle used for tackling giant sauropods."
         },
         "giraffatitan": {
@@ -1027,7 +1027,7 @@
             "period": "Late Jurassic (154\u2013142 Ma)",
             "size": "23 meters",
             "weight": "40,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Giraffatitan/Giraffatitan_d85f2f15.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/giraffatitan.jpg",
             "description": "Often mistaken for Brachiosaurus, this African giant was significantly taller and is the focus of the world's tallest mounted skeleton."
         },
         "maiasaura": {
@@ -1037,7 +1037,7 @@
             "period": "Late Cretaceous (76 Ma)",
             "size": "9 meters",
             "weight": "2,500 kilograms",
-            "image": "https://images.dinosaurpictures.org/Maiasaura/Maiasaura_26d876ad.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/maiasaura.jpg",
             "description": "The first dinosaur found with evidence of parental care; fossilized nesting colonies show they stayed to feed and protect their hatchlings."
         },
         "moros": {
@@ -1047,7 +1047,7 @@
             "period": "Late Cretaceous (96 Ma)",
             "size": "1.2 meters",
             "weight": "78 kilograms",
-            "image": "https://images.dinosaurpictures.org/Moros/Moros_aabf2cc1.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/moros.jpg",
             "description": "A tiny, deer-sized tyrannosaur from Utah; its discovery helped explain how tyrannosaurs stayed small for millions of years before becoming giants."
         },
         "alamosaurus": {
@@ -1057,7 +1057,7 @@
             "period": "Late Cretaceous (70\u201366 Ma)",
             "size": "30 meters",
             "weight": "73,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Alamosaurus/Alamosaurus_60b87f10.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/alamosaurus.jpg",
             "description": "The last sauropod in North America; recent evidence suggests its body was partially covered in bony armor plates (osteoderms)."
         },
         "therizinosaurus": {
@@ -1067,7 +1067,7 @@
             "period": "Late Cretaceous (70 Ma)",
             "size": "10 meters",
             "weight": "5,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Therizinosaurus/Therizinosaurus_995f089b.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/therizinosaurus.jpg",
             "description": "A massive, pot-bellied herbivore featuring 1-meter long claws; it used these spectacular weapons to strip branches or fend off Tarbosaurus."
         },
         "camarasaurus": {
@@ -1077,7 +1077,7 @@
             "period": "Late Jurassic (155\u2013145 Ma)",
             "size": "23 meters",
             "weight": "20,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Camarasaurus/Camarasaurus_dddedc7f.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/camarasaurus.jpg",
             "description": "Its vertebrae contained large \"chambers\" (pleurocoels) to reduce weight; it was the most common sauropod in North America."
         },
         "compsognathus": {
@@ -1087,7 +1087,7 @@
             "period": "Late Jurassic (150 Ma)",
             "size": "1 meter",
             "weight": "3 kilograms",
-            "image": "https://images.dinosaurpictures.org/Compsognathus/Compsognathus_06897092.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/compsognathus.jpg",
             "description": "For a long time, it was considered the smallest dinosaur; a fossil was found with the lizard Bavarisaurus preserved in its stomach."
         },
         "barosaurus": {
@@ -1097,7 +1097,7 @@
             "period": "Late Jurassic (155\u2013145 Ma)",
             "size": "27 meters",
             "weight": "15,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Barosaurus/Barosaurus_5bb69c16.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/barosaurus.jpg",
             "description": "A slim relative of Diplodocus with an exceptionally long neck; some believe it had multiple \"hearts\" to pump blood to its head."
         },
         "camptosaurus": {
@@ -1107,7 +1107,7 @@
             "period": "Late Jurassic (155\u2013150 Ma)",
             "size": "6 meters",
             "weight": "800 kilograms",
-            "image": "https://images.dinosaurpictures.org/Camptosaurus/Camptosaurus_e6dbd9e7.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/camptosaurus.jpg",
             "description": "An early relative of the duck-bills; it could walk on four legs to graze or stand on two legs to sprint away from danger."
         },
         "ornithomimus": {
@@ -1117,7 +1117,7 @@
             "period": "Late Cretaceous (76 Ma)",
             "size": "3.8 meters",
             "weight": "170 kilograms",
-            "image": "https://images.dinosaurpictures.org/Ornithomimus/Ornithomimus_6d03fbbe.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/ornithomimus.jpg",
             "description": "A very bird-like runner with feathers; its arms were proportionally the longest of the ornithomimids, used for gathering foliage."
         },
         "gastonia": {
@@ -1127,7 +1127,7 @@
             "period": "Early Cretaceous (125 Ma)",
             "size": "5 meters",
             "weight": "1,900 kilograms",
-            "image": "https://images.dinosaurpictures.org/Gastonia/Gastonia_5bf47f27.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/gastonia.jpg",
             "description": "A heavily armored nodosaurid; it featured massive, scissor-like spikes along its sides that would snap shut when the animal flexed."
         },
         "homalocephale": {
@@ -1137,7 +1137,7 @@
             "period": "Late Cretaceous (70 Ma)",
             "size": "1.8 meters",
             "weight": "43 kilograms",
-            "image": "https://images.dinosaurpictures.org/Homalocephale/Homalocephale_fd51ecb5.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/homalocephale.jpg",
             "description": "Unlike its dome-headed relatives, it had a flat, wedge-shaped skull, suggesting a different style of social shoving or head-butting."
         },
         "protoceratops": {
@@ -1147,7 +1147,7 @@
             "period": "Late Cretaceous (75\u201371 Ma)",
             "size": "1.8 meters",
             "weight": "100 kilograms",
-            "image": "https://images.dinosaurpictures.org/Protoceratops/Protoceratops_2178ebac.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/protoceratops.jpg",
             "description": "A sheep-sized dinosaur from Mongolia; its large frill protected its neck and provided a site for powerful jaw muscle attachments."
         },
         "qianzhousaurus": {
@@ -1157,7 +1157,7 @@
             "period": "Late Cretaceous (67\u201366 Ma)",
             "size": "9 meters",
             "weight": "750 kilograms",
-            "image": "https://images.dinosaurpictures.org/Qianzhousaurus/Qianzhousaurus_5a115fba.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/qianzhousaurus.jpg",
             "description": "Nicknamed \"Pinocchio rex\" due to its elongated snout, it was a specialized, graceful predator from the Late Cretaceous of China."
         },
         "eoraptor": {
@@ -1167,7 +1167,7 @@
             "period": "Late Triassic (231\u2013228 Ma)",
             "size": "1 meter",
             "weight": "10 kilograms",
-            "image": "https://images.dinosaurpictures.org/Eoraptor/Eoraptor_ea2bccc4.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/eoraptor.jpg",
             "description": "A small, bipedal omnivore once considered a theropod, but now recognized as one of the earliest ancestors of giant sauropods."
         },
         "ouranosaurus": {
@@ -1177,7 +1177,7 @@
             "period": "Early Cretaceous (112\u2013110 Ma)",
             "size": "7 meters",
             "weight": "2,200 kilograms",
-            "image": "https://images.dinosaurpictures.org/Ouranosaurus/Ouranosaurus_14b47f51.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/ouranosaurus.jpg",
             "description": "Notable for the tall neural spines along its back, which likely supported a fatty hump for water storage or a sail for thermoregulation."
         },
         "hadrosaurus": {
@@ -1187,7 +1187,7 @@
             "period": "Late Cretaceous (80\u201375 Ma)",
             "size": "8 meters",
             "weight": "3,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Hadrosaurus/Hadrosaurus_fbb99690.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/hadrosaurus.jpg",
             "description": "The official state dinosaur of New Jersey; its discovery in 1858 proved for the first time that some dinosaurs were bipedal."
         },
         "plateosaurus": {
@@ -1197,7 +1197,7 @@
             "period": "Late Triassic (214\u2013204 Ma)",
             "size": "8 meters",
             "weight": "4,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Plateosaurus/Plateosaurus_e9c1d2a7.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/plateosaurus.jpg",
             "description": "A high-browsing herbivore that could stand on its hind legs; its fossils are often found in massive \"bone beds\" in Europe."
         },
         "brachiosaurus": {
@@ -1207,7 +1207,7 @@
             "period": "Late Jurassic (154\u2013153 Ma)",
             "size": "21 meters",
             "weight": "46,900 kilograms",
-            "image": "https://images.dinosaurpictures.org/Brachiosaurus/Brachiosaurus_c9eb8de4.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/brachiosaurus.jpg",
             "description": "One of the few sauropods with front legs longer than its back legs, giving it a permanent upward-tilted posture for high browsing."
         },
         "gorgosaurus": {
@@ -1217,7 +1217,7 @@
             "period": "Late Cretaceous (77\u201376 Ma)",
             "size": "8.5 meters",
             "weight": "2,400 kilograms",
-            "image": "https://images.dinosaurpictures.org/Gorgosaurus/Gorgosaurus_e9b87c41.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/gorgosaurus.jpg",
             "description": "Distinguished by a pair of small, bony horns over its eyes; it likely relied on its incredible speed to catch its prey."
         },
         "wuerhosaurus": {
@@ -1227,7 +1227,7 @@
             "period": "Early Cretaceous (113 Ma)",
             "size": "7 meters",
             "weight": "4,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Wuerhosaurus/Wuerhosaurus_c5f61f63.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/wuerhosaurus.jpg",
             "description": "One of the last surviving stegosaurs; its plates were much lower and more rounded than those of its Jurassic ancestors."
         },
         "dreadnoughtus": {
@@ -1237,7 +1237,7 @@
             "period": "Late Cretaceous (77\u201370 Ma)",
             "size": "26 meters",
             "weight": "48,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Dreadnoughtus/Dreadnoughtus_07abd30e.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/dreadnoughtus.jpg",
             "description": "Named after massive battleships; its sheer size meant a healthy adult would have been practically invulnerable to predators."
         },
         "ankylosaurus": {
@@ -1247,7 +1247,7 @@
             "period": "Late Cretaceous (68\u201366 Ma)",
             "size": "8 meters",
             "weight": "6,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Ankylosaurus/Ankylosaurus_775883a1.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/ankylosaurus.jpg",
             "description": "The \"tank\" of the dinosaur world; even its eyelids were armored with bone, and its tail club could shatter the leg of a T. rex."
         },
         "amargasaurus": {
@@ -1257,7 +1257,7 @@
             "period": "Early Cretaceous (132\u2013127 Ma)",
             "size": "10 meters",
             "weight": "2,600 kilograms",
-            "image": "https://images.dinosaurpictures.org/Amargasaurus/Amargasaurus_9ca3228a.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/amargasaurus.jpg",
             "description": "Notable for the double row of tall, thin spines running down its neck, which may have supported a sail or served as a visual display."
         },
         "argentinosaurus": {
@@ -1267,7 +1267,7 @@
             "period": "Late Cretaceous (96\u201392 Ma)",
             "size": "35 meters",
             "weight": "75,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Argentinosaurus/Argentinosaurus_ad12c32f.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/argentinosaurus.jpg",
             "description": "Widely considered the largest land animal ever discovered; a single vertebra from this titan is over 1.5 meters tall."
         },
         "kentrosaurus": {
@@ -1277,7 +1277,7 @@
             "period": "Late Jurassic (152 Ma)",
             "size": "4.5 meters",
             "weight": "2,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Kentrosaurus/Kentrosaurus_da0ff720.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/kentrosaurus.jpg",
             "description": "A smaller cousin of Stegosaurus covered mostly in long, sharp spikes rather than plates, extending from its mid-back to its tail."
         },
         "nasutoceratops": {
@@ -1287,7 +1287,7 @@
             "period": "Late Cretaceous (76 Ma)",
             "size": "4.5 meters",
             "weight": "1,500 kilograms",
-            "image": "https://images.dinosaurpictures.org/Nasutoceratops/Nasutoceratops_f4028474.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/nasutoceratops.jpg",
             "description": "Distinguished by its remarkably short, blunt snout and long, forward-curving brow horns that resemble those of modern cattle."
         },
         "guanlong": {
@@ -1297,7 +1297,7 @@
             "period": "Late Jurassic (161\u2013156 Ma)",
             "size": "3 meters",
             "weight": "75 kilograms",
-            "image": "https://images.dinosaurpictures.org/Guanlong/Guanlong_8981c543.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/guanlong.jpg",
             "description": "A primitive ancestor of T. rex that sported a spectacular, hollow bony crest on its head, likely used for social communication."
         },
         "giganotosaurus": {
@@ -1307,7 +1307,7 @@
             "period": "Late Cretaceous (98\u201397 Ma)",
             "size": "13 meters",
             "weight": "8,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Giganotosaurus/Giganotosaurus_4e5a241f.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/giganotosaurus.jpg",
             "description": "One of the largest land predators ever to live; it was larger than T. rex but had a significantly smaller and more slender brain."
         },
         "suchomimus": {
@@ -1317,7 +1317,7 @@
             "period": "Early Cretaceous (112\u2013110 Ma)",
             "size": "11 meters",
             "weight": "3,800 kilograms",
-            "image": "https://images.dinosaurpictures.org/Suchomimus/Suchomimus_9cead7ec.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/suchomimus.jpg",
             "description": "Featuring a very long, low snout and a small sail on its lower back, it was perfectly adapted for a semi-aquatic lifestyle."
         },
         "spinosaurus": {
@@ -1327,7 +1327,7 @@
             "period": "Late Cretaceous (99\u201393 Ma)",
             "size": "14 meters",
             "weight": "7,400 kilograms",
-            "image": "https://images.dinosaurpictures.org/Spinosaurus/Spinosaurus_8b26fbe0.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/spinosaurus.jpg",
             "description": "The longest carnivorous dinosaur known, it possessed a 1.6-meter dorsal sail and a paddle-like tail used for propulsion in water."
         },
         "parasaurolophus": {
@@ -1337,7 +1337,7 @@
             "period": "Late Cretaceous (76\u201373 Ma)",
             "size": "10 meters",
             "weight": "2,500 kilograms",
-            "image": "https://images.dinosaurpictures.org/Parasaurolophus/Parasaurolophus_c540a3ef.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/parasaurolophus.jpg",
             "description": "Its 1.8-meter hollow head crest acted as a resonance chamber, allowing it to blast low-frequency calls that could travel for miles."
         },
         "cryolophosaurus": {
@@ -1347,7 +1347,7 @@
             "period": "Early Jurassic (194\u2013188 Ma)",
             "size": "6.5 meters",
             "weight": "465 kilograms",
-            "image": "https://images.dinosaurpictures.org/Cryolophosaurus/Cryolophosaurus_9dfa5823.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/cryolophosaurus.jpg",
             "description": "Nicknamed \"Elvisaurus\" due to its forward-facing head crest that resembles a 1950s pompadour hairstyle."
         },
         "nanotyrannus": {
@@ -1357,7 +1357,7 @@
             "period": "Late Cretaceous (68\u201366 Ma)",
             "size": "5 meters",
             "weight": "600 kilograms",
-            "image": "https://images.dinosaurpictures.org/Nanotyrannus/Nanotyrannus_e704e2a2.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/nanotyrannus.jpg",
             "description": "A highly controversial genus; many paleontologists believe these fossils actually represent juvenile Tyrannosaurus rex specimens."
         },
         "vulcanodon": {
@@ -1367,7 +1367,7 @@
             "period": "Early Jurassic (199\u2013188 Ma)",
             "size": "6.5 meters",
             "weight": "3,500 kilograms",
-            "image": "https://images.dinosaurpictures.org/Vulcanodon/Vulcanodon_249a0345.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/vulcanodon.jpg",
             "description": "One of the earliest true sauropods; it developed the pillar-like limbs necessary to support its rapidly increasing body mass."
         },
         "bajadasaurus": {
@@ -1377,7 +1377,7 @@
             "period": "Early Cretaceous (145\u2013133 Ma)",
             "size": "10 meters",
             "weight": "3,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Bajadasaurus/Bajadasaurus_a0f6def5.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/bajadasaurus.jpg",
             "description": "A relative of Amargasaurus with forward-curving neck spines that likely protected the animal from predators while it was feeding."
         },
         "sauropelta": {
@@ -1387,7 +1387,7 @@
             "period": "Early Cretaceous (108 Ma)",
             "size": "5.2 meters",
             "weight": "1,500 kilograms",
-            "image": "https://images.dinosaurpictures.org/Sauropelta/Sauropelta_32c76fe1.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/sauropelta.jpg",
             "description": "Famous for its exceptionally long neck spikes, which protected its most vulnerable area while it grazed on low ferns."
         },
         "pelecanimimus": {
@@ -1397,7 +1397,7 @@
             "period": "Early Cretaceous (130 Ma)",
             "size": "2.5 meters",
             "weight": "30 kilograms",
-            "image": "https://images.dinosaurpictures.org/Pelecanimimus/Pelecanimimus_1fc96afd.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/pelecanimimus.jpg",
             "description": "Unlike its later toothless relatives, it had a record-breaking 220 tiny teeth and a throat pouch similar to a modern pelican."
         },
         "mamenchisaurus": {
@@ -1407,7 +1407,7 @@
             "period": "Late Jurassic (161\u2013114 Ma)",
             "size": "22 meters",
             "weight": "27,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Mamenchisaurus/Mamenchisaurus_924481c3.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/mamenchisaurus.jpg",
             "description": "This dinosaur possessed a record-breaking neck that could reach up to 14 meters, accounting for half of its total body length."
         },
         "rugops": {
@@ -1417,7 +1417,7 @@
             "period": "Late Cretaceous (95 Ma)",
             "size": "6 meters",
             "weight": "750 kilograms",
-            "image": "https://images.dinosaurpictures.org/Rugops/Rugops_29891994.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/rugops.jpg",
             "description": "Its skull was covered in numerous blood vessels and pits, suggesting its face may have supported a display structure or tough armor."
         },
         "sauroposeidon": {
@@ -1427,7 +1427,7 @@
             "period": "Early Cretaceous (118\u2013110 Ma)",
             "size": "30 meters",
             "weight": "50,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Sauroposeidon/Sauroposeidon_019a4f5d.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/sauroposeidon.jpg",
             "description": "One of the tallest dinosaurs ever found, its neck alone was 12 meters long, allowing it to reach heights of nearly 18 meters."
         },
         "dilophosaurus": {
@@ -1437,7 +1437,7 @@
             "period": "Early Jurassic (193\u2013188 Ma)",
             "size": "7 meters",
             "weight": "400 kilograms",
-            "image": "https://images.dinosaurpictures.org/Dilophosaurus/Dilophosaurus_c7406166.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/dilophosaurus.jpg",
             "description": "Contrary to pop culture, it lacked a neck frill and did not spit venom; it was a powerful, agile predator of the early Jurassic."
         },
         "muttaburrasaurus": {
@@ -1447,7 +1447,7 @@
             "period": "Early Cretaceous (107\u2013103 Ma)",
             "size": "8 meters",
             "weight": "2,800 kilograms",
-            "image": "https://images.dinosaurpictures.org/Muttaburrasaurus/Muttaburrasaurus_0d25c629.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/muttaburrasaurus.jpg",
             "description": "Featured a large, hollow bulge on its snout that may have been used to amplify its voice or inflate for visual displays."
         },
         "pachycephalosaurus": {
@@ -1457,7 +1457,7 @@
             "period": "Late Cretaceous (68\u201366 Ma)",
             "size": "4.5 meters",
             "weight": "450 kilograms",
-            "image": "https://images.dinosaurpictures.org/Pachycephalosaurus/Pachycephalosaurus_e206f071.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/pachycephalosaurus.jpg",
             "description": "Its skull was topped with 25 centimeters of solid bone; it likely engaged in ritualized combat by slamming its head into a rival's flank."
         },
         "diabloceratops": {
@@ -1467,7 +1467,7 @@
             "period": "Late Cretaceous (79 Ma)",
             "size": "5.5 meters",
             "weight": "2,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Diabloceratops/Diabloceratops_8a355ff9.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/diabloceratops.jpg",
             "description": "Named for the two long, upward-curving spikes on its frill that resemble devil horns; it had a short nose horn and long brow horns."
         },
         "huayangosaurus": {
@@ -1477,7 +1477,7 @@
             "period": "Middle Jurassic (165 Ma)",
             "size": "4.5 meters",
             "weight": "1,500 kilograms",
-            "image": "https://images.dinosaurpictures.org/Huayangosaurus/Huayangosaurus_1650af6b.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/huayangosaurus.jpg",
             "description": "One of the most primitive stegosaurs; unlike its later relatives, it still had teeth at the very front of its beak."
         },
         "minmi": {
@@ -1487,7 +1487,7 @@
             "period": "Early Cretaceous (120\u2013112 Ma)",
             "size": "3 meters",
             "weight": "300 kilograms",
-            "image": "https://images.dinosaurpictures.org/Minmi/Minmi_e20c62fa.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/minmi.jpg",
             "description": "A small, primitive armored dinosaur from Australia; it had extra bony plates along its spine to protect its belly from predators."
         },
         "neovenator": {
@@ -1497,7 +1497,7 @@
             "period": "Early Cretaceous (125 Ma)",
             "size": "7.6 meters",
             "weight": "2,000 kilograms",
-            "image": "https://images.dinosaurpictures.org/Neovenator/Neovenator_3f1af1f9.jpg",
+            "image": "https://alexjercan.github.io/metajurassic-images/species/neovenator.jpg",
             "description": "One of the leading predators of Early Cretaceous Europe, it possessed sensory pits in its snout for detecting heat or pressure."
         }
     },

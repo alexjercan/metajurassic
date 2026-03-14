@@ -5,7 +5,7 @@ clade: pantyrannosauria
 period: Early Cretaceous (125 Ma)
 size: 9 meters
 weight: 1,400 kilograms
-image: https://images.dinosaurpictures.org/Yutyrannus/Yutyrannus_539e328f.jpg
+image: https://alexjercan.github.io/metajurassic-images/species/yutyrannus.jpg
 ---
 
 The largest dinosaur with direct evidence of feathers; it lived in a cold climate and likely used its "coat" to keep warm.

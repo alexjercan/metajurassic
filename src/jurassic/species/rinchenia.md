@@ -5,7 +5,7 @@ clade: oviraptoridae
 period: Late Cretaceous (70 Ma)
 size: 1.7 meters
 weight: 40 kilograms
-image: https://images.dinosaurpictures.org/Rinchenia/Rinchenia_c329de10.jpg
+image: https://alexjercan.github.io/metajurassic-images/species/rinchenia.jpg
 ---
 
 An oviraptorid with an exceptionally high, dome-like crest on its head, which likely served as a colorful display for attracting mates.

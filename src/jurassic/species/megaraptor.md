@@ -5,7 +5,7 @@ clade: megaraptoridae
 period: Late Cretaceous (91–86 Ma)
 size: 8 meters
 weight: 1,000 kilograms
-image: https://images.dinosaurpictures.org/Megaraptor/Megaraptor_c1e3e76b.jpg
+image: https://alexjercan.github.io/metajurassic-images/species/megaraptor.jpg
 ---
 
 Once thought to be a giant raptor, we now know its signature "sickle claw" was actually on its thumb, not its toe.

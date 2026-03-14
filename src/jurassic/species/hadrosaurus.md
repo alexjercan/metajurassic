@@ -5,7 +5,7 @@ clade: hadrosauridae
 period: Late Cretaceous (80–75 Ma)
 size: 8 meters
 weight: 3,000 kilograms
-image: https://images.dinosaurpictures.org/Hadrosaurus/Hadrosaurus_fbb99690.jpg
+image: https://alexjercan.github.io/metajurassic-images/species/hadrosaurus.jpg
 ---
 
 The official state dinosaur of New Jersey; its discovery in 1858 proved for the first time that some dinosaurs were bipedal.

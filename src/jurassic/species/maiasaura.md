@@ -5,7 +5,7 @@ clade: saurolophinae
 period: Late Cretaceous (76 Ma)
 size: 9 meters
 weight: 2,500 kilograms
-image: https://images.dinosaurpictures.org/Maiasaura/Maiasaura_26d876ad.jpg
+image: https://alexjercan.github.io/metajurassic-images/species/maiasaura.jpg
 ---
 
 The first dinosaur found with evidence of parental care; fossilized nesting colonies show they stayed to feed and protect their hatchlings.

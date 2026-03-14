@@ -5,7 +5,7 @@ clade: giganotosaurini
 period: Early Cretaceous (118 Ma)
 size: 12.2 meters
 weight: 4,800 kilograms
-image: https://images.dinosaurpictures.org/Tyrannotitan/Tyrannotitan_b3e3417c.jpg
+image: https://alexjercan.github.io/metajurassic-images/species/tyrannotitan.jpg
 ---
 
 A massive carcharodontosaurid with incredibly robust teeth, it was the apex predator of Argentina before Giganotosaurus appeared.

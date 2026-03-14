@@ -5,7 +5,7 @@ clade: clypeodontia
 period: Early Cretaceous (130–125 Ma)
 size: 1.8 meters
 weight: 20 kilograms
-image: https://images.dinosaurpictures.org/Hypsilophodon/Hypsilophodon_bdfff378.jpg
+image: https://alexjercan.github.io/metajurassic-images/species/hypsilophodon.jpg
 ---
 
 A fast, agile plant-eater; early scientists wrongly thought it lived in trees, but it was actually a dedicated ground-runner.

@@ -5,7 +5,7 @@ clade: dromaeosaurinae
 period: Late Cretaceous (76–74 Ma)
 size: 2 meters
 weight: 15 kilograms
-image: https://images.dinosaurpictures.org/Dromaeosaurus/Dromaeosaurus_b6a44f8f.jpg
+image: https://alexjercan.github.io/metajurassic-images/species/dromaeosaurus.jpg
 ---
 
 Unlike the "slashing" Velociraptor, it had a much more robust skull and a powerful bite for a raptor, used to crush and grip prey.
