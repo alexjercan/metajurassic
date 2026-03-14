@@ -317,10 +317,9 @@ main {
     right: 0;
     width: 380px;
     border-left: 1px solid var(--glass-border);
-    padding: 20px;
+    padding: 54px 20px 20px 20px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     background: linear-gradient(
         90deg,
         rgba(10, 12, 16, 0.9) 0%,
@@ -371,7 +370,8 @@ main {
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
-    height: 90%;
+    flex: 1;
+    min-height: 0;
     display: flex;
     flex-direction: column;
     overflow-y: auto;
@@ -892,7 +892,7 @@ footer a + a::before {
         box-sizing: border-box;
         border-left: none;
         border-top: 1px solid var(--glass-border);
-        padding: 16px;
+        padding: 54px 16px 20px 16px;
         overflow-y: auto;
     }
 
