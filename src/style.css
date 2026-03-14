@@ -868,7 +868,6 @@ footer a + a::before {
     padding: 10px 40px 20px;
     width: 100%;
     box-sizing: border-box;
-    cursor: grab;
 }
 
 .archive-carousel::-webkit-scrollbar {
