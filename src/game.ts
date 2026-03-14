@@ -14,6 +14,8 @@ import { buildGuessTree, findNextHintCladeId } from "./treeBuilder";
 import { showWinModal, showLossModal } from "./ui/modal";
 import { loadGameData } from "./jsonLoader";
 
+declare const __webpack_public_path__: string;
+
 export interface GameOptions {
     data: GameData;
     state: GameState;
@@ -86,6 +88,16 @@ export function initGame({ data, state, saveState }: GameOptions) {
 
     function updateHintButton() {
         if (!hintBox) return;
+
+        if (state.isWin()) {
+            hintBox.classList.remove("disabled");
+            hintBox.classList.add("practice");
+            const hintText = document.getElementById("hint-text");
+            if (hintText) {
+                hintText.innerHTML = `<a href="${__webpack_public_path__}practice"><strong>Practice</strong></a>`;
+            }
+            return;
+        }
 
         const nextCladeId = findNextHintCladeId(state);
         const canHint =
