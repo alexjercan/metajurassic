@@ -113,7 +113,9 @@
                 <div class="modal-stats" id="modal-stats"></div>
                 <div class="modal-actions">
                     <button class="modal-btn" id="modal-close-btn">OK</button>
-                    <a class="modal-btn modal-btn-practice" href="/practice"
+                    <a
+                        class="modal-btn modal-btn-practice"
+                        href="<%= htmlWebpackPlugin.options.basePath %>practice"
                         >Practice</a
                     >
                 </div>
@@ -126,7 +128,7 @@
             <a href="https://metazooa.com" target="_blank"
                 >Inspired by Metazooa</a
             >
-            <a href="/faq">FAQ</a>
+            <a href="<%= htmlWebpackPlugin.options.basePath %>faq">FAQ</a>
         </footer>
     </body>
 </html>

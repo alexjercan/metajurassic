@@ -2,6 +2,9 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 
+// PUBLIC_PATH should be "/" for local dev (default) or "/metajurassic/" for GitHub Pages.
+const publicPath = process.env.PUBLIC_PATH || "/";
+
 const config = {
     entry: {
         index: "./src/index.ts",
@@ -15,31 +18,37 @@ const config = {
         filename: "[name].js",
         assetModuleFilename: "assets/[name][ext]",
         clean: true,
+        publicPath: publicPath,
     },
     plugins: [
         new HtmlWebpackPlugin({
             template: "src/index.html",
             chunks: ["index"],
+            basePath: publicPath,
         }),
         new HtmlWebpackPlugin({
             template: "src/index.html",
             filename: "practice/index.html",
             chunks: ["practice"],
+            basePath: publicPath,
         }),
         new HtmlWebpackPlugin({
             template: "src/faq.html",
             filename: "faq/index.html",
             chunks: ["faq"],
+            basePath: publicPath,
         }),
         new HtmlWebpackPlugin({
             template: "src/species.html",
             filename: "species/index.html",
             chunks: ["species"],
+            basePath: publicPath,
         }),
         new HtmlWebpackPlugin({
             template: "src/clades.html",
             filename: "clades/index.html",
             chunks: ["clades"],
+            basePath: publicPath,
         }),
         new CopyPlugin({
             patterns: [{ from: "src/jurassic", to: "jurassic" }],

@@ -72,13 +72,21 @@
                         and taxonomic clades.
                     </p>
                     <div class="archive-links">
-                        <a href="/species">Species Archive</a>
-                        <a href="/clades">Clades Archive</a>
+                        <a
+                            href="<%= htmlWebpackPlugin.options.basePath %>species"
+                            >Species Archive</a
+                        >
+                        <a
+                            href="<%= htmlWebpackPlugin.options.basePath %>clades"
+                            >Clades Archive</a
+                        >
                     </div>
                 </div>
 
                 <div class="faq-back">
-                    <a href="/">Back to game</a>
+                    <a href="<%= htmlWebpackPlugin.options.basePath %>"
+                        >Back to game</a
+                    >
                 </div>
             </div>
         </main>
@@ -89,7 +97,7 @@
             <a href="https://metazooa.com" target="_blank"
                 >Inspired by Metazooa</a
             >
-            <a href="/faq">FAQ</a>
+            <a href="<%= htmlWebpackPlugin.options.basePath %>faq">FAQ</a>
         </footer>
     </body>
 </html>
