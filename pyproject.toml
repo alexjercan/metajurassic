@@ -5,10 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "beautifulsoup4>=4.14.3",
     "requests>=2.32.5",
-    "rich>=14.3.3",
-    "types-requests>=2.32.4.20260107",
 ]
 
 [tool.ruff]
@@ -93,4 +90,5 @@ docstring-code-line-length = "dynamic"
 [dependency-groups]
 dev = [
     "ruff>=0.14.1",
+    "types-requests>=2.32.4.20260107",
 ]
