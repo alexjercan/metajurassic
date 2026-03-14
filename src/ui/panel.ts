@@ -75,7 +75,7 @@ export function renderSpeciesCard(
     clade?: import("../types").Clade | null
 ) {
     if (speciesCard && cladeCard) {
-        speciesCard.style.display = "block";
+        speciesCard.style.display = "flex";
         cladeCard.style.display = "none";
     }
     if (cardTitle) cardTitle.textContent = species.species || "Unknown";
@@ -103,7 +103,7 @@ export function renderCladeCard(
 ) {
     if (speciesCard && cladeCard) {
         speciesCard.style.display = "none";
-        cladeCard.style.display = "block";
+        cladeCard.style.display = "flex";
     }
     if (cladeTitle) cladeTitle.textContent = clade.name || "Unknown";
     if (cladeParent) cladeParent.textContent = parent ? parent.name : "—";

@@ -325,6 +325,7 @@ main {
     padding: 54px 20px 20px 20px;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
     background: linear-gradient(
         90deg,
         rgba(10, 12, 16, 0.9) 0%,
@@ -420,7 +421,7 @@ main {
     min-height: 0;
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
+    overflow: hidden;
 }
 
 @keyframes card-glow-spin {
@@ -432,11 +433,13 @@ main {
 .card-header {
     padding: 20px 24px 12px;
     text-align: center;
+    flex-shrink: 0;
 }
 
 .card-image-area {
     height: 200px;
     min-height: 200px;
+    flex-shrink: 0;
     background: #1a1f29;
     display: flex;
     align-items: center;
@@ -463,6 +466,26 @@ main {
     padding: 20px 24px;
     flex: 1;
     min-height: 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--glass-border) transparent;
+}
+
+.card-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.card-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.card-content::-webkit-scrollbar-thumb {
+    background: var(--glass-border);
+    border-radius: 3px;
+}
+
+.card-content::-webkit-scrollbar-thumb:hover {
+    background: var(--amber-glow);
 }
 
 .card-title {
