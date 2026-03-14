@@ -89,7 +89,7 @@ export function initGame({ data, state, saveState }: GameOptions) {
     function updateHintButton() {
         if (!hintBox) return;
 
-        if (state.isWin()) {
+        if (state.isGameOver()) {
             hintBox.classList.remove("disabled");
             hintBox.classList.add("practice");
             const hintText = document.getElementById("hint-text");
