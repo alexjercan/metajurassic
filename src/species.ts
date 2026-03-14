@@ -21,7 +21,7 @@ async function main() {
                 <div class="card-header">
                     <h2 class="card-title">${species.species}</h2>
                 </div>
-                <div class="card-image-area">[ Hologram Render ]</div>
+                <div class="card-image-area">${species.image ? `<img src="${species.image}" alt="${species.species}">` : "[ Hologram Render ]"}</div>
                 <div class="card-content">
                     <div class="card-stats">
                         <strong>Translation:</strong> <span>${species.translation || "—"}</span><br/>

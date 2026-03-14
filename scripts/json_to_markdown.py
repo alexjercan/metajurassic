@@ -5,8 +5,16 @@ JURASSIC_PATH = os.path.join("src", "jurassic")
 CLADES_PATH = os.path.join(JURASSIC_PATH, "clades")
 SPECIES_PATH = os.path.join(JURASSIC_PATH, "species")
 
-SPECIES_FIELDS = ["species", "translation", "clade", "period", "size", "weight"]
-CLADE_FIELDS = ["clade", "parent"]
+SPECIES_FIELDS = [
+    "species",
+    "translation",
+    "clade",
+    "period",
+    "size",
+    "weight",
+    "image",
+]
+CLADE_FIELDS = ["clade", "parent", "image"]
 
 
 def to_markdown(attributes: dict, field_order: list[str]) -> str:

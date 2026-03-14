@@ -7,6 +7,7 @@ export interface Species {
     size: string;
     weight: string;
     description: string;
+    image?: string;
 }
 
 export interface Clade {
@@ -14,6 +15,7 @@ export interface Clade {
     name: string;
     parent?: string;
     description: string;
+    image?: string;
 }
 
 export interface GuessResult {

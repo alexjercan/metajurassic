@@ -21,7 +21,7 @@ async function main() {
                 <div class="card-header">
                     <h2 class="card-title">${clade.name}</h2>
                 </div>
-                <div class="card-image-area">[ Hologram Render ]</div>
+                <div class="card-image-area">${clade.image ? `<img src="${clade.image}" alt="${clade.name}">` : "[ Hologram Render ]"}</div>
                 <div class="card-content">
                     <div class="card-stats">
                         <strong>Parent:</strong> <span>${parent ? parent.name : "—"}</span>

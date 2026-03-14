@@ -87,6 +87,7 @@ export async function loadGameData(): Promise<GameData> {
             size: attrs.size || "",
             weight: attrs.weight || "",
             description: body,
+            image: attrs.image || undefined,
         })
     );
 
@@ -97,6 +98,7 @@ export async function loadGameData(): Promise<GameData> {
             name: attrs.clade || "",
             parent: attrs.parent ? attrs.parent.toLowerCase() : undefined,
             description: body,
+            image: attrs.image || undefined,
         })
     );
 

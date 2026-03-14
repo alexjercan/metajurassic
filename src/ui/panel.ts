@@ -88,7 +88,13 @@ export function renderSpeciesCard(
     if (cardWeight) cardWeight.textContent = species.weight || "";
     if (cardFact) cardFact.textContent = species.description || "";
     if (cardClade) cardClade.textContent = clade ? clade.name : "";
-    if (cardImage) cardImage.textContent = "[ Hologram Render ]";
+    if (cardImage) {
+        if (species.image) {
+            cardImage.innerHTML = `<img src="${species.image}" alt="${species.species}">`;
+        } else {
+            cardImage.textContent = "[ Hologram Render ]";
+        }
+    }
 }
 
 export function renderCladeCard(
@@ -103,5 +109,11 @@ export function renderCladeCard(
     if (cladeParent) cladeParent.textContent = parent ? parent.name : "—";
     if (cladeDescription)
         cladeDescription.textContent = clade.description || "No description.";
-    if (cladeImage) cladeImage.textContent = "[ Hologram Render ]";
+    if (cladeImage) {
+        if (clade.image) {
+            cladeImage.innerHTML = `<img src="${clade.image}" alt="${clade.name}">`;
+        } else {
+            cladeImage.textContent = "[ Hologram Render ]";
+        }
+    }
 }

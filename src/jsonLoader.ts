@@ -9,12 +9,14 @@ interface RawSpecies {
     size: string;
     weight: string;
     description: string;
+    image?: string;
 }
 
 interface RawClade {
     clade: string;
     parent?: string;
     description: string;
+    image?: string;
 }
 
 interface RawGameData {
@@ -36,6 +38,7 @@ export async function loadGameData(): Promise<GameData> {
         size: s.size || "",
         weight: s.weight || "",
         description: s.description || "",
+        image: s.image || undefined,
     }));
 
     const cladesMap: Record<string, Clade> = {};
@@ -45,6 +48,7 @@ export async function loadGameData(): Promise<GameData> {
             name: c.clade || "",
             parent: c.parent ? c.parent.toLowerCase() : undefined,
             description: c.description || "",
+            image: c.image || undefined,
         };
         cladesMap[clade.name.toLowerCase()] = clade;
     }
