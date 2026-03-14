@@ -17,16 +17,18 @@ async function main() {
         card.className = "museum-card archive-card";
 
         card.innerHTML = `
-            <div class="card-header">
-                <h2 class="card-title">${clade.name}</h2>
-            </div>
-            <div class="card-image-area">[ Hologram Render ]</div>
-            <div class="card-content">
-                <div class="card-stats">
-                    <strong>Parent:</strong> <span>${parent ? parent.name : "—"}</span>
+            <div class="museum-card-inner">
+                <div class="card-header">
+                    <h2 class="card-title">${clade.name}</h2>
                 </div>
-                <div class="card-fact">
-                    <strong>Description:</strong> <span>${clade.description || "No description."}</span>
+                <div class="card-image-area">[ Hologram Render ]</div>
+                <div class="card-content">
+                    <div class="card-stats">
+                        <strong>Parent:</strong> <span>${parent ? parent.name : "—"}</span>
+                    </div>
+                    <div class="card-fact">
+                        <strong>Description:</strong> <span>${clade.description || "No description."}</span>
+                    </div>
                 </div>
             </div>
         `;

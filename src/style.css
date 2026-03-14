@@ -367,21 +367,64 @@ main {
     transform: translateX(-5px);
 }
 
+@property --card-glow-angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+
 .museum-card {
-    background: var(--bg-dark);
-    border: 2px solid var(--amber-glow);
-    outline: 3px solid var(--amber-outline);
-    outline-offset: 4px;
+    position: relative;
     border-radius: 12px;
     box-shadow:
         0 10px 30px rgba(0, 0, 0, 0.8),
-        0 0 12px var(--amber-glow-soft),
-        inset 0 0 20px var(--amber-glow-faint);
+        0 0 40px rgba(230, 168, 97, 0.08);
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.museum-card::before {
+    content: "";
+    position: absolute;
+    inset: -100%;
+    background: conic-gradient(
+        from var(--card-glow-angle),
+        transparent 0%,
+        var(--amber-glow) 8%,
+        transparent 16%,
+        transparent 100%
+    );
+    z-index: 0;
+    animation: card-glow-spin 6s linear infinite;
+}
+
+.museum-card::after {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    background: var(--bg-dark);
+    border-radius: 10px;
+    z-index: 1;
+}
+
+.museum-card-inner {
+    position: relative;
+    z-index: 2;
     flex: 1;
     min-height: 0;
     display: flex;
     flex-direction: column;
     overflow-y: auto;
+}
+
+@keyframes card-glow-spin {
+    to {
+        --card-glow-angle: 360deg;
+    }
 }
 
 .card-header {
@@ -845,7 +888,6 @@ footer a + a::before {
     height: auto;
     min-height: 420px;
     scroll-snap-align: center;
-    overflow: visible;
 }
 
 .archive-back {
