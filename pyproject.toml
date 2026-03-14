@@ -5,7 +5,10 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "pydantic>=2.12.5",
+    "beautifulsoup4>=4.14.3",
+    "requests>=2.32.5",
+    "rich>=14.3.3",
+    "types-requests>=2.32.4.20260107",
 ]
 
 [tool.ruff]

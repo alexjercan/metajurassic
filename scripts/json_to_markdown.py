@@ -1,9 +1,10 @@
-import os
 import json
+import os
 
 JURASSIC_PATH = os.path.join("src", "jurassic")
 CLADES_PATH = os.path.join(JURASSIC_PATH, "clades")
 SPECIES_PATH = os.path.join(JURASSIC_PATH, "species")
+INDEX_JSON_PATH = os.path.join(JURASSIC_PATH, "index.json")
 
 SPECIES_FIELDS = [
     "species",
@@ -33,7 +34,7 @@ def to_markdown(attributes: dict, field_order: list[str]) -> str:
 
 
 if __name__ == "__main__":
-    with open("metajurassic.json", "r") as f:
+    with open(INDEX_JSON_PATH, "r") as f:
         data = json.load(f)
 
     os.makedirs(SPECIES_PATH, exist_ok=True)

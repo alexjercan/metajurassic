@@ -5,6 +5,7 @@ clade: chasmosaurinae
 period: Late Cretaceous (76 Ma)
 size: 5 meters
 weight: 2,500 kilograms
+image: https://images.dinosaurpictures.org/Kosmoceratops/Kosmoceratops_b7d1d4bc.jpg
 ---
 
 Known as the most "ornate" dinosaur; its frill was decorated with 15 horns and spikes, including a unique row that curved downward.

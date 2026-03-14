@@ -5,6 +5,7 @@ clade: centrosaurinae
 period: Late Cretaceous (78 Ma)
 size: 6.7 meters
 weight: 5,000 kilograms
+image: https://images.dinosaurpictures.org/Lokiceratops/Lokiceratops_e2890418.jpg
 ---
 
 A massive centrosaurine named after the Norse god; it possessed the largest frill horns ever seen in its group, lacking a nose horn entirely.

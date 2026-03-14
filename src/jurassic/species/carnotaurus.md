@@ -5,6 +5,7 @@ clade: abelisauridae
 period: Late Cretaceous (72–69 Ma)
 size: 8 meters
 weight: 1,350 kilograms
+image: https://images.dinosaurpictures.org/Carnotaurus/Carnotaurus_fc889e5e.jpg
 ---
 
 Boasted thick horns above its eyes and extremely reduced arms; it is considered one of the fastest large theropods ever.

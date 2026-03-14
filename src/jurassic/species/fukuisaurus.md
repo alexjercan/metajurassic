@@ -5,6 +5,7 @@ clade: styracosterna
 period: Early Cretaceous (125 Ma)
 size: 4.5 meters
 weight: 400 kilograms
+image: https://images.dinosaurpictures.org/Fukuisaurus/Fukuisaurus_56d978e1.jpg
 ---
 
 A primitive iguanodontian from Japan; its skull was less flexible than later relatives, meaning it chewed with a simpler vertical motion.

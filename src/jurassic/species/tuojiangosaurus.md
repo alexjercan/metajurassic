@@ -5,6 +5,7 @@ clade: stegosauridae
 period: Late Jurassic (161–155 Ma)
 size: 7 meters
 weight: 2,800 kilograms
+image: https://images.dinosaurpictures.org/Tuojiangosaurus/Tuojiangosaurus_b7992e17.jpg
 ---
 
 The most well-known Chinese stegosaur; it featured narrow, conical plates and a pair of long spikes on the end of its tail.
