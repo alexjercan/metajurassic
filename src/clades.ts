@@ -1,6 +1,6 @@
 import "./style.css";
 import { loadGameData } from "./jsonLoader";
-import { autoShrinkText } from "./ui/autoShrink";
+import { createCladeCard, shrinkCardTitle } from "./ui/card";
 
 async function main() {
     const data = await loadGameData();
@@ -13,31 +13,9 @@ async function main() {
 
     for (const clade of cladeList) {
         const parent = clade.parent ? data.findCladeById(clade.parent) : null;
-
-        const card = document.createElement("div");
-        card.className = "museum-card archive-card";
-
-        card.innerHTML = `
-            <div class="museum-card-inner">
-                <div class="card-header">
-                    <h2 class="card-title">${clade.name}</h2>
-                </div>
-                <div class="card-image-area">${clade.image ? `<img src="${clade.image}" alt="${clade.name}">` : "[ Hologram Render ]"}</div>
-                <div class="card-content">
-                    <div class="card-stats">
-                        <strong>Parent:</strong> <span>${parent ? parent.name : "—"}</span>
-                    </div>
-                    <div class="card-fact">
-                        <strong>Description:</strong> <span>${clade.description || "No description."}</span>
-                    </div>
-                </div>
-            </div>
-        `;
-
+        const card = createCladeCard(clade, parent, "archive-card");
         carousel.appendChild(card);
-
-        const title = card.querySelector<HTMLElement>(".card-title");
-        if (title) autoShrinkText(title);
+        shrinkCardTitle(card);
     }
 
     setupCarouselNav(carousel);

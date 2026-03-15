@@ -2,30 +2,11 @@ import { GameData } from "../gameData";
 import { GameState } from "../gameState";
 import type { CladeNode } from "../treeBuilder";
 import { findBestHintCladeId } from "../treeBuilder";
-import defaultIcon from "../assets/default_icon.svg";
-import { autoShrinkText } from "./autoShrink";
+import { createSpeciesCard, createCladeCard, mountCard } from "./card";
 
 const arenaWrapper = document.getElementById("arena-wrapper");
 const panel = document.getElementById("info-panel");
-const cardTitle = document.getElementById("card-title");
-const cardIcon = document.getElementById(
-    "card-icon"
-) as HTMLImageElement | null;
-const cardTranslation = document.getElementById("card-translation");
-const cardEra = document.getElementById("card-era");
-const cardSize = document.getElementById("card-size");
-const cardSizeLabel = document.getElementById("card-size-label");
-const cardWeight = document.getElementById("card-weight");
-const cardFact = document.getElementById("card-fact");
-const cardClade = document.getElementById("card-clade");
-const cardImage = document.getElementById("card-image-area");
-
-const speciesCard = document.getElementById("species-card");
-const cladeCard = document.getElementById("clade-card");
-const cladeTitle = document.getElementById("clade-title");
-const cladeParent = document.getElementById("clade-parent");
-const cladeDescription = document.getElementById("clade-description");
-const cladeImage = document.getElementById("clade-image-area");
+const cardContainer = document.getElementById("panel-card-container");
 
 export function closePanel() {
     panel?.classList.remove("active");
@@ -79,57 +60,16 @@ export function renderSpeciesCard(
     species: import("../types").Species,
     clade?: import("../types").Clade | null
 ) {
-    if (speciesCard && cladeCard) {
-        speciesCard.style.display = "flex";
-        cladeCard.style.display = "none";
-    }
-    if (cardTitle) {
-        cardTitle.textContent = species.species || "Unknown";
-        autoShrinkText(cardTitle);
-    }
-    if (cardIcon) {
-        cardIcon.src = species.icon || defaultIcon;
-        cardIcon.alt = "";
-        cardIcon.hidden = false;
-    }
-    if (cardTranslation)
-        cardTranslation.textContent = species.translation || "";
-    if (cardEra) cardEra.textContent = species.period || "";
-    if (cardSizeLabel)
-        cardSizeLabel.textContent = species.size ? "Size" : "Info";
-    if (cardSize) cardSize.textContent = species.size || "";
-    if (cardWeight) cardWeight.textContent = species.weight || "";
-    if (cardFact) cardFact.textContent = species.description || "";
-    if (cardClade) cardClade.textContent = clade ? clade.name : "";
-    if (cardImage) {
-        if (species.image) {
-            cardImage.innerHTML = `<img src="${species.image}" alt="${species.species}">`;
-        } else {
-            cardImage.textContent = "[ Hologram Render ]";
-        }
-    }
+    if (!cardContainer) return;
+    const card = createSpeciesCard(species, clade);
+    mountCard(cardContainer, card);
 }
 
 export function renderCladeCard(
     clade: import("../types").Clade,
     parent?: import("../types").Clade | null
 ) {
-    if (speciesCard && cladeCard) {
-        speciesCard.style.display = "none";
-        cladeCard.style.display = "flex";
-    }
-    if (cladeTitle) {
-        cladeTitle.textContent = clade.name || "Unknown";
-        autoShrinkText(cladeTitle);
-    }
-    if (cladeParent) cladeParent.textContent = parent ? parent.name : "—";
-    if (cladeDescription)
-        cladeDescription.textContent = clade.description || "No description.";
-    if (cladeImage) {
-        if (clade.image) {
-            cladeImage.innerHTML = `<img src="${clade.image}" alt="${clade.name}">`;
-        } else {
-            cladeImage.textContent = "[ Hologram Render ]";
-        }
-    }
+    if (!cardContainer) return;
+    const card = createCladeCard(clade, parent);
+    mountCard(cardContainer, card);
 }
