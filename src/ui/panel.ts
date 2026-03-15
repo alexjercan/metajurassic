@@ -2,10 +2,14 @@ import { GameData } from "../gameData";
 import { GameState } from "../gameState";
 import type { CladeNode } from "../treeBuilder";
 import { findBestHintCladeId } from "../treeBuilder";
+import defaultIcon from "../assets/default_icon.svg";
 
 const arenaWrapper = document.getElementById("arena-wrapper");
 const panel = document.getElementById("info-panel");
 const cardTitle = document.getElementById("card-title");
+const cardIcon = document.getElementById(
+    "card-icon"
+) as HTMLImageElement | null;
 const cardTranslation = document.getElementById("card-translation");
 const cardEra = document.getElementById("card-era");
 const cardSize = document.getElementById("card-size");
@@ -79,6 +83,11 @@ export function renderSpeciesCard(
         cladeCard.style.display = "none";
     }
     if (cardTitle) cardTitle.textContent = species.species || "Unknown";
+    if (cardIcon) {
+        cardIcon.src = species.icon || defaultIcon;
+        cardIcon.alt = "";
+        cardIcon.hidden = false;
+    }
     if (cardTranslation)
         cardTranslation.textContent = species.translation || "";
     if (cardEra) cardEra.textContent = species.period || "";

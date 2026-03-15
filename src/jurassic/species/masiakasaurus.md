@@ -6,7 +6,7 @@ period: Late Cretaceous (70–66 Ma)
 size: 2 meters
 weight: 20 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/masiakasaurus.jpg
-icon: https://alexjercan.github.io/metajurassic-images/silhouette/species/masiakasaurus-icon.svg
+icon: https://alexjercan.github.io/metajurassic-images/silhouette/species/masiakasaurus.svg
 ---
 
 Its front teeth projected forward rather than downward, a unique specialization likely used for snagging small, slippery fish or insects.

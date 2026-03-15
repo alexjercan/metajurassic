@@ -6,7 +6,7 @@ period: Early Cretaceous (124–122 Ma)
 size: 1 meter
 weight: 1 kilogram
 image: https://alexjercan.github.io/metajurassic-images/species/sinosauropteryx.jpg
-icon: https://alexjercan.github.io/metajurassic-images/silhouette/species/sinosauropteryx-icon.svg
+icon: https://alexjercan.github.io/metajurassic-images/silhouette/species/sinosauropteryx.svg
 ---
 
 The first dinosaur found with preserved evidence of color; it had a ginger-colored body and a striped, ringed tail.

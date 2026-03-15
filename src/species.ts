@@ -1,5 +1,6 @@
 import "./style.css";
 import { loadGameData } from "./jsonLoader";
+import defaultIcon from "./assets/default_icon.svg";
 
 async function main() {
     const data = await loadGameData();
@@ -19,6 +20,7 @@ async function main() {
         card.innerHTML = `
             <div class="museum-card-inner">
                 <div class="card-header">
+                    <img class="card-icon" src="${species.icon || defaultIcon}" alt="">
                     <h2 class="card-title">${species.species}</h2>
                 </div>
                 <div class="card-image-area">${species.image ? `<img src="${species.image}" alt="${species.species}">` : "[ Hologram Render ]"}</div>

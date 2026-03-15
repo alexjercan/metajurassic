@@ -6,7 +6,7 @@ period: Late Cretaceous (76–75 Ma)
 size: 5 meters
 weight: 2,000 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/chasmosaurus.jpg
-icon: https://alexjercan.github.io/metajurassic-images/silhouette/species/chasmosaurus-icon.svg
+icon: https://alexjercan.github.io/metajurassic-images/silhouette/species/chasmosaurus.svg
 ---
 
 Its name means "Opening Lizard" because its massive frill was mostly hollow air—it was essentially a giant, skin-covered frame used to make the animal look much larger than it actually was.

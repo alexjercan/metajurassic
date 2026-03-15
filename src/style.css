@@ -451,6 +451,18 @@ main {
     padding: 20px 24px 12px;
     text-align: center;
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.card-icon {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
 }
 
 .card-image-area {

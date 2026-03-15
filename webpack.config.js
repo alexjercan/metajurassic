@@ -75,6 +75,13 @@ const config = {
                     filename: "content/[name][ext]",
                 },
             },
+            {
+                test: /\.svg$/i,
+                type: "asset/resource",
+                generator: {
+                    filename: "assets/[name][contenthash][ext]",
+                },
+            },
         ],
     },
     mode: "development",
