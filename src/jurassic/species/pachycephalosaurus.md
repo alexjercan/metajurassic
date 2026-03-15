@@ -6,6 +6,7 @@ period: Late Cretaceous (68–66 Ma)
 size: 4.5 meters
 weight: 450 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/pachycephalosaurus.jpg
+icon: https://alexjercan.github.io/metajurassic-images/silhouette/species/pachycephalosaurus-icon.svg
 ---
 
-Its skull was topped with 25 centimeters of solid bone; it likely engaged in ritualized combat by slamming its head into a rival's flank.
+Despite its famous "head-butting" reputation, some scientists believe its skull was actually used for "flank-butting"—shoving and slamming into the sides of rivals like modern giraffes or bison do today.

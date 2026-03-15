@@ -6,6 +6,7 @@ period: Late Jurassic (154–142 Ma)
 size: 23 meters
 weight: 40,000 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/giraffatitan.jpg
+icon: https://alexjercan.github.io/metajurassic-images/silhouette/species/giraffatitan-icon.svg
 ---
 
-Often mistaken for Brachiosaurus, this African giant was significantly taller and is the focus of the world's tallest mounted skeleton.
+Often confused with Brachiosaurus, this towering African giant is actually the spectacular centerpiece of the world's tallest mounted dinosaur skeleton in Berlin.

@@ -3,4 +3,4 @@ clade: Ankylosauromorpha
 parent: eurypoda
 ---
 
-This group traded speed for total protection, eventually becoming covered from head to tail in a suit of bony mail.
+Diagnosed by the initial extensive fusion of osteoderms directly to the skull roof and a significant widening of the ribcage. This broadened midsection allowed for a massive, specialized digestive tract, forcing them to adopt an extremely low, sprawling gait that perfectly positioned them to graze on ground-level ferns and low-lying shrubs.

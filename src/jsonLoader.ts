@@ -10,6 +10,7 @@ interface RawSpecies {
     weight: string;
     description: string;
     image?: string;
+    icon?: string;
 }
 
 interface RawClade {
@@ -39,6 +40,7 @@ export async function loadGameData(): Promise<GameData> {
         weight: s.weight || "",
         description: s.description || "",
         image: s.image || undefined,
+        icon: s.icon || undefined,
     }));
 
     const cladesMap: Record<string, Clade> = {};

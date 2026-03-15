@@ -3,4 +3,4 @@ clade: Carcharodontosauridae
 parent: allosauria
 ---
 
-Their teeth were serrated and thin like a shark's, designed to inflict massive, bleeding wounds on giant sauropod prey.
+Diagnosed by massive, highly fused skulls and an exceptionally deep lower jaw. These cranial adaptations functioned perfectly with their namesake teeth, allowing them to carve massive slices of meat out of giant titanosaur prey, effectively bleeding out the largest terrestrial animals to ever walk the Earth.

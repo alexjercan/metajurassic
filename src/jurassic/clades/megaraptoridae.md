@@ -3,4 +3,4 @@ clade: Megaraptoridae
 parent: megaraptora
 ---
 
-These predators occupied the apex niche in Cretaceous South America and Australia, combining speed with devastating grasping power.
+Diagnosed by an extremely long, shallow snout and completely fused ankle bones. This lightweight, narrow skull structure suggests a weaker bite force compared to contemporary predators, further cementing their strict evolutionary reliance on their lethally specialized arms for hunting.

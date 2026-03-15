@@ -3,4 +3,4 @@ clade: Avetheropoda
 parent: tetanurae
 ---
 
-This clade refined the respiratory system, evolving bird-like lungs that allowed for a one-way flow of oxygen and higher stamina.
+Diagnosed by the development of highly complex air sacs extending into their vertebrae. This advanced respiratory system allowed for highly efficient oxygen exchange, fueling the intense metabolism required to actively hunt down large, fast-moving prey.

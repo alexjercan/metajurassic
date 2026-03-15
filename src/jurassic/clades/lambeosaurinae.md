@@ -3,4 +3,4 @@ clade: Lambeosaurinae
 parent: euhadrosauria
 ---
 
-Their crests were connected to their nasal passages, acting as resonance chambers to blast loud, low-frequency calls across the landscape.
+Diagnosed by highly complex, hollow bony crests formed by the expansion of the nasal and premaxillary bones, pulling the nasal passages completely over the top of the head. These elaborate acoustic chambers functioned like biological trombones, allowing them to produce loud, low-frequency, species-specific calls to communicate with massive herds across densely forested environments.

@@ -3,4 +3,4 @@ clade: Centrosaurinae
 parent: ceratopsidae
 ---
 
-Distinguished by the elaborate, curved spikes that grew out of the edges of their frills, which were likely brightly colored.
+Diagnosed by a relatively short, deep face, a massive nasal horn (or large, bony nasal boss), and vastly reduced or completely absent brow horns. Massive fossil bonebeds in North America reveal they lived in enormous, single-species herds numbering in the thousands, occasionally falling victim en masse to catastrophic flash floods while crossing swollen rivers.

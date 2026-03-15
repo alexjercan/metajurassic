@@ -3,4 +3,4 @@ clade: Oviraptoridae
 parent: oviraptorosauria
 ---
 
-Characterized by highly specialized, toothless beaks that were incredibly strong, likely used for crushing tough food items.
+Diagnosed by elaborate, often hollow bony crests on top of their skulls and a highly fused collarbone (furcula). The prominent head crests served as intricate visual display structures for species recognition and courtship, similar to modern cassowaries, demonstrating a heavy reliance on visual communication.

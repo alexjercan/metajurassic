@@ -6,6 +6,7 @@ period: Late Cretaceous (77–76 Ma)
 size: 8.5 meters
 weight: 2,400 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/gorgosaurus.jpg
+icon: https://alexjercan.github.io/metajurassic-images/silhouette/species/gorgosaurus-icon.svg
 ---
 
-Distinguished by a pair of small, bony horns over its eyes; it likely relied on its incredible speed to catch its prey.
+Perfectly preserved skeletons reveal that these terrifying hunters went through a dramatic teenage growth spurt, completely transforming from lightning-fast, slender sprinters into heavy, bone-crushing adults.

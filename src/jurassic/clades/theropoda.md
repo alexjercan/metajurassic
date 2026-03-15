@@ -3,4 +3,4 @@ clade: Theropoda
 parent: eusaurischia
 ---
 
-Defined by hollow, air-filled bones and three-toed feet. This is the only lineage of dinosaurs that survives today as modern birds.
+Diagnosed by thin-walled, hollow limb bones and an intramandibular joint (a flexible hinge in the lower jaw). The hollow bones drastically reduced their body weight, giving them the advantage of superior running speed and agility, while the flexible jaw allowed them to swallow larger chunks of meat, making them highly efficient bipedal predators.

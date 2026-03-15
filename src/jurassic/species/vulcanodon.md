@@ -6,6 +6,7 @@ period: Early Jurassic (199–188 Ma)
 size: 6.5 meters
 weight: 3,500 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/vulcanodon.jpg
+icon: https://alexjercan.github.io/metajurassic-images/silhouette/species/vulcanodon-icon.svg
 ---
 
-One of the earliest true sauropods; it developed the pillar-like limbs necessary to support its rapidly increasing body mass.
+One of the earliest "true" sauropods, it was among the first to evolve thick, pillar-like legs—the exact biological upgrade needed to support a massive, rapidly growing body.

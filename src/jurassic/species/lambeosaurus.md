@@ -6,6 +6,7 @@ period: Late Cretaceous (76–75 Ma)
 size: 9 meters
 weight: 3,000 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/lambeosaurus.jpg
+icon: https://alexjercan.github.io/metajurassic-images/silhouette/species/lambeosaurus-icon.svg
 ---
 
-Known for its axe-shaped crest; different species within this genus can be identified by the specific angle and size of this headpiece.
+The crest shapes of this dinosaur were so wildly different between the males, females, and juveniles that early paleontologists mistakenly named them all as completely separate dinosaur species!

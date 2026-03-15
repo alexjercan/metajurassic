@@ -6,6 +6,7 @@ period: Late Cretaceous (79 Ma)
 size: 5.5 meters
 weight: 2,000 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/diabloceratops.jpg
+icon: https://alexjercan.github.io/metajurassic-images/silhouette/species/diabloceratops-icon.svg
 ---
 
-Named for the two long, upward-curving spikes on its frill that resemble devil horns; it had a short nose horn and long brow horns.
+Living up to its "Devil" name, it featured two massive, upward-curving spikes on its frill that looked exactly like horns, making it one of the most intimidating-looking early ceratopsians.

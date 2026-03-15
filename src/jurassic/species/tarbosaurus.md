@@ -6,6 +6,7 @@ period: Late Cretaceous (70 Ma)
 size: 12 meters
 weight: 5,000 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/tarbosaurus.jpg
+icon: https://alexjercan.github.io/metajurassic-images/silhouette/species/tarbosaurus-icon.svg
 ---
 
-The Asian "twin" of T. rex; it was slightly slimmer and had even smaller arms, ruling the floodplains of Mongolia as the apex king.
+The undisputed apex predator of ancient Mongolia, this Asian "twin" of T. rex had arms that were so unbelievably tiny they literally couldn't even reach its own mouth!

@@ -3,4 +3,4 @@ clade: Megalosauria
 parent: tetanurae
 ---
 
-This group includes the very first dinosaur ever named (Megalosaurus) and reigned as top predators during the Middle Jurassic.
+Diagnosed by an elongated, relatively narrow skull and robust forelimbs equipped with large, hooked claws. This combination of powerful arms and lengthened jaws allowed them to transition from targeting small, agile prey to grappling and subduing much larger, slower-moving herbivores.

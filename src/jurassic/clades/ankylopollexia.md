@@ -3,4 +3,4 @@ clade: Ankylopollexia
 parent: dryomorpha
 ---
 
-Their first finger was permanently modified into a conical spike, a built-in weapon that was always ready for combat.
+Diagnosed by the fusion of the thumb bones into a massive, immobile spike, and increasingly robust, weight-bearing forelimbs. The iconic thumb spike served dual purposes: acting as a devastating close-quarters weapon against theropods like Utahraptor, and serving as a specialized tool for breaking open tough seeds or tearing bark.

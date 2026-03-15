@@ -3,4 +3,4 @@ clade: Allosauria
 parent: allosauroidea
 ---
 
-This group produced some of the largest land predators ever, becoming the undisputed kings of the Late Jurassic and Early Cretaceous.
+Diagnosed by pronounced lacrimal horns directly above the eyes and a noticeable reduction in the robusticity of their forelimbs compared to earlier tetanurans. These distinctive brow horns likely served as visual display structures for species recognition, while their massive population numbers in certain fossil beds—like the Cleveland-Lloyd Dinosaur Quarry—suggest they may have occasionally mobbed massive sauropods in disorganized, frenzy-like groups

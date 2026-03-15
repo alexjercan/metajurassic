@@ -6,6 +6,7 @@ period: Early Cretaceous (120–112 Ma)
 size: 3 meters
 weight: 300 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/minmi.jpg
+icon: https://alexjercan.github.io/metajurassic-images/silhouette/species/minmi-icon.svg
 ---
 
-A small, primitive armored dinosaur from Australia; it had extra bony plates along its spine to protect its belly from predators.
+It holds the record for being the first armored dinosaur ever found in the Southern Hemisphere, and is one of the few dinosaurs named after a specific road crossing in Australia.

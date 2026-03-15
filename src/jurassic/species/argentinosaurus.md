@@ -6,6 +6,7 @@ period: Late Cretaceous (96–92 Ma)
 size: 35 meters
 weight: 75,000 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/argentinosaurus.jpg
+icon: https://alexjercan.github.io/metajurassic-images/silhouette/species/argentinosaurus-icon.svg
 ---
 
 Widely considered the largest land animal ever discovered; a single vertebra from this titan is over 1.5 meters tall.

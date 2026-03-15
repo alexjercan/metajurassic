@@ -3,4 +3,4 @@ clade: Megalosaurinae
 parent: megalosauridae
 ---
 
-Known for their large, knife-like teeth, they were the dominant terrestrial carnivores across Europe and North America before the rise of the Allosaurs.
+Diagnosed by specific adaptations in their jaw structure, including taller, more blade-like teeth compared to their ancestors. Because they were the very first group of dinosaurs to be scientifically described, the discovery of a massive Megalosaur bone in the 17th century originally led early naturalists to believe they were looking at the petrified remains of human giants.

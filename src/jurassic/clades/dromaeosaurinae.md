@@ -3,4 +3,4 @@ clade: Dromaeosaurinae
 parent: eudromaeosauria
 ---
 
-Unlike their slimmer relatives, these raptors were built for power, possessing skulls that could withstand the stress of tackling larger prey.
+Diagnosed by a short, deep, boxy skull and thicker, more heavily serrated teeth compared to the slender-snouted velociraptorines. This heavier cranial build delivered a significantly stronger bite force, adapting them to brute-force hunting rather than the precision piercing of their relatives.

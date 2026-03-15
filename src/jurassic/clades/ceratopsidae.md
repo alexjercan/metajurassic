@@ -3,4 +3,4 @@ clade: Ceratopsidae
 parent: ceratopsoidea
 ---
 
-These were the "tanks" of the Late Cretaceous herbivore world, living in vast herds for protection against Tyrannosaurs.
+Diagnosed by the presence of large, well-developed facial horns (specifically postorbital brow horns or nasal horns) and complex, double-rooted cheek teeth packed into vertical dental batteries. Unlike the duck-billed hadrosaurs that ground their food into paste, ceratopsids used their teeth like biological shears to slice tough, woody browse into short segments, allowing these two massive herbivore groups to completely avoid competing for the same food.

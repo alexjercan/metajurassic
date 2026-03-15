@@ -6,6 +6,7 @@ period: Late Jurassic (155–145 Ma)
 size: 27 meters
 weight: 15,000 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/barosaurus.jpg
+icon: https://alexjercan.github.io/metajurassic-images/silhouette/species/barosaurus-icon.svg
 ---
 
-A slim relative of Diplodocus with an exceptionally long neck; some believe it had multiple "hearts" to pump blood to its head.
+This remarkably long-necked relative of Diplodocus was so tall that some paleontologists playfully speculate it might have needed multiple "hearts" just to pump blood all the way up to its brain!

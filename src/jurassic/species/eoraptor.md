@@ -6,6 +6,7 @@ period: Late Triassic (231–228 Ma)
 size: 1 meter
 weight: 10 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/eoraptor.jpg
+icon: https://alexjercan.github.io/metajurassic-images/silhouette/species/eoraptor-icon.svg
 ---
 
-A small, bipedal omnivore once considered a theropod, but now recognized as one of the earliest ancestors of giant sauropods.
+Long thought to be a tiny, meat-eating theropod, scientists now realize this little omnivore is actually one of the earliest ancestors of the giant, long-necked sauropods!

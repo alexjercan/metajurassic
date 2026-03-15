@@ -6,6 +6,7 @@ period: Early Cretaceous (145–133 Ma)
 size: 10 meters
 weight: 3,000 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/bajadasaurus.jpg
+icon: https://alexjercan.github.io/metajurassic-images/silhouette/species/bajadasaurus-icon.svg
 ---
 
-A relative of Amargasaurus with forward-curving neck spines that likely protected the animal from predators while it was feeding.
+A bizarre cousin of Amargasaurus, it featured dramatic, forward-curving neck spines that likely acted as a spiky deterrent against predators while it kept its head down to feed.

@@ -3,4 +3,4 @@ clade: Giganotosaurini
 parent: carcharodontosaurinae
 ---
 
-These predators lived in what is now Argentina and were specialized for hunting the largest dinosaurs that ever walked the Earth.
+Diagnosed by heavily reinforced jaw joints and a distinctly squared-off front to the lower jaw (the dentary). While modern taxonomy often folds this specific grouping, alongside Carcharodontosaurinae, directly back into Carcharodontosauridae, retaining this classic classification highlights their distinct historical status as the absolute heaviest, most dominant apex predators of the southern hemisphere, rivaling even the tyrannosaurs in sheer size.

@@ -3,4 +3,4 @@ clade: Spinosauridae
 parent: megalosauria
 ---
 
-The only known dinosaurs to have adapted to a life primarily in the water, hunting fish with specialized, conical teeth.
+Diagnosed by highly elongated, crocodile-like snouts filled with conical, largely unserrated teeth. This specialized skull architecture shifted their diet heavily toward a semi-aquatic lifestyle, allowing them to spear and snare slippery fish rather than strictly hunting terrestrial dinosaurs.

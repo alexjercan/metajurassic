@@ -6,6 +6,7 @@ period: Late Cretaceous (99–94 Ma)
 size: 12 meters
 weight: 6,200 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/carcharodontosaurus.jpg
+icon: https://alexjercan.github.io/metajurassic-images/silhouette/species/carcharodontosaurus-icon.svg
 ---
 
-Its teeth were thin, serrated, and razor-sharp, designed for inflicting massive blood loss on long-necked sauropods.
+Its massive, serrated teeth were so perfectly evolved for slicing cleanly through meat that they were completely useless for crushing bone, forcing it to carefully strip flesh off giant sauropods without biting too hard.

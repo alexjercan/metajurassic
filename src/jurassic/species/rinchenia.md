@@ -6,6 +6,7 @@ period: Late Cretaceous (70 Ma)
 size: 1.7 meters
 weight: 40 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/rinchenia.jpg
+icon: https://alexjercan.github.io/metajurassic-images/silhouette/species/rinchenia-icon.svg
 ---
 
-An oviraptorid with an exceptionally high, dome-like crest on its head, which likely served as a colorful display for attracting mates.
+Originally classified as just another species of Oviraptor, it earned its own distinct identity thanks to the incredibly high, fragile, helmet-like dome resting right on top of its skull.

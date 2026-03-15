@@ -6,6 +6,7 @@ period: Early Cretaceous (132–127 Ma)
 size: 10 meters
 weight: 2,600 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/amargasaurus.jpg
+icon: https://alexjercan.github.io/metajurassic-images/silhouette/species/amargasaurus-icon.svg
 ---
 
-Notable for the double row of tall, thin spines running down its neck, which may have supported a sail or served as a visual display.
+It sported a spectacular double row of tall, thin spines running down its neck, which might have supported a skin sail or served as an intimidating visual display.

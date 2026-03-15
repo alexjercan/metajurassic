@@ -3,4 +3,4 @@ clade: Eutyrannosauria
 parent: pantyrannosauria
 ---
 
-Their forelimbs became drastically reduced as their skulls evolved to become the primary weapon for dispatching prey.
+Diagnosed by a heavily reinforced skull architecture and a noticeable reduction in the length and utility of the forelimbs. As their jaw musculature increased dramatically to handle larger, heavily armored prey, their reliance on grasping arms diminished entirely, leading to a structural shift where the head became the sole primary weapon.

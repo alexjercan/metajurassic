@@ -3,4 +3,4 @@ clade: Marginocephalia
 parent: cerapoda
 ---
 
-Defined by a bony shelf at the back of the skull, which evolved into the massive frills of the ceratopsians.
+Diagnosed by a unique parietal-squamosal shelf projecting completely over the back of the neck. This bony overhang initially served as a minor display structure or neck protection in basal bipedal forms, but it laid the direct evolutionary foundation for both the thick domes of pachycephalosaurs and the massive frills of the horned dinosaurs.

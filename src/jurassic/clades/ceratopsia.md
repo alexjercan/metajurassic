@@ -3,4 +3,4 @@ clade: Ceratopsia
 parent: marginocephalia
 ---
 
-Started as small, feathered runners in Asia and ended as the armored giants of North America.
+Diagnosed by the presence of a rostral bone—a completely unique, toothless, keel-like bone at the very tip of the upper jaw. This specialized bone formed a narrow, highly efficient, parrot-like cropping beak, allowing even the earliest, small bipedal ceratopsians to cleanly slice through incredibly tough, fibrous vegetation.

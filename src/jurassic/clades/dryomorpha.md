@@ -3,4 +3,4 @@ clade: Dryomorpha
 parent: iguanodontia
 ---
 
-This group evolved a "pleurokinetic" skull, where the upper jaw actually widened outward as they chewed to grind food more effectively.
+Diagnosed by the development of a pleurokinetic skull hinge—which allowed the upper jaw bones to flex outward while chewing—alongside the reduction of the foot to strictly three functional toes. This dynamic jaw mechanism allowed their teeth to grind sideways across each other, massively increasing nutrient extraction from tough vegetation, while their streamlined feet made them incredibly agile runners capable of evading massive Late Jurassic predators.

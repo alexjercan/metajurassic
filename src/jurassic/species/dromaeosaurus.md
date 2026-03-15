@@ -6,6 +6,7 @@ period: Late Cretaceous (76–74 Ma)
 size: 2 meters
 weight: 15 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/dromaeosaurus.jpg
+icon: https://alexjercan.github.io/metajurassic-images/silhouette/species/dromaeosaurus-icon.svg
 ---
 
-Unlike the "slashing" Velociraptor, it had a much more robust skull and a powerful bite for a raptor, used to crush and grip prey.
+Unlike its famous cousins that relied almost entirely on their foot claws, this heavy-duty raptor had a massively reinforced skull, meaning it likely killed its prey with a bone-crushing bite.

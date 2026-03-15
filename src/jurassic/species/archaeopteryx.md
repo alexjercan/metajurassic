@@ -6,6 +6,7 @@ period: Late Jurassic (150–148 Ma)
 size: 0.5 meters
 weight: 1 kilogram
 image: https://alexjercan.github.io/metajurassic-images/species/archaeopteryx.jpg
+icon: https://alexjercan.github.io/metajurassic-images/silhouette/species/archaeopteryx-icon.svg
 ---
 
-The most famous "missing link" in history, featuring the feathers of a bird but the teeth and long bony tail of a dinosaur.
+The absolute holy grail of paleontology; its discovery in 1861 happened just two years after Charles Darwin published his theory of evolution, providing the perfect "missing link" between reptiles and birds.

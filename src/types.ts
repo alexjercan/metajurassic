@@ -8,6 +8,7 @@ export interface Species {
     weight: string;
     description: string;
     image?: string;
+    icon?: string;
 }
 
 export interface Clade {

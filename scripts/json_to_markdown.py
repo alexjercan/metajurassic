@@ -14,6 +14,7 @@ SPECIES_FIELDS = [
     "size",
     "weight",
     "image",
+    "icon",
 ]
 CLADE_FIELDS = ["clade", "parent", "image"]
 

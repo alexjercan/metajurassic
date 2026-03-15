@@ -6,6 +6,7 @@ period: Late Cretaceous (85 Ma)
 size: 8 meters
 weight: 1,400 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/gigantoraptor.jpg
+icon: https://alexjercan.github.io/metajurassic-images/silhouette/species/gigantoraptor-icon.svg
 ---
 
-The largest of the beaked "egg-thieves"; it was roughly the size of a school bus and was likely covered in vibrant, colorful feathers.
+Its discovery was a total accident! Paleontologists originally thought they were digging up a giant sauropod leg bone, only to realize they had uncovered a vibrantly feathered "egg thief" the size of a school bus.

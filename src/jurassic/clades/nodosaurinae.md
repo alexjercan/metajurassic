@@ -3,4 +3,4 @@ clade: Nodosaurinae
 parent: nodosauridae
 ---
 
-This group evolved complex patterns of plates and spikes that were unique to each species, likely used for identifying one another.
+Diagnosed by highly robust, forward-pointing acromial (shoulder) spikes and a tightly packed pelvic shield made of rosette osteoderms over the hips. The massive, elongated shoulder spikes seen in species like Sauropelta essentially formed a lethal forward-facing barricade, forcing apex predators to either risk direct frontal impalement or abandon the hunt entirely.

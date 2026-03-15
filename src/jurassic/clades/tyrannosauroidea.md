@@ -3,4 +3,4 @@ clade: Tyrannosauroidea
 parent: coelurosauria
 ---
 
-Early members were small, agile, and feathered. Over 100 million years, they evolved from small hunters into the world's most powerful predators.
+Diagnosed by fused nasal bones and premaxillary (front) teeth that are D-shaped or U-shaped in cross-section. These fused nasals structurally reinforced the top of the snout, marking the evolutionary beginning of a major shift from slashing bites to crushing, bone-snapping bite forces.

@@ -88,6 +88,7 @@ export async function loadGameData(): Promise<GameData> {
             weight: attrs.weight || "",
             description: body,
             image: attrs.image || undefined,
+            icon: attrs.icon || undefined,
         })
     );
 

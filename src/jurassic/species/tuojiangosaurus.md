@@ -6,6 +6,7 @@ period: Late Jurassic (161–155 Ma)
 size: 7 meters
 weight: 2,800 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/tuojiangosaurus.jpg
+icon: https://alexjercan.github.io/metajurassic-images/silhouette/species/tuojiangosaurus-icon.svg
 ---
 
-The most well-known Chinese stegosaur; it featured narrow, conical plates and a pair of long spikes on the end of its tail.
+The best-preserved stegosaur ever found in Asia; its skeleton was so complete that it gave scientists their very first perfect look at how Chinese stegosaurs differed from American ones.

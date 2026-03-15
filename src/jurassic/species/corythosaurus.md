@@ -6,6 +6,7 @@ period: Late Cretaceous (77–75 Ma)
 size: 9 meters
 weight: 3,000 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/corythosaurus.jpg
+icon: https://alexjercan.github.io/metajurassic-images/silhouette/species/corythosaurus-icon.svg
 ---
 
-Featuring a tall, semi-circular crest similar to a Corinthian helmet, which likely helped the animal recognize members of its own herd.
+A miraculously preserved fossil of this "helmet-crested" dinosaur was found with its last meal—twigs, seeds, and pine needles—still sitting perfectly intact inside its stomach cavity!

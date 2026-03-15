@@ -3,4 +3,4 @@ clade: Eucentrosaura
 parent: centrosaurinae
 ---
 
-This node marks the diversification of the frill into a wide array of hooks, spikes, and horns unique to each genus.
+Diagnosed by highly modified, complex epiparietal bones (the spikes along the top edge of the frill) that frequently curled inward or pointed directly downward over the frill openings. These bizarrely hooked spikes were completely useless in combat, serving strictly as unmistakable visual identifiers to tell their massive herds apart from closely related neighboring species.
