@@ -35,6 +35,38 @@ async function main() {
 
         carousel.appendChild(card);
     }
+
+    setupCarouselNav(carousel);
+}
+
+function setupCarouselNav(carousel: HTMLElement) {
+    const leftBtn = document.getElementById(
+        "carousel-left"
+    ) as HTMLButtonElement | null;
+    const rightBtn = document.getElementById(
+        "carousel-right"
+    ) as HTMLButtonElement | null;
+    if (!leftBtn || !rightBtn) return;
+
+    const scrollAmount = 370;
+
+    const updateButtons = () => {
+        leftBtn.disabled = carousel.scrollLeft <= 0;
+        rightBtn.disabled =
+            carousel.scrollLeft + carousel.clientWidth >=
+            carousel.scrollWidth - 1;
+    };
+
+    leftBtn.addEventListener("click", () => {
+        carousel.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+    });
+
+    rightBtn.addEventListener("click", () => {
+        carousel.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    });
+
+    carousel.addEventListener("scroll", updateButtons);
+    updateButtons();
 }
 
 main();

@@ -13,7 +13,23 @@
                 <p class="archive-subtitle">
                     Scroll through every clade in the taxonomic tree.
                 </p>
-                <div class="archive-carousel" id="archive-carousel"></div>
+                <div class="archive-carousel-wrapper">
+                    <button
+                        class="carousel-btn carousel-btn-left"
+                        id="carousel-left"
+                        aria-label="Scroll left"
+                    >
+                        &#8249;
+                    </button>
+                    <div class="archive-carousel" id="archive-carousel"></div>
+                    <button
+                        class="carousel-btn carousel-btn-right"
+                        id="carousel-right"
+                        aria-label="Scroll right"
+                    >
+                        &#8250;
+                    </button>
+                </div>
                 <div class="archive-back">
                     <a href="<%= htmlWebpackPlugin.options.basePath %>faq"
                         >Back to FAQ</a
