@@ -8,7 +8,7 @@
             "size": "6 meters",
             "weight": "700 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/ceratosaurus.jpg",
-            "description": "Possessed a prominent horn on its nose and small horns over its eyes, along with a row of bony plates (osteoderms) along its spine."
+            "description": "Standing out from every other Jurassic hunter, it is the only large meat-eating dinosaur known to have a rugged ridge of bony armor plates running straight down its spine like a modern crocodile."
         },
         "saltriovenator": {
             "species": "Saltriovenator",
@@ -18,7 +18,7 @@
             "size": "7.5 meters",
             "weight": "1,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/saltriovenator.jpg",
-            "description": "The oldest known large-bodied ceratosaur, proving that predatory dinosaurs reached massive sizes much earlier than previously thought."
+            "description": "Discovered in Italy, it is the oldest known large-bodied ceratosaur, proving that meat-eating dinosaurs evolved into massive, multi-ton giants much earlier than scientists originally thought."
         },
         "proceratosaurus": {
             "species": "Proceratosaurus",
@@ -58,7 +58,7 @@
             "size": "12 meters",
             "weight": "4,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/edmontosaurus.jpg",
-            "description": "One of the most successful herbivores in history; a \"mummy\" fossil reveals they had a fleshy, rooster-like comb on their heads."
+            "description": "An incredibly rare, beautifully preserved \"dinosaur mummy\" revealed that this massive plant-eater actually sported a squishy, fleshy comb on the top of its head, exactly like a modern rooster!"
         },
         "balaur": {
             "species": "Balaur",
@@ -68,7 +68,7 @@
             "size": "2 meters",
             "weight": "20 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/balaur.jpg",
-            "description": "A stocky, \"island-dwelling\" raptor with two sickle claws on each foot instead of one; it was a specialized apex predator of ancient Romania."
+            "description": "Named after a multi-headed dragon from Romanian folklore, it was a bizarre island-dweller that incredibly evolved two deadly sickle claws on each foot instead of the standard one."
         },
         "yutyrannus": {
             "species": "Yutyrannus",
@@ -88,7 +88,7 @@
             "size": "8 meters",
             "weight": "4,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/pachyrhinosaurus.jpg",
-            "description": "Instead of horns, it had a massive, flattened bony boss on its nose, which was likely used for head-shoving or battering rivals."
+            "description": "Instead of a traditional horn, it grew a massive, flat, \"bony boss\" on its nose that was up to 18 centimeters thick\u2014perfect for brutal head-shoving matches during the mating season."
         },
         "nodosaurus": {
             "species": "Nodosaurus",
@@ -98,7 +98,7 @@
             "size": "6 meters",
             "weight": "2,500 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/nodosaurus.jpg",
-            "description": "Covered in \"knobby\" bony armor; it lacked a tail club, instead relying on its low-slung, spiked body to deter attackers."
+            "description": "It completely lacked the famous, heavy tail club of its later cousins, relying entirely on dropping low to the ground to present an impenetrable, spiky shield to attackers."
         },
         "rajasaurus": {
             "species": "Rajasaurus",
@@ -118,7 +118,7 @@
             "size": "9 meters",
             "weight": "5,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/stegosaurus.jpg",
-            "description": "Possessed a brain the size of a walnut; its 17 bony back plates were likely used for temperature control or species recognition."
+            "description": "Despite being the size of a bus, its brain was notoriously tiny\u2014about the size of a hot dog\u2014leading to a funny myth that it had a \"second brain\" in its butt to help control its legs!"
         },
         "australovenator": {
             "species": "Australovenator",
@@ -208,7 +208,7 @@
             "size": "4.3 meters",
             "weight": "150 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/struthiomimus.jpg",
-            "description": "A common sight in Late Cretaceous North America, it relied on its powerful hind legs to sprint away from predators like Daspletosaurus."
+            "description": "Because it possessed a hard, toothless beak instead of the sharp teeth of its ancestors, scientists believe it was a highly opportunistic omnivore\u2014using its blinding speed to dart around snatching up bugs, lizards, plants, and even unguarded dinosaur eggs."
         },
         "rinchenia": {
             "species": "Rinchenia",
@@ -218,7 +218,7 @@
             "size": "1.7 meters",
             "weight": "40 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/rinchenia.jpg",
-            "description": "An oviraptorid with an exceptionally high, dome-like crest on its head, which likely served as a colorful display for attracting mates."
+            "description": "Originally classified as just another species of Oviraptor, it earned its own distinct identity thanks to the incredibly high, fragile, helmet-like dome resting right on top of its skull."
         },
         "microraptor": {
             "species": "Microraptor",
@@ -228,7 +228,7 @@
             "size": "0.8 meters",
             "weight": "1 kilogram",
             "image": "https://alexjercan.github.io/metajurassic-images/species/microraptor.jpg",
-            "description": "A \"four-winged\" dinosaur with long feathers on both its arms and legs; it likely glided between trees like a flying squirrel."
+            "description": "Taking to the skies long before true birds perfected flight, this tiny pioneer actually had four distinct wings, using long flight feathers on both its arms and its legs to glide through the forest canopy."
         },
         "afrovenator": {
             "species": "Afrovenator",
@@ -248,7 +248,7 @@
             "size": "21 meters",
             "weight": "22,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/apatosaurus.jpg",
-            "description": "A massive, robust sauropod; its name \"Deceptive\" comes from its tail bones, which resemble those of sea-dwelling mosasaurs."
+            "description": "For decades, museum mounts of this famous giant were mistakenly fitted with the entirely wrong head! Early scientists originally gave it the blocky, boxy skull of a Camarasaurus before finally realizing it actually had a slender, horse-like face."
         },
         "austroraptor": {
             "species": "Austroraptor",
@@ -258,7 +258,7 @@
             "size": "5 meters",
             "weight": "300 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/austroraptor.jpg",
-            "description": "A large, long-snouted raptor from Argentina; its conical teeth suggest it specialized in catching fish rather than large land prey."
+            "description": "Completely defying the classic raptor look, this massive South American hunter had bizarrely short arms and a long, crocodile-like snout packed with cone-shaped teeth."
         },
         "torosaurus": {
             "species": "Torosaurus",
@@ -268,7 +268,7 @@
             "size": "8 meters",
             "weight": "6,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/torosaurus.jpg",
-            "description": "Possessed a skull that could reach 2.7 meters in length; its frill was smooth and elongated with two large circular openings."
+            "description": "For a few years, a wild theory suggested that Torosaurus was actually just a very old, \"elderly\" Triceratops whose frill had stretched out and grown holes, but most scientists now agree they are two separate dinosaurs."
         },
         "tuojiangosaurus": {
             "species": "Tuojiangosaurus",
@@ -278,7 +278,7 @@
             "size": "7 meters",
             "weight": "2,800 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/tuojiangosaurus.jpg",
-            "description": "The most well-known Chinese stegosaur; it featured narrow, conical plates and a pair of long spikes on the end of its tail."
+            "description": "The best-preserved stegosaur ever found in Asia; its skeleton was so complete that it gave scientists their very first perfect look at how Chinese stegosaurs differed from American ones."
         },
         "daspletosaurus": {
             "species": "Daspletosaurus",
@@ -288,7 +288,7 @@
             "size": "9 meters",
             "weight": "3,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/daspletosaurus.jpg",
-            "description": "A heavily-built tyrant that shared its habitat with Gorgosaurus; it likely specialized in hunting armored and horned dinosaurs."
+            "description": "Sharing its habitat directly with Gorgosaurus, it likely avoided competition by acting as the heavy \"bruiser\" of the ecosystem, specializing in taking down heavily armored horned dinosaurs while its cousin chased faster prey."
         },
         "styracosaurus": {
             "species": "Styracosaurus",
@@ -308,7 +308,7 @@
             "size": "5 meters",
             "weight": "2,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/chasmosaurus.jpg",
-            "description": "Notable for its exceptionally large frill containing massive \"windows\" (fenestrae), making the shield lightweight but unsuitable for defense."
+            "description": "Its name means \"Opening Lizard\" because its massive frill was mostly hollow air\u2014it was essentially a giant, skin-covered frame used to make the animal look much larger than it actually was."
         },
         "zuniceratops": {
             "species": "Zuniceratops",
@@ -318,7 +318,7 @@
             "size": "3.5 meters",
             "weight": "150 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/zuniceratops.jpg",
-            "description": "The earliest known ceratopsian to possess brow horns; it represents the crucial evolutionary bridge to the giant horned dinosaurs."
+            "description": "This dinosaur was discovered by an 8-year-old boy in New Mexico! It turned out to be a massive find, proving that horned dinosaurs evolved their iconic brow horns much earlier than anyone thought."
         },
         "sinosaurus": {
             "species": "Sinosaurus",
@@ -338,7 +338,7 @@
             "size": "9 meters",
             "weight": "3,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/lambeosaurus.jpg",
-            "description": "Known for its axe-shaped crest; different species within this genus can be identified by the specific angle and size of this headpiece."
+            "description": "The crest shapes of this dinosaur were so wildly different between the males, females, and juveniles that early paleontologists mistakenly named them all as completely separate dinosaur species!"
         },
         "hypsilophodon": {
             "species": "Hypsilophodon",
@@ -348,7 +348,7 @@
             "size": "1.8 meters",
             "weight": "20 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/hypsilophodon.jpg",
-            "description": "A fast, agile plant-eater; early scientists wrongly thought it lived in trees, but it was actually a dedicated ground-runner."
+            "description": "For over a century, scientists mistakenly thought this agile runner lived up in the trees like a squirrel, before finally realizing its feet were strictly built for sprinting on the ground."
         },
         "lesothosaurus": {
             "species": "Lesothosaurus",
@@ -368,7 +368,7 @@
             "size": "6 meters",
             "weight": "450 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/gallimimus.jpg",
-            "description": "One of the largest \"ostrich-mimics,\" it was built for extreme speed and likely used its large eyes to spot danger from miles away."
+            "description": "Made world-famous by the terrifying flocking stampede scene in the original Jurassic Park, the real animal actually had hollow bones that were paper-thin, making it incredibly lightweight for its massive size."
         },
         "lythronax": {
             "species": "Lythronax",
@@ -378,7 +378,7 @@
             "size": "7.3 meters",
             "weight": "2,500 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/lythronax.jpg",
-            "description": "The \"Gore King\" is the oldest known member of the true tyrannosaurids and featured forward-facing eyes for binocular vision."
+            "description": "The \"King of Gore\" is the oldest true tyrannosaurid ever discovered, and the very first to successfully evolve the wide, forward-facing eyes needed for the binocular depth perception that made T. rex so deadly."
         },
         "majungasaurus": {
             "species": "Majungasaurus",
@@ -408,7 +408,7 @@
             "size": "1.6 meters",
             "weight": "35 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/oviraptor.jpg",
-            "description": "Originally named \"Egg Thief\" when found near a nest, we now know it was actually the parent protecting its own eggs from a sandstorm."
+            "description": "Unfairly branded an \"Egg Thief\" in the 1920s when found sitting on a nest, scientists realized 70 years later that it was actually a devoted parent tragically buried alive by a sandstorm while protecting its own babies!"
         },
         "coelophysis": {
             "species": "Coelophysis",
@@ -438,7 +438,7 @@
             "size": "2 meters",
             "weight": "15 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/dromaeosaurus.jpg",
-            "description": "Unlike the \"slashing\" Velociraptor, it had a much more robust skull and a powerful bite for a raptor, used to crush and grip prey."
+            "description": "Unlike its famous cousins that relied almost entirely on their foot claws, this heavy-duty raptor had a massively reinforced skull, meaning it likely killed its prey with a bone-crushing bite."
         },
         "pentaceratops": {
             "species": "Pentaceratops",
@@ -448,7 +448,7 @@
             "size": "6 meters",
             "weight": "5,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/pentaceratops.jpg",
-            "description": "Its name implies five horns, though two are actually protrusions of the cheek bones; it possessed one of the largest skulls of any land animal."
+            "description": "Its name implies five horns, though two are actually protrusions of the cheek bones. It currently holds a place in the record books for having one of the largest skulls of any land animal to ever live, with a head that could reach nearly 3 meters in length!"
         },
         "brontosaurus": {
             "species": "Brontosaurus",
@@ -458,7 +458,7 @@
             "size": "22 meters",
             "weight": "15,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/brontosaurus.jpg",
-            "description": "Once considered identical to Apatosaurus, it was restored as a valid genus in 2015 due to its more robust neck and unique shoulder."
+            "description": "The famous \"Thunder Lizard\" was once lumped in with Apatosaurus, but an exhaustive 2015 study officially restored it as its own distinct, beautifully robust genus."
         },
         "herrerasaurus": {
             "species": "Herrerasaurus",
@@ -468,7 +468,7 @@
             "size": "6 meters",
             "weight": "350 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/herrerasaurus.jpg",
-            "description": "A basal predator with a flexible lower jaw joint, allowing it to slide back and forth to deliver a powerful grasping bite."
+            "description": "One of the earliest known dinosaurs, it possessed a unique sliding lower jaw that allowed it to deliver a deadly, grasping bite to struggling prey."
         },
         "nigersaurus": {
             "species": "Nigersaurus",
@@ -478,7 +478,7 @@
             "size": "9 meters",
             "weight": "4,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/nigersaurus.jpg",
-            "description": "Nicknamed the \"Mesozoic Lawnmower,\" its wide, straight snout contained over 500 teeth specialized for grazing at ground level."
+            "description": "Nicknamed the \"Mesozoic Lawnmower,\" its wide, straight snout was packed with over 500 teeth, perfectly adapted for vacuuming up ground-level ferns."
         },
         "scelidosaurus": {
             "species": "Scelidosaurus",
@@ -488,7 +488,7 @@
             "size": "4 meters",
             "weight": "270 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/scelidosaurus.jpg",
-            "description": "An early ancestor to both stegosaurs and ankylosaurs, it was covered in rows of small, bony studs set into its skin."
+            "description": "This early armored dinosaur was found perfectly preserved in ancient marine rocks, suggesting the poor animal might have been caught in a flash flood and washed straight out to sea!"
         },
         "heterodontosaurus": {
             "species": "Heterodontosaurus",
@@ -498,7 +498,7 @@
             "size": "1.2 meters",
             "weight": "3 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/heterodontosaurus.jpg",
-            "description": "Unique for having three different types of teeth: small incisors, sharp canine-like tusks, and flat grinding teeth for plants."
+            "description": "Unique for having three different types of teeth: small incisors, sharp canine-like tusks, and flat grinding teeth for plants.During the harsh, dry seasons of the Early Jurassic, some paleontologists believe this tiny, tusked dinosaur might have actually burrowed underground and entered a state of hibernation to survive!"
         },
         "baryonyx": {
             "species": "Baryonyx",
@@ -548,7 +548,7 @@
             "size": "6 meters",
             "weight": "370 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/alioramus.jpg",
-            "description": "A long-snouted tyrannosaur with a row of five small bony horns along its nose; it was a specialist hunter of smaller, faster prey."
+            "description": "A bizarrely slender, long-snouted tyrannosaur decorated with a row of five small bony bumps along its nose, making it look almost delicate compared to its famously heavy-headed relatives"
         },
         "cetiosaurus": {
             "species": "Cetiosaurus",
@@ -558,7 +558,7 @@
             "size": "16 meters",
             "weight": "25,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/cetiosaurus.jpg",
-            "description": "The first sauropod ever discovered; Sir Richard Owen initially mistook its massive bones for those of a giant sea-dwelling crocodile."
+            "description": "As the very first sauropod ever discovered, its massive bones were initially mistaken by 19th-century scientists for the remains of a giant, sea-dwelling crocodile!"
         },
         "gigantoraptor": {
             "species": "Gigantoraptor",
@@ -568,7 +568,7 @@
             "size": "8 meters",
             "weight": "1,400 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/gigantoraptor.jpg",
-            "description": "The largest of the beaked \"egg-thieves\"; it was roughly the size of a school bus and was likely covered in vibrant, colorful feathers."
+            "description": "Its discovery was a total accident! Paleontologists originally thought they were digging up a giant sauropod leg bone, only to realize they had uncovered a vibrantly feathered \"egg thief\" the size of a school bus."
         },
         "velociraptor": {
             "species": "Velociraptor",
@@ -588,7 +588,7 @@
             "size": "4.5 meters",
             "weight": "400 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/fukuisaurus.jpg",
-            "description": "A primitive iguanodontian from Japan; its skull was less flexible than later relatives, meaning it chewed with a simpler vertical motion."
+            "description": "This Japanese dinosaur had a completely rigid skull, meaning unlike its later, more advanced duck-billed cousins, it couldn't chew its food with a complex side-to-side grinding motion."
         },
         "tenontosaurus": {
             "species": "Tenontosaurus",
@@ -598,7 +598,7 @@
             "size": "7 meters",
             "weight": "1,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/tenontosaurus.jpg",
-            "description": "Characterized by an exceptionally long, stiff tail; it is famously depicted being hunted by packs of the raptor Deinonychus."
+            "description": "It holds a tragic place in the fossil record\u2014dozens of its skeletons have been found completely surrounded by the broken teeth of Deinonychus, capturing an ancient, millions-of-years-long predator-prey rivalry."
         },
         "halszkaraptor": {
             "species": "Halszkaraptor",
@@ -608,7 +608,7 @@
             "size": "0.6 meters",
             "weight": "2 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/halszkaraptor.jpg",
-            "description": "A bizarre, semi-aquatic raptor with a neck like a swan; it likely spent its time swimming in rivers, using its snout to snap up small fish."
+            "description": "Looking more like a mutant swan than a terrifying raptor, this bizarre creature had dense, heavy, penguin-like bones that helped it dive underwater to hunt small fish."
         },
         "euoplocephalus": {
             "species": "Euoplocephalus",
@@ -618,7 +618,7 @@
             "size": "6 meters",
             "weight": "2,500 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/euoplocephalus.jpg",
-            "description": "One of the most common ankylosaurs; it had complex, looping nasal passages that likely helped it warm cold air or make loud calls."
+            "description": "This heavy-duty grazer had a surprisingly complex network of looping tubes inside its snout, which might have worked like a biological trombone to blast loud calls across the plains."
         },
         "allosaurus": {
             "species": "Allosaurus",
@@ -628,7 +628,7 @@
             "size": "9.5 meters",
             "weight": "2,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/allosaurus.jpg",
-            "description": "The most famous hunter of the Jurassic; it had a \"hatchet\" bite, using its upper jaw to slash at prey like a biological axe."
+            "description": "Known as the \"Lion of the Jurassic,\" it was so incredibly common that paleontologists have found the tangled remains of dozens of individuals perfectly preserved together in a single Utah predator trap!"
         },
         "massospondylus": {
             "species": "Massospondylus",
@@ -638,7 +638,7 @@
             "size": "4 meters",
             "weight": "1,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/massospondylus.jpg",
-            "description": "Famous for the discovery of preserved eggs containing toothless embryos, suggesting the parents may have fed their young."
+            "description": "Famous fossil nests revealed completely toothless embryos inside the eggs, strongly suggesting that the parents had to actively feed and care for their helpless hatchlings."
         },
         "centrosaurus": {
             "species": "Centrosaurus",
@@ -648,7 +648,7 @@
             "size": "5.5 meters",
             "weight": "2,300 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/centrosaurus.jpg",
-            "description": "Identified by a single large horn on its nose that could curve forward or backward; they lived in vast herds that numbered in the thousands."
+            "description": "Bonebeds in Canada contain the remains of thousands of these animals in one spot, suggesting they traveled in massive, thundering herds that could stretch for miles across the plains."
         },
         "diplodocus": {
             "species": "Diplodocus",
@@ -658,7 +658,7 @@
             "size": "26 meters",
             "weight": "15,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/diplodocus.jpg",
-            "description": "Its name refers to the \"double-beam\" chevron bones in its tail, which provided support and protected blood vessels from pressure."
+            "description": "Computer simulations reveal that the incredibly thin, whip-like tip of its massive tail could likely be flicked fast enough to break the sound barrier, producing a deafening sonic boom to startle predators!"
         },
         "kosmoceratops": {
             "species": "Kosmoceratops",
@@ -668,7 +668,7 @@
             "size": "5 meters",
             "weight": "2,500 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/kosmoceratops.jpg",
-            "description": "Known as the most \"ornate\" dinosaur; its frill was decorated with 15 horns and spikes, including a unique row that curved downward."
+            "description": "Known as the most \"ornate\" dinosaur ever discovered, it had a total of 15 different horns and spikes on its head, including a bizarre row of hooks that curved downward like a fringe of hair."
         },
         "shunosaurus": {
             "species": "Shunosaurus",
@@ -678,7 +678,7 @@
             "size": "9.5 meters",
             "weight": "3,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/shunosaurus.jpg",
-            "description": "A unique sauropod that featured a bony, spiked club at the end of its tail, a defense mechanism more common in armored dinosaurs."
+            "description": "Breaking all the sauropod rules, it featured a massive, bony spiked club at the end of its tail\u2014a devastating weapon usually reserved for armored ankylosaurs."
         },
         "archaeopteryx": {
             "species": "Archaeopteryx",
@@ -688,7 +688,7 @@
             "size": "0.5 meters",
             "weight": "1 kilogram",
             "image": "https://alexjercan.github.io/metajurassic-images/species/archaeopteryx.jpg",
-            "description": "The most famous \"missing link\" in history, featuring the feathers of a bird but the teeth and long bony tail of a dinosaur."
+            "description": "The absolute holy grail of paleontology; its discovery in 1861 happened just two years after Charles Darwin published his theory of evolution, providing the perfect \"missing link\" between reptiles and birds."
         },
         "unaysaurus": {
             "species": "Unaysaurus",
@@ -698,7 +698,7 @@
             "size": "2.5 meters",
             "weight": "70 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/unaysaurus.jpg",
-            "description": "A small, bipedal sauropodomorph from Brazil, closely related to European forms, proving early dinosaurs could migrate across Pangea."
+            "description": "Discovered in Brazil, its striking similarity to European dinosaurs proved that these early animals could freely walk across the unbroken supercontinent of Pangea."
         },
         "megaraptor": {
             "species": "Megaraptor",
@@ -708,7 +708,7 @@
             "size": "8 meters",
             "weight": "1,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/megaraptor.jpg",
-            "description": "Once thought to be a giant raptor, we now know its signature \"sickle claw\" was actually on its thumb, not its toe."
+            "description": "For years, paleontologists thought they had found the biggest \"Jurassic Park-style\" raptor ever, until they finally realized the massive 35-centimeter sickle claw actually belonged on its thumb, not its foot!"
         },
         "erlikosaurus": {
             "species": "Erlikosaurus",
@@ -718,7 +718,7 @@
             "size": "6 meters",
             "weight": "500 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/erlikosaurus.jpg",
-            "description": "A member of the \"scythe-claw\" family that still retained a very complex, bird-like skull, which helped scientists understand this group's evolution."
+            "description": "Even though it belongs to the giant scythe-clawed family, it is actually most famous to scientists for being one of the only therizinosaurs ever found with a completely intact, 3D-preserved skull."
         },
         "dracovenator": {
             "species": "Dracovenator",
@@ -738,7 +738,7 @@
             "size": "2.5 meters",
             "weight": "350 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/zalmoxes.jpg",
-            "description": "A \"dwarf\" iguanodontian that lived on Hateg Island; it remained small due to the limited food resources of its island habitat."
+            "description": "A \"dwarf\" iguanodontian that lived on Ha\u021beg Island; it remained small due to the limited food resources of its island habitat."
         },
         "carnotaurus": {
             "species": "Carnotaurus",
@@ -758,7 +758,7 @@
             "size": "9 meters",
             "weight": "10,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/triceratops.jpg",
-            "description": "The \"tank\" of the Cretaceous; its solid bony frill was reinforced to withstand the impact of a charging rival or a hungry predator."
+            "description": "Unlike almost every other horned dinosaur, its massive frill was made of solid, thick bone with no holes in it at all\u2014giving it a heavy-duty shield that could actually stop a T. rex bite."
         },
         "carcharodontosaurus": {
             "species": "Carcharodontosaurus",
@@ -768,7 +768,7 @@
             "size": "12 meters",
             "weight": "6,200 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/carcharodontosaurus.jpg",
-            "description": "Its teeth were thin, serrated, and razor-sharp, designed for inflicting massive blood loss on long-necked sauropods."
+            "description": "Its massive, serrated teeth were so perfectly evolved for slicing cleanly through meat that they were completely useless for crushing bone, forcing it to carefully strip flesh off giant sauropods without biting too hard."
         },
         "troodon": {
             "species": "Troodon",
@@ -788,7 +788,7 @@
             "size": "12 meters",
             "weight": "5,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/tarbosaurus.jpg",
-            "description": "The Asian \"twin\" of T. rex; it was slightly slimmer and had even smaller arms, ruling the floodplains of Mongolia as the apex king."
+            "description": "The undisputed apex predator of ancient Mongolia, this Asian \"twin\" of T. rex had arms that were so unbelievably tiny they literally couldn't even reach its own mouth!"
         },
         "tyrannotitan": {
             "species": "Tyrannotitan",
@@ -798,7 +798,7 @@
             "size": "12.2 meters",
             "weight": "4,800 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/tyrannotitan.jpg",
-            "description": "A massive carcharodontosaurid with incredibly robust teeth, it was the apex predator of Argentina before Giganotosaurus appeared."
+            "description": "Ruling South America millions of years before Giganotosaurus, its teeth were shockingly thick and robust for its family, allowing it to aggressively crunch through tougher prey than its slicing-toothed cousins."
         },
         "irritator": {
             "species": "Irritator",
@@ -808,7 +808,7 @@
             "size": "8 meters",
             "weight": "1,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/irritator.jpg",
-            "description": "Its name reflects the frustration of paleontologists who discovered the fossil had been artificially lengthened by illegal fossil dealers."
+            "description": "Its hilarious name directly reflects the immense frustration of the paleontologists who discovered that illegal fossil smugglers had literally glued random car parts and plaster onto the skull to make it look longer!"
         },
         "mononykus": {
             "species": "Mononykus",
@@ -818,7 +818,7 @@
             "size": "1 meter",
             "weight": "3 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/mononykus.jpg",
-            "description": "A tiny, feathered insectivore with a single, powerful thumb claw on each \"arm,\" which it likely used to break into termite mounds."
+            "description": "This tiny, bizarre creature had arms so ridiculously short that they were completely useless for walking or grasping, ending in a single, thick thumb claw likely used to bust open ancient termite mounds."
         },
         "tsintaosaurus": {
             "species": "Tsintaosaurus",
@@ -828,7 +828,7 @@
             "size": "10 meters",
             "weight": "3,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/tsintaosaurus.jpg",
-            "description": "Initially thought to have a single \"unicorn\" spike, we now know it possessed a large, hollow, petal-shaped crest used for display."
+            "description": "Often depicted with a bizarre, single \"unicorn\" spike in older art, new discoveries revealed that the spike was actually just the broken back-half of a much larger, beautiful, petal-shaped crest"
         },
         "olorotitan": {
             "species": "Olorotitan",
@@ -848,7 +848,7 @@
             "size": "9 meters",
             "weight": "2,500 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/albertosaurus.jpg",
-            "description": "A sleeker, faster relative of T. rex; bonebeds suggest they may have hunted in packs to corner agile duck-billed dinosaurs."
+            "description": "A massive bonebed in Canada containing over two dozen individuals strongly suggests these sleeker, faster cousins of T. rex lived and hunted in highly coordinated, multi-generational packs."
         },
         "lokiceratops": {
             "species": "Lokiceratops",
@@ -858,7 +858,7 @@
             "size": "6.7 meters",
             "weight": "5,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/lokiceratops.jpg",
-            "description": "A massive centrosaurine named after the Norse god; it possessed the largest frill horns ever seen in its group, lacking a nose horn entirely."
+            "description": "Named after the Norse trickster god Loki, it holds the record for the largest and most blade-like frill horns ever seen on its branch of the family tree."
         },
         "psittacosaurus": {
             "species": "Psittacosaurus",
@@ -868,7 +868,7 @@
             "size": "2 meters",
             "weight": "20 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/psittacosaurus.jpg",
-            "description": "Named for its parrot-like beak; a rare fossil shows it had a row of long, quill-like structures on its tail, possibly for display."
+            "description": "A stunningly preserved fossil from China revealed that this \"parrot-lizard\" had a row of long, stiff, brush-like bristles growing only on its tail, possibly used like a colorful flag for signaling to others."
         },
         "staurikosaurus": {
             "species": "Staurikosaurus",
@@ -878,7 +878,7 @@
             "size": "2.2 meters",
             "weight": "30 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/staurikosaurus.jpg",
-            "description": "Named after the Southern Cross constellation; it was a small, agile predator with a primitive, five-fingered hand."
+            "description": "Named beautifully after the Southern Cross constellation, this small, agile predator was one of the first dinosaurs to roam the Earth."
         },
         "mapusaurus": {
             "species": "Mapusaurus",
@@ -888,7 +888,7 @@
             "size": "12.5 meters",
             "weight": "5,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/mapusaurus.jpg",
-            "description": "Fossils of several individuals found together suggest this massive predator may have hunted in coordinated packs."
+            "description": "An incredible bonebed in Argentina revealed the remains of at least seven individuals of different ages all buried together, strongly suggesting these multi-ton apex predators hunted giant titanosaurs in coordinated, terrifying packs."
         },
         "pantydraco": {
             "species": "Pantydraco",
@@ -898,7 +898,7 @@
             "size": "3 meters",
             "weight": "50 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/pantydraco.jpg",
-            "description": "Discovered in a Welsh quarry; it was a gracile, early sauropodomorph that likely used its slender hands to grasp vegetation."
+            "description": "Discovered in a quarry in Wales, this early, slender plant-eater likely used its long, grasping hands to pull down branches."
         },
         "stegoceras": {
             "species": "Stegoceras",
@@ -908,7 +908,7 @@
             "size": "2 meters",
             "weight": "40 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/stegoceras.jpg",
-            "description": "A small, bipedal dinosaur with a thick, bony dome on its head; it is one of the most complete and best-studied pachycephalosaurs."
+            "description": "For a long time, its thick, domed skull was so mysterious that some early paleontologists actually suggested it might have been used as a giant kneecap for an even larger, unknown dinosaur!"
         },
         "deinocheirus": {
             "species": "Deinocheirus",
@@ -918,7 +918,7 @@
             "size": "11 meters",
             "weight": "6,300 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/deinocheirus.jpg",
-            "description": "A bizarre, hump-backed \"ostrich dinosaur\" with 2.4-meter arms; it was an omnivore that used its duck-like beak to eat plants and fish."
+            "description": "For exactly 50 years, scientists only had its massive 2.4-meter arms and thought it was a terrifying apex predator\u2014until a full skeleton finally revealed it was actually a pot-bellied, hump-backed omnivore that looked like a giant, bizarre duck"
         },
         "sinraptor": {
             "species": "Sinraptor",
@@ -928,7 +928,7 @@
             "size": "7.6 meters",
             "weight": "1,300 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/sinraptor.jpg",
-            "description": "Despite its name, it is not a \"raptor\" but an early allosauroid; it was a dominant predator of the Jurassic Asian floodplains."
+            "description": "Despite its name, it is not a \"raptor\"; it was a dominant predator of the Jurassic Asian floodplains."
         },
         "dicraeosaurus": {
             "species": "Dicraeosaurus",
@@ -938,7 +938,7 @@
             "size": "12 meters",
             "weight": "4,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/dicraeosaurus.jpg",
-            "description": "Characterized by its relatively short neck and tall, Y-shaped spines on its vertebrae that likely supported powerful muscles."
+            "description": "Unlike most of its long-necked relatives, it had a surprisingly short neck and tall, Y-shaped back spines that anchored massive neck muscles."
         },
         "deinonychus": {
             "species": "Deinonychus",
@@ -948,7 +948,7 @@
             "size": "3.4 meters",
             "weight": "73 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/deinonychus.jpg",
-            "description": "The discovery of this active predator sparked the \"Dinosaur Renaissance,\" proving dinosaurs were warm-blooded and bird-like."
+            "description": "The single dinosaur that triggered the 1960s \"Dinosaur Renaissance,\" completely rewriting the history books and proving dinosaurs were fast, warm-blooded, and highly intelligent, not slow, swamp-bound lizards."
         },
         "iguanodon": {
             "species": "Iguanodon",
@@ -958,7 +958,7 @@
             "size": "10 meters",
             "weight": "3,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/iguanodon.jpg",
-            "description": "The second dinosaur ever named; it possessed a conical thumb spike once mistakenly placed on its nose by early 19th-century scientists."
+            "description": "The second dinosaur ever officially named! The scientists who first found its iconic thumb spike mistakenly glued it onto the animal's nose like a rhinoceros horn for decades."
         },
         "tyrannosaurus": {
             "species": "Tyrannosaurus",
@@ -998,7 +998,7 @@
             "size": "9 meters",
             "weight": "3,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/corythosaurus.jpg",
-            "description": "Featuring a tall, semi-circular crest similar to a Corinthian helmet, which likely helped the animal recognize members of its own herd."
+            "description": "A miraculously preserved fossil of this \"helmet-crested\" dinosaur was found with its last meal\u2014twigs, seeds, and pine needles\u2014still sitting perfectly intact inside its stomach cavity!"
         },
         "metriacanthosaurus": {
             "species": "Metriacanthosaurus",
@@ -1008,7 +1008,7 @@
             "size": "8 meters",
             "weight": "1,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/metriacanthosaurus.jpg",
-            "description": "Named for the height of its neural spines, which were taller than most theropods but shorter than those of the spinosaurids."
+            "description": "For decades, this impressive predator was completely lost in the scientific shuffle\u2014early paleontologists had lazily dumped its fossil in as just another species of Megalosaurus because they used to assume almost every European meat-eater was the exact same animal!"
         },
         "acrocanthosaurus": {
             "species": "Acrocanthosaurus",
@@ -1018,7 +1018,7 @@
             "size": "11.5 meters",
             "weight": "6,200 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/acrocanthosaurus.jpg",
-            "description": "Notable for the very high neural spines along its back, which likely supported a ridge of muscle used for tackling giant sauropods."
+            "description": "Famous fossilized footprints in Texas\u2014known as the Paluxy River trackway\u2014preserve a terrifying scene where an Acrocanthosaurus appears to be actively stalking and attacking a massive sauropod, matching it step for step!"
         },
         "giraffatitan": {
             "species": "Giraffatitan",
@@ -1028,7 +1028,7 @@
             "size": "23 meters",
             "weight": "40,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/giraffatitan.jpg",
-            "description": "Often mistaken for Brachiosaurus, this African giant was significantly taller and is the focus of the world's tallest mounted skeleton."
+            "description": "Often confused with Brachiosaurus, this towering African giant is actually the spectacular centerpiece of the world's tallest mounted dinosaur skeleton in Berlin."
         },
         "maiasaura": {
             "species": "Maiasaura",
@@ -1038,7 +1038,7 @@
             "size": "9 meters",
             "weight": "2,500 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/maiasaura.jpg",
-            "description": "The first dinosaur found with evidence of parental care; fossilized nesting colonies show they stayed to feed and protect their hatchlings."
+            "description": "Its discovery at \"Egg Mountain\" in Montana revolutionized paleontology by proving for the very first time that dinosaurs built massive nesting colonies and actively fed their helpless babies."
         },
         "moros": {
             "species": "Moros",
@@ -1048,7 +1048,7 @@
             "size": "1.2 meters",
             "weight": "78 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/moros.jpg",
-            "description": "A tiny, deer-sized tyrannosaur from Utah; its discovery helped explain how tyrannosaurs stayed small for millions of years before becoming giants."
+            "description": "This tiny, deer-sized runner is the crucial \"missing link\" that perfectly explains how tyrannosaurs survived as speedy, lightweight underdogs for millions of years before finally evolving into giant kings."
         },
         "alamosaurus": {
             "species": "Alamosaurus",
@@ -1058,7 +1058,7 @@
             "size": "30 meters",
             "weight": "73,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/alamosaurus.jpg",
-            "description": "The last sauropod in North America; recent evidence suggests its body was partially covered in bony armor plates (osteoderms)."
+            "description": "The very last sauropod to roam North America before the asteroid hit, recent discoveries reveal this massive titan actually sported bony armor plates embedded in its skin!"
         },
         "therizinosaurus": {
             "species": "Therizinosaurus",
@@ -1068,7 +1068,7 @@
             "size": "10 meters",
             "weight": "5,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/therizinosaurus.jpg",
-            "description": "A massive, pot-bellied herbivore featuring 1-meter long claws; it used these spectacular weapons to strip branches or fend off Tarbosaurus."
+            "description": "Holding the undisputed world record for the longest claws of any animal in planetary history, its massive 1-meter scythes actually belonged to a slow-moving, pot-bellied vegetarian, not a bloodthirsty killer!"
         },
         "camarasaurus": {
             "species": "Camarasaurus",
@@ -1078,7 +1078,7 @@
             "size": "23 meters",
             "weight": "20,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/camarasaurus.jpg",
-            "description": "Its vertebrae contained large \"chambers\" (pleurocoels) to reduce weight; it was the most common sauropod in North America."
+            "description": "The most common sauropod in Late Jurassic North America, its name refers to the massive hollow \"chambers\" (pleurocoels) inside its spine that kept its enormous body surprisingly lightweight."
         },
         "compsognathus": {
             "species": "Compsognathus",
@@ -1098,7 +1098,7 @@
             "size": "27 meters",
             "weight": "15,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/barosaurus.jpg",
-            "description": "A slim relative of Diplodocus with an exceptionally long neck; some believe it had multiple \"hearts\" to pump blood to its head."
+            "description": "This remarkably long-necked relative of Diplodocus was so tall that some paleontologists playfully speculate it might have needed multiple \"hearts\" just to pump blood all the way up to its brain!"
         },
         "camptosaurus": {
             "species": "Camptosaurus",
@@ -1108,7 +1108,7 @@
             "size": "6 meters",
             "weight": "800 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/camptosaurus.jpg",
-            "description": "An early relative of the duck-bills; it could walk on four legs to graze or stand on two legs to sprint away from danger."
+            "description": "Frequently found in the exact same fossil quarries as Stegosaurus and Apatosaurus, proving it was a highly successful, common grazer in the Late Jurassic floodplains."
         },
         "ornithomimus": {
             "species": "Ornithomimus",
@@ -1118,7 +1118,7 @@
             "size": "3.8 meters",
             "weight": "170 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/ornithomimus.jpg",
-            "description": "A very bird-like runner with feathers; its arms were proportionally the longest of the ornithomimids, used for gathering foliage."
+            "description": "This was one of the very first dinosaurs definitively proven to have complex feathers, completely shifting the scientific view of these runners from scaly reptiles to beautifully plumed, bird-like athletes."
         },
         "gastonia": {
             "species": "Gastonia",
@@ -1128,7 +1128,7 @@
             "size": "5 meters",
             "weight": "1,900 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/gastonia.jpg",
-            "description": "A heavily armored nodosaurid; it featured massive, scissor-like spikes along its sides that would snap shut when the animal flexed."
+            "description": "Often found in the exact same ancient bonebeds as the giant raptor Utahraptor, strongly suggesting its heavy, scissor-like spikes were specifically evolved to defend against those sickle-clawed predators."
         },
         "homalocephale": {
             "species": "Homalocephale",
@@ -1138,7 +1138,7 @@
             "size": "1.8 meters",
             "weight": "43 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/homalocephale.jpg",
-            "description": "Unlike its dome-headed relatives, it had a flat, wedge-shaped skull, suggesting a different style of social shoving or head-butting."
+            "description": "Unlike its dome-headed cousins, this dinosaur had a completely flat, wedge-shaped head, leading to a long-standing debate over whether it was a unique species or just a \"teenager\" that hadn't grown its dome yet."
         },
         "protoceratops": {
             "species": "Protoceratops",
@@ -1148,7 +1148,7 @@
             "size": "1.8 meters",
             "weight": "100 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/protoceratops.jpg",
-            "description": "A sheep-sized dinosaur from Mongolia; its large frill protected its neck and provided a site for powerful jaw muscle attachments."
+            "description": "Because its fossils are so common in the Gobi Desert, many historians believe that ancient travelers seeing its beaked skull and four-legged body were the real-life inspiration for the mythical Griffin."
         },
         "qianzhousaurus": {
             "species": "Qianzhousaurus",
@@ -1168,7 +1168,7 @@
             "size": "1 meter",
             "weight": "10 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/eoraptor.jpg",
-            "description": "A small, bipedal omnivore once considered a theropod, but now recognized as one of the earliest ancestors of giant sauropods."
+            "description": "Long thought to be a tiny, meat-eating theropod, scientists now realize this little omnivore is actually one of the earliest ancestors of the giant, long-necked sauropods!"
         },
         "ouranosaurus": {
             "species": "Ouranosaurus",
@@ -1178,7 +1178,7 @@
             "size": "7 meters",
             "weight": "2,200 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/ouranosaurus.jpg",
-            "description": "Notable for the tall neural spines along its back, which likely supported a fatty hump for water storage or a sail for thermoregulation."
+            "description": "Living in the scorching hot environment of ancient North Africa, its tall back sail might have acted exactly like a biological radiator to stop it from overheating in the sun."
         },
         "hadrosaurus": {
             "species": "Hadrosaurus",
@@ -1188,7 +1188,7 @@
             "size": "8 meters",
             "weight": "3,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/hadrosaurus.jpg",
-            "description": "The official state dinosaur of New Jersey; its discovery in 1858 proved for the first time that some dinosaurs were bipedal."
+            "description": "It made history as the first dinosaur skeleton ever mounted for public display in the entire world, completely changing how the public saw dinosaurs when it debuted in Philadelphia in 1868!"
         },
         "plateosaurus": {
             "species": "Plateosaurus",
@@ -1198,7 +1198,7 @@
             "size": "8 meters",
             "weight": "4,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/plateosaurus.jpg",
-            "description": "A high-browsing herbivore that could stand on its hind legs; its fossils are often found in massive \"bone beds\" in Europe."
+            "description": "Its fossils are frequently discovered in massive \"bone beds\" across Europe, suggesting these high-browsing herbivores may have roamed in massive herds or died together in mud traps."
         },
         "brachiosaurus": {
             "species": "Brachiosaurus",
@@ -1208,7 +1208,7 @@
             "size": "21 meters",
             "weight": "46,900 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/brachiosaurus.jpg",
-            "description": "One of the few sauropods with front legs longer than its back legs, giving it a permanent upward-tilted posture for high browsing."
+            "description": "Unlike most dinosaurs, its front legs were significantly longer than its back legs, locking it into a permanent, upward-sloping posture perfectly designed for grazing the treetops."
         },
         "gorgosaurus": {
             "species": "Gorgosaurus",
@@ -1218,7 +1218,7 @@
             "size": "8.5 meters",
             "weight": "2,400 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/gorgosaurus.jpg",
-            "description": "Distinguished by a pair of small, bony horns over its eyes; it likely relied on its incredible speed to catch its prey."
+            "description": "Perfectly preserved skeletons reveal that these terrifying hunters went through a dramatic teenage growth spurt, completely transforming from lightning-fast, slender sprinters into heavy, bone-crushing adults."
         },
         "wuerhosaurus": {
             "species": "Wuerhosaurus",
@@ -1228,7 +1228,7 @@
             "size": "7 meters",
             "weight": "4,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/wuerhosaurus.jpg",
-            "description": "One of the last surviving stegosaurs; its plates were much lower and more rounded than those of its Jurassic ancestors."
+            "description": "One of the very last stegosaurs to ever walk the earth, proving this spiky lineage managed to survive way into the Early Cretaceous before finally going extinct."
         },
         "dreadnoughtus": {
             "species": "Dreadnoughtus",
@@ -1238,7 +1238,7 @@
             "size": "26 meters",
             "weight": "48,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/dreadnoughtus.jpg",
-            "description": "Named after massive battleships; its sheer size meant a healthy adult would have been practically invulnerable to predators."
+            "description": "Named after the heavily armored battleships of the early 20th century, a fully grown adult was so incomprehensibly massive that it literally \"feared nothing.\""
         },
         "ankylosaurus": {
             "species": "Ankylosaurus",
@@ -1248,7 +1248,7 @@
             "size": "8 meters",
             "weight": "6,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/ankylosaurus.jpg",
-            "description": "The \"tank\" of the dinosaur world; even its eyelids were armored with bone, and its tail club could shatter the leg of a T. rex."
+            "description": "The ultimate living tank! Its heavy armor was so extensive and extreme that even its eyelids were reinforced with solid bone shutters to protect its eyes during a fight."
         },
         "amargasaurus": {
             "species": "Amargasaurus",
@@ -1258,7 +1258,7 @@
             "size": "10 meters",
             "weight": "2,600 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/amargasaurus.jpg",
-            "description": "Notable for the double row of tall, thin spines running down its neck, which may have supported a sail or served as a visual display."
+            "description": "It sported a spectacular double row of tall, thin spines running down its neck, which might have supported a skin sail or served as an intimidating visual display."
         },
         "argentinosaurus": {
             "species": "Argentinosaurus",
@@ -1288,7 +1288,7 @@
             "size": "4.5 meters",
             "weight": "1,500 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/nasutoceratops.jpg",
-            "description": "Distinguished by its remarkably short, blunt snout and long, forward-curving brow horns that resemble those of modern cattle."
+            "description": "With its remarkably short snout and long, forward-curving brow horns, it looks strikingly like a modern bull, a very different look from the typical \"pointed\" faces of its relatives."
         },
         "guanlong": {
             "species": "Guanlong",
@@ -1298,7 +1298,7 @@
             "size": "3 meters",
             "weight": "75 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/guanlong.jpg",
-            "description": "A primitive ancestor of T. rex that sported a spectacular, hollow bony crest on its head, likely used for social communication."
+            "description": "One of the earliest known ancestors of T. rex, it was small enough to be hunted by other predators and sported a fragile, spectacular crest on its head that looked like a biological mohawk."
         },
         "giganotosaurus": {
             "species": "Giganotosaurus",
@@ -1308,7 +1308,7 @@
             "size": "13 meters",
             "weight": "8,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/giganotosaurus.jpg",
-            "description": "One of the largest land predators ever to live; it was larger than T. rex but had a significantly smaller and more slender brain."
+            "description": "The remains of this colossal predator weren't unearthed by a team of highly funded scientists, but by a passionate amateur fossil hunter and dune-buggy mechanic named Rub\u00e9n Dario Carolini! To honor his massive discovery, the official species name is Giganotosaurus carolinii."
         },
         "suchomimus": {
             "species": "Suchomimus",
@@ -1358,7 +1358,7 @@
             "size": "5 meters",
             "weight": "600 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/nanotyrannus.jpg",
-            "description": "A highly controversial genus; many paleontologists believe these fossils actually represent juvenile Tyrannosaurus rex specimens."
+            "description": "One of paleontology's fiercest, longest-running debates was finally settled in late 2025! Groundbreaking new studies proved once and for all that this animal wasn't just an awkward, teenage T. rex, but a distinct, fast-running species of its own that actually lived right alongside the tyrant king."
         },
         "vulcanodon": {
             "species": "Vulcanodon",
@@ -1368,7 +1368,7 @@
             "size": "6.5 meters",
             "weight": "3,500 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/vulcanodon.jpg",
-            "description": "One of the earliest true sauropods; it developed the pillar-like limbs necessary to support its rapidly increasing body mass."
+            "description": "One of the earliest \"true\" sauropods, it was among the first to evolve thick, pillar-like legs\u2014the exact biological upgrade needed to support a massive, rapidly growing body."
         },
         "bajadasaurus": {
             "species": "Bajadasaurus",
@@ -1378,7 +1378,7 @@
             "size": "10 meters",
             "weight": "3,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/bajadasaurus.jpg",
-            "description": "A relative of Amargasaurus with forward-curving neck spines that likely protected the animal from predators while it was feeding."
+            "description": "A bizarre cousin of Amargasaurus, it featured dramatic, forward-curving neck spines that likely acted as a spiky deterrent against predators while it kept its head down to feed."
         },
         "sauropelta": {
             "species": "Sauropelta",
@@ -1388,7 +1388,7 @@
             "size": "5.2 meters",
             "weight": "1,500 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/sauropelta.jpg",
-            "description": "Famous for its exceptionally long neck spikes, which protected its most vulnerable area while it grazed on low ferns."
+            "description": "Fossilized trackways suggest it walked with a surprisingly wide, sprawling stance, making it incredibly difficult for a predator to ever flip it over and expose its soft belly."
         },
         "pelecanimimus": {
             "species": "Pelecanimimus",
@@ -1408,7 +1408,7 @@
             "size": "22 meters",
             "weight": "27,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/mamenchisaurus.jpg",
-            "description": "This dinosaur possessed a record-breaking neck that could reach up to 14 meters, accounting for half of its total body length."
+            "description": "It possessed a record-breaking neck that could reach up to 14 meters long, incredibly making up half of the animal's entire body length"
         },
         "rugops": {
             "species": "Rugops",
@@ -1418,7 +1418,7 @@
             "size": "6 meters",
             "weight": "750 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/rugops.jpg",
-            "description": "Its skull was covered in numerous blood vessels and pits, suggesting its face may have supported a display structure or tough armor."
+            "description": "Its wrinkly, pitted skull was likely covered in a heavy network of blood vessels, suggesting its face was either brightly colored for display or covered in a tough, protective armor pad."
         },
         "sauroposeidon": {
             "species": "Sauroposeidon",
@@ -1428,7 +1428,7 @@
             "size": "30 meters",
             "weight": "50,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/sauroposeidon.jpg",
-            "description": "One of the tallest dinosaurs ever found, its neck alone was 12 meters long, allowing it to reach heights of nearly 18 meters."
+            "description": "Named after the Greek earthquake god, its neck alone was a staggering 12 meters long, allowing it to effortlessly reach heights of nearly 18 meters."
         },
         "dilophosaurus": {
             "species": "Dilophosaurus",
@@ -1438,7 +1438,7 @@
             "size": "7 meters",
             "weight": "400 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/dilophosaurus.jpg",
-            "description": "Contrary to pop culture, it lacked a neck frill and did not spit venom; it was a powerful, agile predator of the early Jurassic."
+            "description": "Completely shattering its famous movie-monster image, the real animal was actually a massive, 7-meter apex predator that didn't have a neck frill and definitely couldn't spit venom."
         },
         "muttaburrasaurus": {
             "species": "Muttaburrasaurus",
@@ -1448,7 +1448,7 @@
             "size": "8 meters",
             "weight": "2,800 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/muttaburrasaurus.jpg",
-            "description": "Featured a large, hollow bulge on its snout that may have been used to amplify its voice or inflate for visual displays."
+            "description": "One of Australia's most famous dinosaurs, it possessed a massive, hollow bulge on its nose that it likely used to honk loudly to its herd across the freezing polar forests"
         },
         "pachycephalosaurus": {
             "species": "Pachycephalosaurus",
@@ -1458,7 +1458,7 @@
             "size": "4.5 meters",
             "weight": "450 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/pachycephalosaurus.jpg",
-            "description": "Its skull was topped with 25 centimeters of solid bone; it likely engaged in ritualized combat by slamming its head into a rival's flank."
+            "description": "Despite its famous \"head-butting\" reputation, some scientists believe its skull was actually used for \"flank-butting\"\u2014shoving and slamming into the sides of rivals like modern giraffes or bison do today."
         },
         "diabloceratops": {
             "species": "Diabloceratops",
@@ -1468,7 +1468,7 @@
             "size": "5.5 meters",
             "weight": "2,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/diabloceratops.jpg",
-            "description": "Named for the two long, upward-curving spikes on its frill that resemble devil horns; it had a short nose horn and long brow horns."
+            "description": "Living up to its \"Devil\" name, it featured two massive, upward-curving spikes on its frill that looked exactly like horns, making it one of the most intimidating-looking early ceratopsians."
         },
         "huayangosaurus": {
             "species": "Huayangosaurus",
@@ -1478,7 +1478,7 @@
             "size": "4.5 meters",
             "weight": "1,500 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/huayangosaurus.jpg",
-            "description": "One of the most primitive stegosaurs; unlike its later relatives, it still had teeth at the very front of its beak."
+            "description": "Found in China, it represents one of the most primitive stegosaurs ever discovered, proving that the famous armored family actually started out in Asia before spreading globally."
         },
         "minmi": {
             "species": "Minmi",
@@ -1488,7 +1488,7 @@
             "size": "3 meters",
             "weight": "300 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/minmi.jpg",
-            "description": "A small, primitive armored dinosaur from Australia; it had extra bony plates along its spine to protect its belly from predators."
+            "description": "It holds the record for being the first armored dinosaur ever found in the Southern Hemisphere, and is one of the few dinosaurs named after a specific road crossing in Australia."
         },
         "neovenator": {
             "species": "Neovenator",
@@ -1498,74 +1498,74 @@
             "size": "7.6 meters",
             "weight": "2,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/neovenator.jpg",
-            "description": "One of the leading predators of Early Cretaceous Europe, it possessed sensory pits in its snout for detecting heat or pressure."
+            "description": "The undisputed apex predator of Early Cretaceous Europe, its snout was packed with a highly complex network of sensory nerves, allowing it to gently nuzzle its mates or perfectly detect struggling prey in the dark."
         }
     },
     "clades": {
         "tyrannosaurinae": {
             "clade": "Tyrannosaurinae",
             "parent": "tyrannosauridae",
-            "description": "Possessed forward-facing eyes for binocular vision, allowing them to track and hunt with incredible depth perception."
+            "description": "Diagnosed by heavily shortened, incredibly deep snouts and even more robust, thickened teeth compared to the slender albertosaurs. This extreme structural reinforcement turned their entire head into a biological battering ram, prioritizing maximum bite force over speed to overpower dangerous, heavily armored prey like Triceratops or Ankylosaurus."
         },
         "megaraptora": {
             "clade": "Megaraptora",
             "parent": "coelurosauria",
-            "description": "Once thought to be Allosaurs or Spisosaurs, they are now recognized as a unique group that used massive hand claws as their primary hunting weapons."
+            "description": "Diagnosed by highly pneumatized, lightweight skeletons and significantly elongated, muscular arms ending in disproportionately large claws on the first and second fingers. Instead of relying heavily on their jaws, they utilized these massive hands to grapple, slash, and bleed out medium-sized prey, effectively replacing the carcharodontosaurids as apex predators in Late Cretaceous South America and Australia."
         },
         "albertosaurinae": {
             "clade": "Albertosaurinae",
             "parent": "tyrannosauridae",
-            "description": "Built for speed rather than raw power, these predators were the \"cheetahs\" of the Late Cretaceous tyrannosaur family."
+            "description": "Diagnosed by a notably more slender, gracile build compared to the heavier tyrannosaurines, and proportionally longer lower leg bones (the tibia and metatarsals). This highly specialized leg anatomy made them the fastest runners among the large Late Cretaceous apex predators, allowing them to effectively chase down swift-moving hadrosaurs over open ground rather than relying strictly on ambush tactics."
         },
         "triceratopsini": {
             "clade": "Triceratopsini",
             "parent": "chasmosaurinae",
-            "description": "Possessed solid, massive frills without the large openings seen in other ceratopsids, providing maximum protection for the neck."
+            "description": "Diagnosed by the secondary closure of the frill openings, creating a solid, fenestra-less bone shield, and extremely robust, elongated postorbital (brow) horns. By filling in the fragile holes in their frill, they transformed their heads back into true, battle-ready armor, allowing them to survive locked, head-to-head combat with the most devastating apex predator of their time: Tyrannosaurus rex."
         },
         "giganotosaurini": {
             "clade": "Giganotosaurini",
             "parent": "carcharodontosaurinae",
-            "description": "These predators lived in what is now Argentina and were specialized for hunting the largest dinosaurs that ever walked the Earth."
+            "description": "Diagnosed by heavily reinforced jaw joints and a distinctly squared-off front to the lower jaw (the dentary). While modern taxonomy often folds this specific grouping, alongside Carcharodontosaurinae, directly back into Carcharodontosauridae, retaining this classic classification highlights their distinct historical status as the absolute heaviest, most dominant apex predators of the southern hemisphere, rivaling even the tyrannosaurs in sheer size."
         },
         "dryomorpha": {
             "clade": "Dryomorpha",
             "parent": "iguanodontia",
-            "description": "This group evolved a \"pleurokinetic\" skull, where the upper jaw actually widened outward as they chewed to grind food more effectively."
+            "description": "Diagnosed by the development of a pleurokinetic skull hinge\u2014which allowed the upper jaw bones to flex outward while chewing\u2014alongside the reduction of the foot to strictly three functional toes. This dynamic jaw mechanism allowed their teeth to grind sideways across each other, massively increasing nutrient extraction from tough vegetation, while their streamlined feet made them incredibly agile runners capable of evading massive Late Jurassic predators."
         },
         "lambeosaurinae": {
             "clade": "Lambeosaurinae",
             "parent": "euhadrosauria",
-            "description": "Their crests were connected to their nasal passages, acting as resonance chambers to blast loud, low-frequency calls across the landscape."
+            "description": "Diagnosed by highly complex, hollow bony crests formed by the expansion of the nasal and premaxillary bones, pulling the nasal passages completely over the top of the head. These elaborate acoustic chambers functioned like biological trombones, allowing them to produce loud, low-frequency, species-specific calls to communicate with massive herds across densely forested environments."
         },
         "proceratosauridae": {
             "clade": "Proceratosauridae",
             "parent": "tyrannosauroidea",
-            "description": "Often sporting elaborate bony crests on their snouts, these \"tyrant ancestors\" were the sleek, feathered hunters of the Jurassic forests."
+            "description": "Diagnosed by elaborate, delicate bony crests on the snout and a generally small, lightly built body plan. Because these early tyrannosauroids were outsized by massive allosauroids and megalosaurs, their lightweight build allowed them to exploit a secondary predatory niche, hunting smaller, faster prey while using their elaborate crests for visual display rather than combat."
         },
         "unenlagiina": {
             "clade": "Unenlagiina",
             "parent": "paraves",
-            "description": "A specialized group that likely lived near water, using their elongated jaws to hunt fish and small vertebrates."
+            "description": "Diagnosed by exceptionally long, slender snouts filled with small, unserrated teeth, and a unique shoulder joint that allowed the arms to fold completely flat against the body. This elongated, specialized snout strongly points to a piscivorous (fish-eating) diet, establishing them as the wading, heron-like predators of the southern continents."
         },
         "abelisauroidea": {
             "clade": "Abelisauroidea",
             "parent": "ceratosauria",
-            "description": "Characterized by very short, deep skulls and extremely reduced, almost vestigial arms that likely served no purpose in hunting."
+            "description": "Diagnosed by a noticeable shortening of the skull and extensive bony fusion between the shin and ankle bones. This heavily reinforced, rigid lower limb structure provided a highly stable foundation for explosive bursts of speed, allowing them to effectively ambush and sprint after prey."
         },
         "tyrannosaurini": {
             "clade": "Tyrannosaurini",
             "parent": "tyrannosaurinae",
-            "description": "This elite group contains the apex of tyrannosaur evolution, featuring the highest recorded bite forces of any land animal."
+            "description": "Diagnosed by massively proportioned, heavily fused skull bones and the sheer gigantic scale of the body. Representing the terminal endpoint of the lineage, these animals achieved such absolute dominance in their ecosystem that their juvenile and adult forms occupied entirely different ecological niches, effectively crowding out medium-sized competitors altogether"
         },
         "rhabdodontomorpha": {
             "clade": "Rhabdodontomorpha",
             "parent": "iguanodontia",
-            "description": "A unique lineage that often lived on islands, evolving into unusual forms that survived long after their mainland relatives disappeared."
+            "description": "Diagnosed by deep, powerful skulls with massive, rod-like teeth. Often isolated on ancient European archipelagoes (like Ha\u021beg Island), these robust herbivores dominated their island ecosystems, completely outcompeting other ornithopods in their restricted, insular environments and often experiencing island dwarfism."
         },
         "chasmosaurinae": {
             "clade": "Chasmosaurinae",
             "parent": "ceratopsidae",
-            "description": "These dinosaurs represent the peak of ceratopsian frill evolution, with head shields that could reach over two meters in length."
+            "description": "Diagnosed by exceptionally long, broad frills and the retention of massive, forward-curving brow horns alongside a relatively short nasal horn. While their brow horns were lethal defensive weapons, their dramatically elongated frills were surprisingly fragile and skin-covered, acting as massive, blood-flushed billboards for intimidation and courtship rather than literal shields."
         },
         "diplodocoidea": {
             "clade": "Diplodocoidea",
@@ -1580,17 +1580,17 @@
         "cerapoda": {
             "clade": "Cerapoda",
             "parent": "clypeodontia",
-            "description": "This clade is defined by a large gap between their front and back teeth, allowing for a highly mobile and efficient tongue."
+            "description": "Diagnosed by a pronounced diastema\u2014a distinct, toothless gap between the cropping beak at the very front of the mouth and the grinding cheek teeth in the back. This specialized gap functioned exactly like it does in modern horses, allowing them to rapidly crop fresh vegetation with their beaks while simultaneously using their long tongues to shift food to the back for continuous chewing."
         },
         "megalosaurinae": {
             "clade": "Megalosaurinae",
             "parent": "megalosauridae",
-            "description": "Known for their large, knife-like teeth, they were the dominant terrestrial carnivores across Europe and North America before the rise of the Allosaurs."
+            "description": "Diagnosed by specific adaptations in their jaw structure, including taller, more blade-like teeth compared to their ancestors. Because they were the very first group of dinosaurs to be scientifically described, the discovery of a massive Megalosaur bone in the 17th century originally led early naturalists to believe they were looking at the petrified remains of human giants."
         },
         "thyreophora": {
             "clade": "Thyreophora",
             "parent": "genasauria",
-            "description": "This clade invested heavily in defense, evolving bony skin inserts (osteoderms) that eventually became massive plates and spikes."
+            "description": "Diagnosed by the presence of parallel longitudinal rows of bony scutes (osteoderms) running down the neck, back, and tail. This heavy dermal armor provided a formidable passive defense against the slashing teeth of early theropod predators, effectively turning them into walking fortresses that could comfortably browse low-lying vegetation in highly dangerous ecosystems."
         },
         "brachiosauridae": {
             "clade": "Brachiosauridae",
@@ -1600,106 +1600,106 @@
         "pantyrannosauria": {
             "clade": "Pantyrannosauria",
             "parent": "tyrannosauroidea",
-            "description": "This marks the evolutionary transition where the lineage began to grow larger and develop the characteristic bone-crushing bite."
+            "description": "Diagnosed by a distinct modification of the ilium (hip bone) featuring a prominent vertical ridge, which provided an expanded surface area for the attachment of powerful leg muscles. This muscular upgrade significantly increased their acceleration and sprinting capabilities, turning them into highly efficient pursuit predators as they began to leave their basal ancestors behind."
         },
         "clypeodontia": {
             "clade": "Clypeodontia",
             "parent": "neornithischia",
-            "description": "Their teeth acted as a high-precision grinding system, capable of pulverizing the toughest fibrous plants."
+            "description": "Diagnosed by a heavily pronounced, primary vertical ridge running down the outside (labial side) of their upper teeth. This structural reinforcement acted like a heavy buttress, preventing the teeth from shattering under immense biting pressure as these animals evolved increasingly complex, powerful jaws to process massive quantities of plant matter."
         },
         "dromaeosaurinae": {
             "clade": "Dromaeosaurinae",
             "parent": "eudromaeosauria",
-            "description": "Unlike their slimmer relatives, these raptors were built for power, possessing skulls that could withstand the stress of tackling larger prey."
+            "description": "Diagnosed by a short, deep, boxy skull and thicker, more heavily serrated teeth compared to the slender-snouted velociraptorines. This heavier cranial build delivered a significantly stronger bite force, adapting them to brute-force hunting rather than the precision piercing of their relatives."
         },
         "eutyrannosauria": {
             "clade": "Eutyrannosauria",
             "parent": "pantyrannosauria",
-            "description": "Their forelimbs became drastically reduced as their skulls evolved to become the primary weapon for dispatching prey."
+            "description": "Diagnosed by a heavily reinforced skull architecture and a noticeable reduction in the length and utility of the forelimbs. As their jaw musculature increased dramatically to handle larger, heavily armored prey, their reliance on grasping arms diminished entirely, leading to a structural shift where the head became the sole primary weapon."
         },
         "oviraptoridae": {
             "clade": "Oviraptoridae",
             "parent": "oviraptorosauria",
-            "description": "Characterized by highly specialized, toothless beaks that were incredibly strong, likely used for crushing tough food items."
+            "description": "Diagnosed by elaborate, often hollow bony crests on top of their skulls and a highly fused collarbone (furcula). The prominent head crests served as intricate visual display structures for species recognition and courtship, similar to modern cassowaries, demonstrating a heavy reliance on visual communication."
         },
         "theropoda": {
             "clade": "Theropoda",
             "parent": "eusaurischia",
-            "description": "Defined by hollow, air-filled bones and three-toed feet. This is the only lineage of dinosaurs that survives today as modern birds."
+            "description": "Diagnosed by thin-walled, hollow limb bones and an intramandibular joint (a flexible hinge in the lower jaw). The hollow bones drastically reduced their body weight, giving them the advantage of superior running speed and agility, while the flexible jaw allowed them to swallow larger chunks of meat, making them highly efficient bipedal predators."
         },
         "allosauria": {
             "clade": "Allosauria",
             "parent": "allosauroidea",
-            "description": "This group produced some of the largest land predators ever, becoming the undisputed kings of the Late Jurassic and Early Cretaceous."
+            "description": "Diagnosed by pronounced lacrimal horns directly above the eyes and a noticeable reduction in the robusticity of their forelimbs compared to earlier tetanurans. These distinctive brow horns likely served as visual display structures for species recognition, while their massive population numbers in certain fossil beds\u2014like the Cleveland-Lloyd Dinosaur Quarry\u2014suggest they may have occasionally mobbed massive sauropods in disorganized, frenzy-like groups"
         },
         "baryonychinae": {
             "clade": "Baryonychinae",
             "parent": "spinosauridae",
-            "description": "Named after the giant hook-like claw on the first finger, used like a gaff to snatch large fish out of river systems."
+            "description": "Diagnosed by a slightly curved, rosette-shaped tip of the snout and the retention of more robust, finely serrated teeth compared to their highly specialized relatives. This intermediate anatomical stage kept them opportunistic, using their enormous thumb claws to hook fish out of the water while still remaining highly capable of scavenging or hunting land-dwelling prey."
         },
         "dromaeosauridae": {
             "clade": "Dromaeosauridae",
             "parent": "paraves",
-            "description": "Known for the \"terrible claw\" on the second toe, which was used as a precise stabbing weapon to pierce vital organs."
+            "description": "Diagnosed by a highly stiffened tail bound by interlocking bony rods, alongside a significantly enlarged sickle claw on the second toe. The stiff tail acted as a rigid counterbalance during high-speed turns, granting them extreme precision while actively pursuing and leaping onto prey."
         },
         "nodosauridae": {
             "clade": "Nodosauridae",
             "parent": "ankylosauria",
-            "description": "They relied on \"passive\" defense, hunker down and presenting a field of sharp spikes to any predator that dared attack."
+            "description": "Diagnosed by the distinct lack of a tail club, the presence of enormous parasagittal spikes (especially massive over the shoulders), and a noticeably narrow, elongated snout. Their narrow snouts allowed for highly selective feeding, acting like biological tweezers to pick out specific, nutrient-rich plants, while their massive shoulder spikes protected their vulnerable necks from the slashing bites of predators."
         },
         "abelisauridae": {
             "clade": "Abelisauridae",
             "parent": "abelisauroidea",
-            "description": "Their short, rugged snouts allowed for a high-frequency biting style, useful for tackling large, thick-skinned titanosaurs."
+            "description": "Diagnosed by incredibly deep, foreshortened skulls covered in heavy bony texturing (rugosity), alongside drastically reduced, stiff forelimbs that lacked functional wrist joints. To compensate for arms completely incapable of grasping, their thick necks and reinforced snouts evolved to deliver massive, blunt-force bites, driving their teeth deep into struggling prey through sheer impact."
         },
         "ankylopollexia": {
             "clade": "Ankylopollexia",
             "parent": "dryomorpha",
-            "description": "Their first finger was permanently modified into a conical spike, a built-in weapon that was always ready for combat."
+            "description": "Diagnosed by the fusion of the thumb bones into a massive, immobile spike, and increasingly robust, weight-bearing forelimbs. The iconic thumb spike served dual purposes: acting as a devastating close-quarters weapon against theropods like Utahraptor, and serving as a specialized tool for breaking open tough seeds or tearing bark."
         },
         "coronosauria": {
             "clade": "Coronosauria",
             "parent": "ceratopsia",
-            "description": "Characterized by the development of the frill and the first evidence of specialized brow or snout horns."
+            "description": "Diagnosed by a heavily expanded posterior skull frill and the fusion of the first few neck vertebrae into a solid mass called a \"syncervical.\" This fused bone provided an incredibly strong, rigid anchor point to support the massive weight of their ever-growing heads, allowing them to evolve gigantic display frills without snapping their own necks"
         },
         "carcharodontosauridae": {
             "clade": "Carcharodontosauridae",
             "parent": "allosauria",
-            "description": "Their teeth were serrated and thin like a shark's, designed to inflict massive, bleeding wounds on giant sauropod prey."
+            "description": "Diagnosed by massive, highly fused skulls and an exceptionally deep lower jaw. These cranial adaptations functioned perfectly with their namesake teeth, allowing them to carve massive slices of meat out of giant titanosaur prey, effectively bleeding out the largest terrestrial animals to ever walk the Earth."
         },
         "paraves": {
             "clade": "Paraves",
             "parent": "maniraptora",
-            "description": "These dinosaurs possessed the most bird-like skeletons, including backward-pointing pubic bones and long, feathered arms."
+            "description": "Diagnosed by a retractable, sickle-shaped claw on the second toe of the foot and backward-directed pubic bones. The hyper-extendable toe claw functioned as a specialized weapon for puncturing or pinning down struggling prey, while the shifted pelvis altered their center of mass to drastically improve balance and agility."
         },
         "ornithischia": {
             "clade": "Ornithischia",
             "parent": "dinosauria",
-            "description": "Defined by a unique predentary bone at the tip of the lower jaw that supported a cropping beak. This primarily herbivorous lineage evolved a highly diverse array of physical defenses, including solid cranial domes, massive bone frills, dermal armor plates, and heavy tail clubs."
+            "description": "Diagnosed by a unique predentary bone at the tip of the lower jaw that supported a cropping beak. This primarily herbivorous lineage evolved a highly diverse array of physical defenses, including solid cranial domes, massive bone frills, dermal armor plates, and heavy tail clubs."
         },
         "eurypoda": {
             "clade": "Eurypoda",
             "parent": "thyreophora",
-            "description": "Their wider feet helped distribute the massive weight of their body armor, preventing them from sinking into soft ground."
+            "description": "Diagnosed by a heavily constructed pelvis and the extreme shortening and broadening of the metatarsals (foot bones). This robust, widened foot architecture evolved strictly to support the immense, ever-increasing weight of their body armor; by completely sacrificing their ability to run away from danger, they were forced into a full-commitment defensive lifestyle that eventually led to weaponized tails."
         },
         "ankylosaurini": {
             "clade": "Ankylosaurini",
             "parent": "ankylosauria",
-            "description": "At the tip of their tail was a massive bony club that could be swung with enough force to shatter the legs of a Tyrannosaur."
+            "description": "Diagnosed by extremely wide, blunt snouts, highly modified, looping air-channels inside the nasal cavities, and the presence of a massive, heavily reinforced tail club made of fused osteoderms. The widened snout meant they were indiscriminate bulk-feeders (cropping everything in front of them at once), while their massive tail clubs turned them from passive defenders into active combatants capable of shattering the leg bones of apex predators like Tyrannosaurus rex with a single, devastating swing."
         },
         "dinosauria": {
             "clade": "Dinosauria",
-            "description": "Defined by an upright stance and a perforated hip socket. They were so ecologically successful that they ruled the Earth for over 160 million years. To put their sheer longevity into perspective: less time separates us today from T. rex than separated T. rex from Stegosaurus."
+            "description": "Diagnosed by an upright stance and a perforated hip socket. They were so ecologically successful that they ruled the Earth for over 160 million years. To put their sheer longevity into perspective: less time separates us today from T. rex than separated T. rex from Stegosaurus."
         },
         "hadrosauroidea": {
             "clade": "Hadrosauroidea",
             "parent": "hadrosauriformes",
-            "description": "These dinosaurs were the \"cows of the Cretaceous,\" living in massive herds and potentially migrating thousands of miles."
+            "description": "Diagnosed by the complete loss of the thumb spike (digit I) entirely, leaving a hoof-like, weight-bearing hand. By ditching the weaponized thumb, they fully committed to a quadrupedal browsing lifestyle, relying on massive herd numbers, rapid growth rates, and sheer reproductive volume to survive instead of fighting back."
         },
         "spinosauridae": {
             "clade": "Spinosauridae",
             "parent": "megalosauria",
-            "description": "The only known dinosaurs to have adapted to a life primarily in the water, hunting fish with specialized, conical teeth."
+            "description": "Diagnosed by highly elongated, crocodile-like snouts filled with conical, largely unserrated teeth. This specialized skull architecture shifted their diet heavily toward a semi-aquatic lifestyle, allowing them to spear and snare slippery fish rather than strictly hunting terrestrial dinosaurs."
         },
         "sauropodomorpha": {
             "clade": "Sauropodomorpha",
@@ -1709,52 +1709,52 @@
         "pachycephalosaurinae": {
             "clade": "Pachycephalosaurinae",
             "parent": "pachycephalosauridae",
-            "description": "Characterized by the loss of the \"holes\" in the top of the skull, resulting in a solid, heavy helmet of bone."
+            "description": "Diagnosed by the complete obliteration of the upper temporal fenestrae (skull openings) as the solid bone dome fully expands and seals in adults, alongside a reduction of peripheral skull spikes. Because their skulls changed so drastically as they grew\u2014absorbing their juvenile spikes into a massive, smooth adult dome\u2014paleontologists initially mistook their different growth stages for completely different species, famously misidentifying them as Dracorex and Stygimoloch."
         },
         "euhadrosauria": {
             "clade": "Euhadrosauria",
             "parent": "hadrosauridae",
-            "description": "This group split into the hollow-crested Lambeosaurs and the flat-headed Saurolophines."
+            "description": "Diagnosed by an incredibly complex, multi-tissue structure within the tooth battery itself, making the teeth dynamically self-sharpening across different wear angles. Because they were essentially the cows of the Cretaceous, their herds grew to staggering sizes, reshaping the landscape through sheer browsing pressure and migrating across vast continental stretches."
         },
         "averostra": {
             "clade": "Averostra",
             "parent": "theropoda",
-            "description": "This skull feature reduced the weight of the head, allowing predators to keep a powerful bite without becoming too front-heavy."
+            "description": "Diagnosed by a promaxillary fenestra\u2014an extra opening at the front of the skull\u2014and a flexible joint between the front jaw bones. This additional cranial window significantly lightened their progressively larger heads, while the flexible snout acted as a shock absorber, allowing their skulls to withstand the massive physical stress of driving their teeth into large, thrashing prey."
         },
         "centrosaurinae": {
             "clade": "Centrosaurinae",
             "parent": "ceratopsidae",
-            "description": "Distinguished by the elaborate, curved spikes that grew out of the edges of their frills, which were likely brightly colored."
+            "description": "Diagnosed by a relatively short, deep face, a massive nasal horn (or large, bony nasal boss), and vastly reduced or completely absent brow horns. Massive fossil bonebeds in North America reveal they lived in enormous, single-species herds numbering in the thousands, occasionally falling victim en masse to catastrophic flash floods while crossing swollen rivers."
         },
         "megalosauridae": {
             "clade": "Megalosauridae",
             "parent": "megalosauria",
-            "description": "These were the \"brutes\" of the Jurassic, relying on sheer physical power and massive jaws rather than the speed seen in later lineages."
+            "description": "Diagnosed by a heavily built shoulder girdle and distinctly enlarged thumb claws (digit I). These reinforced arms functioned as primary grappling hooks, giving them the physical leverage to latch onto and wrestle heavy prey to the ground before delivering a fatal bite."
         },
         "huayangosauridae": {
             "clade": "Huayangosauridae",
             "parent": "stegosauria",
-            "description": "Unlike later stegosaurs, these primitive forms still had teeth in the front of their mouths and spikes protruding from their shoulders."
+            "description": "Diagnosed by a shorter, deeper skull and the primitive retention of premaxillary teeth (teeth at the very front of the upper jaw). Retaining these front teeth allowed these early, smaller armored herbivores to actively nip and browse on a wider variety of tough vegetation before the lineage specialized into strictly beak-cropping feeders."
         },
         "genasauria": {
             "clade": "Genasauria",
             "parent": "ornithischia",
-            "description": "The evolution of \"cheeks\" allowed these dinosaurs to process food more efficiently, holding it in their mouths while they chewed."
+            "description": "Diagnosed by medially inset teeth on both the upper jaw (maxilla) and lower jaw (dentary). This inset dentition allowed them to physically hold food in their mouths while chewing, a massive digestive upgrade that let them process tough plant matter far more efficiently than earlier herbivores and set the evolutionary stage for every major armored, horned, and duck-billed dinosaur that followed."
         },
         "lambeosaurini": {
             "clade": "Lambeosaurini",
             "parent": "lambeosaurinae",
-            "description": "Possessed the most complex crest shapes, which acted as both visual ID tags and musical instruments for the herd."
+            "description": "Diagnosed by an extremely tall, hatchet-shaped or helmet-like hollow crest that shifted dramatically forward over the eyes. This specific, towering acoustic structure produced distinctly different, lower-frequency resonating calls compared to their tube-crested cousins, allowing enormous, mixed-species herds to segregate and find their own kind through sound alone."
         },
         "avetheropoda": {
             "clade": "Avetheropoda",
             "parent": "tetanurae",
-            "description": "This clade refined the respiratory system, evolving bird-like lungs that allowed for a one-way flow of oxygen and higher stamina."
+            "description": "Diagnosed by the development of highly complex air sacs extending into their vertebrae. This advanced respiratory system allowed for highly efficient oxygen exchange, fueling the intense metabolism required to actively hunt down large, fast-moving prey."
         },
         "ankylosauria": {
             "clade": "Ankylosauria",
             "parent": "ankylosauromorpha",
-            "description": "Their skulls were so heavily armored that even their eyelids were protected by bony plates in some species."
+            "description": "Diagnosed by the closure of the antorbital fenestra (a large opening in the skull in most other dinosaurs) and the fusion of the lumbar and sacral vertebrae into a solid rod called a synsacrum. This extreme skeletal fusion turned their entire torso into a rigid, unbendable platform, allowing them to support a literal shield of solid bone and easily survive being trampled or struck by massive theropods."
         },
         "plateosauria": {
             "clade": "Plateosauria",
@@ -1764,7 +1764,7 @@
         "alioramini": {
             "clade": "Alioramini",
             "parent": "tyrannosaurinae",
-            "description": "A specialized branch of slender tyrants from Asia that likely hunted smaller, more agile prey than their larger cousins."
+            "description": "Diagnosed by extremely long, narrow snouts lined with a higher number of smaller, sharper teeth, and a series of distinct bony bumps along the top of the snout. Because they lived directly alongside massive, bone-crushing tyrannosaurines in Asia, their delicate, elongated skulls allowed them to avoid direct competition by hunting smaller, faster prey that the heavyweights couldn't catch."
         },
         "titanosauriformes": {
             "clade": "Titanosauriformes",
@@ -1774,7 +1774,7 @@
         "ornithomimosauria": {
             "clade": "Ornithomimosauria",
             "parent": "maniraptoriformes",
-            "description": "Built for sprinting, these dinosaurs could reach speeds of over 50 kilometers per hour to evade predators."
+            "description": "Diagnosed by the complete loss of teeth in later forms, replaced by a keratinous beak, alongside extremely elongated lower leg bones. This lightweight, toothless build and extended stride length made them some of the fastest sprinters of the Mesozoic, allowing them to consistently outrun threats rather than stand and fight."
         },
         "herrerasauridae": {
             "clade": "Herrerasauridae",
@@ -1789,12 +1789,12 @@
         "coelurosauria": {
             "clade": "Coelurosauria",
             "parent": "avetheropoda",
-            "description": "The most diverse group of theropods; fossil evidence suggests that nearly all members of this group possessed some form of feathers or \"fuzz.\""
+            "description": "Diagnosed by an enlarged brain relative to body size, a longer and narrower sacrum (hip vertebrae), and the definitive presence of protofeathers. The enlarged braincase facilitated more complex behaviors and heightened sensory processing, an essential upgrade for tracking faster, smaller prey and navigating increasingly complex environments."
         },
         "maniraptora": {
             "clade": "Maniraptora",
             "parent": "maniraptoriformes",
-            "description": "This wrist joint allowed them to fold their arms against their bodies, a motion that eventually became the basis for the bird flight stroke."
+            "description": "Diagnosed by a semi-lunate (half-moon-shaped) carpal bone in the wrist. This unique bone allowed the hand to fold flat against the forearm\u2014an adaptation initially used to protect arm feathers and snatch prey, which eventually provided the exact mechanical stroke required for bird flight."
         },
         "apatosaurinae": {
             "clade": "Apatosaurinae",
@@ -1804,7 +1804,7 @@
         "ceratosauria": {
             "clade": "Ceratosauria",
             "parent": "averostra",
-            "description": "Many members of this group evolved horns on their snouts or brows and retained four fingers on their hands, a primitive trait for meat-eaters."
+            "description": "Diagnosed by prominent bony horns and brow ridges, the primitive retention of four fingers on each hand, and heavily fused ankle bones. This tightly bound lower leg structure provided exceptional shock absorption for explosive mobility, while their elaborate cranial ornamentation functioned as highly visible structures for species recognition and territorial display"
         },
         "massopoda": {
             "clade": "Massopoda",
@@ -1814,12 +1814,12 @@
         "nodosaurinae": {
             "clade": "Nodosaurinae",
             "parent": "nodosauridae",
-            "description": "This group evolved complex patterns of plates and spikes that were unique to each species, likely used for identifying one another."
+            "description": "Diagnosed by highly robust, forward-pointing acromial (shoulder) spikes and a tightly packed pelvic shield made of rosette osteoderms over the hips. The massive, elongated shoulder spikes seen in species like Sauropelta essentially formed a lethal forward-facing barricade, forcing apex predators to either risk direct frontal impalement or abandon the hunt entirely."
         },
         "eudromaeosauria": {
             "clade": "Eudromaeosauria",
             "parent": "dromaeosauridae",
-            "description": "These were the dominant small-to-medium predators of the Cretaceous, potentially hunting in coordinated groups."
+            "description": "Diagnosed by a strongly reinforced foot structure and a deeper, more robust skull. This structural fortification allowed them to tackle prey much larger than themselves, using their jaws to tear flesh while remaining firmly anchored to thrashing targets via their foot claws."
         },
         "macronaria": {
             "clade": "Macronaria",
@@ -1829,27 +1829,27 @@
         "ankylosauromorpha": {
             "clade": "Ankylosauromorpha",
             "parent": "eurypoda",
-            "description": "This group traded speed for total protection, eventually becoming covered from head to tail in a suit of bony mail."
+            "description": "Diagnosed by the initial extensive fusion of osteoderms directly to the skull roof and a significant widening of the ribcage. This broadened midsection allowed for a massive, specialized digestive tract, forcing them to adopt an extremely low, sprawling gait that perfectly positioned them to graze on ground-level ferns and low-lying shrubs."
         },
         "metriacanthosauridae": {
             "clade": "Metriacanthosauridae",
             "parent": "allosauroidea",
-            "description": "A successful lineage of Middle-to-Late Jurassic predators characterized by their relatively long legs and slender builds."
+            "description": "Diagnosed by a heavily built, robust skull and prominent bony ridges running along the top of the snout. These reinforced cranial structures allowed them to tackle large, armored prey, making them the undisputed apex predators of the Middle Jurassic to Early Cretaceous across Europe and Asia before being outcompeted by more advanced lineages."
         },
         "hadrosauriformes": {
             "clade": "Hadrosauriformes",
             "parent": "styracosterna",
-            "description": "This group refined the dental battery, allowing hundreds of teeth to work together as a single grinding surface."
+            "description": "Diagnosed by a distinct widening and flattening of the snout, paired with highly complex, densely packed tooth batteries. This early duck-bill shape allowed them to crop enormous mouthfuls of ground-level vegetation in a single bite, setting the stage for the most efficient plant-eaters in planetary history."
         },
         "carcharodontosaurinae": {
             "clade": "Carcharodontosaurinae",
             "parent": "carcharodontosauridae",
-            "description": "This clade contains the Southern giants that challenged the Tyrannosaurs in size, dominating the Cretaceous ecosystems of Gondwana."
+            "description": "Diagnosed by even further elongation and narrowing of the snout, coupled with a highly textured, roughened surface on the facial bones. This extensive cranial texturing likely anchored thick, keratinous scales or armor, providing crucial protection to the face while aggressively plunging their heads deep into the massive, bony carcasses of giant sauropods."
         },
         "megaraptoridae": {
             "clade": "Megaraptoridae",
             "parent": "megaraptora",
-            "description": "These predators occupied the apex niche in Cretaceous South America and Australia, combining speed with devastating grasping power."
+            "description": "Diagnosed by an extremely long, shallow snout and completely fused ankle bones. This lightweight, narrow skull structure suggests a weaker bite force compared to contemporary predators, further cementing their strict evolutionary reliance on their lethally specialized arms for hunting."
         },
         "dicraeosauridae": {
             "clade": "Dicraeosauridae",
@@ -1859,32 +1859,32 @@
         "allosauroidea": {
             "clade": "Allosauroidea",
             "parent": "avetheropoda",
-            "description": "Distinguished by their high-speed \"hatchet\" bite, using their upper jaws to strike prey with high force."
+            "description": "Diagnosed by relatively narrow, lightly built skulls paired with highly flexible neck joints and jaws capable of opening to extreme angles. Instead of relying on crushing bite force, they employed a \"hatchet-bite\" feeding strategy, using their upper jaws to drive serrated teeth into prey and pull back rapidly to inflict massive, incapacitating flesh wounds."
         },
         "velociraptorinae": {
             "clade": "Velociraptorinae",
             "parent": "eudromaeosauria",
-            "description": "Highly specialized hunters with lightweight skulls designed for speed and agility in arid environments."
+            "description": "Diagnosed by an elongated, relatively narrow skull with a distinctive concave upper profile (a slightly upturned snout). Many prominent species within this group inhabited arid, desert environments, and discoveries like the famous \"Fighting Dinosaurs\" fossil show they engaged in lethal, locked-combat encounters with heavily armored prey like Protoceratops."
         },
         "edmontosaurini": {
             "clade": "Edmontosaurini",
             "parent": "saurolophinae",
-            "description": "Among the most common dinosaurs in North America, they were the primary food source for Tyrannosaurus rex."
+            "description": "Diagnosed by an exceptionally long, flat, wide snout with a massive, shovel-like beak and the complete absence of any bony cranial crest. To compensate for the lack of a bony crest, perfectly preserved \"mummy\" fossils reveal they possessed a fleshy, soft-tissue comb on top of their heads\u2014like a rooster\u2014used for bright, visual herd signaling while dominating the northern floodplains."
         },
         "hadrosauridae": {
             "clade": "Hadrosauridae",
             "parent": "hadrosauroidea",
-            "description": "Characterized by broad, flat beaks and incredibly complex social behaviors, including nesting and possibly vocal communication."
+            "description": "Diagnosed by incredibly complex dental batteries containing hundreds to thousands of teeth constantly grinding against each other, and a highly expanded, duck-like keratinous bill. This biological grinding mill pulverized even the toughest, most abrasive Late Cretaceous plants into mush, allowing them to rapidly extract nutrients and grow to massive sizes."
         },
         "marginocephalia": {
             "clade": "Marginocephalia",
             "parent": "cerapoda",
-            "description": "Defined by a bony shelf at the back of the skull, which evolved into the massive frills of the ceratopsians."
+            "description": "Diagnosed by a unique parietal-squamosal shelf projecting completely over the back of the neck. This bony overhang initially served as a minor display structure or neck protection in basal bipedal forms, but it laid the direct evolutionary foundation for both the thick domes of pachycephalosaurs and the massive frills of the horned dinosaurs."
         },
         "majungasaurinae": {
             "clade": "Majungasaurinae",
             "parent": "abelisauridae",
-            "description": "Restricted to an island environment, these predators were the apex of their ecosystem and are one of the few dinosaurs with confirmed evidence of cannibalism."
+            "description": "Diagnosed by a heavily fused, single dome-like horn on the frontal bones of the skull. Because they were geographically restricted to the island of Madagascar, this strict confinement made them the undisputed apex predators of an isolated ecosystem\u2014a dominance so absolute that matching tooth marks on their own bones provide definitive fossil evidence of cannibalism."
         },
         "plateosauridae": {
             "clade": "Plateosauridae",
@@ -1894,17 +1894,17 @@
         "ceratopsia": {
             "clade": "Ceratopsia",
             "parent": "marginocephalia",
-            "description": "Started as small, feathered runners in Asia and ended as the armored giants of North America."
+            "description": "Diagnosed by the presence of a rostral bone\u2014a completely unique, toothless, keel-like bone at the very tip of the upper jaw. This specialized bone formed a narrow, highly efficient, parrot-like cropping beak, allowing even the earliest, small bipedal ceratopsians to cleanly slice through incredibly tough, fibrous vegetation."
         },
         "pachycephalosauridae": {
             "clade": "Pachycephalosauridae",
             "parent": "marginocephalia",
-            "description": "Their skulls could be up to 25 centimeters thick, specially reinforced to withstand high-impact head-butting."
+            "description": "Diagnosed by extensive thickening of the frontal and parietal bones to form a solid, dense dome, coupled with a highly reinforced, shock-absorbing neck joint. This biological helmet allowed them to engage in intense, high-impact flank-butting or head-butting contests for mating rights and territory without shattering their own braincases."
         },
         "iguanodontia": {
             "clade": "Iguanodontia",
             "parent": "cerapoda",
-            "description": "They were incredibly versatile, able to walk on two legs to run or four legs to graze, often featuring a defensive thumb spike."
+            "description": "Diagnosed by the complete loss of premaxillary (front) teeth, fully replacing them with a broad, keratinous beak. This allowed them to bulk-crop vegetation much faster than earlier ornithopods, fueling their growth into massive, highly successful medium-to-large herbivores"
         },
         "neosauropoda": {
             "clade": "Neosauropoda",
@@ -1919,77 +1919,77 @@
         "stegosauridae": {
             "clade": "Stegosauridae",
             "parent": "stegosauria",
-            "description": "They reached their peak in the Late Jurassic, dominating the landscape as specialized feeders of low-lying vegetation."
+            "description": "Diagnosed by the complete loss of front teeth (replaced entirely by a keratinous beak) and hindlimbs that are drastically longer than their forelimbs. This extreme difference in leg length forced them into a permanent, steep downward-sloping posture, biologically locking their feeding zone exclusively to low-growing ferns and cycads\u2014essentially turning them into the Mesozoic equivalent of heavy grazing rhinos."
         },
         "therizinosauridae": {
             "clade": "Therizinosauridae",
             "parent": "maniraptora",
-            "description": "Traded meat-eating for plants, using claws up to one meter long to strip leaves or defend against predators."
+            "description": "Diagnosed by massive forelimb claws (up to a meter long in some species) and a remarkably wide, pot-bellied pelvis. The widened hips accommodated a massive digestive tract needed to ferment tough plant matter, while their terrifying claws were used to hook leafy branches or intimidate predators, completely abandoning the carnivorous lifestyle of their ancestors."
         },
         "ceratopsoidea": {
             "clade": "Ceratopsoidea",
             "parent": "coronosauria",
-            "description": "This group perfected the \"parrot beak\" for shearing through tough vegetation and the massive frill for protection."
+            "description": "Diagnosed by a massive increase in overall body size and limb robusticity, marking a strict evolutionary shift to an obligate quadrupedal posture. As their heads became drastically heavier with larger horns and frills, they were forced to drop down to all fours permanently, abandoning speed and relying entirely on heavy physical defense and herd behavior to survive."
         },
         "stegosauria": {
             "clade": "Stegosauria",
             "parent": "eurypoda",
-            "description": "Famous for the double row of plates on their backs, which likely served as social billboards or heat-regulation panels."
+            "description": "Diagnosed by parasagittal rows (running parallel to the spine) of osteoderms that are heavily modified into tall plates and sharp spikes. While the lethal tail spikes (the \"thagomizer\") provided devastating active defense against predators like Allosaurus, the highly vascularized back plates likely doubled as massive thermal regulators or vivid, blood-flushed display structures."
         },
         "stegosaurinae": {
             "clade": "Stegosaurinae",
             "parent": "stegosauridae",
-            "description": "This group perfected the four-spike tail weapon, a defense so effective it could deter even the largest Allosaurs."
+            "description": "Diagnosed by massive, alternating (rather than strictly paired) dorsal plates and a distinct loss of the long shoulder spikes seen in earlier relatives. By shifting to massive, alternating plates, they maximized their visual silhouette to intimidate rivals and predators from a distance, prioritizing sheer size and display over carrying extra armor on their sides."
         },
         "sauropoda": {
             "clade": "Sauropoda",
             "parent": "massopoda",
-            "description": "This is the node where dinosaurs became giants. Diagnosed by a transition to \"graviportal\" or pillar-like limbs, their legs shifted directly under their bodies to support enormous weight, similar to modern elephants. To lighten their massive frames, they evolved \"hollow\" neck vertebrae filled with air sacs\u2014an anatomical trick that allowed them to reach lengths and weights that no other land animal has ever matched."
+            "description": "Diagnosed by a transition to 'graviportal' or pillar-like limbs, shifting their legs directly under their bodies to support enormous weight, similar to modern elephants. To lighten their massive frames, they evolved 'hollow' neck vertebrae filled with air sacs\u2014an anatomical trick that allowed them to reach lengths and weights that no other land animal has ever matched."
         },
         "oviraptorosauria": {
             "clade": "Oviraptorosauria",
             "parent": "maniraptora",
-            "description": "Contrary to their name, they were devoted parents; many have been found fossilized directly on top of their own nests."
+            "description": "Diagnosed by shortened, deep skulls and highly specialized, toothless jaws often equipped with two bony prongs on the roof of the mouth. This reinforced, crushing beak structure allowed them to easily crack open hard food sources like seeds, nuts, or hard-shelled mollusks."
         },
         "eucentrosaura": {
             "clade": "Eucentrosaura",
             "parent": "centrosaurinae",
-            "description": "This node marks the diversification of the frill into a wide array of hooks, spikes, and horns unique to each genus."
+            "description": "Diagnosed by highly modified, complex epiparietal bones (the spikes along the top edge of the frill) that frequently curled inward or pointed directly downward over the frill openings. These bizarrely hooked spikes were completely useless in combat, serving strictly as unmistakable visual identifiers to tell their massive herds apart from closely related neighboring species."
         },
         "tetanurae": {
             "clade": "Tetanurae",
             "parent": "averostra",
-            "description": "Interlocking vertebrae in the tail acted as a stabilizer, allowing these predators to make sharp, high-speed turns while chasing prey."
+            "description": "Diagnosed by the reduction of the hand to three functional digits and a highly specialized tail structure with overlapping bony processes. This stiffened tail acted as a dynamic counterbalance\u2014functioning much like a tightrope walker's pole\u2014providing essential stability during high-speed, agile turns. Because this massive evolutionary split encompasses all remaining theropods, it serves as the direct ancestral lineage for every bird alive today."
         },
         "styracosterna": {
             "clade": "Styracosterna",
             "parent": "ankylopollexia",
-            "description": "This group represents the transition toward the giant \"duck-billed\" dinosaurs, featuring larger bodies and more complex tooth batteries."
+            "description": "Diagnosed by a significantly enlarged, hatchet-shaped sternum and a noticeable increase in overall body size. This broadened chest cavity supported an expanded, highly efficient digestive system, allowing them to process vast amounts of low-quality forage and physically dominate their ecosystems through sheer bulk."
         },
         "tyrannosauridae": {
             "clade": "Tyrannosauridae",
             "parent": "eutyrannosauria",
-            "description": "Characterized by a massive skull, two-fingered hands, and a bite force capable of pulverizing bone."
+            "description": "Diagnosed by a dramatically widened back of the skull (creating forward-facing eyes) and the strict reduction of the hand to only two functional fingers. The widened skull provided exceptional binocular vision for precise depth perception, while simultaneously anchoring immense jaw muscles capable of biting straight through solid bone."
         },
         "tyrannosauroidea": {
             "clade": "Tyrannosauroidea",
             "parent": "coelurosauria",
-            "description": "Early members were small, agile, and feathered. Over 100 million years, they evolved from small hunters into the world's most powerful predators."
+            "description": "Diagnosed by fused nasal bones and premaxillary (front) teeth that are D-shaped or U-shaped in cross-section. These fused nasals structurally reinforced the top of the snout, marking the evolutionary beginning of a major shift from slashing bites to crushing, bone-snapping bite forces."
         },
         "ornithomimidae": {
             "clade": "Ornithomimidae",
             "parent": "ornithomimosauria",
-            "description": "Lacking teeth, they used sharp beaks to eat a varied diet of plants, insects, and possibly small animals."
+            "description": "Diagnosed by completely toothless jaws and metacarpals (hand bones) of roughly equal length. These uniform hand bones formed a specialized, elongated hook-like structure, likely used to pull down branches for feeding in their highly successful herbivorous or omnivorous lifestyle."
         },
         "eusaurischia": {
             "clade": "Eusaurischia",
             "parent": "saurischia",
-            "description": "This node marks a crucial anatomical shift in the structure of the hand, where the second finger became the longest digit. This specialized grasping ability laid the physical groundwork for both the theropods and the early sauropodomorphs."
+            "description": "Diagnosed by a crucial anatomical shift in the hand, where the second finger became the longest digit. This specialized grasping ability laid the physical groundwork for both the theropods and the early sauropodomorphs."
         },
         "avialae": {
             "clade": "Avialae",
             "parent": "paraves",
-            "description": "This group successfully made the transition from ground-dwelling hunters to powered flight, outliving all other dinosaur lineages."
+            "description": "Diagnosed by forelimbs that are distinctly longer than the hindlimbs, and the fusion of the wrist and hand bones into a single structure (the carpometacarpus). This radical anatomical restructuring turned the grasping hand into a rigid, unified airfoil support, permanently trading the ability to shred prey for the mechanics of powered flight."
         },
         "diplodocidae": {
             "clade": "Diplodocidae",
@@ -2004,42 +2004,42 @@
         "megalosauria": {
             "clade": "Megalosauria",
             "parent": "tetanurae",
-            "description": "This group includes the very first dinosaur ever named (Megalosaurus) and reigned as top predators during the Middle Jurassic."
+            "description": "Diagnosed by an elongated, relatively narrow skull and robust forelimbs equipped with large, hooked claws. This combination of powerful arms and lengthened jaws allowed them to transition from targeting small, agile prey to grappling and subduing much larger, slower-moving herbivores."
         },
         "saurischia": {
             "clade": "Saurischia",
             "parent": "dinosauria",
-            "description": "Characterized by a three-pronged pelvic structure, this lineage produced the largest land animals and the most fearsome land predators in history. Although they are the \"lizard-hipped\" dinosaurs, the advanced raptor clades and modern birds independently re-evolved \"bird hips,\" making the name a huge historical irony."
+            "description": "Diagnosed by a three-pronged pelvic structure, this lineage produced the largest land animals and the most fearsome land predators in history. Although they are the \"lizard-hipped\" dinosaurs, the advanced raptor clades and modern birds independently re-evolved \"bird hips,\" making the name a huge historical irony."
         },
         "saurolophinae": {
             "clade": "Saurolophinae",
             "parent": "euhadrosauria",
-            "description": "While they lacked the flamboyant hollow crests of their cousins, many had solid bony spikes or used inflatable nasal sacs for display."
+            "description": "Diagnosed by a solid, bony crest on the skull (or a complete lack of one) and a widened, extremely broad pelvic basin. Without the hollow acoustic chambers of their relatives, they likely relied on inflatable fleshy nasal sacs for vocalization and display, while their broadened hips supported immense gut capacities for digesting tough, fibrous conifers."
         },
         "ceratopsidae": {
             "clade": "Ceratopsidae",
             "parent": "ceratopsoidea",
-            "description": "These were the \"tanks\" of the Late Cretaceous herbivore world, living in vast herds for protection against Tyrannosaurs."
+            "description": "Diagnosed by the presence of large, well-developed facial horns (specifically postorbital brow horns or nasal horns) and complex, double-rooted cheek teeth packed into vertical dental batteries. Unlike the duck-billed hadrosaurs that ground their food into paste, ceratopsids used their teeth like biological shears to slice tough, woody browse into short segments, allowing these two massive herbivore groups to completely avoid competing for the same food."
         },
         "neornithischia": {
             "clade": "Neornithischia",
             "parent": "genasauria",
-            "description": "Characterized by a more complex chewing system, they became the most successful herbivores of the Cretaceous period."
+            "description": "Diagnosed by an asymmetrical distribution of enamel on their cheek teeth\u2014thicker on the inside of the lower teeth and the outside of the upper teeth. As they chewed, this uneven thickness caused the teeth to wear down at different rates, creating perpetually self-sharpening ridges that allowed them to effortlessly slice through tough, fibrous vegetation."
         },
         "maniraptoriformes": {
             "clade": "Maniraptoriformes",
             "parent": "coelurosauria",
-            "description": "This clade is defined by a significant jump in intelligence and the evolution of complex, symmetrical feathers."
+            "description": "Diagnosed by a noticeably smaller skull relative to body size and highly enlarged brains. This increased neuro-processing power supported complex sensory adaptations like excellent vision and hearing, which were critical for tracking evasive prey or managing the varied diet of omnivory."
         },
         "spinosaurinae": {
             "clade": "Spinosaurinae",
             "parent": "spinosauridae",
-            "description": "This group includes the largest meat-eater known, featuring massive neural spines that supported a spectacular dorsal sail."
+            "description": "Diagnosed by completely unserrated teeth, highly retracted nasal openings positioned far back on the skull, and exceptionally dense, solid limb bones. This heavy bone density acted as biological ballast, allowing them to physically submerge and actively pursue aquatic prey underwater much like modern penguins or hippos."
         },
         "centrosaurini": {
             "clade": "Centrosaurini",
             "parent": "eucentrosaura",
-            "description": "Characterized by highly elaborate \"p-shaped\" hooks on the frill, used to identify members of the same species from a distance."
+            "description": "Diagnosed by the development of bizarre, forward-curving hooks on the back of the frill (the \"P1\" osteoderms) and a straight, elongated nasal horn. These specialized headgear arrangements represent the absolute peak of centrosaurine visual display, making them the most visually distinct and heavily ornamented herbivores of the Campanian age before they were replaced by heavier lineages."
         }
     }
 }
