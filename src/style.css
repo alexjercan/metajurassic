@@ -521,6 +521,9 @@ main {
     font-size: 1.8rem;
     color: var(--amber-glow);
     margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    min-width: 0;
 }
 
 .card-stats {

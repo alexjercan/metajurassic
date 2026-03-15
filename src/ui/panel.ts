@@ -3,6 +3,7 @@ import { GameState } from "../gameState";
 import type { CladeNode } from "../treeBuilder";
 import { findBestHintCladeId } from "../treeBuilder";
 import defaultIcon from "../assets/default_icon.svg";
+import { autoShrinkText } from "./autoShrink";
 
 const arenaWrapper = document.getElementById("arena-wrapper");
 const panel = document.getElementById("info-panel");
@@ -82,7 +83,10 @@ export function renderSpeciesCard(
         speciesCard.style.display = "flex";
         cladeCard.style.display = "none";
     }
-    if (cardTitle) cardTitle.textContent = species.species || "Unknown";
+    if (cardTitle) {
+        cardTitle.textContent = species.species || "Unknown";
+        autoShrinkText(cardTitle);
+    }
     if (cardIcon) {
         cardIcon.src = species.icon || defaultIcon;
         cardIcon.alt = "";
@@ -114,7 +118,10 @@ export function renderCladeCard(
         speciesCard.style.display = "none";
         cladeCard.style.display = "flex";
     }
-    if (cladeTitle) cladeTitle.textContent = clade.name || "Unknown";
+    if (cladeTitle) {
+        cladeTitle.textContent = clade.name || "Unknown";
+        autoShrinkText(cladeTitle);
+    }
     if (cladeParent) cladeParent.textContent = parent ? parent.name : "—";
     if (cladeDescription)
         cladeDescription.textContent = clade.description || "No description.";

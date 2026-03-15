@@ -1,5 +1,6 @@
 import "./style.css";
 import { loadGameData } from "./jsonLoader";
+import { autoShrinkText } from "./ui/autoShrink";
 
 async function main() {
     const data = await loadGameData();
@@ -34,6 +35,9 @@ async function main() {
         `;
 
         carousel.appendChild(card);
+
+        const title = card.querySelector<HTMLElement>(".card-title");
+        if (title) autoShrinkText(title);
     }
 
     setupCarouselNav(carousel);
