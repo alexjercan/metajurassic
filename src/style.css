@@ -891,24 +891,11 @@ footer a + a::before {
     padding: 10px 40px 20px;
     width: 100%;
     box-sizing: border-box;
+    scrollbar-width: none;
 }
 
 .archive-carousel::-webkit-scrollbar {
-    height: 8px;
-}
-
-.archive-carousel::-webkit-scrollbar-track {
-    background: var(--bg-dark);
-    border-radius: 4px;
-}
-
-.archive-carousel::-webkit-scrollbar-thumb {
-    background: var(--glass-border);
-    border-radius: 4px;
-}
-
-.archive-carousel::-webkit-scrollbar-thumb:hover {
-    background: var(--amber-glow);
+    display: none;
 }
 
 .archive-card {

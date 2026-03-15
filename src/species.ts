@@ -71,6 +71,16 @@ function setupCarouselNav(carousel: HTMLElement) {
 
     carousel.addEventListener("scroll", updateButtons);
     updateButtons();
+
+    carousel.addEventListener(
+        "wheel",
+        (e) => {
+            if (e.deltaY === 0) return;
+            e.preventDefault();
+            carousel.scrollBy({ left: e.deltaY });
+        },
+        { passive: false }
+    );
 }
 
 main();
