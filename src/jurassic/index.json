@@ -1655,541 +1655,649 @@
         "tyrannosaurinae": {
             "clade": "Tyrannosaurinae",
             "parent": "tyrannosauridae",
-            "description": "Diagnosed by heavily shortened, incredibly deep snouts and even more robust, thickened teeth compared to the slender albertosaurs. This extreme structural reinforcement turned their entire head into a biological battering ram, prioritizing maximum bite force over speed to overpower dangerous, heavily armored prey like Triceratops or Ankylosaurus."
+            "description": "Diagnosed by heavily shortened, incredibly deep snouts and even more robust, thickened teeth compared to the slender albertosaurs. This extreme structural reinforcement turned their entire head into a biological battering ram, prioritizing maximum bite force over speed to overpower dangerous, heavily armored prey like Triceratops or Ankylosaurus.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/tyrannosaurinae.svg"
         },
         "megaraptora": {
             "clade": "Megaraptora",
             "parent": "coelurosauria",
-            "description": "Diagnosed by highly pneumatized, lightweight skeletons and significantly elongated, muscular arms ending in disproportionately large claws on the first and second fingers. Instead of relying heavily on their jaws, they utilized these massive hands to grapple, slash, and bleed out medium-sized prey, effectively replacing the carcharodontosaurids as apex predators in Late Cretaceous South America and Australia."
+            "description": "Diagnosed by highly pneumatized, lightweight skeletons and significantly elongated, muscular arms ending in disproportionately large claws on the first and second fingers. Instead of relying heavily on their jaws, they utilized these massive hands to grapple, slash, and bleed out medium-sized prey, effectively replacing the carcharodontosaurids as apex predators in Late Cretaceous South America and Australia.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/megaraptora.svg"
         },
         "albertosaurinae": {
             "clade": "Albertosaurinae",
             "parent": "tyrannosauridae",
-            "description": "Diagnosed by a notably more slender, gracile build compared to the heavier tyrannosaurines, and proportionally longer lower leg bones (the tibia and metatarsals). This highly specialized leg anatomy made them the fastest runners among the large Late Cretaceous apex predators, allowing them to effectively chase down swift-moving hadrosaurs over open ground rather than relying strictly on ambush tactics."
+            "description": "Diagnosed by a notably more slender, gracile build compared to the heavier tyrannosaurines, and proportionally longer lower leg bones (the tibia and metatarsals). This highly specialized leg anatomy made them the fastest runners among the large Late Cretaceous apex predators, allowing them to effectively chase down swift-moving hadrosaurs over open ground rather than relying strictly on ambush tactics.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/albertosaurinae.svg"
         },
         "triceratopsini": {
             "clade": "Triceratopsini",
             "parent": "chasmosaurinae",
-            "description": "Diagnosed by the secondary closure of the frill openings, creating a solid, fenestra-less bone shield, and extremely robust, elongated postorbital (brow) horns. By filling in the fragile holes in their frill, they transformed their heads back into true, battle-ready armor, allowing them to survive locked, head-to-head combat with the most devastating apex predator of their time: Tyrannosaurus rex."
+            "description": "Diagnosed by the secondary closure of the frill openings, creating a solid, fenestra-less bone shield, and extremely robust, elongated postorbital (brow) horns. By filling in the fragile holes in their frill, they transformed their heads back into true, battle-ready armor, allowing them to survive locked, head-to-head combat with the most devastating apex predator of their time: Tyrannosaurus rex.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/triceratopsini.svg"
         },
         "giganotosaurini": {
             "clade": "Giganotosaurini",
             "parent": "carcharodontosaurinae",
-            "description": "Diagnosed by heavily reinforced jaw joints and a distinctly squared-off front to the lower jaw (the dentary). While modern taxonomy often folds this specific grouping, alongside Carcharodontosaurinae, directly back into Carcharodontosauridae, retaining this classic classification highlights their distinct historical status as the absolute heaviest, most dominant apex predators of the southern hemisphere, rivaling even the tyrannosaurs in sheer size."
+            "description": "Diagnosed by heavily reinforced jaw joints and a distinctly squared-off front to the lower jaw (the dentary). While modern taxonomy often folds this specific grouping, alongside Carcharodontosaurinae, directly back into Carcharodontosauridae, retaining this classic classification highlights their distinct historical status as the absolute heaviest, most dominant apex predators of the southern hemisphere, rivaling even the tyrannosaurs in sheer size.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/giganotosaurini.svg"
         },
         "dryomorpha": {
             "clade": "Dryomorpha",
             "parent": "iguanodontia",
-            "description": "Diagnosed by the development of a pleurokinetic skull hinge\u2014which allowed the upper jaw bones to flex outward while chewing\u2014alongside the reduction of the foot to strictly three functional toes. This dynamic jaw mechanism allowed their teeth to grind sideways across each other, massively increasing nutrient extraction from tough vegetation, while their streamlined feet made them incredibly agile runners capable of evading massive Late Jurassic predators."
+            "description": "Diagnosed by the development of a pleurokinetic skull hinge\u2014which allowed the upper jaw bones to flex outward while chewing\u2014alongside the reduction of the foot to strictly three functional toes. This dynamic jaw mechanism allowed their teeth to grind sideways across each other, massively increasing nutrient extraction from tough vegetation, while their streamlined feet made them incredibly agile runners capable of evading massive Late Jurassic predators.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/dryomorpha.svg"
         },
         "lambeosaurinae": {
             "clade": "Lambeosaurinae",
             "parent": "euhadrosauria",
-            "description": "Diagnosed by highly complex, hollow bony crests formed by the expansion of the nasal and premaxillary bones, pulling the nasal passages completely over the top of the head. These elaborate acoustic chambers functioned like biological trombones, allowing them to produce loud, low-frequency, species-specific calls to communicate with massive herds across densely forested environments."
+            "description": "Diagnosed by highly complex, hollow bony crests formed by the expansion of the nasal and premaxillary bones, pulling the nasal passages completely over the top of the head. These elaborate acoustic chambers functioned like biological trombones, allowing them to produce loud, low-frequency, species-specific calls to communicate with massive herds across densely forested environments.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/lambeosaurinae.svg"
         },
         "proceratosauridae": {
             "clade": "Proceratosauridae",
             "parent": "tyrannosauroidea",
-            "description": "Diagnosed by elaborate, delicate bony crests on the snout and a generally small, lightly built body plan. Because these early tyrannosauroids were outsized by massive allosauroids and megalosaurs, their lightweight build allowed them to exploit a secondary predatory niche, hunting smaller, faster prey while using their elaborate crests for visual display rather than combat."
+            "description": "Diagnosed by elaborate, delicate bony crests on the snout and a generally small, lightly built body plan. Because these early tyrannosauroids were outsized by massive allosauroids and megalosaurs, their lightweight build allowed them to exploit a secondary predatory niche, hunting smaller, faster prey while using their elaborate crests for visual display rather than combat.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/proceratosauridae.svg"
         },
         "unenlagiina": {
             "clade": "Unenlagiina",
             "parent": "paraves",
-            "description": "Diagnosed by exceptionally long, slender snouts filled with small, unserrated teeth, and a unique shoulder joint that allowed the arms to fold completely flat against the body. This elongated, specialized snout strongly points to a piscivorous (fish-eating) diet, establishing them as the wading, heron-like predators of the southern continents."
+            "description": "Diagnosed by exceptionally long, slender snouts filled with small, unserrated teeth, and a unique shoulder joint that allowed the arms to fold completely flat against the body. This elongated, specialized snout strongly points to a piscivorous (fish-eating) diet, establishing them as the wading, heron-like predators of the southern continents.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/unenlagiina.svg"
         },
         "abelisauroidea": {
             "clade": "Abelisauroidea",
             "parent": "ceratosauria",
-            "description": "Diagnosed by a noticeable shortening of the skull and extensive bony fusion between the shin and ankle bones. This heavily reinforced, rigid lower limb structure provided a highly stable foundation for explosive bursts of speed, allowing them to effectively ambush and sprint after prey."
+            "description": "Diagnosed by a noticeable shortening of the skull and extensive bony fusion between the shin and ankle bones. This heavily reinforced, rigid lower limb structure provided a highly stable foundation for explosive bursts of speed, allowing them to effectively ambush and sprint after prey.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/abelisauroidea.svg"
         },
         "tyrannosaurini": {
             "clade": "Tyrannosaurini",
             "parent": "tyrannosaurinae",
-            "description": "Diagnosed by massively proportioned, heavily fused skull bones and the sheer gigantic scale of the body. Representing the terminal endpoint of the lineage, these animals achieved such absolute dominance in their ecosystem that their juvenile and adult forms occupied entirely different ecological niches, effectively crowding out medium-sized competitors altogether"
+            "description": "Diagnosed by massively proportioned, heavily fused skull bones and the sheer gigantic scale of the body. Representing the terminal endpoint of the lineage, these animals achieved such absolute dominance in their ecosystem that their juvenile and adult forms occupied entirely different ecological niches, effectively crowding out medium-sized competitors altogether",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/tyrannosaurini.svg"
         },
         "rhabdodontomorpha": {
             "clade": "Rhabdodontomorpha",
             "parent": "iguanodontia",
-            "description": "Diagnosed by deep, powerful skulls with massive, rod-like teeth. Often isolated on ancient European archipelagoes (like Ha\u021beg Island), these robust herbivores dominated their island ecosystems, completely outcompeting other ornithopods in their restricted, insular environments and often experiencing island dwarfism."
+            "description": "Diagnosed by deep, powerful skulls with massive, rod-like teeth. Often isolated on ancient European archipelagoes (like Ha\u021beg Island), these robust herbivores dominated their island ecosystems, completely outcompeting other ornithopods in their restricted, insular environments and often experiencing island dwarfism.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/rhabdodontomorpha.svg"
         },
         "chasmosaurinae": {
             "clade": "Chasmosaurinae",
             "parent": "ceratopsidae",
-            "description": "Diagnosed by exceptionally long, broad frills and the retention of massive, forward-curving brow horns alongside a relatively short nasal horn. While their brow horns were lethal defensive weapons, their dramatically elongated frills were surprisingly fragile and skin-covered, acting as massive, blood-flushed billboards for intimidation and courtship rather than literal shields."
+            "description": "Diagnosed by exceptionally long, broad frills and the retention of massive, forward-curving brow horns alongside a relatively short nasal horn. While their brow horns were lethal defensive weapons, their dramatically elongated frills were surprisingly fragile and skin-covered, acting as massive, blood-flushed billboards for intimidation and courtship rather than literal shields.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/chasmosaurinae.svg"
         },
         "diplodocoidea": {
             "clade": "Diplodocoidea",
             "parent": "neosauropoda",
-            "description": "Diagnosed by a strictly horizontal body posture, radically elongated whip-like tails, and squared-off snouts. Their peg-like, cylindrical teeth were entirely confined to the very front of the jaw, functioning like a rake to strip massive amounts of soft, low-to-mid-level vegetation."
+            "description": "Diagnosed by a strictly horizontal body posture, radically elongated whip-like tails, and squared-off snouts. Their peg-like, cylindrical teeth were entirely confined to the very front of the jaw, functioning like a rake to strip massive amounts of soft, low-to-mid-level vegetation.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/diplodocoidea.svg"
         },
         "titanosauria": {
             "clade": "Titanosauria",
             "parent": "somphospondyli",
-            "description": "Diagnosed by an exceptionally broad pelvis creating a \"wide-gauge\" skeletal posture, and the complete loss of ossified wrist bones, forcing them to walk entirely on the vertical columns of their metacarpals. This widened stance provided the essential structural stability needed to support massive weight, allowing them to expand globally and become the heaviest land animals in Earth's history."
+            "description": "Diagnosed by an exceptionally broad pelvis creating a \"wide-gauge\" skeletal posture, and the complete loss of ossified wrist bones, forcing them to walk entirely on the vertical columns of their metacarpals. This widened stance provided the essential structural stability needed to support massive weight, allowing them to expand globally and become the heaviest land animals in Earth's history.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/titanosauria.svg"
         },
         "cerapoda": {
             "clade": "Cerapoda",
             "parent": "clypeodontia",
-            "description": "Diagnosed by a pronounced diastema\u2014a distinct, toothless gap between the cropping beak at the very front of the mouth and the grinding cheek teeth in the back. This specialized gap functioned exactly like it does in modern horses, allowing them to rapidly crop fresh vegetation with their beaks while simultaneously using their long tongues to shift food to the back for continuous chewing."
+            "description": "Diagnosed by a pronounced diastema\u2014a distinct, toothless gap between the cropping beak at the very front of the mouth and the grinding cheek teeth in the back. This specialized gap functioned exactly like it does in modern horses, allowing them to rapidly crop fresh vegetation with their beaks while simultaneously using their long tongues to shift food to the back for continuous chewing.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/cerapoda.svg"
         },
         "megalosaurinae": {
             "clade": "Megalosaurinae",
             "parent": "megalosauridae",
-            "description": "Diagnosed by specific adaptations in their jaw structure, including taller, more blade-like teeth compared to their ancestors. Because they were the very first group of dinosaurs to be scientifically described, the discovery of a massive Megalosaur bone in the 17th century originally led early naturalists to believe they were looking at the petrified remains of human giants."
+            "description": "Diagnosed by specific adaptations in their jaw structure, including taller, more blade-like teeth compared to their ancestors. Because they were the very first group of dinosaurs to be scientifically described, the discovery of a massive Megalosaur bone in the 17th century originally led early naturalists to believe they were looking at the petrified remains of human giants.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/megalosaurinae.svg"
         },
         "thyreophora": {
             "clade": "Thyreophora",
             "parent": "genasauria",
-            "description": "Diagnosed by the presence of parallel longitudinal rows of bony scutes (osteoderms) running down the neck, back, and tail. This heavy dermal armor provided a formidable passive defense against the slashing teeth of early theropod predators, effectively turning them into walking fortresses that could comfortably browse low-lying vegetation in highly dangerous ecosystems."
+            "description": "Diagnosed by the presence of parallel longitudinal rows of bony scutes (osteoderms) running down the neck, back, and tail. This heavy dermal armor provided a formidable passive defense against the slashing teeth of early theropod predators, effectively turning them into walking fortresses that could comfortably browse low-lying vegetation in highly dangerous ecosystems.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/thyreophora.svg"
         },
         "brachiosauridae": {
             "clade": "Brachiosauridae",
             "parent": "titanosauriformes",
-            "description": "Diagnosed by extremely long metacarpal bones and a crested skull with the nasal opening sitting at the very highest peak. Their towering, rigid framework made them the ultimate apex browsers, but this extreme vertical specialization made lowering their massive necks to drink ground water a difficult and highly vulnerable process."
+            "description": "Diagnosed by extremely long metacarpal bones and a crested skull with the nasal opening sitting at the very highest peak. Their towering, rigid framework made them the ultimate apex browsers, but this extreme vertical specialization made lowering their massive necks to drink ground water a difficult and highly vulnerable process.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/brachiosauridae.svg"
         },
         "pantyrannosauria": {
             "clade": "Pantyrannosauria",
             "parent": "tyrannosauroidea",
-            "description": "Diagnosed by a distinct modification of the ilium (hip bone) featuring a prominent vertical ridge, which provided an expanded surface area for the attachment of powerful leg muscles. This muscular upgrade significantly increased their acceleration and sprinting capabilities, turning them into highly efficient pursuit predators as they began to leave their basal ancestors behind."
+            "description": "Diagnosed by a distinct modification of the ilium (hip bone) featuring a prominent vertical ridge, which provided an expanded surface area for the attachment of powerful leg muscles. This muscular upgrade significantly increased their acceleration and sprinting capabilities, turning them into highly efficient pursuit predators as they began to leave their basal ancestors behind.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/pantyrannosauria.svg"
         },
         "clypeodontia": {
             "clade": "Clypeodontia",
             "parent": "neornithischia",
-            "description": "Diagnosed by a heavily pronounced, primary vertical ridge running down the outside (labial side) of their upper teeth. This structural reinforcement acted like a heavy buttress, preventing the teeth from shattering under immense biting pressure as these animals evolved increasingly complex, powerful jaws to process massive quantities of plant matter."
+            "description": "Diagnosed by a heavily pronounced, primary vertical ridge running down the outside (labial side) of their upper teeth. This structural reinforcement acted like a heavy buttress, preventing the teeth from shattering under immense biting pressure as these animals evolved increasingly complex, powerful jaws to process massive quantities of plant matter.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/clypeodontia.svg"
         },
         "dromaeosaurinae": {
             "clade": "Dromaeosaurinae",
             "parent": "eudromaeosauria",
-            "description": "Diagnosed by a short, deep, boxy skull and thicker, more heavily serrated teeth compared to the slender-snouted velociraptorines. This heavier cranial build delivered a significantly stronger bite force, adapting them to brute-force hunting rather than the precision piercing of their relatives."
+            "description": "Diagnosed by a short, deep, boxy skull and thicker, more heavily serrated teeth compared to the slender-snouted velociraptorines. This heavier cranial build delivered a significantly stronger bite force, adapting them to brute-force hunting rather than the precision piercing of their relatives.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/dromaeosaurinae.svg"
         },
         "eutyrannosauria": {
             "clade": "Eutyrannosauria",
             "parent": "pantyrannosauria",
-            "description": "Diagnosed by a heavily reinforced skull architecture and a noticeable reduction in the length and utility of the forelimbs. As their jaw musculature increased dramatically to handle larger, heavily armored prey, their reliance on grasping arms diminished entirely, leading to a structural shift where the head became the sole primary weapon."
+            "description": "Diagnosed by a heavily reinforced skull architecture and a noticeable reduction in the length and utility of the forelimbs. As their jaw musculature increased dramatically to handle larger, heavily armored prey, their reliance on grasping arms diminished entirely, leading to a structural shift where the head became the sole primary weapon.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/eutyrannosauria.svg"
         },
         "oviraptoridae": {
             "clade": "Oviraptoridae",
             "parent": "oviraptorosauria",
-            "description": "Diagnosed by elaborate, often hollow bony crests on top of their skulls and a highly fused collarbone (furcula). The prominent head crests served as intricate visual display structures for species recognition and courtship, similar to modern cassowaries, demonstrating a heavy reliance on visual communication."
+            "description": "Diagnosed by elaborate, often hollow bony crests on top of their skulls and a highly fused collarbone (furcula). The prominent head crests served as intricate visual display structures for species recognition and courtship, similar to modern cassowaries, demonstrating a heavy reliance on visual communication.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/oviraptoridae.svg"
         },
         "theropoda": {
             "clade": "Theropoda",
             "parent": "eusaurischia",
-            "description": "Diagnosed by thin-walled, hollow limb bones and an intramandibular joint (a flexible hinge in the lower jaw). The hollow bones drastically reduced their body weight, giving them the advantage of superior running speed and agility, while the flexible jaw allowed them to swallow larger chunks of meat, making them highly efficient bipedal predators."
+            "description": "Diagnosed by thin-walled, hollow limb bones and an intramandibular joint (a flexible hinge in the lower jaw). The hollow bones drastically reduced their body weight, giving them the advantage of superior running speed and agility, while the flexible jaw allowed them to swallow larger chunks of meat, making them highly efficient bipedal predators.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/theropoda.svg"
         },
         "allosauria": {
             "clade": "Allosauria",
             "parent": "allosauroidea",
-            "description": "Diagnosed by pronounced lacrimal horns directly above the eyes and a noticeable reduction in the robusticity of their forelimbs compared to earlier tetanurans. These distinctive brow horns likely served as visual display structures for species recognition, while their massive population numbers in certain fossil beds\u2014like the Cleveland-Lloyd Dinosaur Quarry\u2014suggest they may have occasionally mobbed massive sauropods in disorganized, frenzy-like groups"
+            "description": "Diagnosed by pronounced lacrimal horns directly above the eyes and a noticeable reduction in the robusticity of their forelimbs compared to earlier tetanurans. These distinctive brow horns likely served as visual display structures for species recognition, while their massive population numbers in certain fossil beds\u2014like the Cleveland-Lloyd Dinosaur Quarry\u2014suggest they may have occasionally mobbed massive sauropods in disorganized, frenzy-like groups",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/allosauria.svg"
         },
         "baryonychinae": {
             "clade": "Baryonychinae",
             "parent": "spinosauridae",
-            "description": "Diagnosed by a slightly curved, rosette-shaped tip of the snout and the retention of more robust, finely serrated teeth compared to their highly specialized relatives. This intermediate anatomical stage kept them opportunistic, using their enormous thumb claws to hook fish out of the water while still remaining highly capable of scavenging or hunting land-dwelling prey."
+            "description": "Diagnosed by a slightly curved, rosette-shaped tip of the snout and the retention of more robust, finely serrated teeth compared to their highly specialized relatives. This intermediate anatomical stage kept them opportunistic, using their enormous thumb claws to hook fish out of the water while still remaining highly capable of scavenging or hunting land-dwelling prey.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/baryonychinae.svg"
         },
         "dromaeosauridae": {
             "clade": "Dromaeosauridae",
             "parent": "paraves",
-            "description": "Diagnosed by a highly stiffened tail bound by interlocking bony rods, alongside a significantly enlarged sickle claw on the second toe. The stiff tail acted as a rigid counterbalance during high-speed turns, granting them extreme precision while actively pursuing and leaping onto prey."
+            "description": "Diagnosed by a highly stiffened tail bound by interlocking bony rods, alongside a significantly enlarged sickle claw on the second toe. The stiff tail acted as a rigid counterbalance during high-speed turns, granting them extreme precision while actively pursuing and leaping onto prey.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/dromaeosauridae.svg"
         },
         "nodosauridae": {
             "clade": "Nodosauridae",
             "parent": "ankylosauria",
-            "description": "Diagnosed by the distinct lack of a tail club, the presence of enormous parasagittal spikes (especially massive over the shoulders), and a noticeably narrow, elongated snout. Their narrow snouts allowed for highly selective feeding, acting like biological tweezers to pick out specific, nutrient-rich plants, while their massive shoulder spikes protected their vulnerable necks from the slashing bites of predators."
+            "description": "Diagnosed by the distinct lack of a tail club, the presence of enormous parasagittal spikes (especially massive over the shoulders), and a noticeably narrow, elongated snout. Their narrow snouts allowed for highly selective feeding, acting like biological tweezers to pick out specific, nutrient-rich plants, while their massive shoulder spikes protected their vulnerable necks from the slashing bites of predators.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/nodosauridae.svg"
         },
         "abelisauridae": {
             "clade": "Abelisauridae",
             "parent": "abelisauroidea",
-            "description": "Diagnosed by incredibly deep, foreshortened skulls covered in heavy bony texturing (rugosity), alongside drastically reduced, stiff forelimbs that lacked functional wrist joints. To compensate for arms completely incapable of grasping, their thick necks and reinforced snouts evolved to deliver massive, blunt-force bites, driving their teeth deep into struggling prey through sheer impact."
+            "description": "Diagnosed by incredibly deep, foreshortened skulls covered in heavy bony texturing (rugosity), alongside drastically reduced, stiff forelimbs that lacked functional wrist joints. To compensate for arms completely incapable of grasping, their thick necks and reinforced snouts evolved to deliver massive, blunt-force bites, driving their teeth deep into struggling prey through sheer impact.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/abelisauridae.svg"
         },
         "ankylopollexia": {
             "clade": "Ankylopollexia",
             "parent": "dryomorpha",
-            "description": "Diagnosed by the fusion of the thumb bones into a massive, immobile spike, and increasingly robust, weight-bearing forelimbs. The iconic thumb spike served dual purposes: acting as a devastating close-quarters weapon against theropods like Utahraptor, and serving as a specialized tool for breaking open tough seeds or tearing bark."
+            "description": "Diagnosed by the fusion of the thumb bones into a massive, immobile spike, and increasingly robust, weight-bearing forelimbs. The iconic thumb spike served dual purposes: acting as a devastating close-quarters weapon against theropods like Utahraptor, and serving as a specialized tool for breaking open tough seeds or tearing bark.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/ankylopollexia.svg"
         },
         "coronosauria": {
             "clade": "Coronosauria",
             "parent": "ceratopsia",
-            "description": "Diagnosed by a heavily expanded posterior skull frill and the fusion of the first few neck vertebrae into a solid mass called a \"syncervical.\" This fused bone provided an incredibly strong, rigid anchor point to support the massive weight of their ever-growing heads, allowing them to evolve gigantic display frills without snapping their own necks"
+            "description": "Diagnosed by a heavily expanded posterior skull frill and the fusion of the first few neck vertebrae into a solid mass called a \"syncervical.\" This fused bone provided an incredibly strong, rigid anchor point to support the massive weight of their ever-growing heads, allowing them to evolve gigantic display frills without snapping their own necks",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/coronosauria.svg"
         },
         "carcharodontosauridae": {
             "clade": "Carcharodontosauridae",
             "parent": "allosauria",
-            "description": "Diagnosed by massive, highly fused skulls and an exceptionally deep lower jaw. These cranial adaptations functioned perfectly with their namesake teeth, allowing them to carve massive slices of meat out of giant titanosaur prey, effectively bleeding out the largest terrestrial animals to ever walk the Earth."
+            "description": "Diagnosed by massive, highly fused skulls and an exceptionally deep lower jaw. These cranial adaptations functioned perfectly with their namesake teeth, allowing them to carve massive slices of meat out of giant titanosaur prey, effectively bleeding out the largest terrestrial animals to ever walk the Earth.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/carcharodontosauridae.svg"
         },
         "paraves": {
             "clade": "Paraves",
             "parent": "maniraptora",
-            "description": "Diagnosed by a retractable, sickle-shaped claw on the second toe of the foot and backward-directed pubic bones. The hyper-extendable toe claw functioned as a specialized weapon for puncturing or pinning down struggling prey, while the shifted pelvis altered their center of mass to drastically improve balance and agility."
+            "description": "Diagnosed by a retractable, sickle-shaped claw on the second toe of the foot and backward-directed pubic bones. The hyper-extendable toe claw functioned as a specialized weapon for puncturing or pinning down struggling prey, while the shifted pelvis altered their center of mass to drastically improve balance and agility.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/paraves.svg"
         },
         "ornithischia": {
             "clade": "Ornithischia",
             "parent": "dinosauria",
-            "description": "Diagnosed by a unique predentary bone at the tip of the lower jaw that supported a cropping beak. This primarily herbivorous lineage evolved a highly diverse array of physical defenses, including solid cranial domes, massive bone frills, dermal armor plates, and heavy tail clubs."
+            "description": "Diagnosed by a unique predentary bone at the tip of the lower jaw that supported a cropping beak. This primarily herbivorous lineage evolved a highly diverse array of physical defenses, including solid cranial domes, massive bone frills, dermal armor plates, and heavy tail clubs.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/ornithischia.svg"
         },
         "eurypoda": {
             "clade": "Eurypoda",
             "parent": "thyreophora",
-            "description": "Diagnosed by a heavily constructed pelvis and the extreme shortening and broadening of the metatarsals (foot bones). This robust, widened foot architecture evolved strictly to support the immense, ever-increasing weight of their body armor; by completely sacrificing their ability to run away from danger, they were forced into a full-commitment defensive lifestyle that eventually led to weaponized tails."
+            "description": "Diagnosed by a heavily constructed pelvis and the extreme shortening and broadening of the metatarsals (foot bones). This robust, widened foot architecture evolved strictly to support the immense, ever-increasing weight of their body armor; by completely sacrificing their ability to run away from danger, they were forced into a full-commitment defensive lifestyle that eventually led to weaponized tails.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/eurypoda.svg"
         },
         "ankylosaurini": {
             "clade": "Ankylosaurini",
             "parent": "ankylosauria",
-            "description": "Diagnosed by extremely wide, blunt snouts, highly modified, looping air-channels inside the nasal cavities, and the presence of a massive, heavily reinforced tail club made of fused osteoderms. The widened snout meant they were indiscriminate bulk-feeders (cropping everything in front of them at once), while their massive tail clubs turned them from passive defenders into active combatants capable of shattering the leg bones of apex predators like Tyrannosaurus rex with a single, devastating swing."
+            "description": "Diagnosed by extremely wide, blunt snouts, highly modified, looping air-channels inside the nasal cavities, and the presence of a massive, heavily reinforced tail club made of fused osteoderms. The widened snout meant they were indiscriminate bulk-feeders (cropping everything in front of them at once), while their massive tail clubs turned them from passive defenders into active combatants capable of shattering the leg bones of apex predators like Tyrannosaurus rex with a single, devastating swing.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/ankylosaurini.svg"
         },
         "dinosauria": {
             "clade": "Dinosauria",
-            "description": "Diagnosed by an upright stance and a perforated hip socket. They were so ecologically successful that they ruled the Earth for over 160 million years. To put their sheer longevity into perspective: less time separates us today from T. rex than separated T. rex from Stegosaurus."
+            "description": "Diagnosed by an upright stance and a perforated hip socket. They were so ecologically successful that they ruled the Earth for over 160 million years. To put their sheer longevity into perspective: less time separates us today from T. rex than separated T. rex from Stegosaurus.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/dinosauria.svg"
         },
         "hadrosauroidea": {
             "clade": "Hadrosauroidea",
             "parent": "hadrosauriformes",
-            "description": "Diagnosed by the complete loss of the thumb spike (digit I) entirely, leaving a hoof-like, weight-bearing hand. By ditching the weaponized thumb, they fully committed to a quadrupedal browsing lifestyle, relying on massive herd numbers, rapid growth rates, and sheer reproductive volume to survive instead of fighting back."
+            "description": "Diagnosed by the complete loss of the thumb spike (digit I) entirely, leaving a hoof-like, weight-bearing hand. By ditching the weaponized thumb, they fully committed to a quadrupedal browsing lifestyle, relying on massive herd numbers, rapid growth rates, and sheer reproductive volume to survive instead of fighting back.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/hadrosauroidea.svg"
         },
         "spinosauridae": {
             "clade": "Spinosauridae",
             "parent": "megalosauria",
-            "description": "Diagnosed by highly elongated, crocodile-like snouts filled with conical, largely unserrated teeth. This specialized skull architecture shifted their diet heavily toward a semi-aquatic lifestyle, allowing them to spear and snare slippery fish rather than strictly hunting terrestrial dinosaurs."
+            "description": "Diagnosed by highly elongated, crocodile-like snouts filled with conical, largely unserrated teeth. This specialized skull architecture shifted their diet heavily toward a semi-aquatic lifestyle, allowing them to spear and snare slippery fish rather than strictly hunting terrestrial dinosaurs.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/spinosauridae.svg"
         },
         "sauropodomorpha": {
             "clade": "Sauropodomorpha",
             "parent": "eusaurischia",
-            "description": "Diagnosed by leaf-shaped, coarsely serrated teeth and a massively enlarged, sickle-shaped thumb claw. While they began as small, bipedal omnivores, their specialized teeth allowed for a shift toward a strict plant-based diet. They initially used their powerful grasping hands to pull down branches, but this massive thumb claw was eventually reduced or lost as they evolved into the biggest land animals of all time."
+            "description": "Diagnosed by leaf-shaped, coarsely serrated teeth and a massively enlarged, sickle-shaped thumb claw. While they began as small, bipedal omnivores, their specialized teeth allowed for a shift toward a strict plant-based diet. They initially used their powerful grasping hands to pull down branches, but this massive thumb claw was eventually reduced or lost as they evolved into the biggest land animals of all time.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/sauropodomorpha.svg"
         },
         "pachycephalosaurinae": {
             "clade": "Pachycephalosaurinae",
             "parent": "pachycephalosauridae",
-            "description": "Diagnosed by the complete obliteration of the upper temporal fenestrae (skull openings) as the solid bone dome fully expands and seals in adults, alongside a reduction of peripheral skull spikes. Because their skulls changed so drastically as they grew\u2014absorbing their juvenile spikes into a massive, smooth adult dome\u2014paleontologists initially mistook their different growth stages for completely different species, famously misidentifying them as Dracorex and Stygimoloch."
+            "description": "Diagnosed by the complete obliteration of the upper temporal fenestrae (skull openings) as the solid bone dome fully expands and seals in adults, alongside a reduction of peripheral skull spikes. Because their skulls changed so drastically as they grew\u2014absorbing their juvenile spikes into a massive, smooth adult dome\u2014paleontologists initially mistook their different growth stages for completely different species, famously misidentifying them as Dracorex and Stygimoloch.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/pachycephalosaurinae.svg"
         },
         "euhadrosauria": {
             "clade": "Euhadrosauria",
             "parent": "hadrosauridae",
-            "description": "Diagnosed by an incredibly complex, multi-tissue structure within the tooth battery itself, making the teeth dynamically self-sharpening across different wear angles. Because they were essentially the cows of the Cretaceous, their herds grew to staggering sizes, reshaping the landscape through sheer browsing pressure and migrating across vast continental stretches."
+            "description": "Diagnosed by an incredibly complex, multi-tissue structure within the tooth battery itself, making the teeth dynamically self-sharpening across different wear angles. Because they were essentially the cows of the Cretaceous, their herds grew to staggering sizes, reshaping the landscape through sheer browsing pressure and migrating across vast continental stretches.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/euhadrosauria.svg"
         },
         "averostra": {
             "clade": "Averostra",
             "parent": "theropoda",
-            "description": "Diagnosed by a promaxillary fenestra\u2014an extra opening at the front of the skull\u2014and a flexible joint between the front jaw bones. This additional cranial window significantly lightened their progressively larger heads, while the flexible snout acted as a shock absorber, allowing their skulls to withstand the massive physical stress of driving their teeth into large, thrashing prey."
+            "description": "Diagnosed by a promaxillary fenestra\u2014an extra opening at the front of the skull\u2014and a flexible joint between the front jaw bones. This additional cranial window significantly lightened their progressively larger heads, while the flexible snout acted as a shock absorber, allowing their skulls to withstand the massive physical stress of driving their teeth into large, thrashing prey.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/averostra.svg"
         },
         "centrosaurinae": {
             "clade": "Centrosaurinae",
             "parent": "ceratopsidae",
-            "description": "Diagnosed by a relatively short, deep face, a massive nasal horn (or large, bony nasal boss), and vastly reduced or completely absent brow horns. Massive fossil bonebeds in North America reveal they lived in enormous, single-species herds numbering in the thousands, occasionally falling victim en masse to catastrophic flash floods while crossing swollen rivers."
+            "description": "Diagnosed by a relatively short, deep face, a massive nasal horn (or large, bony nasal boss), and vastly reduced or completely absent brow horns. Massive fossil bonebeds in North America reveal they lived in enormous, single-species herds numbering in the thousands, occasionally falling victim en masse to catastrophic flash floods while crossing swollen rivers.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/centrosaurinae.svg"
         },
         "megalosauridae": {
             "clade": "Megalosauridae",
             "parent": "megalosauria",
-            "description": "Diagnosed by a heavily built shoulder girdle and distinctly enlarged thumb claws (digit I). These reinforced arms functioned as primary grappling hooks, giving them the physical leverage to latch onto and wrestle heavy prey to the ground before delivering a fatal bite."
+            "description": "Diagnosed by a heavily built shoulder girdle and distinctly enlarged thumb claws (digit I). These reinforced arms functioned as primary grappling hooks, giving them the physical leverage to latch onto and wrestle heavy prey to the ground before delivering a fatal bite.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/megalosauridae.svg"
         },
         "huayangosauridae": {
             "clade": "Huayangosauridae",
             "parent": "stegosauria",
-            "description": "Diagnosed by a shorter, deeper skull and the primitive retention of premaxillary teeth (teeth at the very front of the upper jaw). Retaining these front teeth allowed these early, smaller armored herbivores to actively nip and browse on a wider variety of tough vegetation before the lineage specialized into strictly beak-cropping feeders."
+            "description": "Diagnosed by a shorter, deeper skull and the primitive retention of premaxillary teeth (teeth at the very front of the upper jaw). Retaining these front teeth allowed these early, smaller armored herbivores to actively nip and browse on a wider variety of tough vegetation before the lineage specialized into strictly beak-cropping feeders.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/huayangosauridae.svg"
         },
         "genasauria": {
             "clade": "Genasauria",
             "parent": "ornithischia",
-            "description": "Diagnosed by medially inset teeth on both the upper jaw (maxilla) and lower jaw (dentary). This inset dentition allowed them to physically hold food in their mouths while chewing, a massive digestive upgrade that let them process tough plant matter far more efficiently than earlier herbivores and set the evolutionary stage for every major armored, horned, and duck-billed dinosaur that followed."
+            "description": "Diagnosed by medially inset teeth on both the upper jaw (maxilla) and lower jaw (dentary). This inset dentition allowed them to physically hold food in their mouths while chewing, a massive digestive upgrade that let them process tough plant matter far more efficiently than earlier herbivores and set the evolutionary stage for every major armored, horned, and duck-billed dinosaur that followed.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/genasauria.svg"
         },
         "lambeosaurini": {
             "clade": "Lambeosaurini",
             "parent": "lambeosaurinae",
-            "description": "Diagnosed by an extremely tall, hatchet-shaped or helmet-like hollow crest that shifted dramatically forward over the eyes. This specific, towering acoustic structure produced distinctly different, lower-frequency resonating calls compared to their tube-crested cousins, allowing enormous, mixed-species herds to segregate and find their own kind through sound alone."
+            "description": "Diagnosed by an extremely tall, hatchet-shaped or helmet-like hollow crest that shifted dramatically forward over the eyes. This specific, towering acoustic structure produced distinctly different, lower-frequency resonating calls compared to their tube-crested cousins, allowing enormous, mixed-species herds to segregate and find their own kind through sound alone.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/lambeosaurini.svg"
         },
         "avetheropoda": {
             "clade": "Avetheropoda",
             "parent": "tetanurae",
-            "description": "Diagnosed by the development of highly complex air sacs extending into their vertebrae. This advanced respiratory system allowed for highly efficient oxygen exchange, fueling the intense metabolism required to actively hunt down large, fast-moving prey."
+            "description": "Diagnosed by the development of highly complex air sacs extending into their vertebrae. This advanced respiratory system allowed for highly efficient oxygen exchange, fueling the intense metabolism required to actively hunt down large, fast-moving prey.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/avetheropoda.svg"
         },
         "ankylosauria": {
             "clade": "Ankylosauria",
             "parent": "ankylosauromorpha",
-            "description": "Diagnosed by the closure of the antorbital fenestra (a large opening in the skull in most other dinosaurs) and the fusion of the lumbar and sacral vertebrae into a solid rod called a synsacrum. This extreme skeletal fusion turned their entire torso into a rigid, unbendable platform, allowing them to support a literal shield of solid bone and easily survive being trampled or struck by massive theropods."
+            "description": "Diagnosed by the closure of the antorbital fenestra (a large opening in the skull in most other dinosaurs) and the fusion of the lumbar and sacral vertebrae into a solid rod called a synsacrum. This extreme skeletal fusion turned their entire torso into a rigid, unbendable platform, allowing them to support a literal shield of solid bone and easily survive being trampled or struck by massive theropods.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/ankylosauria.svg"
         },
         "plateosauria": {
             "clade": "Plateosauria",
             "parent": "sauropodomorpha",
-            "description": "Diagnosed by a lower jaw hinge that sits below the horizontal line of the teeth. Because this pivot point is offset, the upper and lower teeth meet simultaneously like a nutcracker, rather than slicing back-to-front like scissors. Combined with lengthened neck vertebrae, this clade took the next major anatomical step toward becoming dedicated, high-browsing herbivores."
+            "description": "Diagnosed by a lower jaw hinge that sits below the horizontal line of the teeth. Because this pivot point is offset, the upper and lower teeth meet simultaneously like a nutcracker, rather than slicing back-to-front like scissors. Combined with lengthened neck vertebrae, this clade took the next major anatomical step toward becoming dedicated, high-browsing herbivores.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/plateosauria.svg"
         },
         "alioramini": {
             "clade": "Alioramini",
             "parent": "tyrannosaurinae",
-            "description": "Diagnosed by extremely long, narrow snouts lined with a higher number of smaller, sharper teeth, and a series of distinct bony bumps along the top of the snout. Because they lived directly alongside massive, bone-crushing tyrannosaurines in Asia, their delicate, elongated skulls allowed them to avoid direct competition by hunting smaller, faster prey that the heavyweights couldn't catch."
+            "description": "Diagnosed by extremely long, narrow snouts lined with a higher number of smaller, sharper teeth, and a series of distinct bony bumps along the top of the snout. Because they lived directly alongside massive, bone-crushing tyrannosaurines in Asia, their delicate, elongated skulls allowed them to avoid direct competition by hunting smaller, faster prey that the heavyweights couldn't catch.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/alioramini.svg"
         },
         "titanosauriformes": {
             "clade": "Titanosauriformes",
             "parent": "macronaria",
-            "description": "Diagnosed by forelimbs significantly longer than their hindlimbs, creating a permanently upward-sloping back. This elevated posture granted uncontested access to the highest forest canopies, avoiding competition with lower-browsing herbivores, though it required extreme cardiovascular pressure to pump blood vertically to the brain."
+            "description": "Diagnosed by forelimbs significantly longer than their hindlimbs, creating a permanently upward-sloping back. This elevated posture granted uncontested access to the highest forest canopies, avoiding competition with lower-browsing herbivores, though it required extreme cardiovascular pressure to pump blood vertically to the brain.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/titanosauriformes.svg"
         },
         "ornithomimosauria": {
             "clade": "Ornithomimosauria",
             "parent": "maniraptoriformes",
-            "description": "Diagnosed by the complete loss of teeth in later forms, replaced by a keratinous beak, alongside extremely elongated lower leg bones. This lightweight, toothless build and extended stride length made them some of the fastest sprinters of the Mesozoic, allowing them to consistently outrun threats rather than stand and fight."
+            "description": "Diagnosed by the complete loss of teeth in later forms, replaced by a keratinous beak, alongside extremely elongated lower leg bones. This lightweight, toothless build and extended stride length made them some of the fastest sprinters of the Mesozoic, allowing them to consistently outrun threats rather than stand and fight.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/ornithomimosauria.svg"
         },
         "herrerasauridae": {
             "clade": "Herrerasauridae",
             "parent": "saurischia",
-            "description": "Diagnosed by a confusing mosaic of primitive and advanced traits. They retained an ancestral pelvis with only two sacral vertebrae and a hand where the third finger is longest, yet possessed an advanced sliding lower jaw. Because of this, their placement is highly controversial. For this game, we followed the Langer consensus, classifying them as basal saurischians. However, the debate rages on: other researchers argue they are basal theropods, and some modern studies suggest they might sit entirely outside of Dinosauria!"
+            "description": "Diagnosed by a confusing mosaic of primitive and advanced traits. They retained an ancestral pelvis with only two sacral vertebrae and a hand where the third finger is longest, yet possessed an advanced sliding lower jaw. Because of this, their placement is highly controversial. For this game, we followed the Langer consensus, classifying them as basal saurischians. However, the debate rages on: other researchers argue they are basal theropods, and some modern studies suggest they might sit entirely outside of Dinosauria!",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/herrerasauridae.svg"
         },
         "somphospondyli": {
             "clade": "Somphospondyli",
             "parent": "titanosauriformes",
-            "description": "Diagnosed by highly pneumatized, spongy bone tissue within their presacral vertebrae. This extreme internal honeycombing drastically reduced the weight of their massive skeletons by up to 60% while maintaining structural strength, allowing them to support ever-increasing body sizes and heavily expanded digestive tracts for processing low-quality vegetation."
+            "description": "Diagnosed by highly pneumatized, spongy bone tissue within their presacral vertebrae. This extreme internal honeycombing drastically reduced the weight of their massive skeletons by up to 60% while maintaining structural strength, allowing them to support ever-increasing body sizes and heavily expanded digestive tracts for processing low-quality vegetation.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/somphospondyli.svg"
         },
         "coelurosauria": {
             "clade": "Coelurosauria",
             "parent": "avetheropoda",
-            "description": "Diagnosed by an enlarged brain relative to body size, a longer and narrower sacrum (hip vertebrae), and the definitive presence of protofeathers. The enlarged braincase facilitated more complex behaviors and heightened sensory processing, an essential upgrade for tracking faster, smaller prey and navigating increasingly complex environments."
+            "description": "Diagnosed by an enlarged brain relative to body size, a longer and narrower sacrum (hip vertebrae), and the definitive presence of protofeathers. The enlarged braincase facilitated more complex behaviors and heightened sensory processing, an essential upgrade for tracking faster, smaller prey and navigating increasingly complex environments.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/coelurosauria.svg"
         },
         "maniraptora": {
             "clade": "Maniraptora",
             "parent": "maniraptoriformes",
-            "description": "Diagnosed by a semi-lunate (half-moon-shaped) carpal bone in the wrist. This unique bone allowed the hand to fold flat against the forearm\u2014an adaptation initially used to protect arm feathers and snatch prey, which eventually provided the exact mechanical stroke required for bird flight."
+            "description": "Diagnosed by a semi-lunate (half-moon-shaped) carpal bone in the wrist. This unique bone allowed the hand to fold flat against the forearm\u2014an adaptation initially used to protect arm feathers and snatch prey, which eventually provided the exact mechanical stroke required for bird flight.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/maniraptora.svg"
         },
         "apatosaurinae": {
             "clade": "Apatosaurinae",
             "parent": "diplodocidae",
-            "description": "Diagnosed by exceptionally thick, robust neck vertebrae. These massive cervical bones supported heavy musculature adapted to withstand physical impacts, giving them the advantage of using their reinforced necks as bludgeons for intraspecific combat or defense against predators."
+            "description": "Diagnosed by exceptionally thick, robust neck vertebrae. These massive cervical bones supported heavy musculature adapted to withstand physical impacts, giving them the advantage of using their reinforced necks as bludgeons for intraspecific combat or defense against predators.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/apatosaurinae.svg"
         },
         "ceratosauria": {
             "clade": "Ceratosauria",
             "parent": "averostra",
-            "description": "Diagnosed by prominent bony horns and brow ridges, the primitive retention of four fingers on each hand, and heavily fused ankle bones. This tightly bound lower leg structure provided exceptional shock absorption for explosive mobility, while their elaborate cranial ornamentation functioned as highly visible structures for species recognition and territorial display"
+            "description": "Diagnosed by prominent bony horns and brow ridges, the primitive retention of four fingers on each hand, and heavily fused ankle bones. This tightly bound lower leg structure provided exceptional shock absorption for explosive mobility, while their elaborate cranial ornamentation functioned as highly visible structures for species recognition and territorial display",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/ceratosauria.svg"
         },
         "massopoda": {
             "clade": "Massopoda",
             "parent": "plateosauria",
-            "description": "Diagnosed by a change in the neck vertebrae that allowed for a much wider range of vertical motion. This evolutionary step marks a major turning point in the game's fossil record: as these dinosaurs outgrew their \"running\" ancestors, they traded agility for the massive guts and specialized skeletal strength needed to become multi-ton browsers."
+            "description": "Diagnosed by a change in the neck vertebrae that allowed for a much wider range of vertical motion. This evolutionary step marks a major turning point in the game's fossil record: as these dinosaurs outgrew their \"running\" ancestors, they traded agility for the massive guts and specialized skeletal strength needed to become multi-ton browsers.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/massopoda.svg"
         },
         "nodosaurinae": {
             "clade": "Nodosaurinae",
             "parent": "nodosauridae",
-            "description": "Diagnosed by highly robust, forward-pointing acromial (shoulder) spikes and a tightly packed pelvic shield made of rosette osteoderms over the hips. The massive, elongated shoulder spikes seen in species like Sauropelta essentially formed a lethal forward-facing barricade, forcing apex predators to either risk direct frontal impalement or abandon the hunt entirely."
+            "description": "Diagnosed by highly robust, forward-pointing acromial (shoulder) spikes and a tightly packed pelvic shield made of rosette osteoderms over the hips. The massive, elongated shoulder spikes seen in species like Sauropelta essentially formed a lethal forward-facing barricade, forcing apex predators to either risk direct frontal impalement or abandon the hunt entirely.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/nodosaurinae.svg"
         },
         "eudromaeosauria": {
             "clade": "Eudromaeosauria",
             "parent": "dromaeosauridae",
-            "description": "Diagnosed by a strongly reinforced foot structure and a deeper, more robust skull. This structural fortification allowed them to tackle prey much larger than themselves, using their jaws to tear flesh while remaining firmly anchored to thrashing targets via their foot claws."
+            "description": "Diagnosed by a strongly reinforced foot structure and a deeper, more robust skull. This structural fortification allowed them to tackle prey much larger than themselves, using their jaws to tear flesh while remaining firmly anchored to thrashing targets via their foot claws.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/eudromaeosauria.svg"
         },
         "macronaria": {
             "clade": "Macronaria",
             "parent": "neosauropoda",
-            "description": "Diagnosed by a more vertical, upward-sloping body posture and broad, spoon-shaped (spatulate) teeth. While their whip-tailed cousins raked soft ferns, the powerful jaws and robust teeth of the Macronarians allowed them to bite, shear, and consume tough, woody vegetation directly from the high forest canopy."
+            "description": "Diagnosed by a more vertical, upward-sloping body posture and broad, spoon-shaped (spatulate) teeth. While their whip-tailed cousins raked soft ferns, the powerful jaws and robust teeth of the Macronarians allowed them to bite, shear, and consume tough, woody vegetation directly from the high forest canopy.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/macronaria.svg"
         },
         "ankylosauromorpha": {
             "clade": "Ankylosauromorpha",
             "parent": "eurypoda",
-            "description": "Diagnosed by the initial extensive fusion of osteoderms directly to the skull roof and a significant widening of the ribcage. This broadened midsection allowed for a massive, specialized digestive tract, forcing them to adopt an extremely low, sprawling gait that perfectly positioned them to graze on ground-level ferns and low-lying shrubs."
+            "description": "Diagnosed by the initial extensive fusion of osteoderms directly to the skull roof and a significant widening of the ribcage. This broadened midsection allowed for a massive, specialized digestive tract, forcing them to adopt an extremely low, sprawling gait that perfectly positioned them to graze on ground-level ferns and low-lying shrubs.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/ankylosauromorpha.svg"
         },
         "metriacanthosauridae": {
             "clade": "Metriacanthosauridae",
             "parent": "allosauroidea",
-            "description": "Diagnosed by a heavily built, robust skull and prominent bony ridges running along the top of the snout. These reinforced cranial structures allowed them to tackle large, armored prey, making them the undisputed apex predators of the Middle Jurassic to Early Cretaceous across Europe and Asia before being outcompeted by more advanced lineages."
+            "description": "Diagnosed by a heavily built, robust skull and prominent bony ridges running along the top of the snout. These reinforced cranial structures allowed them to tackle large, armored prey, making them the undisputed apex predators of the Middle Jurassic to Early Cretaceous across Europe and Asia before being outcompeted by more advanced lineages.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/metriacanthosauridae.svg"
         },
         "hadrosauriformes": {
             "clade": "Hadrosauriformes",
             "parent": "styracosterna",
-            "description": "Diagnosed by a distinct widening and flattening of the snout, paired with highly complex, densely packed tooth batteries. This early duck-bill shape allowed them to crop enormous mouthfuls of ground-level vegetation in a single bite, setting the stage for the most efficient plant-eaters in planetary history."
+            "description": "Diagnosed by a distinct widening and flattening of the snout, paired with highly complex, densely packed tooth batteries. This early duck-bill shape allowed them to crop enormous mouthfuls of ground-level vegetation in a single bite, setting the stage for the most efficient plant-eaters in planetary history.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/hadrosauriformes.svg"
         },
         "carcharodontosaurinae": {
             "clade": "Carcharodontosaurinae",
             "parent": "carcharodontosauridae",
-            "description": "Diagnosed by even further elongation and narrowing of the snout, coupled with a highly textured, roughened surface on the facial bones. This extensive cranial texturing likely anchored thick, keratinous scales or armor, providing crucial protection to the face while aggressively plunging their heads deep into the massive, bony carcasses of giant sauropods."
+            "description": "Diagnosed by even further elongation and narrowing of the snout, coupled with a highly textured, roughened surface on the facial bones. This extensive cranial texturing likely anchored thick, keratinous scales or armor, providing crucial protection to the face while aggressively plunging their heads deep into the massive, bony carcasses of giant sauropods.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/carcharodontosaurinae.svg"
         },
         "megaraptoridae": {
             "clade": "Megaraptoridae",
             "parent": "megaraptora",
-            "description": "Diagnosed by an extremely long, shallow snout and completely fused ankle bones. This lightweight, narrow skull structure suggests a weaker bite force compared to contemporary predators, further cementing their strict evolutionary reliance on their lethally specialized arms for hunting."
+            "description": "Diagnosed by an extremely long, shallow snout and completely fused ankle bones. This lightweight, narrow skull structure suggests a weaker bite force compared to contemporary predators, further cementing their strict evolutionary reliance on their lethally specialized arms for hunting.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/megaraptoridae.svg"
         },
         "dicraeosauridae": {
             "clade": "Dicraeosauridae",
             "parent": "flagellicaudata",
-            "description": "Diagnosed by short necks and elongated, paired neural spines. These bony extensions supported thick neck ligaments and restricted vertical head movement, confining them to low browsing."
+            "description": "Diagnosed by short necks and elongated, paired neural spines. These bony extensions supported thick neck ligaments and restricted vertical head movement, confining them to low browsing.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/dicraeosauridae.svg"
         },
         "allosauroidea": {
             "clade": "Allosauroidea",
             "parent": "avetheropoda",
-            "description": "Diagnosed by relatively narrow, lightly built skulls paired with highly flexible neck joints and jaws capable of opening to extreme angles. Instead of relying on crushing bite force, they employed a \"hatchet-bite\" feeding strategy, using their upper jaws to drive serrated teeth into prey and pull back rapidly to inflict massive, incapacitating flesh wounds."
+            "description": "Diagnosed by relatively narrow, lightly built skulls paired with highly flexible neck joints and jaws capable of opening to extreme angles. Instead of relying on crushing bite force, they employed a \"hatchet-bite\" feeding strategy, using their upper jaws to drive serrated teeth into prey and pull back rapidly to inflict massive, incapacitating flesh wounds.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/allosauroidea.svg"
         },
         "velociraptorinae": {
             "clade": "Velociraptorinae",
             "parent": "eudromaeosauria",
-            "description": "Diagnosed by an elongated, relatively narrow skull with a distinctive concave upper profile (a slightly upturned snout). Many prominent species within this group inhabited arid, desert environments, and discoveries like the famous \"Fighting Dinosaurs\" fossil show they engaged in lethal, locked-combat encounters with heavily armored prey like Protoceratops."
+            "description": "Diagnosed by an elongated, relatively narrow skull with a distinctive concave upper profile (a slightly upturned snout). Many prominent species within this group inhabited arid, desert environments, and discoveries like the famous \"Fighting Dinosaurs\" fossil show they engaged in lethal, locked-combat encounters with heavily armored prey like Protoceratops.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/velociraptorinae.svg"
         },
         "edmontosaurini": {
             "clade": "Edmontosaurini",
             "parent": "saurolophinae",
-            "description": "Diagnosed by an exceptionally long, flat, wide snout with a massive, shovel-like beak and the complete absence of any bony cranial crest. To compensate for the lack of a bony crest, perfectly preserved \"mummy\" fossils reveal they possessed a fleshy, soft-tissue comb on top of their heads\u2014like a rooster\u2014used for bright, visual herd signaling while dominating the northern floodplains."
+            "description": "Diagnosed by an exceptionally long, flat, wide snout with a massive, shovel-like beak and the complete absence of any bony cranial crest. To compensate for the lack of a bony crest, perfectly preserved \"mummy\" fossils reveal they possessed a fleshy, soft-tissue comb on top of their heads\u2014like a rooster\u2014used for bright, visual herd signaling while dominating the northern floodplains.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/edmontosaurini.svg"
         },
         "hadrosauridae": {
             "clade": "Hadrosauridae",
             "parent": "hadrosauroidea",
-            "description": "Diagnosed by incredibly complex dental batteries containing hundreds to thousands of teeth constantly grinding against each other, and a highly expanded, duck-like keratinous bill. This biological grinding mill pulverized even the toughest, most abrasive Late Cretaceous plants into mush, allowing them to rapidly extract nutrients and grow to massive sizes."
+            "description": "Diagnosed by incredibly complex dental batteries containing hundreds to thousands of teeth constantly grinding against each other, and a highly expanded, duck-like keratinous bill. This biological grinding mill pulverized even the toughest, most abrasive Late Cretaceous plants into mush, allowing them to rapidly extract nutrients and grow to massive sizes.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/hadrosauridae.svg"
         },
         "marginocephalia": {
             "clade": "Marginocephalia",
             "parent": "cerapoda",
-            "description": "Diagnosed by a unique parietal-squamosal shelf projecting completely over the back of the neck. This bony overhang initially served as a minor display structure or neck protection in basal bipedal forms, but it laid the direct evolutionary foundation for both the thick domes of pachycephalosaurs and the massive frills of the horned dinosaurs."
+            "description": "Diagnosed by a unique parietal-squamosal shelf projecting completely over the back of the neck. This bony overhang initially served as a minor display structure or neck protection in basal bipedal forms, but it laid the direct evolutionary foundation for both the thick domes of pachycephalosaurs and the massive frills of the horned dinosaurs.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/marginocephalia.svg"
         },
         "majungasaurinae": {
             "clade": "Majungasaurinae",
             "parent": "abelisauridae",
-            "description": "Diagnosed by a heavily fused, single dome-like horn on the frontal bones of the skull. Because they were geographically restricted to the island of Madagascar, this strict confinement made them the undisputed apex predators of an isolated ecosystem\u2014a dominance so absolute that matching tooth marks on their own bones provide definitive fossil evidence of cannibalism."
+            "description": "Diagnosed by a heavily fused, single dome-like horn on the frontal bones of the skull. Because they were geographically restricted to the island of Madagascar, this strict confinement made them the undisputed apex predators of an isolated ecosystem\u2014a dominance so absolute that matching tooth marks on their own bones provide definitive fossil evidence of cannibalism.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/majungasaurinae.svg"
         },
         "plateosauridae": {
             "clade": "Plateosauridae",
             "parent": "plateosauria",
-            "description": "Diagnosed by an elongated, low-slung skull and a significantly lengthened neck. This family is famous for dominating the Late Triassic fossil beds of Europe and South America, where hundreds of individuals have been found together in \"bone beds.\" These mass-accumulation sites suggest they traveled in large herds, using their specialized, mobile thumb claws to hook and pull down high-growing vegetation that smaller herbivores simply couldn't reach."
+            "description": "Diagnosed by an elongated, low-slung skull and a significantly lengthened neck. This family is famous for dominating the Late Triassic fossil beds of Europe and South America, where hundreds of individuals have been found together in \"bone beds.\" These mass-accumulation sites suggest they traveled in large herds, using their specialized, mobile thumb claws to hook and pull down high-growing vegetation that smaller herbivores simply couldn't reach.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/plateosauridae.svg"
         },
         "ceratopsia": {
             "clade": "Ceratopsia",
             "parent": "marginocephalia",
-            "description": "Diagnosed by the presence of a rostral bone\u2014a completely unique, toothless, keel-like bone at the very tip of the upper jaw. This specialized bone formed a narrow, highly efficient, parrot-like cropping beak, allowing even the earliest, small bipedal ceratopsians to cleanly slice through incredibly tough, fibrous vegetation."
+            "description": "Diagnosed by the presence of a rostral bone\u2014a completely unique, toothless, keel-like bone at the very tip of the upper jaw. This specialized bone formed a narrow, highly efficient, parrot-like cropping beak, allowing even the earliest, small bipedal ceratopsians to cleanly slice through incredibly tough, fibrous vegetation.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/ceratopsia.svg"
         },
         "pachycephalosauridae": {
             "clade": "Pachycephalosauridae",
             "parent": "marginocephalia",
-            "description": "Diagnosed by extensive thickening of the frontal and parietal bones to form a solid, dense dome, coupled with a highly reinforced, shock-absorbing neck joint. This biological helmet allowed them to engage in intense, high-impact flank-butting or head-butting contests for mating rights and territory without shattering their own braincases."
+            "description": "Diagnosed by extensive thickening of the frontal and parietal bones to form a solid, dense dome, coupled with a highly reinforced, shock-absorbing neck joint. This biological helmet allowed them to engage in intense, high-impact flank-butting or head-butting contests for mating rights and territory without shattering their own braincases.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/pachycephalosauridae.svg"
         },
         "iguanodontia": {
             "clade": "Iguanodontia",
             "parent": "cerapoda",
-            "description": "Diagnosed by the complete loss of premaxillary (front) teeth, fully replacing them with a broad, keratinous beak. This allowed them to bulk-crop vegetation much faster than earlier ornithopods, fueling their growth into massive, highly successful medium-to-large herbivores"
+            "description": "Diagnosed by the complete loss of premaxillary (front) teeth, fully replacing them with a broad, keratinous beak. This allowed them to bulk-crop vegetation much faster than earlier ornithopods, fueling their growth into massive, highly successful medium-to-large herbivores",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/iguanodontia.svg"
         },
         "neosauropoda": {
             "clade": "Neosauropoda",
             "parent": "eusauropoda",
-            "description": "Diagnosed by teeth restricted to the front of the snout and interlocking wrist and ankle bones to support weight. This split divides the tree into horizontal browsers and vertical canopy-feeders."
+            "description": "Diagnosed by teeth restricted to the front of the snout and interlocking wrist and ankle bones to support weight. This split divides the tree into horizontal browsers and vertical canopy-feeders.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/neosauropoda.svg"
         },
         "flagellicaudata": {
             "clade": "Flagellicaudata",
             "parent": "diplodocoidea",
-            "description": "Diagnosed by a tail tapering into a whip composed of up to 80 simple, cylindrical vertebrae. Because muscle attachments stopped well before the end of the tail, this terminal section functioned as a highly flexible, lightweight whip, giving them an advantage as an extended sensory tool or a fast-cracking defensive weapon."
+            "description": "Diagnosed by a tail tapering into a whip composed of up to 80 simple, cylindrical vertebrae. Because muscle attachments stopped well before the end of the tail, this terminal section functioned as a highly flexible, lightweight whip, giving them an advantage as an extended sensory tool or a fast-cracking defensive weapon.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/flagellicaudata.svg"
         },
         "stegosauridae": {
             "clade": "Stegosauridae",
             "parent": "stegosauria",
-            "description": "Diagnosed by the complete loss of front teeth (replaced entirely by a keratinous beak) and hindlimbs that are drastically longer than their forelimbs. This extreme difference in leg length forced them into a permanent, steep downward-sloping posture, biologically locking their feeding zone exclusively to low-growing ferns and cycads\u2014essentially turning them into the Mesozoic equivalent of heavy grazing rhinos."
+            "description": "Diagnosed by the complete loss of front teeth (replaced entirely by a keratinous beak) and hindlimbs that are drastically longer than their forelimbs. This extreme difference in leg length forced them into a permanent, steep downward-sloping posture, biologically locking their feeding zone exclusively to low-growing ferns and cycads\u2014essentially turning them into the Mesozoic equivalent of heavy grazing rhinos.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/stegosauridae.svg"
         },
         "therizinosauridae": {
             "clade": "Therizinosauridae",
             "parent": "maniraptora",
-            "description": "Diagnosed by massive forelimb claws (up to a meter long in some species) and a remarkably wide, pot-bellied pelvis. The widened hips accommodated a massive digestive tract needed to ferment tough plant matter, while their terrifying claws were used to hook leafy branches or intimidate predators, completely abandoning the carnivorous lifestyle of their ancestors."
+            "description": "Diagnosed by massive forelimb claws (up to a meter long in some species) and a remarkably wide, pot-bellied pelvis. The widened hips accommodated a massive digestive tract needed to ferment tough plant matter, while their terrifying claws were used to hook leafy branches or intimidate predators, completely abandoning the carnivorous lifestyle of their ancestors.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/therizinosauridae.svg"
         },
         "ceratopsoidea": {
             "clade": "Ceratopsoidea",
             "parent": "coronosauria",
-            "description": "Diagnosed by a massive increase in overall body size and limb robusticity, marking a strict evolutionary shift to an obligate quadrupedal posture. As their heads became drastically heavier with larger horns and frills, they were forced to drop down to all fours permanently, abandoning speed and relying entirely on heavy physical defense and herd behavior to survive."
+            "description": "Diagnosed by a massive increase in overall body size and limb robusticity, marking a strict evolutionary shift to an obligate quadrupedal posture. As their heads became drastically heavier with larger horns and frills, they were forced to drop down to all fours permanently, abandoning speed and relying entirely on heavy physical defense and herd behavior to survive.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/ceratopsoidea.svg"
         },
         "stegosauria": {
             "clade": "Stegosauria",
             "parent": "eurypoda",
-            "description": "Diagnosed by parasagittal rows (running parallel to the spine) of osteoderms that are heavily modified into tall plates and sharp spikes. While the lethal tail spikes (the \"thagomizer\") provided devastating active defense against predators like Allosaurus, the highly vascularized back plates likely doubled as massive thermal regulators or vivid, blood-flushed display structures."
+            "description": "Diagnosed by parasagittal rows (running parallel to the spine) of osteoderms that are heavily modified into tall plates and sharp spikes. While the lethal tail spikes (the \"thagomizer\") provided devastating active defense against predators like Allosaurus, the highly vascularized back plates likely doubled as massive thermal regulators or vivid, blood-flushed display structures.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/stegosauria.svg"
         },
         "stegosaurinae": {
             "clade": "Stegosaurinae",
             "parent": "stegosauridae",
-            "description": "Diagnosed by massive, alternating (rather than strictly paired) dorsal plates and a distinct loss of the long shoulder spikes seen in earlier relatives. By shifting to massive, alternating plates, they maximized their visual silhouette to intimidate rivals and predators from a distance, prioritizing sheer size and display over carrying extra armor on their sides."
+            "description": "Diagnosed by massive, alternating (rather than strictly paired) dorsal plates and a distinct loss of the long shoulder spikes seen in earlier relatives. By shifting to massive, alternating plates, they maximized their visual silhouette to intimidate rivals and predators from a distance, prioritizing sheer size and display over carrying extra armor on their sides.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/stegosaurinae.svg"
         },
         "sauropoda": {
             "clade": "Sauropoda",
             "parent": "massopoda",
-            "description": "Diagnosed by a transition to 'graviportal' or pillar-like limbs, shifting their legs directly under their bodies to support enormous weight, similar to modern elephants. To lighten their massive frames, they evolved 'hollow' neck vertebrae filled with air sacs\u2014an anatomical trick that allowed them to reach lengths and weights that no other land animal has ever matched."
+            "description": "Diagnosed by a transition to 'graviportal' or pillar-like limbs, shifting their legs directly under their bodies to support enormous weight, similar to modern elephants. To lighten their massive frames, they evolved 'hollow' neck vertebrae filled with air sacs\u2014an anatomical trick that allowed them to reach lengths and weights that no other land animal has ever matched.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/sauropoda.svg"
         },
         "oviraptorosauria": {
             "clade": "Oviraptorosauria",
             "parent": "maniraptora",
-            "description": "Diagnosed by shortened, deep skulls and highly specialized, toothless jaws often equipped with two bony prongs on the roof of the mouth. This reinforced, crushing beak structure allowed them to easily crack open hard food sources like seeds, nuts, or hard-shelled mollusks."
+            "description": "Diagnosed by shortened, deep skulls and highly specialized, toothless jaws often equipped with two bony prongs on the roof of the mouth. This reinforced, crushing beak structure allowed them to easily crack open hard food sources like seeds, nuts, or hard-shelled mollusks.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/oviraptorosauria.svg"
         },
         "eucentrosaura": {
             "clade": "Eucentrosaura",
             "parent": "centrosaurinae",
-            "description": "Diagnosed by highly modified, complex epiparietal bones (the spikes along the top edge of the frill) that frequently curled inward or pointed directly downward over the frill openings. These bizarrely hooked spikes were completely useless in combat, serving strictly as unmistakable visual identifiers to tell their massive herds apart from closely related neighboring species."
+            "description": "Diagnosed by highly modified, complex epiparietal bones (the spikes along the top edge of the frill) that frequently curled inward or pointed directly downward over the frill openings. These bizarrely hooked spikes were completely useless in combat, serving strictly as unmistakable visual identifiers to tell their massive herds apart from closely related neighboring species.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/eucentrosaura.svg"
         },
         "tetanurae": {
             "clade": "Tetanurae",
             "parent": "averostra",
-            "description": "Diagnosed by the reduction of the hand to three functional digits and a highly specialized tail structure with overlapping bony processes. This stiffened tail acted as a dynamic counterbalance\u2014functioning much like a tightrope walker's pole\u2014providing essential stability during high-speed, agile turns. Because this massive evolutionary split encompasses all remaining theropods, it serves as the direct ancestral lineage for every bird alive today."
+            "description": "Diagnosed by the reduction of the hand to three functional digits and a highly specialized tail structure with overlapping bony processes. This stiffened tail acted as a dynamic counterbalance\u2014functioning much like a tightrope walker's pole\u2014providing essential stability during high-speed, agile turns. Because this massive evolutionary split encompasses all remaining theropods, it serves as the direct ancestral lineage for every bird alive today.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/tetanurae.svg"
         },
         "styracosterna": {
             "clade": "Styracosterna",
             "parent": "ankylopollexia",
-            "description": "Diagnosed by a significantly enlarged, hatchet-shaped sternum and a noticeable increase in overall body size. This broadened chest cavity supported an expanded, highly efficient digestive system, allowing them to process vast amounts of low-quality forage and physically dominate their ecosystems through sheer bulk."
+            "description": "Diagnosed by a significantly enlarged, hatchet-shaped sternum and a noticeable increase in overall body size. This broadened chest cavity supported an expanded, highly efficient digestive system, allowing them to process vast amounts of low-quality forage and physically dominate their ecosystems through sheer bulk.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/styracosterna.svg"
         },
         "tyrannosauridae": {
             "clade": "Tyrannosauridae",
             "parent": "eutyrannosauria",
-            "description": "Diagnosed by a dramatically widened back of the skull (creating forward-facing eyes) and the strict reduction of the hand to only two functional fingers. The widened skull provided exceptional binocular vision for precise depth perception, while simultaneously anchoring immense jaw muscles capable of biting straight through solid bone."
+            "description": "Diagnosed by a dramatically widened back of the skull (creating forward-facing eyes) and the strict reduction of the hand to only two functional fingers. The widened skull provided exceptional binocular vision for precise depth perception, while simultaneously anchoring immense jaw muscles capable of biting straight through solid bone.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/tyrannosauridae.svg"
         },
         "tyrannosauroidea": {
             "clade": "Tyrannosauroidea",
             "parent": "coelurosauria",
-            "description": "Diagnosed by fused nasal bones and premaxillary (front) teeth that are D-shaped or U-shaped in cross-section. These fused nasals structurally reinforced the top of the snout, marking the evolutionary beginning of a major shift from slashing bites to crushing, bone-snapping bite forces."
+            "description": "Diagnosed by fused nasal bones and premaxillary (front) teeth that are D-shaped or U-shaped in cross-section. These fused nasals structurally reinforced the top of the snout, marking the evolutionary beginning of a major shift from slashing bites to crushing, bone-snapping bite forces.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/tyrannosauroidea.svg"
         },
         "ornithomimidae": {
             "clade": "Ornithomimidae",
             "parent": "ornithomimosauria",
-            "description": "Diagnosed by completely toothless jaws and metacarpals (hand bones) of roughly equal length. These uniform hand bones formed a specialized, elongated hook-like structure, likely used to pull down branches for feeding in their highly successful herbivorous or omnivorous lifestyle."
+            "description": "Diagnosed by completely toothless jaws and metacarpals (hand bones) of roughly equal length. These uniform hand bones formed a specialized, elongated hook-like structure, likely used to pull down branches for feeding in their highly successful herbivorous or omnivorous lifestyle.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/ornithomimidae.svg"
         },
         "eusaurischia": {
             "clade": "Eusaurischia",
             "parent": "saurischia",
-            "description": "Diagnosed by a crucial anatomical shift in the hand, where the second finger became the longest digit. This specialized grasping ability laid the physical groundwork for both the theropods and the early sauropodomorphs."
+            "description": "Diagnosed by a crucial anatomical shift in the hand, where the second finger became the longest digit. This specialized grasping ability laid the physical groundwork for both the theropods and the early sauropodomorphs.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/eusaurischia.svg"
         },
         "avialae": {
             "clade": "Avialae",
             "parent": "paraves",
-            "description": "Diagnosed by forelimbs that are distinctly longer than the hindlimbs, and the fusion of the wrist and hand bones into a single structure (the carpometacarpus). This radical anatomical restructuring turned the grasping hand into a rigid, unified airfoil support, permanently trading the ability to shred prey for the mechanics of powered flight."
+            "description": "Diagnosed by forelimbs that are distinctly longer than the hindlimbs, and the fusion of the wrist and hand bones into a single structure (the carpometacarpus). This radical anatomical restructuring turned the grasping hand into a rigid, unified airfoil support, permanently trading the ability to shred prey for the mechanics of powered flight.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/avialae.svg"
         },
         "diplodocidae": {
             "clade": "Diplodocidae",
             "parent": "flagellicaudata",
-            "description": "Diagnosed by the extreme elongation of both cervical and caudal vertebrae. Their nasal openings migrated completely to the apex of the skull, sitting directly above the eyes. This dorsal placement kept their airway completely clear, allowing them to breathe freely without inhaling dust, dirt, or water while their snouts were continuously buried in low-lying vegetation."
+            "description": "Diagnosed by the extreme elongation of both cervical and caudal vertebrae. Their nasal openings migrated completely to the apex of the skull, sitting directly above the eyes. This dorsal placement kept their airway completely clear, allowing them to breathe freely without inhaling dust, dirt, or water while their snouts were continuously buried in low-lying vegetation.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/diplodocidae.svg"
         },
         "eusauropoda": {
             "clade": "Eusauropoda",
             "parent": "sauropoda",
-            "description": "Diagnosed by a radical restructuring of the hands and skull. Their front digits fused into a rigid, vertical semi-circle (resembling a horseshoe) that functioned as a solid weight-bearing pillar, losing almost all individual flexibility. Simultaneously, their nasal openings migrated backward from the tip of the snout toward the top of the skull, a definitive skeletal marker for all advanced long-necks."
+            "description": "Diagnosed by a radical restructuring of the hands and skull. Their front digits fused into a rigid, vertical semi-circle (resembling a horseshoe) that functioned as a solid weight-bearing pillar, losing almost all individual flexibility. Simultaneously, their nasal openings migrated backward from the tip of the snout toward the top of the skull, a definitive skeletal marker for all advanced long-necks.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/eusauropoda.svg"
         },
         "megalosauria": {
             "clade": "Megalosauria",
             "parent": "tetanurae",
-            "description": "Diagnosed by an elongated, relatively narrow skull and robust forelimbs equipped with large, hooked claws. This combination of powerful arms and lengthened jaws allowed them to transition from targeting small, agile prey to grappling and subduing much larger, slower-moving herbivores."
+            "description": "Diagnosed by an elongated, relatively narrow skull and robust forelimbs equipped with large, hooked claws. This combination of powerful arms and lengthened jaws allowed them to transition from targeting small, agile prey to grappling and subduing much larger, slower-moving herbivores.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/megalosauria.svg"
         },
         "saurischia": {
             "clade": "Saurischia",
             "parent": "dinosauria",
-            "description": "Diagnosed by a three-pronged pelvic structure, this lineage produced the largest land animals and the most fearsome land predators in history. Although they are the \"lizard-hipped\" dinosaurs, the advanced raptor clades and modern birds independently re-evolved \"bird hips,\" making the name a huge historical irony."
+            "description": "Diagnosed by a three-pronged pelvic structure, this lineage produced the largest land animals and the most fearsome land predators in history. Although they are the \"lizard-hipped\" dinosaurs, the advanced raptor clades and modern birds independently re-evolved \"bird hips,\" making the name a huge historical irony.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/saurischia.svg"
         },
         "saurolophinae": {
             "clade": "Saurolophinae",
             "parent": "euhadrosauria",
-            "description": "Diagnosed by a solid, bony crest on the skull (or a complete lack of one) and a widened, extremely broad pelvic basin. Without the hollow acoustic chambers of their relatives, they likely relied on inflatable fleshy nasal sacs for vocalization and display, while their broadened hips supported immense gut capacities for digesting tough, fibrous conifers."
+            "description": "Diagnosed by a solid, bony crest on the skull (or a complete lack of one) and a widened, extremely broad pelvic basin. Without the hollow acoustic chambers of their relatives, they likely relied on inflatable fleshy nasal sacs for vocalization and display, while their broadened hips supported immense gut capacities for digesting tough, fibrous conifers.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/saurolophinae.svg"
         },
         "ceratopsidae": {
             "clade": "Ceratopsidae",
             "parent": "ceratopsoidea",
-            "description": "Diagnosed by the presence of large, well-developed facial horns (specifically postorbital brow horns or nasal horns) and complex, double-rooted cheek teeth packed into vertical dental batteries. Unlike the duck-billed hadrosaurs that ground their food into paste, ceratopsids used their teeth like biological shears to slice tough, woody browse into short segments, allowing these two massive herbivore groups to completely avoid competing for the same food."
+            "description": "Diagnosed by the presence of large, well-developed facial horns (specifically postorbital brow horns or nasal horns) and complex, double-rooted cheek teeth packed into vertical dental batteries. Unlike the duck-billed hadrosaurs that ground their food into paste, ceratopsids used their teeth like biological shears to slice tough, woody browse into short segments, allowing these two massive herbivore groups to completely avoid competing for the same food.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/ceratopsidae.svg"
         },
         "neornithischia": {
             "clade": "Neornithischia",
             "parent": "genasauria",
-            "description": "Diagnosed by an asymmetrical distribution of enamel on their cheek teeth\u2014thicker on the inside of the lower teeth and the outside of the upper teeth. As they chewed, this uneven thickness caused the teeth to wear down at different rates, creating perpetually self-sharpening ridges that allowed them to effortlessly slice through tough, fibrous vegetation."
+            "description": "Diagnosed by an asymmetrical distribution of enamel on their cheek teeth\u2014thicker on the inside of the lower teeth and the outside of the upper teeth. As they chewed, this uneven thickness caused the teeth to wear down at different rates, creating perpetually self-sharpening ridges that allowed them to effortlessly slice through tough, fibrous vegetation.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/neornithischia.svg"
         },
         "maniraptoriformes": {
             "clade": "Maniraptoriformes",
             "parent": "coelurosauria",
-            "description": "Diagnosed by a noticeably smaller skull relative to body size and highly enlarged brains. This increased neuro-processing power supported complex sensory adaptations like excellent vision and hearing, which were critical for tracking evasive prey or managing the varied diet of omnivory."
+            "description": "Diagnosed by a noticeably smaller skull relative to body size and highly enlarged brains. This increased neuro-processing power supported complex sensory adaptations like excellent vision and hearing, which were critical for tracking evasive prey or managing the varied diet of omnivory.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/maniraptoriformes.svg"
         },
         "spinosaurinae": {
             "clade": "Spinosaurinae",
             "parent": "spinosauridae",
-            "description": "Diagnosed by completely unserrated teeth, highly retracted nasal openings positioned far back on the skull, and exceptionally dense, solid limb bones. This heavy bone density acted as biological ballast, allowing them to physically submerge and actively pursue aquatic prey underwater much like modern penguins or hippos."
+            "description": "Diagnosed by completely unserrated teeth, highly retracted nasal openings positioned far back on the skull, and exceptionally dense, solid limb bones. This heavy bone density acted as biological ballast, allowing them to physically submerge and actively pursue aquatic prey underwater much like modern penguins or hippos.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/spinosaurinae.svg"
         },
         "centrosaurini": {
             "clade": "Centrosaurini",
             "parent": "eucentrosaura",
-            "description": "Diagnosed by the development of bizarre, forward-curving hooks on the back of the frill (the \"P1\" osteoderms) and a straight, elongated nasal horn. These specialized headgear arrangements represent the absolute peak of centrosaurine visual display, making them the most visually distinct and heavily ornamented herbivores of the Campanian age before they were replaced by heavier lineages."
+            "description": "Diagnosed by the development of bizarre, forward-curving hooks on the back of the frill (the \"P1\" osteoderms) and a straight, elongated nasal horn. These specialized headgear arrangements represent the absolute peak of centrosaurine visual display, making them the most visually distinct and heavily ornamented herbivores of the Campanian age before they were replaced by heavier lineages.",
+            "image": "https://alexjercan.github.io/metajurassic-images/clades/centrosaurini.svg"
         }
     }
 }
