@@ -15,9 +15,16 @@ export function createSpeciesCard(
     card.className = `museum-card${extraClasses ? ` ${extraClasses}` : ""}`;
 
     const iconSrc = species.icon || defaultIcon;
-    const imageHtml = species.image
-        ? `<img src="${species.image}" alt="${species.species}">`
-        : "[ Hologram Render ]";
+    let imageHtml = "";
+    if (species.image && species.image.endsWith(".svg")) {
+        imageHtml = species.image
+            ? `<img class="svg-img" src="${species.image}" alt="${species.species}">`
+            : "[ Hologram Render ]";
+    } else {
+        imageHtml = species.image
+            ? `<img src="${species.image}" alt="${species.species}">`
+            : "[ Hologram Render ]";
+    }
 
     card.innerHTML = `
         <div class="museum-card-inner">
@@ -54,9 +61,14 @@ export function createCladeCard(
     const card = document.createElement("div");
     card.className = `museum-card${extraClasses ? ` ${extraClasses}` : ""}`;
 
-    const imageHtml = clade.image
-        ? `<img src="${clade.image}" alt="${clade.name}">`
-        : "[ Hologram Render ]";
+    let imageHtml = "";
+    if (clade.image && clade.image.endsWith(".svg")) {
+        imageHtml = `<img class="svg-img" src="${clade.image}" alt="${clade.name}">`;
+    } else if (clade.image) {
+        imageHtml = `<img src="${clade.image}" alt="${clade.name}">`;
+    } else {
+        imageHtml = "[ No Image ]";
+    }
 
     card.innerHTML = `
         <div class="museum-card-inner">
