@@ -1088,6 +1088,10 @@ footer a + a::before {
         box-shadow: -5px 0 20px rgba(0, 0, 0, 0.8);
     }
 
+    .ad-container {
+        display: none;
+    }
+
     .arena-wrapper.panel-open {
         margin-right: 0;
     }
