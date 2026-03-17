@@ -150,6 +150,20 @@ main {
     width: 100%;
 }
 
+.ad-container {
+    width: 200px;
+    background: #1a1f29;
+    border: 1px solid var(--glass-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--amber-glow);
+    font-size: 0.9rem;
+    text-align: center;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
 .arena-wrapper {
     flex-grow: 1;
     display: flex;
