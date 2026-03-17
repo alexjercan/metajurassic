@@ -49,7 +49,6 @@ export function createSpeciesCard(
  */
 export function createCladeCard(
     clade: Clade,
-    parent?: Clade | null,
     extraClasses: string = ""
 ): HTMLElement {
     const card = document.createElement("div");
@@ -66,9 +65,6 @@ export function createCladeCard(
             </div>
             <div class="card-image-area">${imageHtml}</div>
             <div class="card-content">
-                <div class="card-stats">
-                    <strong>Parent:</strong> <span>${parent ? parent.name : "—"}</span>
-                </div>
                 <div class="card-fact">
                     <strong>Description:</strong> <span>${clade.description || "No description."}</span>
                 </div>

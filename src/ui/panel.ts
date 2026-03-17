@@ -50,8 +50,7 @@ export function renderLastGuess(
         if (!bestCladeId) return;
         const clade = data.findCladeById(bestCladeId);
         if (!clade) return;
-        const parent = clade.parent ? data.findCladeById(clade.parent) : null;
-        renderCladeCard(clade, parent || undefined);
+        renderCladeCard(clade);
     }
     openPanel();
 }
@@ -65,11 +64,8 @@ export function renderSpeciesCard(
     mountCard(cardContainer, card);
 }
 
-export function renderCladeCard(
-    clade: import("../types").Clade,
-    parent?: import("../types").Clade | null
-) {
+export function renderCladeCard(clade: import("../types").Clade) {
     if (!cardContainer) return;
-    const card = createCladeCard(clade, parent);
+    const card = createCladeCard(clade);
     mountCard(cardContainer, card);
 }

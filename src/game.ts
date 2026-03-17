@@ -140,10 +140,7 @@ export function initGame({ data, state, saveState }: GameOptions) {
                     } else {
                         const clade = data.findCladeById(node.cladeId);
                         if (!clade) return;
-                        const parent = clade.parent
-                            ? data.findCladeById(clade.parent)
-                            : null;
-                        renderCladeCard(clade, parent || undefined);
+                        renderCladeCard(clade);
                     }
                     openPanel();
                 },

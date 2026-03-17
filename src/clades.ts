@@ -12,8 +12,7 @@ async function main() {
     );
 
     for (const clade of cladeList) {
-        const parent = clade.parent ? data.findCladeById(clade.parent) : null;
-        const card = createCladeCard(clade, parent, "archive-card");
+        const card = createCladeCard(clade, "archive-card");
         carousel.appendChild(card);
         shrinkCardTitle(card);
     }
