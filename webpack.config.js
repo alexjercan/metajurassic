@@ -53,6 +53,9 @@ const config = {
         new CopyPlugin({
             patterns: [{ from: "src/jurassic", to: "jurassic" }],
         }),
+        new CopyPlugin({
+            patterns: [{ from: "src/favicon.svg", to: "favicon.svg" }],
+        }),
     ],
     resolve: {
         extensions: [".ts", ".tsx", ".js", ".wasm"],
