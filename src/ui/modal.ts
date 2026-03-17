@@ -1,4 +1,5 @@
 import confetti from "canvas-confetti";
+import shareIcon from "../assets/share.svg";
 import { MAX_GUESSES } from "../constants";
 
 const overlay = document.getElementById("modal-overlay");
@@ -24,6 +25,14 @@ overlay?.addEventListener("click", (e) => {
 
 // Close via the OK button
 modalCloseBtn?.addEventListener("click", () => hideModal());
+
+// Add the share SVG to the share button in the modal
+const modalShareBtn = document.getElementById("modal-share-btn");
+const shareBtnIcon = modalShareBtn?.querySelector("img");
+if (shareBtnIcon) {
+    shareBtnIcon.src = shareIcon;
+    shareBtnIcon.alt = "Share";
+}
 
 export function showWinModal(speciesName: string, guessCount: number) {
     if (modalIcon) modalIcon.textContent = "🏆";

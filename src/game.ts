@@ -1,5 +1,5 @@
 import { GameData } from "./gameData";
-import { GameState } from "./gameState";
+import { formatGameStateForSharing, GameState } from "./gameState";
 import { setupAutocomplete } from "./ui";
 import {
     renderLastGuess,
@@ -38,6 +38,7 @@ export function initGame({ data, state, saveState }: GameOptions) {
         "open-panel"
     ) as HTMLButtonElement;
     const hintBox = document.getElementById("hint-box") as HTMLDivElement;
+    const modalShareBtn = document.getElementById("modal-share-btn") as HTMLButtonElement;
 
     const speciesNames = data.species.map((s) => s.species);
 
@@ -198,6 +199,27 @@ export function initGame({ data, state, saveState }: GameOptions) {
             if (!guess) return;
             submitGuess(guess);
         }
+    });
+
+    modalShareBtn?.addEventListener("click", () => {
+        const shareData = formatGameStateForSharing(state);
+        navigator.clipboard
+            .writeText(shareData)
+            .then(() => {
+                // Change the text to "Copied!" for 2 seconds, then revert back
+                const shareBtnSpan = modalShareBtn.querySelector("span");
+                if (shareBtnSpan) {
+                    const originalText = shareBtnSpan.textContent;
+                    shareBtnSpan.textContent = "Copied!";
+                    setTimeout(() => {
+                        shareBtnSpan.textContent = originalText;
+                    }, 2000);
+                }
+            })
+            .catch((err) => {
+                console.error("Failed to copy game state: ", err);
+                alert("Failed to copy game state. Please try again.");
+            });
     });
 
     updateUI();

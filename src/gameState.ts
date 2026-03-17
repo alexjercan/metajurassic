@@ -141,3 +141,22 @@ export class GameState {
         return { isCorrect: false, lca: lcaClade };
     }
 }
+
+export function formatGameStateForSharing(state: GameState): string {
+    const puzzleId = formatPuzzleId(state.gameData, getTodaySeed());
+    const guessCount = state.numberOfGuesses();
+
+    if (state.isWin()) {
+        return `✅ Dinosaur ${puzzleId} 🦖\n` +
+            `I figured it out in ${guessCount} guesses!\n` +
+            `${"🟩".repeat(guessCount)}\n🔥 ${guessCount} | Avg. Guesses: 5.2\n\n` +
+            `https://alexjercan.github.io/metajurassic\n#metajurassic`;
+    } else if (state.isLoss()) {
+        return `💀 Dinosaur ${puzzleId} 🦖\n` +
+            `I couldn't figure it out in ${MAX_GUESSES} guesses.\n` +
+            `${"⬛".repeat(MAX_GUESSES)}\n🔥 ${MAX_GUESSES} | Avg. Guesses: 5.2\n\n` +
+            `https://alexjercan.github.io/metajurassic\n#metajurassic`;
+    } else {
+        throw new Error("Game is not over yet, cannot share results");
+    }
+}
