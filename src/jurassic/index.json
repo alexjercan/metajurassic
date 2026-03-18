@@ -9,7 +9,9 @@
             "weight": "700 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/ceratosaurus.png",
             "description": "Standing out from every other Jurassic hunter, it is the only large meat-eating dinosaur known to have a rugged ridge of bony armor plates running straight down its spine like a modern crocodile.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/ceratosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/ceratosauria.svg"
+            ]
         },
         "saltriovenator": {
             "species": "Saltriovenator",
@@ -20,7 +22,9 @@
             "weight": "1,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/saltriovenator.png",
             "description": "Discovered in Italy, it is the oldest known large-bodied ceratosaur, proving that meat-eating dinosaurs evolved into massive, multi-ton giants much earlier than scientists originally thought.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/saltriovenator.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/ceratosauria.svg"
+            ]
         },
         "proceratosaurus": {
             "species": "Proceratosaurus",
@@ -31,7 +35,9 @@
             "weight": "40 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/proceratosaurus.png",
             "description": "Originally mistaken for an ancestor of Ceratosaurus, it is actually the earliest known member of the tyrannosaur lineage.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/proceratosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/proceratosauridae.svg"
+            ]
         },
         "fukuiraptor": {
             "species": "Fukuiraptor",
@@ -42,7 +48,9 @@
             "weight": "300 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/fukuiraptor.png",
             "description": "The first carnivorous dinosaur found in Japan; it was initially mistaken for a dromaeosaurid due to its large, curved hand claws.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/fukuiraptor.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/megaraptora.svg"
+            ]
         },
         "saltasaurus": {
             "species": "Saltasaurus",
@@ -53,7 +61,9 @@
             "weight": "2,500 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/saltasaurus.png",
             "description": "The first sauropod found with unmistakable armor; its back was covered in thousands of small, bony studs and larger plates.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/saltasaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/titanosauria.svg"
+            ]
         },
         "edmontosaurus": {
             "species": "Edmontosaurus",
@@ -64,7 +74,9 @@
             "weight": "4,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/edmontosaurus.png",
             "description": "An incredibly rare, beautifully preserved \"dinosaur mummy\" revealed that this massive plant-eater actually sported a squishy, fleshy comb on the top of its head, exactly like a modern rooster!",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/edmontosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/edmontosaurini.svg"
+            ]
         },
         "balaur": {
             "species": "Balaur",
@@ -75,7 +87,9 @@
             "weight": "20 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/balaur.png",
             "description": "Named after a multi-headed dragon from Romanian folklore, it was a bizarre island-dweller that incredibly evolved two deadly sickle claws on each foot instead of the standard one.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/balaur.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/paraves.svg"
+            ]
         },
         "yutyrannus": {
             "species": "Yutyrannus",
@@ -86,7 +100,9 @@
             "weight": "1,400 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/yutyrannus.png",
             "description": "The largest dinosaur with direct evidence of feathers; it lived in a cold climate and likely used its \"coat\" to keep warm.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/yutyrannus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/pantyrannosauria.svg"
+            ]
         },
         "pachyrhinosaurus": {
             "species": "Pachyrhinosaurus",
@@ -97,7 +113,9 @@
             "weight": "4,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/pachyrhinosaurus.png",
             "description": "Instead of a traditional horn, it grew a massive, flat, \"bony boss\" on its nose that was up to 18 centimeters thick\u2014perfect for brutal head-shoving matches during the mating season.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/pachyrhinosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/eucentrosaura.svg"
+            ]
         },
         "nodosaurus": {
             "species": "Nodosaurus",
@@ -108,7 +126,9 @@
             "weight": "2,500 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/nodosaurus.png",
             "description": "It completely lacked the famous, heavy tail club of its later cousins, relying entirely on dropping low to the ground to present an impenetrable, spiky shield to attackers.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/nodosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/nodosaurinae.svg"
+            ]
         },
         "rajasaurus": {
             "species": "Rajasaurus",
@@ -119,7 +139,9 @@
             "weight": "3,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/rajasaurus.png",
             "description": "Identified by a low, rounded horn on its forehead, this predator was the dominant hunter in what is now modern-day India.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/rajasaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/majungasaurinae.svg"
+            ]
         },
         "stegosaurus": {
             "species": "Stegosaurus",
@@ -130,7 +152,9 @@
             "weight": "5,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/stegosaurus.png",
             "description": "Despite being the size of a bus, its brain was notoriously tiny\u2014about the size of a hot dog\u2014leading to a funny myth that it had a \"second brain\" in its butt to help control its legs!",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/stegosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/stegosaurinae.svg"
+            ]
         },
         "australovenator": {
             "species": "Australovenator",
@@ -141,7 +165,9 @@
             "weight": "500 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/australovenator.png",
             "description": "Nicknamed \"Banjo,\" it is the most complete predatory dinosaur found in Australia and was a fast, lethal hunter of the Outback.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/australovenator.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/megaraptoridae.svg"
+            ]
         },
         "megalosaurus": {
             "species": "Megalosaurus",
@@ -152,7 +178,9 @@
             "weight": "700 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/megalosaurus.png",
             "description": "The first dinosaur ever to be scientifically described and named, decades before the word \"Dinosaur\" was even coined.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/megalosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/megalosaurinae.svg"
+            ]
         },
         "masiakasaurus": {
             "species": "Masiakasaurus",
@@ -163,7 +191,9 @@
             "weight": "20 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/masiakasaurus.png",
             "description": "Its front teeth projected forward rather than downward, a unique specialization likely used for snagging small, slippery fish or insects.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/masiakasaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/abelisauroidea.svg"
+            ]
         },
         "australotitan": {
             "species": "Australotitan",
@@ -174,7 +204,9 @@
             "weight": "65,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/australotitan.png",
             "description": "Nicknamed \"Cooper,\" it is the largest dinosaur ever found in Australia and occupied a similar niche to South American titans.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/australotitan.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/titanosauria.svg"
+            ]
         },
         "sinosauropteryx": {
             "species": "Sinosauropteryx",
@@ -185,7 +217,9 @@
             "weight": "1 kilogram",
             "image": "https://alexjercan.github.io/metajurassic-images/species/sinosauropteryx.png",
             "description": "The first dinosaur found with preserved evidence of color; it had a ginger-colored body and a striped, ringed tail.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/sinosauropteryx.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/coelurosauria.svg"
+            ]
         },
         "dryosaurus": {
             "species": "Dryosaurus",
@@ -196,7 +230,9 @@
             "weight": "90 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/dryosaurus.png",
             "description": "A very fast, gazelle-like herbivore with large eyes and long legs, relying entirely on flight over fight to escape predators.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/dryosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/dryomorpha.svg"
+            ]
         },
         "nanuqsaurus": {
             "species": "Nanuqsaurus",
@@ -207,7 +243,9 @@
             "weight": "1,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/nanuqsaurus.png",
             "description": "A \"pygmy\" tyrannosaur that lived in the Arctic Circle; it likely possessed a thick coat of feathers to survive the long, dark polar winters.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/nanuqsaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/tyrannosaurinae.svg"
+            ]
         },
         "maip": {
             "species": "Maip",
@@ -218,7 +256,9 @@
             "weight": "5,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/maip.png",
             "description": "Named after an evil spirit from Tehuelche mythology, it is the largest megaraptoran known, possessing massive claws for disemboweling prey.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/maip.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/megaraptoridae.svg"
+            ]
         },
         "struthiomimus": {
             "species": "Struthiomimus",
@@ -229,7 +269,9 @@
             "weight": "150 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/struthiomimus.png",
             "description": "Because it possessed a hard, toothless beak instead of the sharp teeth of its ancestors, scientists believe it was a highly opportunistic omnivore\u2014using its blinding speed to dart around snatching up bugs, lizards, plants, and even unguarded dinosaur eggs.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/struthiomimus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/ornithomimidae.svg"
+            ]
         },
         "rinchenia": {
             "species": "Rinchenia",
@@ -240,7 +282,9 @@
             "weight": "40 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/rinchenia.png",
             "description": "Originally classified as just another species of Oviraptor, it earned its own distinct identity thanks to the incredibly high, fragile, helmet-like dome resting right on top of its skull.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/rinchenia.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/oviraptoridae.svg"
+            ]
         },
         "microraptor": {
             "species": "Microraptor",
@@ -251,7 +295,9 @@
             "weight": "1 kilogram",
             "image": "https://alexjercan.github.io/metajurassic-images/species/microraptor.png",
             "description": "Taking to the skies long before true birds perfected flight, this tiny pioneer actually had four distinct wings, using long flight feathers on both its arms and its legs to glide through the forest canopy.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/microraptor.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/dromaeosauridae.svg"
+            ]
         },
         "afrovenator": {
             "species": "Afrovenator",
@@ -262,7 +308,9 @@
             "weight": "1,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/afrovenator.png",
             "description": "A slender, fast-moving megalosaurid that occupied the apex niche in North Africa before the rise of the carcharodontosaurids.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/afrovenator.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/megalosauridae.svg"
+            ]
         },
         "apatosaurus": {
             "species": "Apatosaurus",
@@ -273,7 +321,9 @@
             "weight": "22,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/apatosaurus.png",
             "description": "For decades, museum mounts of this famous giant were mistakenly fitted with the entirely wrong head! Early scientists originally gave it the blocky, boxy skull of a Camarasaurus before finally realizing it actually had a slender, horse-like face.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/apatosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/apatosaurinae.svg"
+            ]
         },
         "austroraptor": {
             "species": "Austroraptor",
@@ -284,7 +334,9 @@
             "weight": "300 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/austroraptor.png",
             "description": "Completely defying the classic raptor look, this massive South American hunter had bizarrely short arms and a long, crocodile-like snout packed with cone-shaped teeth.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/austroraptor.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/unenlagiina.svg"
+            ]
         },
         "torosaurus": {
             "species": "Torosaurus",
@@ -295,7 +347,9 @@
             "weight": "6,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/torosaurus.png",
             "description": "For a few years, a wild theory suggested that Torosaurus was actually just a very old, \"elderly\" Triceratops whose frill had stretched out and grown holes, but most scientists now agree they are two separate dinosaurs.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/torosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/triceratopsini.svg"
+            ]
         },
         "tuojiangosaurus": {
             "species": "Tuojiangosaurus",
@@ -306,7 +360,9 @@
             "weight": "2,800 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/tuojiangosaurus.png",
             "description": "The best-preserved stegosaur ever found in Asia; its skeleton was so complete that it gave scientists their very first perfect look at how Chinese stegosaurs differed from American ones.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/tuojiangosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/stegosauridae.svg"
+            ]
         },
         "daspletosaurus": {
             "species": "Daspletosaurus",
@@ -317,7 +373,9 @@
             "weight": "3,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/daspletosaurus.png",
             "description": "Sharing its habitat directly with Gorgosaurus, it likely avoided competition by acting as the heavy \"bruiser\" of the ecosystem, specializing in taking down heavily armored horned dinosaurs while its cousin chased faster prey.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/daspletosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/tyrannosaurinae.svg"
+            ]
         },
         "styracosaurus": {
             "species": "Styracosaurus",
@@ -328,7 +386,9 @@
             "weight": "2,700 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/styracosaurus.png",
             "description": "Features one of the most spectacular frills in the fossil record, lined with 6 long spikes and a massive 60-centimeter nose horn.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/styracosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/centrosaurini.svg"
+            ]
         },
         "chasmosaurus": {
             "species": "Chasmosaurus",
@@ -339,7 +399,9 @@
             "weight": "2,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/chasmosaurus.png",
             "description": "Its name means \"Opening Lizard\" because its massive frill was mostly hollow air\u2014it was essentially a giant, skin-covered frame used to make the animal look much larger than it actually was.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/chasmosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/chasmosaurinae.svg"
+            ]
         },
         "zuniceratops": {
             "species": "Zuniceratops",
@@ -350,7 +412,9 @@
             "weight": "150 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/zuniceratops.png",
             "description": "This dinosaur was discovered by an 8-year-old boy in New Mexico! It turned out to be a massive find, proving that horned dinosaurs evolved their iconic brow horns much earlier than anyone thought.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/zuniceratops.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/ceratopsoidea.svg"
+            ]
         },
         "sinosaurus": {
             "species": "Sinosaurus",
@@ -361,7 +425,9 @@
             "weight": "350 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/sinosaurus.png",
             "description": "One of the earliest theropods to show evidence of tooth loss during its lifetime, suggesting it may have survived significant injuries.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/sinosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/theropoda.svg"
+            ]
         },
         "lambeosaurus": {
             "species": "Lambeosaurus",
@@ -372,7 +438,9 @@
             "weight": "3,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/lambeosaurus.png",
             "description": "The crest shapes of this dinosaur were so wildly different between the males, females, and juveniles that early paleontologists mistakenly named them all as completely separate dinosaur species!",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/lambeosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/lambeosaurini.svg"
+            ]
         },
         "hypsilophodon": {
             "species": "Hypsilophodon",
@@ -383,7 +451,9 @@
             "weight": "20 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/hypsilophodon.png",
             "description": "For over a century, scientists mistakenly thought this agile runner lived up in the trees like a squirrel, before finally realizing its feet were strictly built for sprinting on the ground.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/hypsilophodon.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/clypeodontia.svg"
+            ]
         },
         "lesothosaurus": {
             "species": "Lesothosaurus",
@@ -394,7 +464,9 @@
             "weight": "8 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/lesothosaurus.png",
             "description": "A small, bipedal runner; it was so primitive that it still relied on speed rather than armor or horns to survive.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/lesothosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/neornithischia.svg"
+            ]
         },
         "gallimimus": {
             "species": "Gallimimus",
@@ -405,7 +477,9 @@
             "weight": "450 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/gallimimus.png",
             "description": "Made world-famous by the terrifying flocking stampede scene in the original Jurassic Park, the real animal actually had hollow bones that were paper-thin, making it incredibly lightweight for its massive size.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/gallimimus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/ornithomimidae.svg"
+            ]
         },
         "lythronax": {
             "species": "Lythronax",
@@ -416,7 +490,9 @@
             "weight": "2,500 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/lythronax.png",
             "description": "The \"King of Gore\" is the oldest true tyrannosaurid ever discovered, and the very first to successfully evolve the wide, forward-facing eyes needed for the binocular depth perception that made T. rex so deadly.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/lythronax.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/tyrannosaurinae.svg"
+            ]
         },
         "majungasaurus": {
             "species": "Majungasaurus",
@@ -427,7 +503,9 @@
             "weight": "1,100 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/majungasaurus.png",
             "description": "The apex predator of Madagascar; fossilized tooth marks on the bones of its own species provide rare evidence of dinosaur cannibalism.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/majungasaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/majungasaurinae.svg"
+            ]
         },
         "gigantspinosaurus": {
             "species": "Gigantspinosaurus",
@@ -438,7 +516,9 @@
             "weight": "700 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/gigantspinosaurus.png",
             "description": "Despite its name, it is a stegosaur; it is famous for the two massive, shoulder-mounted spikes that flared out from its sides.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/gigantspinosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/huayangosauridae.svg"
+            ]
         },
         "oviraptor": {
             "species": "Oviraptor",
@@ -449,7 +529,9 @@
             "weight": "35 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/oviraptor.png",
             "description": "Unfairly branded an \"Egg Thief\" in the 1920s when found sitting on a nest, scientists realized 70 years later that it was actually a devoted parent tragically buried alive by a sandstorm while protecting its own babies!",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/oviraptor.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/oviraptoridae.svg"
+            ]
         },
         "coelophysis": {
             "species": "Coelophysis",
@@ -460,7 +542,9 @@
             "weight": "27 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/coelophysis.png",
             "description": "A sleek, primitive theropod with hollow bones; once wrongly thought to be a cannibal, but the \"young\" in its stomach were actually crocodiles.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/coelophysis.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/theropoda.svg"
+            ]
         },
         "utahraptor": {
             "species": "Utahraptor",
@@ -471,7 +555,9 @@
             "weight": "500 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/utahraptor.png",
             "description": "The largest \"true\" raptor; its sickle-shaped toe claw was 24 centimeters long\u2014a massive blade for tackling large herbivores.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/utahraptor.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/dromaeosaurinae.svg"
+            ]
         },
         "dromaeosaurus": {
             "species": "Dromaeosaurus",
@@ -482,7 +568,9 @@
             "weight": "15 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/dromaeosaurus.png",
             "description": "Unlike its famous cousins that relied almost entirely on their foot claws, this heavy-duty raptor had a massively reinforced skull, meaning it likely killed its prey with a bone-crushing bite.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/dromaeosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/dromaeosaurinae.svg"
+            ]
         },
         "pentaceratops": {
             "species": "Pentaceratops",
@@ -493,7 +581,9 @@
             "weight": "5,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/pentaceratops.png",
             "description": "Its name implies five horns, though two are actually protrusions of the cheek bones. It currently holds a place in the record books for having one of the largest skulls of any land animal to ever live, with a head that could reach nearly 3 meters in length!",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/pentaceratops.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/chasmosaurinae.svg"
+            ]
         },
         "brontosaurus": {
             "species": "Brontosaurus",
@@ -504,7 +594,9 @@
             "weight": "15,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/brontosaurus.png",
             "description": "The famous \"Thunder Lizard\" was once lumped in with Apatosaurus, but an exhaustive 2015 study officially restored it as its own distinct, beautifully robust genus.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/brontosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/apatosaurinae.svg"
+            ]
         },
         "herrerasaurus": {
             "species": "Herrerasaurus",
@@ -515,7 +607,9 @@
             "weight": "350 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/herrerasaurus.png",
             "description": "One of the earliest known dinosaurs, it possessed a unique sliding lower jaw that allowed it to deliver a deadly, grasping bite to struggling prey.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/herrerasaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/herrerasauridae.svg"
+            ]
         },
         "nigersaurus": {
             "species": "Nigersaurus",
@@ -526,7 +620,9 @@
             "weight": "4,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/nigersaurus.png",
             "description": "Nicknamed the \"Mesozoic Lawnmower,\" its wide, straight snout was packed with over 500 teeth, perfectly adapted for vacuuming up ground-level ferns.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/nigersaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/diplodocoidea.svg"
+            ]
         },
         "scelidosaurus": {
             "species": "Scelidosaurus",
@@ -537,7 +633,9 @@
             "weight": "270 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/scelidosaurus.png",
             "description": "This early armored dinosaur was found perfectly preserved in ancient marine rocks, suggesting the poor animal might have been caught in a flash flood and washed straight out to sea!",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/scelidosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/ankylosauromorpha.svg"
+            ]
         },
         "heterodontosaurus": {
             "species": "Heterodontosaurus",
@@ -548,7 +646,9 @@
             "weight": "3 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/heterodontosaurus.png",
             "description": "Unique for having three different types of teeth: small incisors, sharp canine-like tusks, and flat grinding teeth for plants.During the harsh, dry seasons of the Early Jurassic, some paleontologists believe this tiny, tusked dinosaur might have actually burrowed underground and entered a state of hibernation to survive!",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/heterodontosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/ornithischia.svg"
+            ]
         },
         "baryonyx": {
             "species": "Baryonyx",
@@ -559,7 +659,9 @@
             "weight": "1,700 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/baryonyx.png",
             "description": "Its stomach was found to contain the scales of the fish Scheerstia, confirming its role as a specialized river hunter.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/baryonyx.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/baryonychinae.svg"
+            ]
         },
         "monolophosaurus": {
             "species": "Monolophosaurus",
@@ -570,7 +672,9 @@
             "weight": "475 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/monolophosaurus.png",
             "description": "Distinguished by a single, hollow bony crest running down the center of its snout, which was likely used for vocalizing or display.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/monolophosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/allosauroidea.svg"
+            ]
         },
         "torvosaurus": {
             "species": "Torvosaurus",
@@ -581,7 +685,9 @@
             "weight": "4,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/torvosaurus.png",
             "description": "A massive, heavy-set predator that competed with Allosaurus; it had the largest teeth of any Jurassic meat-eater.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/torvosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/megalosaurinae.svg"
+            ]
         },
         "sinoceratops": {
             "species": "Sinoceratops",
@@ -592,7 +698,9 @@
             "weight": "2,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/sinoceratops.png",
             "description": "The first large ceratopsid found outside of North America; its frill was decorated with a series of forward-curving, hook-like horns.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/sinoceratops.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/eucentrosaura.svg"
+            ]
         },
         "alioramus": {
             "species": "Alioramus",
@@ -603,7 +711,9 @@
             "weight": "370 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/alioramus.png",
             "description": "A bizarrely slender, long-snouted tyrannosaur decorated with a row of five small bony bumps along its nose, making it look almost delicate compared to its famously heavy-headed relatives",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/alioramus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/alioramini.svg"
+            ]
         },
         "cetiosaurus": {
             "species": "Cetiosaurus",
@@ -614,7 +724,9 @@
             "weight": "25,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/cetiosaurus.png",
             "description": "As the very first sauropod ever discovered, its massive bones were initially mistaken by 19th-century scientists for the remains of a giant, sea-dwelling crocodile!",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/cetiosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/eusauropoda.svg"
+            ]
         },
         "gigantoraptor": {
             "species": "Gigantoraptor",
@@ -625,7 +737,9 @@
             "weight": "1,400 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/gigantoraptor.png",
             "description": "Its discovery was a total accident! Paleontologists originally thought they were digging up a giant sauropod leg bone, only to realize they had uncovered a vibrantly feathered \"egg thief\" the size of a school bus.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/gigantoraptor.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/oviraptorosauria.svg"
+            ]
         },
         "velociraptor": {
             "species": "Velociraptor",
@@ -636,7 +750,9 @@
             "weight": "15 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/velociraptor.png",
             "description": "Roughly the size of a turkey and fully feathered; a famous fossil shows one locked in a death struggle with a Protoceratops.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/velociraptor.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/velociraptorinae.svg"
+            ]
         },
         "fukuisaurus": {
             "species": "Fukuisaurus",
@@ -647,7 +763,9 @@
             "weight": "400 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/fukuisaurus.png",
             "description": "This Japanese dinosaur had a completely rigid skull, meaning unlike its later, more advanced duck-billed cousins, it couldn't chew its food with a complex side-to-side grinding motion.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/fukuisaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/styracosterna.svg"
+            ]
         },
         "tenontosaurus": {
             "species": "Tenontosaurus",
@@ -658,7 +776,9 @@
             "weight": "1,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/tenontosaurus.png",
             "description": "It holds a tragic place in the fossil record\u2014dozens of its skeletons have been found completely surrounded by the broken teeth of Deinonychus, capturing an ancient, millions-of-years-long predator-prey rivalry.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/tenontosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/iguanodontia.svg"
+            ]
         },
         "halszkaraptor": {
             "species": "Halszkaraptor",
@@ -669,7 +789,9 @@
             "weight": "2 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/halszkaraptor.png",
             "description": "Looking more like a mutant swan than a terrifying raptor, this bizarre creature had dense, heavy, penguin-like bones that helped it dive underwater to hunt small fish.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/halszkaraptor.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/unenlagiina.svg"
+            ]
         },
         "euoplocephalus": {
             "species": "Euoplocephalus",
@@ -680,7 +802,9 @@
             "weight": "2,500 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/euoplocephalus.png",
             "description": "This heavy-duty grazer had a surprisingly complex network of looping tubes inside its snout, which might have worked like a biological trombone to blast loud calls across the plains.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/euoplocephalus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/ankylosaurini.svg"
+            ]
         },
         "allosaurus": {
             "species": "Allosaurus",
@@ -691,7 +815,9 @@
             "weight": "2,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/allosaurus.png",
             "description": "Known as the \"Lion of the Jurassic,\" it was so incredibly common that paleontologists have found the tangled remains of dozens of individuals perfectly preserved together in a single Utah predator trap!",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/allosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/allosauria.svg"
+            ]
         },
         "massospondylus": {
             "species": "Massospondylus",
@@ -702,7 +828,9 @@
             "weight": "1,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/massospondylus.png",
             "description": "Famous fossil nests revealed completely toothless embryos inside the eggs, strongly suggesting that the parents had to actively feed and care for their helpless hatchlings.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/massospondylus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/massopoda.svg"
+            ]
         },
         "centrosaurus": {
             "species": "Centrosaurus",
@@ -713,7 +841,9 @@
             "weight": "2,300 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/centrosaurus.png",
             "description": "Bonebeds in Canada contain the remains of thousands of these animals in one spot, suggesting they traveled in massive, thundering herds that could stretch for miles across the plains.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/centrosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/centrosaurini.svg"
+            ]
         },
         "diplodocus": {
             "species": "Diplodocus",
@@ -724,7 +854,9 @@
             "weight": "15,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/diplodocus.png",
             "description": "Computer simulations reveal that the incredibly thin, whip-like tip of its massive tail could likely be flicked fast enough to break the sound barrier, producing a deafening sonic boom to startle predators!",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/diplodocus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/diplodocidae.svg"
+            ]
         },
         "kosmoceratops": {
             "species": "Kosmoceratops",
@@ -735,7 +867,9 @@
             "weight": "2,500 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/kosmoceratops.png",
             "description": "Known as the most \"ornate\" dinosaur ever discovered, it had a total of 15 different horns and spikes on its head, including a bizarre row of hooks that curved downward like a fringe of hair.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/kosmoceratops.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/chasmosaurinae.svg"
+            ]
         },
         "shunosaurus": {
             "species": "Shunosaurus",
@@ -746,7 +880,9 @@
             "weight": "3,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/shunosaurus.png",
             "description": "Breaking all the sauropod rules, it featured a massive, bony spiked club at the end of its tail\u2014a devastating weapon usually reserved for armored ankylosaurs.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/shunosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/eusauropoda.svg"
+            ]
         },
         "archaeopteryx": {
             "species": "Archaeopteryx",
@@ -757,7 +893,9 @@
             "weight": "1 kilogram",
             "image": "https://alexjercan.github.io/metajurassic-images/species/archaeopteryx.png",
             "description": "The absolute holy grail of paleontology; its discovery in 1861 happened just two years after Charles Darwin published his theory of evolution, providing the perfect \"missing link\" between reptiles and birds.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/archaeopteryx.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/avialae.svg"
+            ]
         },
         "unaysaurus": {
             "species": "Unaysaurus",
@@ -768,7 +906,9 @@
             "weight": "70 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/unaysaurus.png",
             "description": "Discovered in Brazil, its striking similarity to European dinosaurs proved that these early animals could freely walk across the unbroken supercontinent of Pangea.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/unaysaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/plateosauridae.svg"
+            ]
         },
         "megaraptor": {
             "species": "Megaraptor",
@@ -779,7 +919,9 @@
             "weight": "1,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/megaraptor.png",
             "description": "For years, paleontologists thought they had found the biggest \"Jurassic Park-style\" raptor ever, until they finally realized the massive 35-centimeter sickle claw actually belonged on its thumb, not its foot!",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/megaraptor.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/megaraptoridae.svg"
+            ]
         },
         "erlikosaurus": {
             "species": "Erlikosaurus",
@@ -790,7 +932,9 @@
             "weight": "500 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/erlikosaurus.png",
             "description": "Even though it belongs to the giant scythe-clawed family, it is actually most famous to scientists for being one of the only therizinosaurs ever found with a completely intact, 3D-preserved skull.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/erlikosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/therizinosauridae.svg"
+            ]
         },
         "dracovenator": {
             "species": "Dracovenator",
@@ -801,7 +945,9 @@
             "weight": "400 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/dracovenator.png",
             "description": "A close relative of Dilophosaurus found in South Africa, it was one of the largest predators of its specific time and place.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/dracovenator.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/theropoda.svg"
+            ]
         },
         "zalmoxes": {
             "species": "Zalmoxes",
@@ -812,7 +958,9 @@
             "weight": "350 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/zalmoxes.png",
             "description": "A \"dwarf\" iguanodontian that lived on Ha\u021beg Island; it remained small due to the limited food resources of its island habitat.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/zalmoxes.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/rhabdodontomorpha.svg"
+            ]
         },
         "carnotaurus": {
             "species": "Carnotaurus",
@@ -823,7 +971,9 @@
             "weight": "1,350 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/carnotaurus.png",
             "description": "Boasted thick horns above its eyes and extremely reduced arms; it is considered one of the fastest large theropods ever.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/carnotaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/abelisauridae.svg"
+            ]
         },
         "triceratops": {
             "species": "Triceratops",
@@ -834,7 +984,9 @@
             "weight": "10,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/triceratops.png",
             "description": "Unlike almost every other horned dinosaur, its massive frill was made of solid, thick bone with no holes in it at all\u2014giving it a heavy-duty shield that could actually stop a T. rex bite.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/triceratops.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/triceratopsini.svg"
+            ]
         },
         "carcharodontosaurus": {
             "species": "Carcharodontosaurus",
@@ -845,7 +997,9 @@
             "weight": "6,200 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/carcharodontosaurus.png",
             "description": "Its massive, serrated teeth were so perfectly evolved for slicing cleanly through meat that they were completely useless for crushing bone, forcing it to carefully strip flesh off giant sauropods without biting too hard.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/carcharodontosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/carcharodontosaurinae.svg"
+            ]
         },
         "troodon": {
             "species": "Troodon",
@@ -856,7 +1010,9 @@
             "weight": "50 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/troodon.png",
             "description": "Possessed the largest brain-to-body ratio of any dinosaur; its large, forward-facing eyes gave it excellent night vision for hunting.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/troodon.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/paraves.svg"
+            ]
         },
         "tarbosaurus": {
             "species": "Tarbosaurus",
@@ -867,7 +1023,9 @@
             "weight": "5,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/tarbosaurus.png",
             "description": "The undisputed apex predator of ancient Mongolia, this Asian \"twin\" of T. rex had arms that were so unbelievably tiny they literally couldn't even reach its own mouth!",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/tarbosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/tyrannosaurini.svg"
+            ]
         },
         "tyrannotitan": {
             "species": "Tyrannotitan",
@@ -878,7 +1036,9 @@
             "weight": "4,800 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/tyrannotitan.png",
             "description": "Ruling South America millions of years before Giganotosaurus, its teeth were shockingly thick and robust for its family, allowing it to aggressively crunch through tougher prey than its slicing-toothed cousins.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/tyrannotitan.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/giganotosaurini.svg"
+            ]
         },
         "irritator": {
             "species": "Irritator",
@@ -889,7 +1049,9 @@
             "weight": "1,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/irritator.png",
             "description": "Its hilarious name directly reflects the immense frustration of the paleontologists who discovered that illegal fossil smugglers had literally glued random car parts and plaster onto the skull to make it look longer!",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/irritator.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/spinosaurinae.svg"
+            ]
         },
         "mononykus": {
             "species": "Mononykus",
@@ -900,7 +1062,9 @@
             "weight": "3 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/mononykus.png",
             "description": "This tiny, bizarre creature had arms so ridiculously short that they were completely useless for walking or grasping, ending in a single, thick thumb claw likely used to bust open ancient termite mounds.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/mononykus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/maniraptora.svg"
+            ]
         },
         "tsintaosaurus": {
             "species": "Tsintaosaurus",
@@ -911,7 +1075,9 @@
             "weight": "3,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/tsintaosaurus.png",
             "description": "Often depicted with a bizarre, single \"unicorn\" spike in older art, new discoveries revealed that the spike was actually just the broken back-half of a much larger, beautiful, petal-shaped crest",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/tsintaosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/lambeosaurinae.svg"
+            ]
         },
         "olorotitan": {
             "species": "Olorotitan",
@@ -922,7 +1088,9 @@
             "weight": "3,100 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/olorotitan.png",
             "description": "Named for its unusually long neck (containing 18 vertebrae); it was one of the last and most spectacular lambeosaurines in Asia.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/olorotitan.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/lambeosaurini.svg"
+            ]
         },
         "albertosaurus": {
             "species": "Albertosaurus",
@@ -933,7 +1101,9 @@
             "weight": "2,500 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/albertosaurus.png",
             "description": "A massive bonebed in Canada containing over two dozen individuals strongly suggests these sleeker, faster cousins of T. rex lived and hunted in highly coordinated, multi-generational packs.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/albertosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/albertosaurinae.svg"
+            ]
         },
         "lokiceratops": {
             "species": "Lokiceratops",
@@ -944,7 +1114,9 @@
             "weight": "5,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/lokiceratops.png",
             "description": "Named after the Norse trickster god Loki, it holds the record for the largest and most blade-like frill horns ever seen on its branch of the family tree.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/lokiceratops.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/centrosaurinae.svg"
+            ]
         },
         "psittacosaurus": {
             "species": "Psittacosaurus",
@@ -955,7 +1127,9 @@
             "weight": "20 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/psittacosaurus.png",
             "description": "A stunningly preserved fossil from China revealed that this \"parrot-lizard\" had a row of long, stiff, brush-like bristles growing only on its tail, possibly used like a colorful flag for signaling to others.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/psittacosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/ceratopsia.svg"
+            ]
         },
         "staurikosaurus": {
             "species": "Staurikosaurus",
@@ -966,7 +1140,9 @@
             "weight": "30 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/staurikosaurus.png",
             "description": "Named beautifully after the Southern Cross constellation, this small, agile predator was one of the first dinosaurs to roam the Earth.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/staurikosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/herrerasauridae.svg"
+            ]
         },
         "mapusaurus": {
             "species": "Mapusaurus",
@@ -977,7 +1153,9 @@
             "weight": "5,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/mapusaurus.png",
             "description": "An incredible bonebed in Argentina revealed the remains of at least seven individuals of different ages all buried together, strongly suggesting these multi-ton apex predators hunted giant titanosaurs in coordinated, terrifying packs.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/mapusaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/giganotosaurini.svg"
+            ]
         },
         "pantydraco": {
             "species": "Pantydraco",
@@ -988,7 +1166,9 @@
             "weight": "50 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/pantydraco.png",
             "description": "Discovered in a quarry in Wales, this early, slender plant-eater likely used its long, grasping hands to pull down branches.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/pantydraco.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/sauropodomorpha.svg"
+            ]
         },
         "stegoceras": {
             "species": "Stegoceras",
@@ -999,7 +1179,9 @@
             "weight": "40 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/stegoceras.png",
             "description": "For a long time, its thick, domed skull was so mysterious that some early paleontologists actually suggested it might have been used as a giant kneecap for an even larger, unknown dinosaur!",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/stegoceras.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/pachycephalosauridae.svg"
+            ]
         },
         "deinocheirus": {
             "species": "Deinocheirus",
@@ -1010,7 +1192,9 @@
             "weight": "6,300 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/deinocheirus.png",
             "description": "For exactly 50 years, scientists only had its massive 2.4-meter arms and thought it was a terrifying apex predator\u2014until a full skeleton finally revealed it was actually a pot-bellied, hump-backed omnivore that looked like a giant, bizarre duck",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/deinocheirus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/ornithomimosauria.svg"
+            ]
         },
         "sinraptor": {
             "species": "Sinraptor",
@@ -1021,7 +1205,9 @@
             "weight": "1,300 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/sinraptor.png",
             "description": "Despite its name, it is not a \"raptor\"; it was a dominant predator of the Jurassic Asian floodplains.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/sinraptor.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/metriacanthosauridae.svg"
+            ]
         },
         "dicraeosaurus": {
             "species": "Dicraeosaurus",
@@ -1032,7 +1218,9 @@
             "weight": "4,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/dicraeosaurus.png",
             "description": "Unlike most of its long-necked relatives, it had a surprisingly short neck and tall, Y-shaped back spines that anchored massive neck muscles.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/dicraeosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/dicraeosauridae.svg"
+            ]
         },
         "deinonychus": {
             "species": "Deinonychus",
@@ -1043,7 +1231,9 @@
             "weight": "73 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/deinonychus.png",
             "description": "The single dinosaur that triggered the 1960s \"Dinosaur Renaissance,\" completely rewriting the history books and proving dinosaurs were fast, warm-blooded, and highly intelligent, not slow, swamp-bound lizards.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/deinonychus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/velociraptorinae.svg"
+            ]
         },
         "iguanodon": {
             "species": "Iguanodon",
@@ -1054,7 +1244,9 @@
             "weight": "3,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/iguanodon.png",
             "description": "The second dinosaur ever officially named! The scientists who first found its iconic thumb spike mistakenly glued it onto the animal's nose like a rhinoceros horn for decades.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/iguanodon.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/hadrosauriformes.svg"
+            ]
         },
         "tyrannosaurus": {
             "species": "Tyrannosaurus",
@@ -1065,7 +1257,9 @@
             "weight": "8,400 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/tyrannosaurus.png",
             "description": "Possessed a bite force of 35,000 Newtons\u2014enough to shatter bone; it is widely considered the most powerful land predator of all time.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/tyrannosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/tyrannosaurini.svg"
+            ]
         },
         "shantungosaurus": {
             "species": "Shantungosaurus",
@@ -1076,7 +1270,9 @@
             "weight": "16,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/shantungosaurus.png",
             "description": "The largest non-sauropod dinosaur ever discovered; it was roughly the size of a school bus and weighed as much as two African elephants.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/shantungosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/edmontosaurini.svg"
+            ]
         },
         "europasaurus": {
             "species": "Europasaurus",
@@ -1087,7 +1283,9 @@
             "weight": "1,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/europasaurus.png",
             "description": "An example of \"insular dwarfism,\" this sauropod evolved to a small size to survive on a resource-limited island in modern Germany.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/europasaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/brachiosauridae.svg"
+            ]
         },
         "corythosaurus": {
             "species": "Corythosaurus",
@@ -1098,7 +1296,9 @@
             "weight": "3,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/corythosaurus.png",
             "description": "A miraculously preserved fossil of this \"helmet-crested\" dinosaur was found with its last meal\u2014twigs, seeds, and pine needles\u2014still sitting perfectly intact inside its stomach cavity!",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/corythosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/lambeosaurini.svg"
+            ]
         },
         "metriacanthosaurus": {
             "species": "Metriacanthosaurus",
@@ -1109,7 +1309,9 @@
             "weight": "1,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/metriacanthosaurus.png",
             "description": "For decades, this impressive predator was completely lost in the scientific shuffle\u2014early paleontologists had lazily dumped its fossil in as just another species of Megalosaurus because they used to assume almost every European meat-eater was the exact same animal!",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/metriacanthosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/metriacanthosauridae.svg"
+            ]
         },
         "acrocanthosaurus": {
             "species": "Acrocanthosaurus",
@@ -1120,7 +1322,9 @@
             "weight": "6,200 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/acrocanthosaurus.png",
             "description": "Famous fossilized footprints in Texas\u2014known as the Paluxy River trackway\u2014preserve a terrifying scene where an Acrocanthosaurus appears to be actively stalking and attacking a massive sauropod, matching it step for step!",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/acrocanthosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/carcharodontosauridae.svg"
+            ]
         },
         "giraffatitan": {
             "species": "Giraffatitan",
@@ -1131,7 +1335,9 @@
             "weight": "40,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/giraffatitan.png",
             "description": "Often confused with Brachiosaurus, this towering African giant is actually the spectacular centerpiece of the world's tallest mounted dinosaur skeleton in Berlin.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/giraffatitan.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/brachiosauridae.svg"
+            ]
         },
         "maiasaura": {
             "species": "Maiasaura",
@@ -1142,7 +1348,9 @@
             "weight": "2,500 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/maiasaura.png",
             "description": "Its discovery at \"Egg Mountain\" in Montana revolutionized paleontology by proving for the very first time that dinosaurs built massive nesting colonies and actively fed their helpless babies.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/maiasaura.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/saurolophinae.svg"
+            ]
         },
         "moros": {
             "species": "Moros",
@@ -1153,7 +1361,9 @@
             "weight": "78 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/moros.png",
             "description": "This tiny, deer-sized runner is the crucial \"missing link\" that perfectly explains how tyrannosaurs survived as speedy, lightweight underdogs for millions of years before finally evolving into giant kings.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/moros.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/pantyrannosauria.svg"
+            ]
         },
         "alamosaurus": {
             "species": "Alamosaurus",
@@ -1164,7 +1374,9 @@
             "weight": "73,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/alamosaurus.png",
             "description": "The very last sauropod to roam North America before the asteroid hit, recent discoveries reveal this massive titan actually sported bony armor plates embedded in its skin!",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/alamosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/titanosauria.svg"
+            ]
         },
         "therizinosaurus": {
             "species": "Therizinosaurus",
@@ -1175,7 +1387,9 @@
             "weight": "5,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/therizinosaurus.png",
             "description": "Holding the undisputed world record for the longest claws of any animal in planetary history, its massive 1-meter scythes actually belonged to a slow-moving, pot-bellied vegetarian, not a bloodthirsty killer!",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/therizinosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/therizinosauridae.svg"
+            ]
         },
         "camarasaurus": {
             "species": "Camarasaurus",
@@ -1186,7 +1400,9 @@
             "weight": "20,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/camarasaurus.png",
             "description": "The most common sauropod in Late Jurassic North America, its name refers to the massive hollow \"chambers\" (pleurocoels) inside its spine that kept its enormous body surprisingly lightweight.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/camarasaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/macronaria.svg"
+            ]
         },
         "compsognathus": {
             "species": "Compsognathus",
@@ -1197,7 +1413,9 @@
             "weight": "3 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/compsognathus.png",
             "description": "For a long time, it was considered the smallest dinosaur; a fossil was found with the lizard Bavarisaurus preserved in its stomach.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/compsognathus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/coelurosauria.svg"
+            ]
         },
         "barosaurus": {
             "species": "Barosaurus",
@@ -1208,7 +1426,9 @@
             "weight": "15,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/barosaurus.png",
             "description": "This remarkably long-necked relative of Diplodocus was so tall that some paleontologists playfully speculate it might have needed multiple \"hearts\" just to pump blood all the way up to its brain!",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/barosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/diplodocidae.svg"
+            ]
         },
         "camptosaurus": {
             "species": "Camptosaurus",
@@ -1219,7 +1439,9 @@
             "weight": "800 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/camptosaurus.png",
             "description": "Frequently found in the exact same fossil quarries as Stegosaurus and Apatosaurus, proving it was a highly successful, common grazer in the Late Jurassic floodplains.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/camptosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/ankylopollexia.svg"
+            ]
         },
         "ornithomimus": {
             "species": "Ornithomimus",
@@ -1230,7 +1452,9 @@
             "weight": "170 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/ornithomimus.png",
             "description": "This was one of the very first dinosaurs definitively proven to have complex feathers, completely shifting the scientific view of these runners from scaly reptiles to beautifully plumed, bird-like athletes.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/ornithomimus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/ornithomimidae.svg"
+            ]
         },
         "gastonia": {
             "species": "Gastonia",
@@ -1241,7 +1465,9 @@
             "weight": "1,900 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/gastonia.png",
             "description": "Often found in the exact same ancient bonebeds as the giant raptor Utahraptor, strongly suggesting its heavy, scissor-like spikes were specifically evolved to defend against those sickle-clawed predators.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/gastonia.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/nodosauridae.svg"
+            ]
         },
         "homalocephale": {
             "species": "Homalocephale",
@@ -1252,7 +1478,9 @@
             "weight": "43 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/homalocephale.png",
             "description": "Unlike its dome-headed cousins, this dinosaur had a completely flat, wedge-shaped head, leading to a long-standing debate over whether it was a unique species or just a \"teenager\" that hadn't grown its dome yet.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/homalocephale.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/pachycephalosaurinae.svg"
+            ]
         },
         "protoceratops": {
             "species": "Protoceratops",
@@ -1263,7 +1491,9 @@
             "weight": "100 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/protoceratops.png",
             "description": "Because its fossils are so common in the Gobi Desert, many historians believe that ancient travelers seeing its beaked skull and four-legged body were the real-life inspiration for the mythical Griffin.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/protoceratops.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/coronosauria.svg"
+            ]
         },
         "qianzhousaurus": {
             "species": "Qianzhousaurus",
@@ -1274,7 +1504,9 @@
             "weight": "750 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/qianzhousaurus.png",
             "description": "Nicknamed \"Pinocchio rex\" due to its elongated snout, it was a specialized, graceful predator from the Late Cretaceous of China.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/qianzhousaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/alioramini.svg"
+            ]
         },
         "eoraptor": {
             "species": "Eoraptor",
@@ -1285,7 +1517,9 @@
             "weight": "10 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/eoraptor.png",
             "description": "Long thought to be a tiny, meat-eating theropod, scientists now realize this little omnivore is actually one of the earliest ancestors of the giant, long-necked sauropods!",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/eoraptor.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/sauropodomorpha.svg"
+            ]
         },
         "ouranosaurus": {
             "species": "Ouranosaurus",
@@ -1296,7 +1530,9 @@
             "weight": "2,200 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/ouranosaurus.png",
             "description": "Living in the scorching hot environment of ancient North Africa, its tall back sail might have acted exactly like a biological radiator to stop it from overheating in the sun.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/ouranosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/hadrosauroidea.svg"
+            ]
         },
         "hadrosaurus": {
             "species": "Hadrosaurus",
@@ -1307,7 +1543,9 @@
             "weight": "3,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/hadrosaurus.png",
             "description": "It made history as the first dinosaur skeleton ever mounted for public display in the entire world, completely changing how the public saw dinosaurs when it debuted in Philadelphia in 1868!",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/hadrosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/hadrosauridae.svg"
+            ]
         },
         "plateosaurus": {
             "species": "Plateosaurus",
@@ -1318,7 +1556,9 @@
             "weight": "4,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/plateosaurus.png",
             "description": "Its fossils are frequently discovered in massive \"bone beds\" across Europe, suggesting these high-browsing herbivores may have roamed in massive herds or died together in mud traps.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/plateosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/plateosauridae.svg"
+            ]
         },
         "brachiosaurus": {
             "species": "Brachiosaurus",
@@ -1329,7 +1569,9 @@
             "weight": "46,900 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/brachiosaurus.png",
             "description": "Unlike most dinosaurs, its front legs were significantly longer than its back legs, locking it into a permanent, upward-sloping posture perfectly designed for grazing the treetops.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/brachiosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/brachiosauridae.svg"
+            ]
         },
         "gorgosaurus": {
             "species": "Gorgosaurus",
@@ -1340,7 +1582,9 @@
             "weight": "2,400 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/gorgosaurus.png",
             "description": "Perfectly preserved skeletons reveal that these terrifying hunters went through a dramatic teenage growth spurt, completely transforming from lightning-fast, slender sprinters into heavy, bone-crushing adults.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/gorgosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/albertosaurinae.svg"
+            ]
         },
         "wuerhosaurus": {
             "species": "Wuerhosaurus",
@@ -1351,7 +1595,9 @@
             "weight": "4,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/wuerhosaurus.png",
             "description": "One of the very last stegosaurs to ever walk the earth, proving this spiky lineage managed to survive way into the Early Cretaceous before finally going extinct.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/wuerhosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/stegosaurinae.svg"
+            ]
         },
         "dreadnoughtus": {
             "species": "Dreadnoughtus",
@@ -1362,7 +1608,9 @@
             "weight": "48,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/dreadnoughtus.png",
             "description": "Named after the heavily armored battleships of the early 20th century, a fully grown adult was so incomprehensibly massive that it literally \"feared nothing.\"",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/dreadnoughtus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/titanosauria.svg"
+            ]
         },
         "ankylosaurus": {
             "species": "Ankylosaurus",
@@ -1373,7 +1621,9 @@
             "weight": "6,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/ankylosaurus.png",
             "description": "The ultimate living tank! Its heavy armor was so extensive and extreme that even its eyelids were reinforced with solid bone shutters to protect its eyes during a fight.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/ankylosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/ankylosaurini.svg"
+            ]
         },
         "amargasaurus": {
             "species": "Amargasaurus",
@@ -1384,7 +1634,9 @@
             "weight": "2,600 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/amargasaurus.png",
             "description": "It sported a spectacular double row of tall, thin spines running down its neck, which might have supported a skin sail or served as an intimidating visual display.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/amargasaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/dicraeosauridae.svg"
+            ]
         },
         "argentinosaurus": {
             "species": "Argentinosaurus",
@@ -1395,7 +1647,9 @@
             "weight": "75,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/argentinosaurus.png",
             "description": "Widely considered the largest land animal ever discovered; a single vertebra from this titan is over 1.5 meters tall.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/argentinosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/titanosauria.svg"
+            ]
         },
         "kentrosaurus": {
             "species": "Kentrosaurus",
@@ -1406,7 +1660,9 @@
             "weight": "2,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/kentrosaurus.png",
             "description": "A smaller cousin of Stegosaurus covered mostly in long, sharp spikes rather than plates, extending from its mid-back to its tail.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/kentrosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/stegosauridae.svg"
+            ]
         },
         "nasutoceratops": {
             "species": "Nasutoceratops",
@@ -1417,7 +1673,9 @@
             "weight": "1,500 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/nasutoceratops.png",
             "description": "With its remarkably short snout and long, forward-curving brow horns, it looks strikingly like a modern bull, a very different look from the typical \"pointed\" faces of its relatives.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/nasutoceratops.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/centrosaurinae.svg"
+            ]
         },
         "guanlong": {
             "species": "Guanlong",
@@ -1428,7 +1686,9 @@
             "weight": "75 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/guanlong.png",
             "description": "One of the earliest known ancestors of T. rex, it was small enough to be hunted by other predators and sported a fragile, spectacular crest on its head that looked like a biological mohawk.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/guanlong.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/proceratosauridae.svg"
+            ]
         },
         "giganotosaurus": {
             "species": "Giganotosaurus",
@@ -1439,7 +1699,9 @@
             "weight": "8,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/giganotosaurus.png",
             "description": "The remains of this colossal predator weren't unearthed by a team of highly funded scientists, but by a passionate amateur fossil hunter and dune-buggy mechanic named Rub\u00e9n Dario Carolini! To honor his massive discovery, the official species name is Giganotosaurus carolinii.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/giganotosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/giganotosaurini.svg"
+            ]
         },
         "suchomimus": {
             "species": "Suchomimus",
@@ -1450,7 +1712,9 @@
             "weight": "3,800 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/suchomimus.png",
             "description": "Featuring a very long, low snout and a small sail on its lower back, it was perfectly adapted for a semi-aquatic lifestyle.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/suchomimus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/baryonychinae.svg"
+            ]
         },
         "spinosaurus": {
             "species": "Spinosaurus",
@@ -1461,7 +1725,9 @@
             "weight": "7,400 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/spinosaurus.png",
             "description": "The longest carnivorous dinosaur known, it possessed a 1.6-meter dorsal sail and a paddle-like tail used for propulsion in water.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/spinosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/spinosaurinae.svg"
+            ]
         },
         "parasaurolophus": {
             "species": "Parasaurolophus",
@@ -1472,7 +1738,9 @@
             "weight": "2,500 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/parasaurolophus.png",
             "description": "Its 1.8-meter hollow head crest acted as a resonance chamber, allowing it to blast low-frequency calls that could travel for miles.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/parasaurolophus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/lambeosaurinae.svg"
+            ]
         },
         "cryolophosaurus": {
             "species": "Cryolophosaurus",
@@ -1483,7 +1751,9 @@
             "weight": "465 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/cryolophosaurus.png",
             "description": "Nicknamed \"Elvisaurus\" due to its forward-facing head crest that resembles a 1950s pompadour hairstyle.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/cryolophosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/theropoda.svg"
+            ]
         },
         "nanotyrannus": {
             "species": "Nanotyrannus",
@@ -1494,7 +1764,9 @@
             "weight": "600 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/nanotyrannus.png",
             "description": "One of paleontology's fiercest, longest-running debates was finally settled in late 2025! Groundbreaking new studies proved once and for all that this animal wasn't just an awkward, teenage T. rex, but a distinct, fast-running species of its own that actually lived right alongside the tyrant king.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/nanotyrannus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/eutyrannosauria.svg"
+            ]
         },
         "vulcanodon": {
             "species": "Vulcanodon",
@@ -1505,7 +1777,9 @@
             "weight": "3,500 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/vulcanodon.png",
             "description": "One of the earliest \"true\" sauropods, it was among the first to evolve thick, pillar-like legs\u2014the exact biological upgrade needed to support a massive, rapidly growing body.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/vulcanodon.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/sauropoda.svg"
+            ]
         },
         "bajadasaurus": {
             "species": "Bajadasaurus",
@@ -1516,7 +1790,9 @@
             "weight": "3,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/bajadasaurus.png",
             "description": "A bizarre cousin of Amargasaurus, it featured dramatic, forward-curving neck spines that likely acted as a spiky deterrent against predators while it kept its head down to feed.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/bajadasaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/dicraeosauridae.svg"
+            ]
         },
         "sauropelta": {
             "species": "Sauropelta",
@@ -1527,7 +1803,9 @@
             "weight": "1,500 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/sauropelta.png",
             "description": "Fossilized trackways suggest it walked with a surprisingly wide, sprawling stance, making it incredibly difficult for a predator to ever flip it over and expose its soft belly.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/sauropelta.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/nodosaurinae.svg"
+            ]
         },
         "pelecanimimus": {
             "species": "Pelecanimimus",
@@ -1538,7 +1816,9 @@
             "weight": "30 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/pelecanimimus.png",
             "description": "Unlike its later toothless relatives, it had a record-breaking 220 tiny teeth and a throat pouch similar to a modern pelican.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/pelecanimimus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/ornithomimosauria.svg"
+            ]
         },
         "mamenchisaurus": {
             "species": "Mamenchisaurus",
@@ -1549,7 +1829,9 @@
             "weight": "27,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/mamenchisaurus.png",
             "description": "It possessed a record-breaking neck that could reach up to 14 meters long, incredibly making up half of the animal's entire body length",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/mamenchisaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/eusauropoda.svg"
+            ]
         },
         "rugops": {
             "species": "Rugops",
@@ -1560,7 +1842,9 @@
             "weight": "750 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/rugops.png",
             "description": "Its wrinkly, pitted skull was likely covered in a heavy network of blood vessels, suggesting its face was either brightly colored for display or covered in a tough, protective armor pad.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/rugops.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/abelisauridae.svg"
+            ]
         },
         "sauroposeidon": {
             "species": "Sauroposeidon",
@@ -1571,7 +1855,9 @@
             "weight": "50,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/sauroposeidon.png",
             "description": "Named after the Greek earthquake god, its neck alone was a staggering 12 meters long, allowing it to effortlessly reach heights of nearly 18 meters.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/sauroposeidon.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/somphospondyli.svg"
+            ]
         },
         "dilophosaurus": {
             "species": "Dilophosaurus",
@@ -1582,7 +1868,9 @@
             "weight": "400 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/dilophosaurus.png",
             "description": "Completely shattering its famous movie-monster image, the real animal was actually a massive, 7-meter apex predator that didn't have a neck frill and definitely couldn't spit venom.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/dilophosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/theropoda.svg"
+            ]
         },
         "muttaburrasaurus": {
             "species": "Muttaburrasaurus",
@@ -1593,7 +1881,9 @@
             "weight": "2,800 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/muttaburrasaurus.png",
             "description": "One of Australia's most famous dinosaurs, it possessed a massive, hollow bulge on its nose that it likely used to honk loudly to its herd across the freezing polar forests",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/muttaburrasaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/rhabdodontomorpha.svg"
+            ]
         },
         "pachycephalosaurus": {
             "species": "Pachycephalosaurus",
@@ -1604,7 +1894,9 @@
             "weight": "450 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/pachycephalosaurus.png",
             "description": "Despite its famous \"head-butting\" reputation, some scientists believe its skull was actually used for \"flank-butting\"\u2014shoving and slamming into the sides of rivals like modern giraffes or bison do today.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/pachycephalosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/pachycephalosaurinae.svg"
+            ]
         },
         "diabloceratops": {
             "species": "Diabloceratops",
@@ -1615,7 +1907,9 @@
             "weight": "2,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/diabloceratops.png",
             "description": "Living up to its \"Devil\" name, it featured two massive, upward-curving spikes on its frill that looked exactly like horns, making it one of the most intimidating-looking early ceratopsians.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/diabloceratops.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/centrosaurinae.svg"
+            ]
         },
         "huayangosaurus": {
             "species": "Huayangosaurus",
@@ -1626,7 +1920,9 @@
             "weight": "1,500 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/huayangosaurus.png",
             "description": "Found in China, it represents one of the most primitive stegosaurs ever discovered, proving that the famous armored family actually started out in Asia before spreading globally.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/huayangosaurus.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/huayangosauridae.svg"
+            ]
         },
         "minmi": {
             "species": "Minmi",
@@ -1637,7 +1933,9 @@
             "weight": "300 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/minmi.png",
             "description": "It holds the record for being the first armored dinosaur ever found in the Southern Hemisphere, and is one of the few dinosaurs named after a specific road crossing in Australia.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/minmi.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/thyreophora.svg"
+            ]
         },
         "neovenator": {
             "species": "Neovenator",
@@ -1648,7 +1946,9 @@
             "weight": "2,000 kilograms",
             "image": "https://alexjercan.github.io/metajurassic-images/species/neovenator.png",
             "description": "The undisputed apex predator of Early Cretaceous Europe, its snout was packed with a highly complex network of sensory nerves, allowing it to gently nuzzle its mates or perfectly detect struggling prey in the dark.",
-            "icon": "https://alexjercan.github.io/metajurassic-images/silhouette/species/neovenator.svg"
+            "icon": [
+                "https://alexjercan.github.io/metajurassic-images/clades/carcharodontosauridae.svg"
+            ]
         }
     },
     "clades": {

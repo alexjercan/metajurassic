@@ -5,8 +5,8 @@ clade: huayangosauridae
 period: Middle Jurassic (165 Ma)
 size: 4.5 meters
 weight: 1,500 kilograms
-image: https://alexjercan.github.io/metajurassic-images/species/huayangosaurus.jpg
-icon: https://alexjercan.github.io/metajurassic-images/silhouette/species/huayangosaurus.svg
+image: https://alexjercan.github.io/metajurassic-images/species/huayangosaurus.png
+icon: ['https://alexjercan.github.io/metajurassic-images/clades/huayangosauridae.svg']
 ---
 
 Found in China, it represents one of the most primitive stegosaurs ever discovered, proving that the famous armored family actually started out in Asia before spreading globally.

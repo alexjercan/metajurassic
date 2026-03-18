@@ -5,8 +5,8 @@ clade: titanosauria
 period: Late Cretaceous (70 Ma)
 size: 8.5 meters
 weight: 2,500 kilograms
-image: https://alexjercan.github.io/metajurassic-images/species/saltasaurus.jpg
-icon: https://alexjercan.github.io/metajurassic-images/silhouette/species/saltasaurus.svg
+image: https://alexjercan.github.io/metajurassic-images/species/saltasaurus.png
+icon: ['https://alexjercan.github.io/metajurassic-images/clades/titanosauria.svg']
 ---
 
 The first sauropod found with unmistakable armor; its back was covered in thousands of small, bony studs and larger plates.
