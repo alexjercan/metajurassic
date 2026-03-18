@@ -13,6 +13,7 @@ const config = {
         faq: "./src/faq.ts",
         species: "./src/species.ts",
         clades: "./src/clades.ts",
+        profile: "./src/profile.ts",
     },
     output: {
         path: path.resolve(__dirname, "dist"),
@@ -51,11 +52,22 @@ const config = {
             chunks: ["clades"],
             basePath: publicPath,
         }),
+        new HtmlWebpackPlugin({
+            template: "src/profile.html",
+            filename: "profile/index.html",
+            chunks: ["profile"],
+            basePath: publicPath,
+        }),
         new CopyPlugin({
             patterns: [{ from: "src/jurassic", to: "jurassic" }],
         }),
         new CopyPlugin({
             patterns: [{ from: "src/favicon.svg", to: "favicon.svg" }],
+        }),
+        new CopyPlugin({
+            patterns: [
+                { from: "src/assets/profile.svg", to: "assets/profile.svg" },
+            ],
         }),
         new HtmlPartialsPlugin({
             basePath: publicPath,
@@ -101,6 +113,7 @@ const config = {
                 { from: /^\/faq/, to: "/faq/index.html" },
                 { from: /^\/species/, to: "/species/index.html" },
                 { from: /^\/clades/, to: "/clades/index.html" },
+                { from: /^\/profile/, to: "/profile/index.html" },
             ],
         },
     },
