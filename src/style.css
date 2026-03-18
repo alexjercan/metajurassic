@@ -28,6 +28,33 @@ body {
     flex-direction: column;
 }
 
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 2px solid var(--amber-glow);
+    background: var(--bg-dark);
+    flex-shrink: 0;
+}
+
+.game-title {
+    margin: 0;
+    font-size: 2rem;
+    color: var(--amber-glow);
+    letter-spacing: 2px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.game-title:hover {
+    color: var(--text-main);
+    transform: scale(1.05);
+}
+
 /* Lock viewport height on game & archive pages */
 
 html.page-fixed {

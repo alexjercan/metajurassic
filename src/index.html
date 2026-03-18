@@ -4,12 +4,25 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Metajurassic</title>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3959623404880860" crossorigin="anonymous"></script>
-        <link rel="icon" href="<%= htmlWebpackPlugin.options.basePath %>/favicon.svg" />
+        <script
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3959623404880860"
+            crossorigin="anonymous"
+        ></script>
+        <link
+            rel="icon"
+            href="<%= htmlWebpackPlugin.options.basePath %>/favicon.svg"
+        />
     </head>
 
     <body>
-        <header></header>
+        <header>
+            <a
+                href="<%= htmlWebpackPlugin.options.basePath %>"
+                class="game-title"
+                >Metajurassic</a
+            >
+        </header>
         <main>
             <div class="game-container">
                 <div class="top-bar">
@@ -38,7 +51,10 @@
                         ⟡
                     </button>
                     <div class="info-panel" id="info-panel">
-                        <div class="panel-card-container" id="panel-card-container"></div>
+                        <div
+                            class="panel-card-container"
+                            id="panel-card-container"
+                        ></div>
                     </div>
                 </div>
                 <div class="bottom-bar">
