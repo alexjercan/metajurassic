@@ -9,7 +9,7 @@ function getTodaySeed(): number {
 
 function formatPuzzleId(gameData: GameData, seed: number): string {
     const index = gameData.speciesIndexForDate(seed);
-    return `animal-#${(index + 1).toString().padStart(3, "0")}`;
+    return `dinosaur-#${(index + 1).toString().padStart(3, "0")}`;
 }
 
 function gameStateKey(gameData: GameData, seed: number): string {
