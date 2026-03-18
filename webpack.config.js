@@ -1,5 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const HtmlPartialsPlugin = require("./webpack-partials");
 const CopyPlugin = require("copy-webpack-plugin");
 
 // PUBLIC_PATH should be "/" for local dev (default) or "/metajurassic/" for GitHub Pages.
@@ -55,6 +56,9 @@ const config = {
         }),
         new CopyPlugin({
             patterns: [{ from: "src/favicon.svg", to: "favicon.svg" }],
+        }),
+        new HtmlPartialsPlugin({
+            basePath: publicPath,
         }),
     ],
     resolve: {
