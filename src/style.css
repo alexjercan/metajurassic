@@ -1211,7 +1211,7 @@ footer a + a::before {
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 500px;
+    min-height: 600px;
 }
 
 .profile-carousel-title {
@@ -1235,7 +1235,7 @@ footer a + a::before {
     position: relative;
     width: 100%;
     flex: 1;
-    min-height: 420px;
+    min-height: 550px;
     display: flex;
     align-items: center;
 }
@@ -1260,7 +1260,7 @@ footer a + a::before {
 .profile-carousel .archive-card {
     flex: 0 0 340px;
     height: auto;
-    max-height: 450px;
+    max-height: 620px;
     min-height: 420px;
     scroll-snap-align: center;
 }
