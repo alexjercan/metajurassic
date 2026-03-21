@@ -5,6 +5,7 @@ import {
     renderLastGuess,
     openPanel,
     closePanel,
+    closePanelManually,
     isPanelOpen,
     renderCladeCard,
     renderSpeciesCard,
@@ -38,7 +39,9 @@ export function initGame({ data, state, saveState }: GameOptions) {
         "open-panel"
     ) as HTMLButtonElement;
     const hintBox = document.getElementById("hint-box") as HTMLDivElement;
-    const modalShareBtn = document.getElementById("modal-share-btn") as HTMLButtonElement;
+    const modalShareBtn = document.getElementById(
+        "modal-share-btn"
+    ) as HTMLButtonElement;
 
     const speciesNames = data.species.map((s) => s.species);
 
@@ -164,7 +167,7 @@ export function initGame({ data, state, saveState }: GameOptions) {
     if (openPanelBtn) {
         openPanelBtn.addEventListener("click", () => {
             if (isPanelOpen()) {
-                closePanel();
+                closePanelManually();
                 return;
             }
             if (state.lastGuessId) {

@@ -8,6 +8,8 @@ const arenaWrapper = document.getElementById("arena-wrapper");
 const panel = document.getElementById("info-panel");
 const cardContainer = document.getElementById("panel-card-container");
 
+let manuallyClosedPanel = false;
+
 export function closePanel() {
     panel?.classList.remove("active");
     arenaWrapper?.classList.remove("panel-open");
@@ -16,6 +18,12 @@ export function closePanel() {
 export function openPanel() {
     panel?.classList.add("active");
     arenaWrapper?.classList.add("panel-open");
+    manuallyClosedPanel = false;
+}
+
+export function closePanelManually() {
+    closePanel();
+    manuallyClosedPanel = true;
 }
 
 export function isPanelOpen() {
@@ -34,7 +42,9 @@ export function renderLastGuess(
         const clade = data.findCladeById(bestCladeId);
         if (!clade) return;
         renderCladeCard(clade);
-        openPanel();
+        if (!manuallyClosedPanel) {
+            openPanel();
+        }
         return;
     }
 
@@ -52,7 +62,9 @@ export function renderLastGuess(
         if (!clade) return;
         renderCladeCard(clade);
     }
-    openPanel();
+    if (!manuallyClosedPanel) {
+        openPanel();
+    }
 }
 
 export function renderSpeciesCard(
