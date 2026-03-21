@@ -2,6 +2,8 @@ import type { Species, Clade } from "../types";
 import defaultIcon from "../assets/default_icon.svg";
 import { autoShrinkText } from "./autoShrink";
 
+export type CardRarity = "common" | "rare";
+
 /**
  * Build the inner HTML for a species museum card and return the wrapper element.
  * The caller decides the outer class (e.g. "museum-card" vs "museum-card archive-card").
@@ -9,10 +11,16 @@ import { autoShrinkText } from "./autoShrink";
 export function createSpeciesCard(
     species: Species,
     clade?: Clade | null,
-    extraClasses: string = ""
+    extraClasses: string = "",
+    rarity?: CardRarity
 ): HTMLElement {
     const card = document.createElement("div");
     card.className = `museum-card${extraClasses ? ` ${extraClasses}` : ""}`;
+
+    // Add rarity class if specified
+    if (rarity) {
+        card.classList.add(`card-rarity-${rarity}`);
+    }
 
     const iconSrc = species.icon || defaultIcon;
     let imageHtml = "";
@@ -26,11 +34,16 @@ export function createSpeciesCard(
             : "[ Hologram Render ]";
     }
 
+    // Create rarity star HTML
+    const rarityStarHtml =
+        rarity === "rare" ? '<span class="card-rarity-star">★</span>' : "";
+
     card.innerHTML = `
         <div class="museum-card-inner">
             <div class="card-header">
                 <img class="card-icon" src="${iconSrc}" alt="">
                 <h2 class="card-title">${species.species}</h2>
+                ${rarityStarHtml}
             </div>
             <div class="card-image-area">${imageHtml}</div>
             <div class="card-content">

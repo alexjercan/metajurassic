@@ -42,7 +42,11 @@ function updateStatsUI(
         stats.uniqueDinosaursDiscovered.toString();
 
     renderGuessDistribution(stats.guessDistribution, stats.wins);
-    renderGuessedDinosaurs(stats.allGuessedDinosaurs, gameData);
+    renderGuessedDinosaurs(
+        stats.allGuessedDinosaurs,
+        stats.discoveredDinosaurs,
+        gameData
+    );
 }
 
 function renderGuessDistribution(
@@ -79,7 +83,11 @@ function renderGuessDistribution(
     container.innerHTML = html;
 }
 
-function renderGuessedDinosaurs(guessedIds: Set<string>, gameData: GameData) {
+function renderGuessedDinosaurs(
+    guessedIds: Set<string>,
+    discoveredIds: Set<string>,
+    gameData: GameData
+) {
     const carousel = document.getElementById("profile-carousel");
     if (!carousel) return;
 
@@ -97,10 +105,13 @@ function renderGuessedDinosaurs(guessedIds: Set<string>, gameData: GameData) {
     for (const species of guessedSpecies) {
         if (!species) continue;
         const clade = gameData.findCladeById(species.clade);
+        const isRare = discoveredIds.has(species.id);
+        const rarity = isRare ? "rare" : "common";
         const card = createSpeciesCard(
             species,
             clade || undefined,
-            "archive-card"
+            "archive-card",
+            rarity
         );
         carousel.appendChild(card);
         shrinkCardTitle(card);

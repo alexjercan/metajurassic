@@ -529,6 +529,53 @@ main {
     overflow: hidden;
 }
 
+/* Rarity star styles */
+
+.card-rarity-star {
+    color: var(--victory-gold);
+    font-size: 1.5rem;
+    margin-left: 8px;
+    animation: sparkle-rotate 3s ease-in-out infinite;
+    display: inline-block;
+    filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6));
+}
+
+@keyframes sparkle-rotate {
+    0% {
+        transform: rotate(0deg) scale(1);
+    }
+    25% {
+        transform: rotate(-15deg) scale(1.1);
+    }
+    50% {
+        transform: rotate(0deg) scale(1);
+    }
+    75% {
+        transform: rotate(15deg) scale(1.1);
+    }
+    100% {
+        transform: rotate(0deg) scale(1);
+    }
+}
+
+/* Enhanced border glow for rare cards */
+
+.card-rarity-rare::before {
+    background: conic-gradient(
+        from var(--card-glow-angle),
+        transparent 0%,
+        var(--victory-gold) 8%,
+        transparent 16%,
+        transparent 100%
+    );
+}
+
+.card-rarity-rare {
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.8),
+        0 0 40px rgba(255, 215, 0, 0.2);
+}
+
 @keyframes card-glow-spin {
     to {
         --card-glow-angle: 360deg;
