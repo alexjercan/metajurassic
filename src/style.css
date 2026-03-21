@@ -1299,21 +1299,63 @@ footer a + a::before {
     min-height: 600px;
 }
 
+.profile-carousel-header {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    margin-bottom: 1vh;
+}
+
 .profile-carousel-title {
     font-size: 1.8rem;
     color: var(--amber-glow);
     margin: 0 0 0.5vh 0;
-    text-align: center;
     letter-spacing: 1px;
-    flex-shrink: 0;
 }
 
 .profile-carousel-subtitle {
     font-size: 0.9rem;
     color: #8a93a5;
-    margin: 0 0 2vh 0;
-    text-align: center;
-    flex-shrink: 0;
+    margin: 0;
+}
+
+.profile-filter-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    padding: 10px 16px;
+    border-radius: 20px;
+    transition: all 0.2s ease;
+}
+
+.profile-filter-toggle:hover {
+    background: var(--amber-dim);
+    border-color: var(--amber-glow);
+}
+
+.profile-filter-toggle input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: var(--amber-glow);
+}
+
+.profile-filter-toggle span {
+    color: #8a93a5;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.profile-filter-toggle:hover span {
+    color: var(--amber-glow);
 }
 
 .profile-carousel-wrapper {
@@ -1610,5 +1652,19 @@ footer a + a::before {
 
     .profile-carousel-subtitle {
         font-size: 0.85rem;
+    }
+
+    .profile-carousel-header {
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        padding: 0 16px;
+        text-align: center;
+    }
+
+    .profile-filter-toggle {
+        width: 100%;
+        max-width: 200px;
+        justify-content: center;
     }
 }

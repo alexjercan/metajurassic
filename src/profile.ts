@@ -105,38 +105,53 @@ function renderGuessedDinosaurs(
     gameData: GameData
 ) {
     const carousel = document.getElementById("profile-carousel");
-    if (!carousel) return;
+    const toggle = document.getElementById(
+        "show-locked-toggle"
+    ) as HTMLInputElement;
+    if (!carousel || !toggle) return;
 
-    // Get all species sorted alphabetically
-    const allSpecies = [...gameData.species].sort((a, b) =>
-        a.species.localeCompare(b.species)
-    );
+    const renderCards = (showLocked: boolean) => {
+        carousel.innerHTML = "";
 
-    for (const species of allSpecies) {
-        const isUnlocked = guessedIds.has(species.id);
+        // Get all species sorted alphabetically
+        const allSpecies = [...gameData.species].sort((a, b) =>
+            a.species.localeCompare(b.species)
+        );
 
-        if (isUnlocked) {
-            // Render unlocked card
-            const clade = gameData.findCladeById(species.clade);
-            const isRare = discoveredIds.has(species.id);
-            const rarity = isRare ? "rare" : "common";
-            const card = createSpeciesCard(
-                species,
-                clade || undefined,
-                "archive-card",
-                rarity
-            );
-            carousel.appendChild(card);
-            shrinkCardTitle(card);
-        } else {
-            // Render locked card
-            const card = createLockedSpeciesCard(species, "archive-card");
-            carousel.appendChild(card);
-            shrinkCardTitle(card);
+        for (const species of allSpecies) {
+            const isUnlocked = guessedIds.has(species.id);
+
+            if (isUnlocked) {
+                // Render unlocked card
+                const clade = gameData.findCladeById(species.clade);
+                const isRare = discoveredIds.has(species.id);
+                const rarity = isRare ? "rare" : "common";
+                const card = createSpeciesCard(
+                    species,
+                    clade || undefined,
+                    "archive-card",
+                    rarity
+                );
+                carousel.appendChild(card);
+                shrinkCardTitle(card);
+            } else if (showLocked) {
+                // Render locked card only if showLocked is true
+                const card = createLockedSpeciesCard(species, "archive-card");
+                carousel.appendChild(card);
+                shrinkCardTitle(card);
+            }
         }
-    }
 
-    setupCarouselNav(carousel);
+        setupCarouselNav(carousel);
+    };
+
+    // Initial render
+    renderCards(toggle.checked);
+
+    // Listen for toggle changes
+    toggle.addEventListener("change", () => {
+        renderCards(toggle.checked);
+    });
 }
 
 function setupCarouselNav(carousel: HTMLElement) {
