@@ -3,8 +3,12 @@ import { computeGameStats } from "./gameStats";
 import { loadGameData } from "./jsonLoader";
 import { createSpeciesCard, shrinkCardTitle } from "./ui/card";
 import { GameData } from "./gameData";
+import { migrateGameStates } from "./migration";
 
 async function main() {
+    // Run migration before computing stats
+    migrateGameStates();
+
     const gameData = await loadGameData();
     const stats = computeGameStats(gameData);
 
