@@ -38,8 +38,16 @@ function updateStatsUI(
     document.getElementById("total-losses")!.textContent =
         stats.losses.toString();
 
+    const totalDinosaurs = gameData.species.length;
+    const unlockedDinosaurs = stats.allGuessedDinosaurs.size;
+    const unlockedPercentage =
+        totalDinosaurs > 0 ? (unlockedDinosaurs / totalDinosaurs) * 100 : 0;
     document.getElementById("unique-dinos")!.textContent =
-        stats.uniqueDinosaursDiscovered.toString();
+        `${unlockedDinosaurs}/${totalDinosaurs}`;
+    const progressBar = document.getElementById("unique-dinos-progress");
+    if (progressBar) {
+        progressBar.style.width = `${unlockedPercentage}%`;
+    }
 
     renderGuessDistribution(stats.guessDistribution, stats.wins);
     renderGuessedDinosaurs(
