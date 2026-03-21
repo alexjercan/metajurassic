@@ -1149,6 +1149,75 @@ footer a + a::before {
     background: var(--amber-dim);
 }
 
+/* Profile carousel section */
+
+.profile-carousel-section {
+    width: 100%;
+    max-width: 100%;
+    padding: 3vh 0 2vh;
+    background: linear-gradient(
+        180deg,
+        rgba(10, 12, 16, 0.5) 0%,
+        rgba(20, 24, 32, 0.8) 100%
+    );
+    border-top: 1px solid var(--glass-border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 500px;
+}
+
+.profile-carousel-title {
+    font-size: 1.8rem;
+    color: var(--amber-glow);
+    margin: 0 0 0.5vh 0;
+    text-align: center;
+    letter-spacing: 1px;
+    flex-shrink: 0;
+}
+
+.profile-carousel-subtitle {
+    font-size: 0.9rem;
+    color: #8a93a5;
+    margin: 0 0 2vh 0;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.profile-carousel-wrapper {
+    position: relative;
+    width: 100%;
+    flex: 1;
+    min-height: 420px;
+    display: flex;
+    align-items: center;
+}
+
+.profile-carousel {
+    display: flex;
+    height: 100%;
+    gap: 24px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 10px 40px 20px;
+    width: 100%;
+    box-sizing: border-box;
+    scrollbar-width: none;
+}
+
+.profile-carousel::-webkit-scrollbar {
+    display: none;
+}
+
+.profile-carousel .archive-card {
+    flex: 0 0 340px;
+    height: auto;
+    max-height: 450px;
+    min-height: 420px;
+    scroll-snap-align: center;
+}
+
 /* Archive carousel pages */
 
 .archive-container {
@@ -1390,5 +1459,24 @@ footer a + a::before {
 
     .carousel-btn {
         display: none;
+    }
+
+    .profile-carousel {
+        padding: 10px 16px 16px;
+        gap: 16px;
+    }
+
+    .profile-carousel .archive-card {
+        flex: 0 0 280px;
+        max-height: 380px;
+        min-height: 380px;
+    }
+
+    .profile-carousel-title {
+        font-size: 1.5rem;
+    }
+
+    .profile-carousel-subtitle {
+        font-size: 0.85rem;
     }
 }

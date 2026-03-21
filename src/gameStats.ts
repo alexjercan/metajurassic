@@ -12,6 +12,7 @@ export interface GameStats {
     longestStreak: number;
     uniqueDinosaursDiscovered: number;
     discoveredDinosaurs: Set<string>;
+    allGuessedDinosaurs: Set<string>;
 }
 
 interface GameResult {
@@ -28,38 +29,88 @@ export function loadAllGames(
     storage: StorageProvider = defaultStorage()
 ): GameResult[] {
     const results: GameResult[] = [];
-    for (let i = 0; i < storage.length(); i++) {
-        const key = storage.key(i);
 
-        const parsed = parseGameStateKey(key);
-        if (!parsed) continue;
+    // Handle storage providers that don't implement length/key
+    if (!storage.length || !storage.key) {
+        // Fallback to localStorage directly if available
+        if (typeof localStorage === "undefined") return results;
 
-        const savedState = storage.getItem(key);
-        if (!savedState) continue;
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (!key) continue;
 
-        try {
-            const data = JSON.parse(savedState);
-            const state = new GameState(
-                gameData,
-                data.targetId,
-                new Set(data.guesses),
-                data.lastGuessId,
-                new Set(data.hintClades ?? [])
-            );
+            const parsed = parseGameStateKey(key);
+            if (!parsed) continue;
 
-            if (!state.isGameOver()) continue;
+            const savedState = storage.getItem(key);
+            if (!savedState) continue;
 
-            const date = seedToDate(parsed.seed);
-            results.push({
-                date,
-                seed: parsed.seed,
-                puzzleId: parsed.puzzleId,
-                isWin: state.isWin(),
-                numberOfGuesses: state.numberOfGuesses(),
-                targetId: state.targetId,
-            });
-        } catch (error) {
-            console.warn(`Failed to parse game state for key ${key}`, error);
+            try {
+                const data = JSON.parse(savedState);
+                const state = new GameState(
+                    gameData,
+                    data.targetId,
+                    new Set(data.guesses),
+                    data.lastGuessId,
+                    new Set(data.hintClades ?? [])
+                );
+
+                if (!state.isGameOver()) continue;
+
+                const date = seedToDate(parsed.seed);
+                results.push({
+                    date,
+                    seed: parsed.seed,
+                    puzzleId: parsed.puzzleId,
+                    isWin: state.isWin(),
+                    numberOfGuesses: state.numberOfGuesses(),
+                    targetId: state.targetId,
+                });
+            } catch (error) {
+                console.warn(
+                    `Failed to parse game state for key ${key}`,
+                    error
+                );
+            }
+        }
+    } else {
+        for (let i = 0; i < storage.length(); i++) {
+            const key = storage.key(i);
+            if (!key) continue;
+
+            const parsed = parseGameStateKey(key);
+            if (!parsed) continue;
+
+            const savedState = storage.getItem(key);
+            if (!savedState) continue;
+
+            try {
+                const data = JSON.parse(savedState);
+                const state = new GameState(
+                    gameData,
+                    data.targetId,
+                    new Set(data.guesses),
+                    data.lastGuessId,
+                    new Set(data.hintClades ?? [])
+                );
+
+                if (!state.isGameOver()) continue;
+
+                const date = seedToDate(parsed.seed);
+                results.push({
+                    date,
+                    seed: parsed.seed,
+                    puzzleId: parsed.puzzleId,
+                    isWin: state.isWin(),
+                    numberOfGuesses: state.numberOfGuesses(),
+                    targetId: state.targetId,
+                });
+            } catch (error) {
+                console.warn(
+                    `Failed to parse game state for key ${key}`,
+                    error
+                );
+            }
         }
     }
 
@@ -157,10 +208,45 @@ export function computeGameStats(
     // Calculate streaks
     const streaks = calculateStreak(results);
 
-    // Unique dinosaurs discovered
+    // Unique dinosaurs discovered (won)
     const discoveredDinosaurs = new Set(
         results.filter((r) => r.isWin).map((r) => r.targetId)
     );
+
+    // All guessed dinosaurs (from all game states)
+    const allGuessedDinosaurs = new Set<string>();
+
+    // Handle storage providers that don't implement length/key
+    const storageLength =
+        storage.length?.() ??
+        (typeof localStorage !== "undefined" ? localStorage.length : 0);
+    const getKey =
+        storage.key ??
+        ((i: number) =>
+            typeof localStorage !== "undefined" ? localStorage.key(i) : null);
+
+    for (let i = 0; i < storageLength; i++) {
+        const key = getKey(i);
+        if (!key) continue;
+
+        const parsed = parseGameStateKey(key);
+        if (!parsed) continue;
+
+        const savedState = storage.getItem(key);
+        if (!savedState) continue;
+
+        try {
+            const data = JSON.parse(savedState);
+            // Add all guesses from this game state
+            if (data.guesses && Array.isArray(data.guesses)) {
+                data.guesses.forEach((guessId: string) => {
+                    allGuessedDinosaurs.add(guessId);
+                });
+            }
+        } catch (error) {
+            console.warn(`Failed to parse game state for key ${key}`, error);
+        }
+    }
 
     return {
         gamesPlayed,
@@ -172,5 +258,6 @@ export function computeGameStats(
         longestStreak: streaks.longest,
         uniqueDinosaursDiscovered: discoveredDinosaurs.size,
         discoveredDinosaurs,
+        allGuessedDinosaurs,
     };
 }

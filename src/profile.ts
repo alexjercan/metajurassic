@@ -1,16 +1,20 @@
 import "./style.css";
 import { computeGameStats } from "./gameStats";
 import { loadGameData } from "./jsonLoader";
+import { createSpeciesCard, shrinkCardTitle } from "./ui/card";
+import { GameData } from "./gameData";
 
 async function main() {
     const gameData = await loadGameData();
     const stats = computeGameStats(gameData);
 
-    updateStatsUI(stats);
+    updateStatsUI(stats, gameData);
 }
 
-function updateStatsUI(stats: ReturnType<typeof computeGameStats>) {
-    // Top stat cards
+function updateStatsUI(
+    stats: ReturnType<typeof computeGameStats>,
+    gameData: GameData
+) {
     document.getElementById("games-played")!.textContent =
         stats.gamesPlayed.toString();
 
@@ -26,7 +30,6 @@ function updateStatsUI(stats: ReturnType<typeof computeGameStats>) {
     document.getElementById("longest-streak")!.textContent =
         stats.longestStreak.toString();
 
-    // Performance section
     document.getElementById("avg-guesses")!.textContent =
         stats.wins > 0 ? stats.averageGuesses.toFixed(1) : "0";
 
@@ -38,8 +41,8 @@ function updateStatsUI(stats: ReturnType<typeof computeGameStats>) {
     document.getElementById("unique-dinos")!.textContent =
         stats.uniqueDinosaursDiscovered.toString();
 
-    // Guess distribution
     renderGuessDistribution(stats.guessDistribution, stats.wins);
+    renderGuessedDinosaurs(stats.allGuessedDinosaurs, gameData);
 }
 
 function renderGuessDistribution(
@@ -74,6 +77,76 @@ function renderGuessDistribution(
     }
 
     container.innerHTML = html;
+}
+
+function renderGuessedDinosaurs(guessedIds: Set<string>, gameData: GameData) {
+    const carousel = document.getElementById("profile-carousel");
+    if (!carousel) return;
+
+    if (guessedIds.size === 0) {
+        carousel.innerHTML =
+            '<p class="profile-no-data">No guesses yet! Play some games to see your guessed dinosaurs.</p>';
+        return;
+    }
+
+    const guessedSpecies = Array.from(guessedIds)
+        .map((id) => gameData.findSpeciesById(id))
+        .filter((s) => s !== null)
+        .sort((a, b) => a!.species.localeCompare(b!.species));
+
+    for (const species of guessedSpecies) {
+        if (!species) continue;
+        const clade = gameData.findCladeById(species.clade);
+        const card = createSpeciesCard(
+            species,
+            clade || undefined,
+            "archive-card"
+        );
+        carousel.appendChild(card);
+        shrinkCardTitle(card);
+    }
+
+    setupCarouselNav(carousel);
+}
+
+function setupCarouselNav(carousel: HTMLElement) {
+    const leftBtn = document.getElementById(
+        "profile-carousel-left"
+    ) as HTMLButtonElement | null;
+    const rightBtn = document.getElementById(
+        "profile-carousel-right"
+    ) as HTMLButtonElement | null;
+    if (!leftBtn || !rightBtn) return;
+
+    const scrollAmount = 370;
+
+    const updateButtons = () => {
+        leftBtn.disabled = carousel.scrollLeft <= 0;
+        rightBtn.disabled =
+            carousel.scrollLeft + carousel.clientWidth >=
+            carousel.scrollWidth - 1;
+    };
+
+    leftBtn.addEventListener("click", () => {
+        carousel.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+    });
+
+    rightBtn.addEventListener("click", () => {
+        carousel.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    });
+
+    carousel.addEventListener("scroll", updateButtons);
+    updateButtons();
+
+    carousel.addEventListener(
+        "wheel",
+        (e) => {
+            if (e.deltaY === 0) return;
+            e.preventDefault();
+            carousel.scrollBy({ left: e.deltaY });
+        },
+        { passive: false }
+    );
 }
 
 main();
