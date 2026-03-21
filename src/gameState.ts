@@ -3,18 +3,34 @@ import { dateToSeed, GameData } from "./gameData";
 import { StorageProvider, defaultStorage } from "./storage";
 import { GuessResult } from "./types";
 
+const PADDING_LENGTH = 5;
+
 function getTodaySeed(): number {
     return dateToSeed(new Date());
 }
 
 function formatPuzzleId(gameData: GameData, seed: number): string {
     const index = gameData.speciesIndexForDate(seed);
-    return `dinosaur-#${(index + 1).toString().padStart(3, "0")}`;
+    return `dinosaur-#${(index + 1).toString().padStart(PADDING_LENGTH, "0")}`;
 }
 
 function gameStateKey(gameData: GameData, seed: number): string {
     const puzzleId = formatPuzzleId(gameData, seed);
     return `gameState-${puzzleId}`;
+}
+
+export function parseGameStateKey(key: string): { puzzleId: string; seed: number } | null {
+    const match = key.match(new RegExp(`^gameState-(dinosaur-#\\d{${PADDING_LENGTH}})$`));
+    if (!match) return null;
+
+    const puzzleId = match[1];
+    const indexMatch = puzzleId.match(new RegExp(`^dinosaur-#(\\d{${PADDING_LENGTH}})$`));
+    if (!indexMatch) return null;
+
+    const index = parseInt(indexMatch[1], 10) - 1;
+    const seed = index + 1; // since index is 0-based and seed is 1-based
+
+    return { puzzleId, seed };
 }
 
 export function createNewGameState(

@@ -14,7 +14,82 @@
         <div id="header"></div>
         <main>
             <div class="profile-container">
-                <h1 class="profile-title">Profile</h1>
+                <h1 class="profile-title">Player Statistics</h1>
+
+                <div class="profile-stats-grid">
+                    <div class="profile-stat-card">
+                        <div class="profile-stat-value" id="games-played">
+                            0
+                        </div>
+                        <div class="profile-stat-label">Games Played</div>
+                    </div>
+                    <div class="profile-stat-card">
+                        <div class="profile-stat-value" id="win-rate">0%</div>
+                        <div class="profile-stat-label">Win Rate</div>
+                    </div>
+                    <div class="profile-stat-card">
+                        <div class="profile-stat-value" id="current-streak">
+                            0
+                        </div>
+                        <div class="profile-stat-label">Current Streak</div>
+                    </div>
+                    <div class="profile-stat-card">
+                        <div class="profile-stat-value" id="longest-streak">
+                            0
+                        </div>
+                        <div class="profile-stat-label">Longest Streak</div>
+                    </div>
+                </div>
+
+                <div class="profile-section">
+                    <h2 class="profile-section-title">Performance</h2>
+                    <div class="profile-stat-card profile-stat-full">
+                        <div class="profile-stat-row">
+                            <span class="profile-stat-label"
+                                >Average Guesses</span
+                            >
+                            <span class="profile-stat-value" id="avg-guesses"
+                                >0</span
+                            >
+                        </div>
+                        <div class="profile-stat-row">
+                            <span class="profile-stat-label">Total Wins</span>
+                            <span class="profile-stat-value" id="total-wins"
+                                >0</span
+                            >
+                        </div>
+                        <div class="profile-stat-row">
+                            <span class="profile-stat-label">Total Losses</span>
+                            <span class="profile-stat-value" id="total-losses"
+                                >0</span
+                            >
+                        </div>
+                        <div class="profile-stat-row">
+                            <span class="profile-stat-label"
+                                >Unique Dinosaurs</span
+                            >
+                            <span class="profile-stat-value" id="unique-dinos"
+                                >0</span
+                            >
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-section">
+                    <h2 class="profile-section-title">Guess Distribution</h2>
+                    <div class="profile-stat-card profile-stat-full">
+                        <div
+                            class="profile-distribution"
+                            id="guess-distribution"
+                        ></div>
+                    </div>
+                </div>
+
+                <div class="profile-back">
+                    <a href="<%= htmlWebpackPlugin.options.basePath %>"
+                        >Back to game</a
+                    >
+                </div>
             </div>
         </main>
         <div id="footer"></div>

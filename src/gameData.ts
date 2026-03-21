@@ -1,15 +1,18 @@
 import { Clade, Species } from "./types";
 
+const FIRST_DAY = new Date(2026, 0, 1); // January 1, 2026
+
+
 export function dateToSeed(date: Date): number {
     const msPerDay = 1000 * 60 * 60 * 24;
 
-    return (
-        Math.floor(
-            (date.getTime() -
-                new Date(date.getFullYear(), 0, 0).getTime()) /
-            msPerDay
-        )
-    );
+    return Math.floor((date.getTime() - FIRST_DAY.getTime()) / msPerDay) + 1;
+}
+
+export function seedToDate(seed: number): Date {
+    const msPerDay = 1000 * 60 * 60 * 24;
+
+    return new Date(FIRST_DAY.getTime() + (seed - 1) * msPerDay);
 }
 
 export class GameData {
