@@ -54,12 +54,11 @@ function renderGuessDistribution(
         return;
     }
 
-    // Find the max count for scaling
     const maxCount = Math.max(...Array.from(distribution.values()));
+    const maxGuesses = Math.max(...Array.from(distribution.keys()));
 
-    // Create bars for each guess count (1 to 25)
     let html = "";
-    for (let guesses = 1; guesses <= 25; guesses++) {
+    for (let guesses = 1; guesses <= maxGuesses; guesses++) {
         const count = distribution.get(guesses) || 0;
         const percentage = maxCount > 0 ? (count / maxCount) * 100 : 0;
 
