@@ -49,13 +49,14 @@ function normalizeDateToScale(date: Date, scale: TimeScale): Date {
         case "daily":
             normalized.setHours(0, 0, 0, 0);
             break;
-        case "weekly":
+        case "weekly": {
             // Set to Monday of the week at 00:00:00
             normalized.setHours(0, 0, 0, 0);
             const day = normalized.getDay();
             const diff = day === 0 ? -6 : 1 - day; // Handle Sunday (0) and make Monday the start
             normalized.setDate(normalized.getDate() + diff);
             break;
+        }
         case "none":
             // No normalization
             break;
@@ -146,7 +147,13 @@ export function loadAllGames(
         if (!savedState) continue;
 
         try {
-            const data = JSON.parse(savedState);
+            const data = JSON.parse(savedState) as {
+                createdAt?: string;
+                targetId: string;
+                guesses: string[];
+                lastGuessId?: string;
+                hintClades?: string[];
+            };
             const createdAtRaw = data.createdAt
                 ? new Date(data.createdAt)
                 : new Date();
@@ -361,14 +368,19 @@ export function computeGameStats(
         if (!savedState) continue;
 
         try {
-            const data = JSON.parse(savedState);
+            const data = JSON.parse(savedState) as {
+                guesses?: unknown;
+            };
             if (data.guesses && Array.isArray(data.guesses)) {
-                data.guesses.forEach((guessId: string) => {
+                (data.guesses as string[]).forEach((guessId: string) => {
                     allGuessedDinosaurs.add(guessId);
                 });
             }
         } catch (error) {
-            // Skip invalid game states
+            console.warn(
+                `Failed to parse game state for key ${key} when computing guessed dinosaurs`,
+                error
+            );
         }
     }
 

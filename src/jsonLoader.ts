@@ -28,7 +28,7 @@ interface RawGameData {
 export async function loadGameData(): Promise<GameData> {
     const url = require("./jurassic/index.json") as string;
     const response = await fetch(url);
-    const raw: RawGameData = await response.json();
+    const raw = (await response.json()) as RawGameData;
 
     const species: Species[] = Object.entries(raw.species).map(([id, s]) => ({
         id,

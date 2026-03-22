@@ -4,7 +4,6 @@ import { setupAutocomplete } from "./ui";
 import {
     renderLastGuess,
     openPanel,
-    closePanel,
     closePanelManually,
     isPanelOpen,
     renderCladeCard,
@@ -76,9 +75,8 @@ export function initGame({ data, state, saveState }: GameOptions) {
         if (!guess.trim()) return;
 
         try {
-            let result = state.makeGuess(guess);
+            state.makeGuess(guess);
             save();
-            console.log("Result:", result);
         } catch (error) {
             alert(error instanceof Error ? error.message : "Invalid guess");
         } finally {

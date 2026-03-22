@@ -200,9 +200,9 @@ describe("buildGuessTree", () => {
 
         expect(targetChild).toBeDefined();
         expect(guessChild).toBeDefined();
-        if (isSpeciesNode(guessChild!)) {
-            expect(guessChild!.name).toBe("Species4");
-            expect(guessChild!.isPlaceholder).toBe(false);
+        if (isSpeciesNode(guessChild)) {
+            expect(guessChild.name).toBe("Species4");
+            expect(guessChild.isPlaceholder).toBe(false);
         }
     });
 
@@ -271,12 +271,12 @@ describe("buildGuessTree", () => {
         expect(cladeB).toBeDefined();
         expect(species3).toBeDefined();
 
-        if (isCladeNode(cladeB!)) {
-            expect(cladeB!.children).toHaveLength(2);
-            const targetChild = cladeB!.children.find(
+        if (isCladeNode(cladeB)) {
+            expect(cladeB.children).toHaveLength(2);
+            const targetChild = cladeB.children.find(
                 (c) => isSpeciesNode(c) && c.isTarget && c.isPlaceholder
             );
-            const species2 = cladeB!.children.find(
+            const species2 = cladeB.children.find(
                 (c) => isSpeciesNode(c) && c.speciesId === "species2"
             );
             expect(targetChild).toBeDefined();
@@ -317,24 +317,24 @@ describe("buildGuessTree", () => {
         expect(cladeB).toBeDefined();
         expect(cladeE).toBeDefined();
 
-        if (isCladeNode(cladeB!)) {
-            expect(cladeB!.children).toHaveLength(2);
-            const targetChild = cladeB!.children.find(
+        if (isCladeNode(cladeB)) {
+            expect(cladeB.children).toHaveLength(2);
+            const targetChild = cladeB.children.find(
                 (c) => isSpeciesNode(c) && c.isTarget
             );
-            const species2 = cladeB!.children.find(
+            const species2 = cladeB.children.find(
                 (c) => isSpeciesNode(c) && c.speciesId === "species2"
             );
             expect(targetChild).toBeDefined();
             expect(species2).toBeDefined();
         }
 
-        if (isCladeNode(cladeE!)) {
-            expect(cladeE!.children).toHaveLength(2);
-            const species3 = cladeE!.children.find(
+        if (isCladeNode(cladeE)) {
+            expect(cladeE.children).toHaveLength(2);
+            const species3 = cladeE.children.find(
                 (c) => isSpeciesNode(c) && c.speciesId === "species3"
             );
-            const species4 = cladeE!.children.find(
+            const species4 = cladeE.children.find(
                 (c) => isSpeciesNode(c) && c.speciesId === "species4"
             );
             expect(species3).toBeDefined();
@@ -541,8 +541,8 @@ describe("buildGuessTree", () => {
         expect(targetChild).toBeDefined();
         expect(cladeE).toBeDefined();
 
-        if (isCladeNode(cladeE!)) {
-            expect(cladeE!.children).toHaveLength(2);
+        if (isCladeNode(cladeE)) {
+            expect(cladeE.children).toHaveLength(2);
         }
     });
 });
@@ -733,9 +733,9 @@ describe("buildGuessTree with hints", () => {
         expect(cladeB).toBeDefined();
         expect(species3).toBeDefined();
 
-        if (isCladeNode(cladeB!)) {
-            expect(cladeB!.children).toHaveLength(1);
-            const placeholder = cladeB!.children[0];
+        if (isCladeNode(cladeB)) {
+            expect(cladeB.children).toHaveLength(1);
+            const placeholder = cladeB.children[0];
             expect(isSpeciesNode(placeholder)).toBe(true);
             if (isSpeciesNode(placeholder)) {
                 expect(placeholder.isTarget).toBe(true);

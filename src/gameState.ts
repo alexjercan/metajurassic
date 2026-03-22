@@ -69,12 +69,21 @@ export function loadGameState(
 
     if (savedState) {
         try {
-            const parsed = JSON.parse(savedState);
+            const parsed = JSON.parse(savedState) as {
+                createdAt?: string;
+                seed?: number;
+                targetId: string;
+                guesses: string[];
+                lastGuessId?: string;
+                hintClades?: string[];
+            };
             const createdAtRaw = parsed.createdAt
                 ? new Date(parsed.createdAt)
                 : new Date();
             const createdAt =
-                gameMode === "daily" ? seedToDate(parsed.seed) : createdAtRaw;
+                gameMode === "daily"
+                    ? seedToDate(parsed.seed ?? seed)
+                    : createdAtRaw;
 
             return new GameState(
                 gameData,

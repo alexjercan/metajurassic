@@ -61,7 +61,7 @@ export function findNextHintCladeId(state: GameState): string | null {
         revealedClades.add(hintCladeId);
     }
 
-    const guessedSpecies = [];
+    const guessedSpecies: Species[] = [];
     for (const guessId of state.guesses) {
         const sp = gameData.findSpeciesById(guessId);
         if (sp) guessedSpecies.push(sp);
@@ -240,7 +240,10 @@ function buildCladeSubtree(
     revealTarget: boolean,
     parentId?: string
 ): CladeNode {
-    const clade = gameData.findCladeById(cladeId)!;
+    const clade = gameData.findCladeById(cladeId);
+    if (!clade) {
+        throw new Error(`Clade ${cladeId} not found`);
+    }
     const nodeId = `clade-${cladeId}`;
 
     const cladeNode: CladeNode = {

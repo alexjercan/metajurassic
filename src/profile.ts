@@ -65,35 +65,35 @@ function updateStatsUI(
     gameData: GameData
 ) {
     // Update Daily stats
-    document.getElementById("games-played-daily")!.textContent =
+    document.getElementById("games-played-daily").textContent =
         statsDaily.gamesPlayed.toString();
 
     const winRateDaily =
         statsDaily.gamesPlayed > 0
             ? Math.round((statsDaily.wins / statsDaily.gamesPlayed) * 100)
             : 0;
-    document.getElementById("win-rate-daily")!.textContent = `${winRateDaily}%`;
+    document.getElementById("win-rate-daily").textContent = `${winRateDaily}%`;
 
-    document.getElementById("current-streak-daily")!.textContent =
+    document.getElementById("current-streak-daily").textContent =
         statsDaily.currentStreak.toString();
 
-    document.getElementById("longest-streak-daily")!.textContent =
+    document.getElementById("longest-streak-daily").textContent =
         statsDaily.longestStreak.toString();
 
-    document.getElementById("avg-guesses-daily")!.textContent =
+    document.getElementById("avg-guesses-daily").textContent =
         statsDaily.wins > 0 ? statsDaily.averageGuesses.toFixed(1) : "0";
 
-    document.getElementById("total-wins-daily")!.textContent =
+    document.getElementById("total-wins-daily").textContent =
         statsDaily.wins.toString();
 
-    document.getElementById("total-losses-daily")!.textContent =
+    document.getElementById("total-losses-daily").textContent =
         statsDaily.losses.toString();
 
     const totalDinosaurs = gameData.species.length;
     const unlockedDinosaurs = statsDaily.allGuessedDinosaurs.size;
     const unlockedPercentage =
         totalDinosaurs > 0 ? (unlockedDinosaurs / totalDinosaurs) * 100 : 0;
-    document.getElementById("unique-dinos-daily")!.textContent =
+    document.getElementById("unique-dinos-daily").textContent =
         `${unlockedDinosaurs}/${totalDinosaurs}`;
     const progressBarDaily = document.getElementById(
         "unique-dinos-progress-daily"
@@ -109,23 +109,23 @@ function updateStatsUI(
     );
 
     // Update Practice stats
-    document.getElementById("games-played-practice")!.textContent =
+    document.getElementById("games-played-practice").textContent =
         statsPractice.gamesPlayed.toString();
 
     const winRatePractice =
         statsPractice.gamesPlayed > 0
             ? Math.round((statsPractice.wins / statsPractice.gamesPlayed) * 100)
             : 0;
-    document.getElementById("win-rate-practice")!.textContent =
+    document.getElementById("win-rate-practice").textContent =
         `${winRatePractice}%`;
 
-    document.getElementById("avg-guesses-practice")!.textContent =
+    document.getElementById("avg-guesses-practice").textContent =
         statsPractice.wins > 0 ? statsPractice.averageGuesses.toFixed(1) : "0";
 
-    document.getElementById("total-wins-practice")!.textContent =
+    document.getElementById("total-wins-practice").textContent =
         statsPractice.wins.toString();
 
-    document.getElementById("total-losses-practice")!.textContent =
+    document.getElementById("total-losses-practice").textContent =
         statsPractice.losses.toString();
 
     renderGuessDistribution(
@@ -147,7 +147,7 @@ function renderGuessDistribution(
     totalWins: number,
     containerId: string
 ) {
-    const container = document.getElementById(containerId)!;
+    const container = document.getElementById(containerId);
 
     if (totalWins === 0) {
         container.innerHTML =
@@ -181,7 +181,7 @@ function renderRollingAverage(
     dataPoints: ReturnType<typeof calculateRollingAverage>,
     containerId: string
 ) {
-    const container = document.getElementById(containerId)!;
+    const container = document.getElementById(containerId);
 
     if (dataPoints.length === 0) {
         container.innerHTML =
@@ -382,10 +382,8 @@ function showTooltip(
     point: ReturnType<typeof calculateRollingAverage>[number],
     container: HTMLElement
 ) {
-    const tooltip = container.querySelector(
-        ".profile-graph-tooltip"
-    ) as HTMLElement;
-    if (!tooltip) return;
+    const tooltip = container.querySelector(".profile-graph-tooltip");
+    if (!(tooltip instanceof HTMLElement)) return;
 
     const dateStr = formatDateShort(point.time);
 
@@ -431,10 +429,8 @@ function showTooltip(
 }
 
 function hideTooltip(container: HTMLElement) {
-    const tooltip = container.querySelector(
-        ".profile-graph-tooltip"
-    ) as HTMLElement;
-    if (!tooltip) return;
+    const tooltip = container.querySelector(".profile-graph-tooltip");
+    if (!(tooltip instanceof HTMLElement)) return;
     tooltip.classList.remove("visible");
 }
 
@@ -442,13 +438,6 @@ function formatDateShort(date: Date): string {
     const month = date.toLocaleString("en", { month: "short" });
     const day = date.getDate();
     return `${month} ${day}`;
-}
-
-function formatDateLong(date: Date): string {
-    const month = date.toLocaleString("en", { month: "short" });
-    const day = date.getDate();
-    const year = date.getFullYear();
-    return `${month} ${day}, ${year}`;
 }
 
 function renderGuessedDinosaurs(
