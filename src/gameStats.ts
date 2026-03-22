@@ -25,9 +25,8 @@ interface GameResult {
 }
 
 export interface RollingAverageDataPoint {
-    weekStart: Date;
-    weekEnd: Date;
-    average: number;
+    time: Date;
+    value: number;
     gamesCount: number;
 }
 
@@ -54,8 +53,11 @@ export function loadAllGames(
 
         try {
             const data = JSON.parse(savedState);
-            const createdAtRaw = data.createdAt ? new Date(data.createdAt) : new Date();
-            const createdAt = gameMode === "daily" ? seedToDate(parsed.seed) : createdAtRaw;
+            const createdAtRaw = data.createdAt
+                ? new Date(data.createdAt)
+                : new Date();
+            const createdAt =
+                gameMode === "daily" ? seedToDate(parsed.seed) : createdAtRaw;
 
             const state = new GameState(
                 gameData,
@@ -63,7 +65,7 @@ export function loadAllGames(
                 new Set(data.guesses),
                 data.lastGuessId,
                 new Set(data.hintClades ?? []),
-                createdAt,
+                createdAt
             );
 
             if (!state.isGameOver()) continue;
@@ -90,7 +92,7 @@ export function calculateRollingAverage(
     gameData: GameData,
     storage: StorageProvider = defaultStorage(),
     gameMode: "daily" | "practice" = "practice",
-    windowSizeDays: number = 7
+    windowSizeMs: number = 7 * 24 * 60 * 60 * 1000 // Default: 7 days in milliseconds
 ): RollingAverageDataPoint[] {
     const results = loadAllGames(gameData, storage, gameMode);
 
@@ -104,45 +106,33 @@ export function calculateRollingAverage(
 
     const dataPoints: RollingAverageDataPoint[] = [];
 
-    // Find the earliest and latest dates
-    const firstDate = new Date(wins[0].date);
-    const lastDate = new Date(wins[wins.length - 1].date);
+    // Calculate rolling average for each game
+    // Each data point represents the average of all games within the time window ending at that game
+    for (let i = 0; i < wins.length; i++) {
+        const currentGame = wins[i];
+        const windowStart = new Date(currentGame.date.getTime() - windowSizeMs);
 
-    // Start from the first Sunday on or before the first game
-    const currentWeekStart = new Date(firstDate);
-    currentWeekStart.setDate(
-        currentWeekStart.getDate() - currentWeekStart.getDay()
-    );
-    currentWeekStart.setHours(0, 0, 0, 0);
-
-    // Iterate through weeks
-    while (currentWeekStart <= lastDate) {
-        const weekEnd = new Date(currentWeekStart);
-        weekEnd.setDate(weekEnd.getDate() + windowSizeDays - 1);
-        weekEnd.setHours(23, 59, 59, 999);
-
-        // Get all wins within this week
-        const weekWins = wins.filter(
-            (r) => r.date >= currentWeekStart && r.date <= weekEnd
+        // Get all wins within the window (from windowStart to current game)
+        const gamesInWindow = wins.filter(
+            (game, idx) =>
+                idx <= i &&
+                game.date >= windowStart &&
+                game.date <= currentGame.date
         );
 
-        if (weekWins.length > 0) {
-            const totalGuesses = weekWins.reduce(
+        if (gamesInWindow.length > 0) {
+            const totalGuesses = gamesInWindow.reduce(
                 (sum, r) => sum + r.numberOfGuesses,
                 0
             );
-            const average = totalGuesses / weekWins.length;
+            const average = totalGuesses / gamesInWindow.length;
 
             dataPoints.push({
-                weekStart: new Date(currentWeekStart),
-                weekEnd: new Date(weekEnd),
-                average,
-                gamesCount: weekWins.length,
+                time: new Date(currentGame.date),
+                value: average,
+                gamesCount: gamesInWindow.length,
             });
         }
-
-        // Move to next week
-        currentWeekStart.setDate(currentWeekStart.getDate() + windowSizeDays);
     }
 
     return dataPoints;

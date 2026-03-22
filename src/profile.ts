@@ -25,11 +25,12 @@ async function main() {
     updateStatsUI(statsDaily, statsPractice, gameData);
     setupTabs();
 
-    // Render rolling average for practice mode
+    // Render rolling average for practice mode (7-day window)
     const rollingAverageData = calculateRollingAverage(
         gameData,
         defaultStorage(),
-        "practice"
+        "practice",
+        7 * 24 * 60 * 60 * 1000 // 7 days in milliseconds
     );
     renderRollingAverage(rollingAverageData, "rolling-average-practice");
 }
@@ -201,17 +202,26 @@ function renderRollingAverage(
     svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
 
     // Find min and max values
-    const averages = dataPoints.map((d) => d.average);
-    const minAvg = Math.floor(Math.min(...averages) - 0.5);
-    const maxAvg = Math.ceil(Math.max(...averages) + 0.5);
+    const values = dataPoints.map((d) => d.value);
+    const minValue = Math.floor(Math.min(...values) - 0.5);
+    const maxValue = Math.ceil(Math.max(...values) + 0.5);
+
+    // Time range
+    const times = dataPoints.map((d) => d.time.getTime());
+    const minTime = Math.min(...times);
+    const maxTime = Math.max(...times);
+    const timeRange = maxTime - minTime;
 
     // Create scales
-    const xScale = (index: number) =>
-        padding.left + (index / (dataPoints.length - 1)) * graphWidth;
+    const xScale = (time: Date) =>
+        timeRange > 0
+            ? padding.left +
+              ((time.getTime() - minTime) / timeRange) * graphWidth
+            : padding.left + graphWidth / 2;
     const yScale = (value: number) =>
         padding.top +
         graphHeight -
-        ((value - minAvg) / (maxAvg - minAvg)) * graphHeight;
+        ((value - minValue) / (maxValue - minValue)) * graphHeight;
 
     // Draw grid lines
     const gridGroup = document.createElementNS(
@@ -219,7 +229,7 @@ function renderRollingAverage(
         "g"
     );
     for (let i = 0; i <= 5; i++) {
-        const value = minAvg + ((maxAvg - minAvg) / 5) * i;
+        const value = minValue + ((maxValue - minValue) / 5) * i;
         const y = yScale(value);
 
         const line = document.createElementNS(
@@ -256,8 +266,8 @@ function renderRollingAverage(
         let pathData = "";
 
         dataPoints.forEach((point, index) => {
-            const x = xScale(index);
-            const y = yScale(point.average);
+            const x = xScale(point.time);
+            const y = yScale(point.value);
 
             if (index === 0) {
                 pathData += `M ${x} ${y}`;
@@ -276,9 +286,9 @@ function renderRollingAverage(
         "http://www.w3.org/2000/svg",
         "g"
     );
-    dataPoints.forEach((point, index) => {
-        const x = xScale(index);
-        const y = yScale(point.average);
+    dataPoints.forEach((point) => {
+        const x = xScale(point.time);
+        const y = yScale(point.value);
 
         const circle = document.createElementNS(
             "http://www.w3.org/2000/svg",
@@ -301,7 +311,7 @@ function renderRollingAverage(
     });
     svg.appendChild(pointsGroup);
 
-    // X-axis labels (show first, middle, and last weeks)
+    // X-axis labels (show first, middle, and last data points)
     const xAxisGroup = document.createElementNS(
         "http://www.w3.org/2000/svg",
         "g"
@@ -309,12 +319,14 @@ function renderRollingAverage(
     const labelIndices =
         dataPoints.length > 2
             ? [0, Math.floor(dataPoints.length / 2), dataPoints.length - 1]
-            : [0, dataPoints.length - 1];
+            : dataPoints.length > 1
+              ? [0, dataPoints.length - 1]
+              : [0];
 
     labelIndices.forEach((index) => {
         if (index < dataPoints.length) {
             const point = dataPoints[index];
-            const x = xScale(index);
+            const x = xScale(point.time);
             const y = padding.top + graphHeight + 25;
 
             const label = document.createElementNS(
@@ -325,7 +337,7 @@ function renderRollingAverage(
             label.setAttribute("y", y.toString());
             label.setAttribute("text-anchor", "middle");
             label.classList.add("profile-graph-axis-label");
-            label.textContent = formatDateShort(point.weekStart);
+            label.textContent = formatDateShort(point.time);
             xAxisGroup.appendChild(label);
         }
     });
@@ -352,7 +364,7 @@ function renderRollingAverage(
     xAxisTitle.setAttribute("y", (height - 5).toString());
     xAxisTitle.setAttribute("text-anchor", "middle");
     xAxisTitle.classList.add("profile-graph-axis-title");
-    xAxisTitle.textContent = "Week";
+    xAxisTitle.textContent = "Time";
     svg.appendChild(xAxisTitle);
 
     container.innerHTML = "";
@@ -374,12 +386,12 @@ function showTooltip(
     ) as HTMLElement;
     if (!tooltip) return;
 
-    const dateStr = `${formatDateShort(point.weekStart)} - ${formatDateShort(point.weekEnd)}`;
+    const dateStr = formatDateLong(point.time);
 
     tooltip.innerHTML = `
         <div class="profile-graph-tooltip-date">${dateStr}</div>
-        <div class="profile-graph-tooltip-value">Avg: ${point.average.toFixed(1)} guesses</div>
-        <div class="profile-graph-tooltip-value">Games: ${point.gamesCount}</div>
+        <div class="profile-graph-tooltip-value">Avg: ${point.value.toFixed(1)} guesses</div>
+        <div class="profile-graph-tooltip-value">Games in window: ${point.gamesCount}</div>
     `;
 
     const rect = container.getBoundingClientRect();
@@ -400,6 +412,13 @@ function formatDateShort(date: Date): string {
     const month = date.toLocaleString("en", { month: "short" });
     const day = date.getDate();
     return `${month} ${day}`;
+}
+
+function formatDateLong(date: Date): string {
+    const month = date.toLocaleString("en", { month: "short" });
+    const day = date.getDate();
+    const year = date.getFullYear();
+    return `${month} ${day}, ${year}`;
 }
 
 function renderGuessedDinosaurs(
