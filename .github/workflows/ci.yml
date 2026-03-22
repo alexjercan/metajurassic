@@ -47,6 +47,13 @@ jobs:
                   fail_ci_if_error: false
                   token: ${{ secrets.CODECOV_TOKEN }}
 
+            - name: Upload test results to Codecov
+              if: matrix.node-version == '22.x' && always()
+              uses: codecov/test-results-action@v1
+              with:
+                  files: ./test-results/junit.xml
+                  token: ${{ secrets.CODECOV_TOKEN }}
+
     build:
         name: Build
         runs-on: ubuntu-latest
