@@ -31,88 +31,47 @@ export function loadAllGames(
 ): GameResult[] {
     const results: GameResult[] = [];
 
-    // Handle storage providers that don't implement length/key
-    if (!storage.length || !storage.key) {
-        // Fallback to localStorage directly if available
-        if (typeof localStorage === "undefined") return results;
+    // Fallback to localStorage directly if available
+    if (typeof localStorage === "undefined") return results;
 
-        for (let i = 0; i < localStorage.length; i++) {
-            const key = localStorage.key(i);
-            if (!key) continue;
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (!key) continue;
 
-            const parsed = parseGameStateKey(key);
-            if (!parsed) continue;
-            if (parsed.gameMode !== gameMode) continue;
+        const parsed = parseGameStateKey(key);
+        if (!parsed) continue;
+        if (parsed.gameMode !== gameMode) continue;
 
-            const savedState = storage.getItem(key);
-            if (!savedState) continue;
+        const savedState = storage.getItem(key);
+        if (!savedState) continue;
 
-            try {
-                const data = JSON.parse(savedState);
-                const state = new GameState(
-                    gameData,
-                    data.targetId,
-                    new Set(data.guesses),
-                    data.lastGuessId,
-                    new Set(data.hintClades ?? [])
-                );
+        try {
+            const data = JSON.parse(savedState);
+            const state = new GameState(
+                gameData,
+                data.targetId,
+                new Set(data.guesses),
+                data.lastGuessId,
+                new Set(data.hintClades ?? []),
+                data.createdAt ? new Date(data.createdAt) : new Date()
+            );
 
-                if (!state.isGameOver()) continue;
+            if (!state.isGameOver()) continue;
 
-                const date = seedToDate(parsed.seed);
-                results.push({
-                    date,
-                    seed: parsed.seed,
-                    puzzleId: parsed.puzzleId,
-                    isWin: state.isWin(),
-                    numberOfGuesses: state.numberOfGuesses(),
-                    targetId: state.targetId,
-                });
-            } catch (error) {
-                console.warn(
-                    `Failed to parse game state for key ${key}`,
-                    error
-                );
-            }
-        }
-    } else {
-        for (let i = 0; i < storage.length(); i++) {
-            const key = storage.key(i);
-            if (!key) continue;
-
-            const parsed = parseGameStateKey(key);
-            if (!parsed) continue;
-
-            const savedState = storage.getItem(key);
-            if (!savedState) continue;
-
-            try {
-                const data = JSON.parse(savedState);
-                const state = new GameState(
-                    gameData,
-                    data.targetId,
-                    new Set(data.guesses),
-                    data.lastGuessId,
-                    new Set(data.hintClades ?? [])
-                );
-
-                if (!state.isGameOver()) continue;
-
-                const date = seedToDate(parsed.seed);
-                results.push({
-                    date,
-                    seed: parsed.seed,
-                    puzzleId: parsed.puzzleId,
-                    isWin: state.isWin(),
-                    numberOfGuesses: state.numberOfGuesses(),
-                    targetId: state.targetId,
-                });
-            } catch (error) {
-                console.warn(
-                    `Failed to parse game state for key ${key}`,
-                    error
-                );
-            }
+            const date = seedToDate(parsed.seed);
+            results.push({
+                date,
+                seed: parsed.seed,
+                puzzleId: parsed.puzzleId,
+                isWin: state.isWin(),
+                numberOfGuesses: state.numberOfGuesses(),
+                targetId: state.targetId,
+            });
+        } catch (error) {
+            console.warn(
+                `Failed to parse game state for key ${key}`,
+                error
+            );
         }
     }
 

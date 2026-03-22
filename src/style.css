@@ -1095,9 +1095,54 @@ footer a + a::before {
 .profile-title {
     font-size: 2rem;
     color: var(--amber-glow);
-    margin: 0 0 40px 0;
+    margin: 0 0 24px 0;
     text-align: center;
     letter-spacing: 1px;
+}
+
+.profile-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 32px;
+}
+
+.profile-tab {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px 8px 0 0;
+    padding: 12px 32px;
+    color: #8a93a5;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.profile-tab:hover {
+    color: var(--amber-glow);
+    border-bottom-color: var(--amber-glow);
+}
+
+.profile-tab.active {
+    background: var(--glass-border);
+    color: var(--amber-glow);
+    border-bottom: 2px solid var(--amber-glow);
+}
+
+.profile-stats-content {
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 .profile-stats-grid {

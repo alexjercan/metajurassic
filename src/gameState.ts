@@ -1,5 +1,5 @@
 import { MAX_GUESSES, HINT_COST } from "./constants";
-import { dateToSeed, GameData } from "./gameData";
+import { dateToSeed, GameData, seedToDate } from "./gameData";
 import { StorageProvider, defaultStorage } from "./storage";
 import { GuessResult } from "./types";
 
@@ -65,7 +65,8 @@ export function loadGameState(
                 parsed.targetId,
                 new Set(parsed.guesses),
                 parsed.lastGuessId,
-                new Set(parsed.hintClades ?? [])
+                new Set(parsed.hintClades ?? []),
+                parsed.createdAt ? new Date(parsed.createdAt) : new Date()
             );
         } catch (error) {
             console.warn(
@@ -86,11 +87,14 @@ export function saveGameState(
     gameMode: "daily" | "practice" = "daily"
 ): void {
     const key = gameStateKey(state.gameData, seed, gameMode);
+    const date = gameMode === "daily" ? seedToDate(seed) : new Date();
+
     const gameState = {
         targetId: state.targetId,
         guesses: Array.from(state.guesses),
         lastGuessId: state.lastGuessId,
         hintClades: Array.from(state.hintClades),
+        createdAt: date.toISOString(),
     };
 
     storage.setItem(key, JSON.stringify(gameState));
@@ -102,7 +106,8 @@ export class GameState {
         public readonly targetId: string,
         public guesses: Set<string> = new Set(),
         public lastGuessId?: string,
-        public hintClades: Set<string> = new Set()
+        public hintClades: Set<string> = new Set(),
+        public readonly createdAt: Date = new Date()
     ) { }
 
     isGameOver(): boolean {

@@ -12,9 +12,37 @@ import { defaultStorage } from "./storage";
 async function main() {
     const gameData = await loadGameData();
     const statsDaily = computeGameStats(gameData, defaultStorage(), "daily");
-    const statsPractice = computeGameStats(gameData, defaultStorage(), "practice");
+    const statsPractice = computeGameStats(
+        gameData,
+        defaultStorage(),
+        "practice"
+    );
 
     updateStatsUI(statsDaily, statsPractice, gameData);
+    setupTabs();
+}
+
+function setupTabs() {
+    const dailyTab = document.getElementById("daily-tab");
+    const practiceTab = document.getElementById("practice-tab");
+    const dailyStats = document.getElementById("daily-stats");
+    const practiceStats = document.getElementById("practice-stats");
+
+    if (!dailyTab || !practiceTab || !dailyStats || !practiceStats) return;
+
+    dailyTab.addEventListener("click", () => {
+        dailyTab.classList.add("active");
+        practiceTab.classList.remove("active");
+        dailyStats.style.display = "block";
+        practiceStats.style.display = "none";
+    });
+
+    practiceTab.addEventListener("click", () => {
+        practiceTab.classList.add("active");
+        dailyTab.classList.remove("active");
+        practiceStats.style.display = "block";
+        dailyStats.style.display = "none";
+    });
 }
 
 function updateStatsUI(
@@ -22,41 +50,77 @@ function updateStatsUI(
     statsPractice: GameStats,
     gameData: GameData
 ) {
-    document.getElementById("games-played")!.textContent =
+    // Update Daily stats
+    document.getElementById("games-played-daily")!.textContent =
         statsDaily.gamesPlayed.toString();
 
-    const winRate =
+    const winRateDaily =
         statsDaily.gamesPlayed > 0
             ? Math.round((statsDaily.wins / statsDaily.gamesPlayed) * 100)
             : 0;
-    document.getElementById("win-rate")!.textContent = `${winRate}%`;
+    document.getElementById("win-rate-daily")!.textContent = `${winRateDaily}%`;
 
-    document.getElementById("current-streak")!.textContent =
+    document.getElementById("current-streak-daily")!.textContent =
         statsDaily.currentStreak.toString();
 
-    document.getElementById("longest-streak")!.textContent =
+    document.getElementById("longest-streak-daily")!.textContent =
         statsDaily.longestStreak.toString();
 
-    document.getElementById("avg-guesses")!.textContent =
+    document.getElementById("avg-guesses-daily")!.textContent =
         statsDaily.wins > 0 ? statsDaily.averageGuesses.toFixed(1) : "0";
 
-    document.getElementById("total-wins")!.textContent = statsDaily.wins.toString();
+    document.getElementById("total-wins-daily")!.textContent =
+        statsDaily.wins.toString();
 
-    document.getElementById("total-losses")!.textContent =
+    document.getElementById("total-losses-daily")!.textContent =
         statsDaily.losses.toString();
 
     const totalDinosaurs = gameData.species.length;
     const unlockedDinosaurs = statsDaily.allGuessedDinosaurs.size;
     const unlockedPercentage =
         totalDinosaurs > 0 ? (unlockedDinosaurs / totalDinosaurs) * 100 : 0;
-    document.getElementById("unique-dinos")!.textContent =
+    document.getElementById("unique-dinos-daily")!.textContent =
         `${unlockedDinosaurs}/${totalDinosaurs}`;
-    const progressBar = document.getElementById("unique-dinos-progress");
-    if (progressBar) {
-        progressBar.style.width = `${unlockedPercentage}%`;
+    const progressBarDaily = document.getElementById(
+        "unique-dinos-progress-daily"
+    );
+    if (progressBarDaily) {
+        progressBarDaily.style.width = `${unlockedPercentage}%`;
     }
 
-    renderGuessDistribution(statsDaily.guessDistribution, statsDaily.wins);
+    renderGuessDistribution(
+        statsDaily.guessDistribution,
+        statsDaily.wins,
+        "guess-distribution-daily"
+    );
+
+    // Update Practice stats
+    document.getElementById("games-played-practice")!.textContent =
+        statsPractice.gamesPlayed.toString();
+
+    const winRatePractice =
+        statsPractice.gamesPlayed > 0
+            ? Math.round((statsPractice.wins / statsPractice.gamesPlayed) * 100)
+            : 0;
+    document.getElementById("win-rate-practice")!.textContent =
+        `${winRatePractice}%`;
+
+    document.getElementById("avg-guesses-practice")!.textContent =
+        statsPractice.wins > 0 ? statsPractice.averageGuesses.toFixed(1) : "0";
+
+    document.getElementById("total-wins-practice")!.textContent =
+        statsPractice.wins.toString();
+
+    document.getElementById("total-losses-practice")!.textContent =
+        statsPractice.losses.toString();
+
+    renderGuessDistribution(
+        statsPractice.guessDistribution,
+        statsPractice.wins,
+        "guess-distribution-practice"
+    );
+
+    // Render dinosaur collection (using daily stats only)
     renderGuessedDinosaurs(
         statsDaily.allGuessedDinosaurs,
         statsDaily.discoveredDinosaurs,
@@ -66,9 +130,10 @@ function updateStatsUI(
 
 function renderGuessDistribution(
     distribution: Map<number, number>,
-    totalWins: number
+    totalWins: number,
+    containerId: string
 ) {
-    const container = document.getElementById("guess-distribution")!;
+    const container = document.getElementById(containerId)!;
 
     if (totalWins === 0) {
         container.innerHTML =
