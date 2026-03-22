@@ -133,11 +133,9 @@ export function loadAllGames(
 ): GameResult[] {
     const results: GameResult[] = [];
 
-    // Fallback to localStorage directly if available
-    if (typeof localStorage === "undefined") return results;
-
-    for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
+    const storageLength = storage.length();
+    for (let i = 0; i < storageLength; i++) {
+        const key = storage.key(i);
         if (!key) continue;
 
         const parsed = parseGameStateKey(key);
@@ -347,38 +345,30 @@ export function computeGameStats(
         results.filter((r) => r.isWin).map((r) => r.targetId)
     );
 
-    // All guessed dinosaurs (from all game states)
+    // All guessed dinosaurs (from all game states in mode)
     const allGuessedDinosaurs = new Set<string>();
 
-    // Handle storage providers that don't implement length/key
-    const storageLength =
-        storage.length?.() ??
-        (typeof localStorage !== "undefined" ? localStorage.length : 0);
-    const getKey =
-        storage.key ??
-        ((i: number) =>
-            typeof localStorage !== "undefined" ? localStorage.key(i) : null);
-
+    const storageLength = storage.length();
     for (let i = 0; i < storageLength; i++) {
-        const key = getKey(i);
+        const key = storage.key(i);
         if (!key) continue;
 
         const parsed = parseGameStateKey(key);
         if (!parsed) continue;
+        if (parsed.gameMode !== gameMode) continue;
 
         const savedState = storage.getItem(key);
         if (!savedState) continue;
 
         try {
             const data = JSON.parse(savedState);
-            // Add all guesses from this game state
             if (data.guesses && Array.isArray(data.guesses)) {
                 data.guesses.forEach((guessId: string) => {
                     allGuessedDinosaurs.add(guessId);
                 });
             }
         } catch (error) {
-            console.warn(`Failed to parse game state for key ${key}`, error);
+            // Skip invalid game states
         }
     }
 
