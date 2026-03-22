@@ -1090,6 +1090,9 @@ footer a + a::before {
     max-width: 700px;
     margin: 0 auto;
     padding: 60px 24px 40px;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
 }
 
 .profile-title {
@@ -1134,6 +1137,9 @@ footer a + a::before {
 
 .profile-stats-content {
     animation: fadeIn 0.3s ease-in;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 @keyframes fadeIn {
@@ -1147,9 +1153,10 @@ footer a + a::before {
 
 .profile-stats-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 16px;
     margin-bottom: 32px;
+    max-width: 100%;
 }
 
 @media (max-width: 600px) {
@@ -1164,6 +1171,8 @@ footer a + a::before {
     border-radius: 12px;
     padding: 20px 24px;
     text-align: center;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .profile-stat-value {
@@ -1182,6 +1191,8 @@ footer a + a::before {
 
 .profile-section {
     margin-bottom: 32px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .profile-section-title {
@@ -1201,6 +1212,8 @@ footer a + a::before {
     align-items: center;
     padding: 12px 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .profile-stat-row:last-child {
@@ -1257,6 +1270,8 @@ footer a + a::before {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .profile-dist-row {
@@ -1310,7 +1325,10 @@ footer a + a::before {
 .profile-rolling-average {
     position: relative;
     height: 250px;
-    padding: 20px 20px 40px 50px;
+    padding: 20px 10px 40px 45px;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 .profile-graph-svg {
