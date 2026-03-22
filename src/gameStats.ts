@@ -24,6 +24,13 @@ interface GameResult {
     targetId: string;
 }
 
+export interface RollingAverageDataPoint {
+    weekStart: Date;
+    weekEnd: Date;
+    average: number;
+    gamesCount: number;
+}
+
 export function loadAllGames(
     gameData: GameData,
     storage: StorageProvider = defaultStorage(),
@@ -47,20 +54,22 @@ export function loadAllGames(
 
         try {
             const data = JSON.parse(savedState);
+            const createdAtRaw = data.createdAt ? new Date(data.createdAt) : new Date();
+            const createdAt = gameMode === "daily" ? seedToDate(parsed.seed) : createdAtRaw;
+
             const state = new GameState(
                 gameData,
                 data.targetId,
                 new Set(data.guesses),
                 data.lastGuessId,
                 new Set(data.hintClades ?? []),
-                data.createdAt ? new Date(data.createdAt) : new Date()
+                createdAt,
             );
 
             if (!state.isGameOver()) continue;
 
-            const date = seedToDate(parsed.seed);
             results.push({
-                date,
+                date: createdAt,
                 seed: parsed.seed,
                 puzzleId: parsed.puzzleId,
                 isWin: state.isWin(),
@@ -68,16 +77,75 @@ export function loadAllGames(
                 targetId: state.targetId,
             });
         } catch (error) {
-            console.warn(
-                `Failed to parse game state for key ${key}`,
-                error
-            );
+            console.warn(`Failed to parse game state for key ${key}`, error);
         }
     }
 
     results.sort((a, b) => a.date.getTime() - b.date.getTime());
 
     return results;
+}
+
+export function calculateRollingAverage(
+    gameData: GameData,
+    storage: StorageProvider = defaultStorage(),
+    gameMode: "daily" | "practice" = "practice",
+    windowSizeDays: number = 7
+): RollingAverageDataPoint[] {
+    const results = loadAllGames(gameData, storage, gameMode);
+
+    // Only include wins for the rolling average
+    const wins = results.filter((r) => r.isWin);
+
+    if (wins.length === 0) return [];
+
+    // Sort by date
+    wins.sort((a, b) => a.date.getTime() - b.date.getTime());
+
+    const dataPoints: RollingAverageDataPoint[] = [];
+
+    // Find the earliest and latest dates
+    const firstDate = new Date(wins[0].date);
+    const lastDate = new Date(wins[wins.length - 1].date);
+
+    // Start from the first Sunday on or before the first game
+    const currentWeekStart = new Date(firstDate);
+    currentWeekStart.setDate(
+        currentWeekStart.getDate() - currentWeekStart.getDay()
+    );
+    currentWeekStart.setHours(0, 0, 0, 0);
+
+    // Iterate through weeks
+    while (currentWeekStart <= lastDate) {
+        const weekEnd = new Date(currentWeekStart);
+        weekEnd.setDate(weekEnd.getDate() + windowSizeDays - 1);
+        weekEnd.setHours(23, 59, 59, 999);
+
+        // Get all wins within this week
+        const weekWins = wins.filter(
+            (r) => r.date >= currentWeekStart && r.date <= weekEnd
+        );
+
+        if (weekWins.length > 0) {
+            const totalGuesses = weekWins.reduce(
+                (sum, r) => sum + r.numberOfGuesses,
+                0
+            );
+            const average = totalGuesses / weekWins.length;
+
+            dataPoints.push({
+                weekStart: new Date(currentWeekStart),
+                weekEnd: new Date(weekEnd),
+                average,
+                gamesCount: weekWins.length,
+            });
+        }
+
+        // Move to next week
+        currentWeekStart.setDate(currentWeekStart.getDate() + windowSizeDays);
+    }
+
+    return dataPoints;
 }
 
 function calculateStreak(results: GameResult[]): {

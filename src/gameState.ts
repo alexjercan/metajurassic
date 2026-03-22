@@ -60,13 +60,16 @@ export function loadGameState(
     if (savedState) {
         try {
             const parsed = JSON.parse(savedState);
+            const createdAtRaw = parsed.createdAt ? new Date(parsed.createdAt) : new Date();
+            const createdAt = gameMode === "daily" ? seedToDate(parsed.seed) : createdAtRaw;
+
             return new GameState(
                 gameData,
                 parsed.targetId,
                 new Set(parsed.guesses),
                 parsed.lastGuessId,
                 new Set(parsed.hintClades ?? []),
-                parsed.createdAt ? new Date(parsed.createdAt) : new Date()
+                createdAt,
             );
         } catch (error) {
             console.warn(
