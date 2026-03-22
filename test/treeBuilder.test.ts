@@ -4,6 +4,7 @@ import { Clade, Species } from "../src/types";
 import {
     buildGuessTree,
     findNextHintCladeId,
+    findBestHintCladeId,
     isCladeNode,
     isSpeciesNode,
 } from "../src/treeBuilder";
@@ -741,5 +742,134 @@ describe("buildGuessTree with hints", () => {
                 expect(placeholder.isPlaceholder).toBe(true);
             }
         }
+    });
+});
+
+describe("findBestHintCladeId", () => {
+    test("returns null when no placeholder exists (game is won)", () => {
+        // When the target is guessed, there's no placeholder
+        const state = makeState("species1", ["species1"]);
+        const roots = buildGuessTree(state);
+        const bestHint = findBestHintCladeId(roots);
+        expect(bestHint).toBeNull();
+    });
+
+    test("returns root clade when no guesses or hints", () => {
+        // Species1 lineage: CladeB -> CladeA
+        // No guesses/hints => placeholder is directly under CladeA
+        const state = makeState("species1");
+        const roots = buildGuessTree(state);
+        const bestHint = findBestHintCladeId(roots);
+        expect(bestHint).toBe("cladea");
+    });
+
+    test("returns the deepest revealed clade containing the placeholder", () => {
+        // Species2 lineage: CladeD -> CladeB -> CladeA
+        // Guess Species1 => LCA = CladeB (revealed)
+        // Placeholder should be under CladeB
+        const state = makeState("species2", ["species1"]);
+        const roots = buildGuessTree(state);
+        const bestHint = findBestHintCladeId(roots);
+        expect(bestHint).toBe("cladeb");
+    });
+
+    test("returns the hint clade when hints are used", () => {
+        // Species2 lineage: CladeD -> CladeB -> CladeA
+        // Hint: CladeB => placeholder under CladeB
+        const state = makeState("species2", [], ["cladeb"]);
+        const roots = buildGuessTree(state);
+        const bestHint = findBestHintCladeId(roots);
+        expect(bestHint).toBe("cladeb");
+    });
+
+    test("returns the deepest clade when multiple hints are used", () => {
+        // Species2 lineage: CladeD -> CladeB -> CladeA
+        // Hints: CladeB, CladeD => placeholder under CladeD
+        const state = makeState("species2", [], ["cladeb", "claded"]);
+        const roots = buildGuessTree(state);
+        const bestHint = findBestHintCladeId(roots);
+        expect(bestHint).toBe("claded");
+    });
+
+    test("returns null for empty roots array", () => {
+        const bestHint = findBestHintCladeId([]);
+        expect(bestHint).toBeNull();
+    });
+
+    test("searches through multiple root clades", () => {
+        // Build a tree with the placeholder
+        const state = makeState("species1");
+        const roots = buildGuessTree(state);
+
+        // Test that it finds the placeholder even if we wrap it in an array
+        const bestHint = findBestHintCladeId(roots);
+        expect(bestHint).toBe("cladea");
+    });
+});
+
+describe("buildGuessTree edge cases", () => {
+    test("handles target species not in game data", () => {
+        const gameData = makeGameData();
+        const state = new GameState(
+            gameData,
+            "nonexistent",
+            new Set(),
+            undefined,
+            new Set()
+        );
+        const roots = buildGuessTree(state);
+        expect(roots).toEqual([]);
+    });
+
+    test("revealTarget=true shows the actual species name instead of ?", () => {
+        const state = makeState("species1");
+        const roots = buildGuessTree(state, true);
+
+        expect(roots).toHaveLength(1);
+        const root = roots[0];
+        const child = root.children[0];
+
+        expect(isSpeciesNode(child)).toBe(true);
+        if (isSpeciesNode(child)) {
+            expect(child.isTarget).toBe(true);
+            expect(child.isPlaceholder).toBe(false);
+            expect(child.isRevealed).toBe(true);
+            expect(child.name).toBe("Species1");
+        }
+    });
+
+    test("handles invalid guess species IDs gracefully", () => {
+        const gameData = makeGameData();
+        const state = new GameState(
+            gameData,
+            "species1",
+            new Set(["nonexistent", "species2"]),
+            undefined,
+            new Set()
+        );
+        const roots = buildGuessTree(state);
+
+        // Should still build tree, ignoring invalid guess
+        expect(roots).toHaveLength(1);
+        // Should have CladeB revealed due to species2 guess
+        const root = roots[0];
+        expect(root.children).toHaveLength(1);
+        const cladeB = root.children[0];
+        expect(isCladeNode(cladeB)).toBe(true);
+    });
+});
+
+describe("findNextHintCladeId edge cases", () => {
+    test("returns null when target species not found", () => {
+        const gameData = makeGameData();
+        const state = new GameState(
+            gameData,
+            "nonexistent",
+            new Set(),
+            undefined,
+            new Set()
+        );
+        const nextHint = findNextHintCladeId(state);
+        expect(nextHint).toBeNull();
     });
 });

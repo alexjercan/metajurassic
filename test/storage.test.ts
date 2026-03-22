@@ -1,4 +1,4 @@
-import { BrowserStorage } from "../src/storage";
+import { BrowserStorage, defaultStorage } from "../src/storage";
 
 // Mock localStorage
 class MockLocalStorage {
@@ -135,5 +135,21 @@ describe("BrowserStorage", () => {
         expect(() => storage.removeItem("key")).not.toThrow();
         expect(storage.length()).toBe(0);
         expect(storage.key(0)).toBeNull();
+    });
+});
+
+describe("defaultStorage", () => {
+    test("returns a BrowserStorage instance", () => {
+        const storage = defaultStorage();
+
+        expect(storage).toBeInstanceOf(BrowserStorage);
+    });
+
+    test("returns a new instance each time", () => {
+        const storage1 = defaultStorage();
+        const storage2 = defaultStorage();
+
+        // Should be different instances (not singleton)
+        expect(storage1).not.toBe(storage2);
     });
 });

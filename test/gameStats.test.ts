@@ -445,12 +445,93 @@ describe("computeGameStats", () => {
             seed: 1,
         };
 
-        storage.setItem("gameState-dinosaur-#00001", JSON.stringify(game));
+        storage.setItem(
+            "gameState-practice-dinosaur-#00001",
+            JSON.stringify(game)
+        );
 
-        const stats = computeGameStats(gameData, storage, "daily");
+        const stats = computeGameStats(gameData, storage, "practice");
 
         expect(stats.currentStreak).toBe(0);
         expect(stats.longestStreak).toBe(1);
+    });
+
+    test("tracks longest streak even when current streak is broken", () => {
+        // Use practice mode where dates come from createdAt
+        const fiveDaysAgo = new Date();
+        fiveDaysAgo.setDate(fiveDaysAgo.getDate() - 5);
+        fiveDaysAgo.setHours(0, 0, 0, 0);
+
+        const fourDaysAgo = new Date(fiveDaysAgo);
+        fourDaysAgo.setDate(fourDaysAgo.getDate() + 1);
+
+        const threeDaysAgo = new Date(fourDaysAgo);
+        threeDaysAgo.setDate(threeDaysAgo.getDate() + 1);
+
+        // Gap here - no game for 2 days
+
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        const game1 = {
+            targetId: "species1",
+            guesses: ["species1"],
+            lastGuessId: "species1",
+            hintClades: [],
+            createdAt: fiveDaysAgo.toISOString(),
+            seed: 1,
+        };
+
+        const game2 = {
+            targetId: "species2",
+            guesses: ["species2"],
+            lastGuessId: "species2",
+            hintClades: [],
+            createdAt: fourDaysAgo.toISOString(),
+            seed: 2,
+        };
+
+        const game3 = {
+            targetId: "species3",
+            guesses: ["species3"],
+            lastGuessId: "species3",
+            hintClades: [],
+            createdAt: threeDaysAgo.toISOString(),
+            seed: 3,
+        };
+
+        const game4 = {
+            targetId: "species1",
+            guesses: ["species1"],
+            lastGuessId: "species1",
+            hintClades: [],
+            createdAt: today.toISOString(),
+            seed: 4,
+        };
+
+        storage.setItem(
+            "gameState-practice-dinosaur-#00001",
+            JSON.stringify(game1)
+        );
+        storage.setItem(
+            "gameState-practice-dinosaur-#00002",
+            JSON.stringify(game2)
+        );
+        storage.setItem(
+            "gameState-practice-dinosaur-#00003",
+            JSON.stringify(game3)
+        );
+        storage.setItem(
+            "gameState-practice-dinosaur-#00004",
+            JSON.stringify(game4)
+        );
+
+        const stats = computeGameStats(gameData, storage, "practice");
+
+        // Current streak is 1 (only today)
+        expect(stats.currentStreak).toBe(1);
+        // Longest streak was 3 (5, 4, 3 days ago)
+        expect(stats.longestStreak).toBe(3);
     });
 });
 
@@ -717,5 +798,170 @@ describe("calculateRollingAverage", () => {
         expect(avg).toHaveLength(2);
         expect(avg[0].value).toBe(1);
         expect(avg[1].value).toBe(1.5); // Rolling average of (1 + 2) / 2
+    });
+
+    test("groups games by hourly scale", () => {
+        const game1 = {
+            targetId: "species1",
+            guesses: ["species1"],
+            lastGuessId: "species1",
+            hintClades: [],
+            createdAt: new Date("2026-01-01T10:15:00Z").toISOString(),
+            seed: 1,
+        };
+
+        const game2 = {
+            targetId: "species2",
+            guesses: ["species3", "species2"],
+            lastGuessId: "species2",
+            hintClades: [],
+            createdAt: new Date("2026-01-01T10:45:00Z").toISOString(),
+            seed: 2,
+        };
+
+        const game3 = {
+            targetId: "species3",
+            guesses: ["species1", "species2", "species3"],
+            lastGuessId: "species3",
+            hintClades: [],
+            createdAt: new Date("2026-01-01T11:30:00Z").toISOString(),
+            seed: 3,
+        };
+
+        storage.setItem(
+            "gameState-practice-dinosaur-#00001",
+            JSON.stringify(game1)
+        );
+        storage.setItem(
+            "gameState-practice-dinosaur-#00002",
+            JSON.stringify(game2)
+        );
+        storage.setItem(
+            "gameState-practice-dinosaur-#00003",
+            JSON.stringify(game3)
+        );
+
+        const avg = calculateRollingAverage(
+            gameData,
+            storage,
+            "practice",
+            7,
+            "hourly"
+        );
+
+        // Should group game1 and game2 into 10:00 hour, game3 into 11:00 hour
+        expect(avg).toHaveLength(2);
+        // First hour average: (1 + 2) / 2 = 1.5
+        expect(avg[0].value).toBe(1.5);
+        expect(avg[0].gamesCount).toBe(2);
+        // Second data point is rolling average of both hours
+        expect(avg[1].gamesCount).toBe(3);
+    });
+
+    test("groups games by weekly scale", () => {
+        // Create games across different weeks
+        const game1 = {
+            targetId: "species1",
+            guesses: ["species1"],
+            lastGuessId: "species1",
+            hintClades: [],
+            // Monday Jan 6, 2026
+            createdAt: new Date("2026-01-06T12:00:00Z").toISOString(),
+            seed: 1,
+        };
+
+        const game2 = {
+            targetId: "species2",
+            guesses: ["species3", "species2"],
+            lastGuessId: "species2",
+            hintClades: [],
+            // Wednesday Jan 8, 2026 (same week as game1)
+            createdAt: new Date("2026-01-08T12:00:00Z").toISOString(),
+            seed: 2,
+        };
+
+        const game3 = {
+            targetId: "species3",
+            guesses: ["species1", "species2", "species3"],
+            lastGuessId: "species3",
+            hintClades: [],
+            // Monday Jan 13, 2026 (next week)
+            createdAt: new Date("2026-01-13T12:00:00Z").toISOString(),
+            seed: 3,
+        };
+
+        storage.setItem(
+            "gameState-practice-dinosaur-#00001",
+            JSON.stringify(game1)
+        );
+        storage.setItem(
+            "gameState-practice-dinosaur-#00002",
+            JSON.stringify(game2)
+        );
+        storage.setItem(
+            "gameState-practice-dinosaur-#00003",
+            JSON.stringify(game3)
+        );
+
+        const avg = calculateRollingAverage(
+            gameData,
+            storage,
+            "practice",
+            7,
+            "weekly"
+        );
+
+        // Should group game1 and game2 into week starting Jan 6, game3 into week starting Jan 13
+        expect(avg).toHaveLength(2);
+        // First week average: (1 + 2) / 2 = 1.5
+        expect(avg[0].value).toBe(1.5);
+        expect(avg[0].gamesCount).toBe(2);
+        // Second week has 1 game with 3 guesses, rolling avg includes first week
+        expect(avg[1].gamesCount).toBe(3);
+    });
+
+    test("weekly scale handles Sunday correctly", () => {
+        // Sunday should be grouped with the week starting the previous Monday
+        const game1 = {
+            targetId: "species1",
+            guesses: ["species1"],
+            lastGuessId: "species1",
+            hintClades: [],
+            // Sunday Jan 5, 2026
+            createdAt: new Date("2026-01-05T12:00:00Z").toISOString(),
+            seed: 1,
+        };
+
+        const game2 = {
+            targetId: "species2",
+            guesses: ["species3", "species2"],
+            lastGuessId: "species2",
+            hintClades: [],
+            // Monday Jan 13, 2026 (starts new week, different from Jan 5's week)
+            createdAt: new Date("2026-01-13T12:00:00Z").toISOString(),
+            seed: 2,
+        };
+
+        storage.setItem(
+            "gameState-practice-dinosaur-#00001",
+            JSON.stringify(game1)
+        );
+        storage.setItem(
+            "gameState-practice-dinosaur-#00002",
+            JSON.stringify(game2)
+        );
+
+        const avg = calculateRollingAverage(
+            gameData,
+            storage,
+            "practice",
+            7,
+            "weekly"
+        );
+
+        // Should have 2 separate weeks
+        expect(avg).toHaveLength(2);
+        expect(avg[0].value).toBe(1);
+        expect(avg[0].gamesCount).toBe(1);
     });
 });
