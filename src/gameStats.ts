@@ -30,6 +30,102 @@ export interface RollingAverageDataPoint {
     gamesCount: number;
 }
 
+export type TimeScale = "none" | "hourly" | "daily" | "weekly";
+
+/**
+ * Normalizes a date to the start of its time bucket based on the scale
+ * - "hourly": Start of the hour (e.g., 2024-01-15 14:00:00)
+ * - "daily": Start of the day (e.g., 2024-01-15 00:00:00)
+ * - "weekly": Start of the week (Monday 00:00:00)
+ * - "none": Returns the date unchanged
+ */
+function normalizeDateToScale(date: Date, scale: TimeScale): Date {
+    const normalized = new Date(date);
+
+    switch (scale) {
+        case "hourly":
+            normalized.setMinutes(0, 0, 0);
+            break;
+        case "daily":
+            normalized.setHours(0, 0, 0, 0);
+            break;
+        case "weekly":
+            // Set to Monday of the week at 00:00:00
+            normalized.setHours(0, 0, 0, 0);
+            const day = normalized.getDay();
+            const diff = day === 0 ? -6 : 1 - day; // Handle Sunday (0) and make Monday the start
+            normalized.setDate(normalized.getDate() + diff);
+            break;
+        case "none":
+            // No normalization
+            break;
+    }
+
+    return normalized;
+}
+
+/**
+ * Groups game results by time buckets and calculates the average for each bucket
+ */
+function groupByTimeBucket(
+    results: GameResult[],
+    scale: TimeScale
+): Map<number, { averageGuesses: number; gamesCount: number; time: Date }> {
+    if (scale === "none") {
+        // No grouping, return individual results
+        const map = new Map<
+            number,
+            { averageGuesses: number; gamesCount: number; time: Date }
+        >();
+        results.forEach((result) => {
+            map.set(result.date.getTime(), {
+                averageGuesses: result.numberOfGuesses,
+                gamesCount: 1,
+                time: result.date,
+            });
+        });
+        return map;
+    }
+
+    const buckets = new Map<
+        number,
+        { totalGuesses: number; gamesCount: number; time: Date }
+    >();
+
+    // Group results into time buckets
+    for (const result of results) {
+        const bucketTime = normalizeDateToScale(result.date, scale);
+        const bucketKey = bucketTime.getTime();
+
+        const existing = buckets.get(bucketKey);
+        if (existing) {
+            existing.totalGuesses += result.numberOfGuesses;
+            existing.gamesCount += 1;
+        } else {
+            buckets.set(bucketKey, {
+                totalGuesses: result.numberOfGuesses,
+                gamesCount: 1,
+                time: bucketTime,
+            });
+        }
+    }
+
+    // Convert to averages
+    const averages = new Map<
+        number,
+        { averageGuesses: number; gamesCount: number; time: Date }
+    >();
+    buckets.forEach((bucket, key) => {
+        averages.set(key, {
+            averageGuesses: bucket.totalGuesses / bucket.gamesCount,
+            gamesCount: bucket.gamesCount,
+            time: bucket.time,
+        });
+    });
+
+    return averages;
+}
+
 export function loadAllGames(
     gameData: GameData,
     storage: StorageProvider = defaultStorage(),
@@ -92,7 +188,8 @@ export function calculateRollingAverage(
     gameData: GameData,
     storage: StorageProvider = defaultStorage(),
     gameMode: "daily" | "practice" = "practice",
-    windowSizeMs: number = 7 * 24 * 60 * 60 * 1000 // Default: 7 days in milliseconds
+    windowSizeMs: number = 7 * 24 * 60 * 60 * 1000, // Default: 7 days in milliseconds
+    scale: TimeScale = "daily"
 ): RollingAverageDataPoint[] {
     const results = loadAllGames(gameData, storage, gameMode);
 
@@ -104,33 +201,55 @@ export function calculateRollingAverage(
     // Sort by date
     wins.sort((a, b) => a.date.getTime() - b.date.getTime());
 
+    // First, group games by time buckets if scaling is enabled
+    const buckets = groupByTimeBucket(wins, scale);
+
+    // Convert buckets to sorted array
+    const bucketArray = Array.from(buckets.entries())
+        .map(([timestamp, data]) => ({
+            timestamp,
+            ...data,
+        }))
+        .sort((a, b) => a.timestamp - b.timestamp);
+
+    if (bucketArray.length === 0) return [];
+    console.log(bucketArray);
+
     const dataPoints: RollingAverageDataPoint[] = [];
 
-    // Calculate rolling average for each game
-    // Each data point represents the average of all games within the time window ending at that game
-    for (let i = 0; i < wins.length; i++) {
-        const currentGame = wins[i];
-        const windowStart = new Date(currentGame.date.getTime() - windowSizeMs);
-
-        // Get all wins within the window (from windowStart to current game)
-        const gamesInWindow = wins.filter(
-            (game, idx) =>
-                idx <= i &&
-                game.date >= windowStart &&
-                game.date <= currentGame.date
+    // Calculate rolling average for each bucket
+    // Each data point represents the average of all buckets within the time window ending at that bucket
+    for (let i = 0; i < bucketArray.length; i++) {
+        const currentBucket = bucketArray[i];
+        const windowStart = new Date(
+            currentBucket.time.getTime() - windowSizeMs
         );
 
-        if (gamesInWindow.length > 0) {
-            const totalGuesses = gamesInWindow.reduce(
-                (sum, r) => sum + r.numberOfGuesses,
+        // Get all buckets within the window (from windowStart to current bucket)
+        const bucketsInWindow = bucketArray.filter(
+            (bucket, idx) =>
+                idx <= i &&
+                bucket.time >= windowStart &&
+                bucket.time <= currentBucket.time
+        );
+
+        if (bucketsInWindow.length > 0) {
+            // Calculate weighted average: sum of (average * count) / total count
+            const totalWeightedGuesses = bucketsInWindow.reduce(
+                (sum, bucket) =>
+                    sum + bucket.averageGuesses * bucket.gamesCount,
                 0
             );
-            const average = totalGuesses / gamesInWindow.length;
+            const totalGamesCount = bucketsInWindow.reduce(
+                (sum, bucket) => sum + bucket.gamesCount,
+                0
+            );
+            const average = totalWeightedGuesses / totalGamesCount;
 
             dataPoints.push({
-                time: new Date(currentGame.date),
+                time: new Date(currentBucket.time),
                 value: average,
-                gamesCount: gamesInWindow.length,
+                gamesCount: totalGamesCount,
             });
         }
     }
