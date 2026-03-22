@@ -19,4 +19,18 @@ module.exports = {
         },
     },
     coverageReporters: ["text", "lcov", "html"],
+    reporters: [
+        "default",
+        [
+            "jest-junit",
+            {
+                outputDirectory: "test-results",
+                outputName: "junit.xml",
+                suiteName: "Jest Tests",
+                classNameTemplate: "{classname}",
+                titleTemplate: "{title}",
+                ancestorSeparator: " › ",
+            },
+        ],
+    ],
 };
