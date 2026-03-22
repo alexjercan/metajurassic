@@ -188,7 +188,7 @@ export function calculateRollingAverage(
     gameData: GameData,
     storage: StorageProvider = defaultStorage(),
     gameMode: "daily" | "practice" = "practice",
-    windowSizeMs: number = 7 * 24 * 60 * 60 * 1000, // Default: 7 days in milliseconds
+    windowSize: number = 7, // Default: 7 data points
     scale: TimeScale = "daily"
 ): RollingAverageDataPoint[] {
     const results = loadAllGames(gameData, storage, gameMode);
@@ -213,25 +213,20 @@ export function calculateRollingAverage(
         .sort((a, b) => a.timestamp - b.timestamp);
 
     if (bucketArray.length === 0) return [];
-    console.log(bucketArray);
 
     const dataPoints: RollingAverageDataPoint[] = [];
 
+    // Ensure windowSize is at least 1
+    const effectiveWindowSize = Math.max(1, windowSize);
+
     // Calculate rolling average for each bucket
-    // Each data point represents the average of all buckets within the time window ending at that bucket
+    // Each data point represents the average of the last N data points (where N = windowSize)
     for (let i = 0; i < bucketArray.length; i++) {
         const currentBucket = bucketArray[i];
-        const windowStart = new Date(
-            currentBucket.time.getTime() - windowSizeMs
-        );
 
-        // Get all buckets within the window (from windowStart to current bucket)
-        const bucketsInWindow = bucketArray.filter(
-            (bucket, idx) =>
-                idx <= i &&
-                bucket.time >= windowStart &&
-                bucket.time <= currentBucket.time
-        );
+        // Get the last N buckets up to and including the current one
+        const windowStart = Math.max(0, i - effectiveWindowSize + 1);
+        const bucketsInWindow = bucketArray.slice(windowStart, i + 1);
 
         if (bucketsInWindow.length > 0) {
             // Calculate weighted average: sum of (average * count) / total count
