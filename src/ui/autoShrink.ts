@@ -23,7 +23,8 @@ export function autoShrinkText(
         siblingsWidth += (child as HTMLElement).offsetWidth + gap;
     }
 
-    const availableWidth = parent.clientWidth - siblingsWidth - paddingLeft - paddingRight;
+    const availableWidth =
+        parent.clientWidth - siblingsWidth - paddingLeft - paddingRight;
 
     el.style.fontSize = `${maxFontSize}rem`;
 

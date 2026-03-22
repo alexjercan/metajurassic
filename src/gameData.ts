@@ -2,7 +2,6 @@ import { Clade, Species } from "./types";
 
 const FIRST_DAY = new Date(2026, 0, 1); // January 1, 2026
 
-
 export function dateToSeed(date: Date): number {
     const msPerDay = 1000 * 60 * 60 * 24;
 

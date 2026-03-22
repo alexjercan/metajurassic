@@ -14,7 +14,11 @@ function formatPuzzleId(gameData: GameData, seed: number): string {
     return `dinosaur-#${(index + 1).toString().padStart(PADDING_LENGTH, "0")}`;
 }
 
-function gameStateKey(gameData: GameData, seed: number, gameMode: "daily" | "practice"): string {
+function gameStateKey(
+    gameData: GameData,
+    seed: number,
+    gameMode: "daily" | "practice"
+): string {
     const puzzleId = formatPuzzleId(gameData, seed);
     if (gameMode === "practice") {
         return `gameState-practice-${puzzleId}`;
@@ -23,15 +27,21 @@ function gameStateKey(gameData: GameData, seed: number, gameMode: "daily" | "pra
     return `gameState-${puzzleId}`;
 }
 
-export function parseGameStateKey(key: string): { puzzleId: string; seed: number, gameMode: "daily" | "practice" } | null {
-    const match = key.match(new RegExp(`^gameState-(practice-)?(dinosaur-#\\d{${PADDING_LENGTH}})$`));
+export function parseGameStateKey(
+    key: string
+): { puzzleId: string; seed: number; gameMode: "daily" | "practice" } | null {
+    const match = key.match(
+        new RegExp(`^gameState-(practice-)?(dinosaur-#\\d{${PADDING_LENGTH}})$`)
+    );
     if (!match) return null;
 
     const practiceMode = !!match[1];
     const gameMode = practiceMode ? "practice" : "daily";
 
     const puzzleId = match[2];
-    const indexMatch = puzzleId.match(new RegExp(`^dinosaur-#(\\d{${PADDING_LENGTH}})$`));
+    const indexMatch = puzzleId.match(
+        new RegExp(`^dinosaur-#(\\d{${PADDING_LENGTH}})$`)
+    );
     if (!indexMatch) return null;
 
     const index = parseInt(indexMatch[1], 10) - 1;
@@ -42,7 +52,7 @@ export function parseGameStateKey(key: string): { puzzleId: string; seed: number
 
 export function createNewGameState(
     gameData: GameData,
-    seed: number = getTodaySeed(),
+    seed: number = getTodaySeed()
 ): GameState {
     const targetId = gameData.getRandomSpecies(seed);
     return new GameState(gameData, targetId, new Set());
@@ -60,8 +70,11 @@ export function loadGameState(
     if (savedState) {
         try {
             const parsed = JSON.parse(savedState);
-            const createdAtRaw = parsed.createdAt ? new Date(parsed.createdAt) : new Date();
-            const createdAt = gameMode === "daily" ? seedToDate(parsed.seed) : createdAtRaw;
+            const createdAtRaw = parsed.createdAt
+                ? new Date(parsed.createdAt)
+                : new Date();
+            const createdAt =
+                gameMode === "daily" ? seedToDate(parsed.seed) : createdAtRaw;
 
             return new GameState(
                 gameData,
@@ -69,7 +82,7 @@ export function loadGameState(
                 new Set(parsed.guesses),
                 parsed.lastGuessId,
                 new Set(parsed.hintClades ?? []),
-                createdAt,
+                createdAt
             );
         } catch (error) {
             console.warn(
@@ -111,7 +124,7 @@ export class GameState {
         public lastGuessId?: string,
         public hintClades: Set<string> = new Set(),
         public readonly createdAt: Date = new Date()
-    ) { }
+    ) {}
 
     isGameOver(): boolean {
         return (
@@ -180,15 +193,19 @@ export function formatGameStateForSharing(state: GameState): string {
     const guessCount = state.numberOfGuesses();
 
     if (state.isWin()) {
-        return `✅ Dinosaur ${puzzleId} 🦖\n` +
+        return (
+            `✅ Dinosaur ${puzzleId} 🦖\n` +
             `I figured it out in ${guessCount} guesses!\n` +
             `${"🟩".repeat(guessCount)}\n🔥 ${guessCount} | Avg. Guesses: 5.2\n\n` +
-            `https://alexjercan.github.io/metajurassic\n#metajurassic`;
+            `https://alexjercan.github.io/metajurassic\n#metajurassic`
+        );
     } else if (state.isLoss()) {
-        return `💀 Dinosaur ${puzzleId} 🦖\n` +
+        return (
+            `💀 Dinosaur ${puzzleId} 🦖\n` +
             `I couldn't figure it out in ${MAX_GUESSES} guesses.\n` +
             `${"⬛".repeat(MAX_GUESSES)}\n🔥 ${MAX_GUESSES} | Avg. Guesses: 5.2\n\n` +
-            `https://alexjercan.github.io/metajurassic\n#metajurassic`;
+            `https://alexjercan.github.io/metajurassic\n#metajurassic`
+        );
     } else {
         throw new Error("Game is not over yet, cannot share results");
     }
