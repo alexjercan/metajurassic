@@ -1,5 +1,5 @@
 import "./style.css";
-import { computeGameStats } from "./gameStats";
+import { computeGameStats, GameStats } from "./gameStats";
 import { loadGameData } from "./jsonLoader";
 import {
     createSpeciesCard,
@@ -7,43 +7,46 @@ import {
     shrinkCardTitle,
 } from "./ui/card";
 import { GameData } from "./gameData";
+import { defaultStorage } from "./storage";
 
 async function main() {
     const gameData = await loadGameData();
-    const stats = computeGameStats(gameData);
+    const statsDaily = computeGameStats(gameData, defaultStorage(), "daily");
+    const statsPractice = computeGameStats(gameData, defaultStorage(), "practice");
 
-    updateStatsUI(stats, gameData);
+    updateStatsUI(statsDaily, statsPractice, gameData);
 }
 
 function updateStatsUI(
-    stats: ReturnType<typeof computeGameStats>,
+    statsDaily: GameStats,
+    statsPractice: GameStats,
     gameData: GameData
 ) {
     document.getElementById("games-played")!.textContent =
-        stats.gamesPlayed.toString();
+        statsDaily.gamesPlayed.toString();
 
     const winRate =
-        stats.gamesPlayed > 0
-            ? Math.round((stats.wins / stats.gamesPlayed) * 100)
+        statsDaily.gamesPlayed > 0
+            ? Math.round((statsDaily.wins / statsDaily.gamesPlayed) * 100)
             : 0;
     document.getElementById("win-rate")!.textContent = `${winRate}%`;
 
     document.getElementById("current-streak")!.textContent =
-        stats.currentStreak.toString();
+        statsDaily.currentStreak.toString();
 
     document.getElementById("longest-streak")!.textContent =
-        stats.longestStreak.toString();
+        statsDaily.longestStreak.toString();
 
     document.getElementById("avg-guesses")!.textContent =
-        stats.wins > 0 ? stats.averageGuesses.toFixed(1) : "0";
+        statsDaily.wins > 0 ? statsDaily.averageGuesses.toFixed(1) : "0";
 
-    document.getElementById("total-wins")!.textContent = stats.wins.toString();
+    document.getElementById("total-wins")!.textContent = statsDaily.wins.toString();
 
     document.getElementById("total-losses")!.textContent =
-        stats.losses.toString();
+        statsDaily.losses.toString();
 
     const totalDinosaurs = gameData.species.length;
-    const unlockedDinosaurs = stats.allGuessedDinosaurs.size;
+    const unlockedDinosaurs = statsDaily.allGuessedDinosaurs.size;
     const unlockedPercentage =
         totalDinosaurs > 0 ? (unlockedDinosaurs / totalDinosaurs) * 100 : 0;
     document.getElementById("unique-dinos")!.textContent =
@@ -53,10 +56,10 @@ function updateStatsUI(
         progressBar.style.width = `${unlockedPercentage}%`;
     }
 
-    renderGuessDistribution(stats.guessDistribution, stats.wins);
+    renderGuessDistribution(statsDaily.guessDistribution, statsDaily.wins);
     renderGuessedDinosaurs(
-        stats.allGuessedDinosaurs,
-        stats.discoveredDinosaurs,
+        statsDaily.allGuessedDinosaurs,
+        statsDaily.discoveredDinosaurs,
         gameData
     );
 }

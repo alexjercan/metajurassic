@@ -1,6 +1,7 @@
 import "./style.css";
-import { createNewGameState } from "./gameState";
+import { createNewGameState, saveGameState } from "./gameState";
 import { loadData, initGame } from "./game";
+import { defaultStorage } from "./storage";
 
 async function main() {
     const data = await loadData();
@@ -10,6 +11,7 @@ async function main() {
     initGame({
         data,
         state,
+        saveState: (s) => saveGameState(s, seed, defaultStorage(), "practice"),
     });
 }
 

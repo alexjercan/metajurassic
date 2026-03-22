@@ -26,7 +26,8 @@ interface GameResult {
 
 export function loadAllGames(
     gameData: GameData,
-    storage: StorageProvider = defaultStorage()
+    storage: StorageProvider = defaultStorage(),
+    gameMode: "daily" | "practice" = "daily"
 ): GameResult[] {
     const results: GameResult[] = [];
 
@@ -41,6 +42,7 @@ export function loadAllGames(
 
             const parsed = parseGameStateKey(key);
             if (!parsed) continue;
+            if (parsed.gameMode !== gameMode) continue;
 
             const savedState = storage.getItem(key);
             if (!savedState) continue;
@@ -181,9 +183,10 @@ function calculateStreak(results: GameResult[]): {
 
 export function computeGameStats(
     gameData: GameData,
-    storage: StorageProvider = defaultStorage()
+    storage: StorageProvider = defaultStorage(),
+    gameMode: "daily" | "practice" = "daily"
 ): GameStats {
-    const results = loadAllGames(gameData, storage);
+    const results = loadAllGames(gameData, storage, gameMode);
 
     const gamesPlayed = results.length;
     const wins = results.filter((r) => r.isWin).length;

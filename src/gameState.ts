@@ -5,7 +5,7 @@ import { GuessResult } from "./types";
 
 const PADDING_LENGTH = 5;
 
-function getTodaySeed(): number {
+export function getTodaySeed(): number {
     return dateToSeed(new Date());
 }
 
@@ -14,23 +14,30 @@ function formatPuzzleId(gameData: GameData, seed: number): string {
     return `dinosaur-#${(index + 1).toString().padStart(PADDING_LENGTH, "0")}`;
 }
 
-function gameStateKey(gameData: GameData, seed: number): string {
+function gameStateKey(gameData: GameData, seed: number, gameMode: "daily" | "practice"): string {
     const puzzleId = formatPuzzleId(gameData, seed);
+    if (gameMode === "practice") {
+        return `gameState-practice-${puzzleId}`;
+    }
+
     return `gameState-${puzzleId}`;
 }
 
-export function parseGameStateKey(key: string): { puzzleId: string; seed: number } | null {
-    const match = key.match(new RegExp(`^gameState-(dinosaur-#\\d{${PADDING_LENGTH}})$`));
+export function parseGameStateKey(key: string): { puzzleId: string; seed: number, gameMode: "daily" | "practice" } | null {
+    const match = key.match(new RegExp(`^gameState-(practice-)?(dinosaur-#\\d{${PADDING_LENGTH}})$`));
     if (!match) return null;
 
-    const puzzleId = match[1];
+    const practiceMode = !!match[1];
+    const gameMode = practiceMode ? "practice" : "daily";
+
+    const puzzleId = match[2];
     const indexMatch = puzzleId.match(new RegExp(`^dinosaur-#(\\d{${PADDING_LENGTH}})$`));
     if (!indexMatch) return null;
 
     const index = parseInt(indexMatch[1], 10) - 1;
     const seed = index + 1; // since index is 0-based and seed is 1-based
 
-    return { puzzleId, seed };
+    return { puzzleId, seed, gameMode };
 }
 
 export function createNewGameState(
@@ -44,9 +51,10 @@ export function createNewGameState(
 export function loadGameState(
     gameData: GameData,
     seed: number = getTodaySeed(),
-    storage: StorageProvider = defaultStorage()
+    storage: StorageProvider = defaultStorage(),
+    gameMode: "daily" | "practice" = "daily"
 ): GameState {
-    const key = gameStateKey(gameData, seed);
+    const key = gameStateKey(gameData, seed, gameMode);
     const savedState = storage.getItem(key);
 
     if (savedState) {
@@ -74,9 +82,10 @@ export function loadGameState(
 export function saveGameState(
     state: GameState,
     seed: number = getTodaySeed(),
-    storage: StorageProvider = defaultStorage()
+    storage: StorageProvider = defaultStorage(),
+    gameMode: "daily" | "practice" = "daily"
 ): void {
-    const key = gameStateKey(state.gameData, seed);
+    const key = gameStateKey(state.gameData, seed, gameMode);
     const gameState = {
         targetId: state.targetId,
         guesses: Array.from(state.guesses),
