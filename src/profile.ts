@@ -387,17 +387,46 @@ function showTooltip(
     ) as HTMLElement;
     if (!tooltip) return;
 
-    const dateStr = formatDateLong(point.time);
+    const dateStr = formatDateShort(point.time);
 
     tooltip.innerHTML = `
         <div class="profile-graph-tooltip-date">${dateStr}</div>
-        <div class="profile-graph-tooltip-value">Avg: ${point.value.toFixed(1)} guesses</div>
-        <div class="profile-graph-tooltip-value">Games in window: ${point.gamesCount}</div>
+        <div class="profile-graph-tooltip-value">Avg: ${point.value.toFixed(1)}</div>
+        <div class="profile-graph-tooltip-value">Games: ${point.gamesCount}</div>
     `;
 
     const rect = container.getBoundingClientRect();
-    tooltip.style.left = `${event.clientX - rect.left + 10}px`;
-    tooltip.style.top = `${event.clientY - rect.top - 10}px`;
+    const tooltipWidth = 100; // Approximate tooltip width
+    const tooltipHeight = 70; // Approximate tooltip height
+
+    // Calculate initial position (offset from cursor)
+    let left = event.clientX - rect.left + 10;
+    let top = event.clientY - rect.top - 10;
+
+    // Check if tooltip would go off the right edge
+    if (left + tooltipWidth > rect.width) {
+        // Position to the left of the cursor instead
+        left = event.clientX - rect.left - tooltipWidth - 10;
+    }
+
+    // Check if tooltip would go off the bottom edge
+    if (top + tooltipHeight > rect.height) {
+        // Position above the cursor instead
+        top = event.clientY - rect.top - tooltipHeight - 10;
+    }
+
+    // Check if tooltip would go off the top edge
+    if (top < 0) {
+        top = event.clientY - rect.top + 10;
+    }
+
+    // Check if tooltip would go off the left edge
+    if (left < 0) {
+        left = event.clientX - rect.left + 10;
+    }
+
+    tooltip.style.left = `${left}px`;
+    tooltip.style.top = `${top}px`;
     tooltip.classList.add("visible");
 }
 
