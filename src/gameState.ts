@@ -9,17 +9,13 @@ export function getTodaySeed(): number {
     return dateToSeed(new Date());
 }
 
-function formatPuzzleId(gameData: GameData, seed: number): string {
-    const index = gameData.speciesIndexForDate(seed);
+function formatPuzzleId(seed: number): string {
+    const index = seed % Math.pow(10, PADDING_LENGTH);
     return `dinosaur-#${(index + 1).toString().padStart(PADDING_LENGTH, "0")}`;
 }
 
-function gameStateKey(
-    gameData: GameData,
-    seed: number,
-    gameMode: "daily" | "practice"
-): string {
-    const puzzleId = formatPuzzleId(gameData, seed);
+function gameStateKey(seed: number, gameMode: "daily" | "practice"): string {
+    const puzzleId = formatPuzzleId(seed);
     if (gameMode === "practice") {
         return `gameState-practice-${puzzleId}`;
     }
@@ -64,7 +60,7 @@ export function loadGameState(
     storage: StorageProvider = defaultStorage(),
     gameMode: "daily" | "practice" = "daily"
 ): GameState {
-    const key = gameStateKey(gameData, seed, gameMode);
+    const key = gameStateKey(seed, gameMode);
     const savedState = storage.getItem(key);
 
     if (savedState) {
@@ -111,7 +107,7 @@ export function saveGameState(
     storage: StorageProvider = defaultStorage(),
     gameMode: "daily" | "practice" = "daily"
 ): void {
-    const key = gameStateKey(state.gameData, seed, gameMode);
+    const key = gameStateKey(seed, gameMode);
     const date = gameMode === "daily" ? seedToDate(seed) : new Date();
 
     const gameState = {
@@ -198,7 +194,7 @@ export class GameState {
 }
 
 export function formatGameStateForSharing(state: GameState): string {
-    const puzzleId = formatPuzzleId(state.gameData, getTodaySeed());
+    const puzzleId = formatPuzzleId(getTodaySeed());
     const guessCount = state.numberOfGuesses();
 
     if (state.isWin()) {
