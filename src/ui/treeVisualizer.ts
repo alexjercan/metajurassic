@@ -61,11 +61,50 @@ export function renderTree({ container, roots, onSelect }: RenderOptions) {
     const arena = document.getElementById("arena");
     if (arena) {
         requestAnimationFrame(() => {
-            arena.scrollTo({
-                top: arena.scrollHeight,
-                left: Math.max(0, (arena.scrollWidth - arena.clientWidth) / 2),
-                behavior: "smooth",
-            });
+            // Calculate scaling based on tree width vs viewport
+            const treeWidth = container.scrollWidth;
+            const viewportWidth = arena.clientWidth;
+
+            // Remove any existing scale classes
+            container.classList.remove(
+                "tree-scale-90",
+                "tree-scale-80",
+                "tree-scale-70",
+                "tree-scale-60"
+            );
+
+            // Apply scaling if tree is too wide
+            // Scale down in increments based on how much overflow there is
+            if (treeWidth > viewportWidth * 1.8) {
+                container.classList.add("tree-scale-60");
+            } else if (treeWidth > viewportWidth * 1.5) {
+                container.classList.add("tree-scale-70");
+            } else if (treeWidth > viewportWidth * 1.2) {
+                container.classList.add("tree-scale-80");
+            } else if (treeWidth > viewportWidth) {
+                container.classList.add("tree-scale-90");
+            }
+
+            // Use instant scrolling instead of smooth to avoid conflicts with manual scrolling
+            // especially on Android Chrome where smooth scrolling can prevent manual scrolling
+            const targetLeft = Math.max(
+                0,
+                (arena.scrollWidth - arena.clientWidth) / 2
+            );
+            const targetTop = arena.scrollHeight;
+
+            // Try scrollTo with instant behavior first
+            try {
+                arena.scrollTo({
+                    top: targetTop,
+                    left: targetLeft,
+                    behavior: "instant" as ScrollBehavior,
+                });
+            } catch (e) {
+                // Fallback for browsers that don't support "instant"
+                arena.scrollTop = targetTop;
+                arena.scrollLeft = targetLeft;
+            }
         });
     }
 }

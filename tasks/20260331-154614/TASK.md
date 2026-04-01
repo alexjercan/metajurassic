@@ -1,6 +1,6 @@
 # Graph scaling doesn't work properly on some browsers and mobile
 
-- STATUS: OPEN
+- STATUS: CLOSED
 - PRIORITY: 100
 - TAGS: bug
 
