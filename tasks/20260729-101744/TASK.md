@@ -1,8 +1,13 @@
 # Write AGENTS.md with build, test, and data pipeline orientation
 
-- STATUS: OPEN
+- STATUS: CLOSED
 - PRIORITY: 96
 - TAGS: docs,process,flow
+
+## Flow State
+
+- FLOW STEP: DONE
+- PLAN STATUS: APPROVED
 
 ## Story
 
@@ -18,9 +23,9 @@ As an agent or contributor starting a cold session, I want a repo AGENTS.md that
 
 ## Steps
 
-- [ ] Write AGENTS.md covering: project summary, dev environment (`nix develop`, npm scripts), running tests and CI locally, the content pipeline (markdown source of truth, scripts, regeneration commands), deploy (gh-pages workflow), and where flow records live (tasks/, LESSONS.md).
-- [ ] Record the CI-vs-nix drift explicitly.
-- [ ] Keep it short and factual; player-facing documentation stays in the FAQ and README.
+- [x] Write AGENTS.md covering: project summary, dev environment (`nix develop`, npm scripts), running tests and CI locally, the content pipeline (markdown source of truth, scripts, regeneration commands), deploy (gh-pages workflow), and where flow records live (tasks/, LESSONS.md).
+- [x] Record the CI-vs-nix drift explicitly.
+- [x] Keep it short and factual; player-facing documentation stays in the FAQ and README.
 
 ## Definition of Done
 

@@ -34,6 +34,14 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   `git rm --cached`ed. In a worktree with a symlinked `node_modules`, stage
   explicit paths (never `git add -A`) and eyeball the commit stat for a stray
   `node_modules` before moving on. 20260729-101740.
+- `document-env-facts-by-dogfooding-not-paraphrase` (x1): writing AGENTS.md, the
+  risk in a docs task is a plausible-but-wrong claim. Each pipeline/command claim
+  was verified by reading the actual `scripts/*.py` `__main__` blocks (conversion
+  direction), `.gitignore` (which of data.csv/index.json/commontree is tracked),
+  and both workflows - then the "cold session can run tests" DoD was proven by
+  actually running `nix develop -c npm run ci` (122 pass, exit 0), not by trusting
+  package.json. Pin a doc's runnable claims to an executed command, not a read
+  one. 20260729-101744.
 - `metajurassic-js-toolchain-lives-in-the-nix-devshell` (x1): `node`/`npm` are
   not on PATH in this environment; the JS toolchain comes from the `flake.nix`
   devShell (`pkgs.nodejs`). To run `npm run ci` without building the Python venv,

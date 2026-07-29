@@ -1,0 +1,120 @@
+# AGENTS.md
+
+Orientation for agents working on **Metajurassic**, a daily dinosaur-guessing
+game (a clone of [Metazooa](https://metazooa.com)). Read this first, then check
+the backlog (`tatr ls --sort priority`) and `LESSONS.md` before diving in.
+
+## What this is
+
+A browser game: guess the target dinosaur species, and each guess tells you how
+close you are on the evolutionary tree. The taxonomy graph and per-species facts
+are the content; the game logic, tree visualization, and daily-puzzle sequencing
+are the code. The site is static and deployed to GitHub Pages.
+
+## Layout
+
+TypeScript front end bundled with webpack; a small Python toolchain regenerates
+the content graph from markdown.
+
+| Path | What it is |
+|------|------------|
+| `src/` | TypeScript source. `index.ts` is the entry; `game.ts`, `gameState.ts`, `gameData.ts`, `treeBuilder.ts` are the core; `ui/` holds widgets. |
+| `src/*.html`, `src/style.css` | Page templates and Tailwind styles; `webpack-partials.js` stitches `_header.html`/`_footer.html` in. |
+| `src/jurassic/species/*.md`, `src/jurassic/clades/*.md` | **Content source of truth** - one markdown file per species/clade, data in YAML-style frontmatter. |
+| `src/jurassic/index.json` | The served content graph, GENERATED from the markdown above. Do not hand-edit; regenerate it. |
+| `scripts/*.py` | Content pipeline (markdown <-> json <-> csv). See below. |
+| `test/` | Jest suite (`*.test.ts`). |
+| `webpack.config.js` | Bundler + dev server config (port 8080). |
+| `flake.nix` | Nix dev shell: provides `nodejs`, `uv`, and the Python venv. |
+| `tasks/` | tatr task records - one folder per task (TASK/REVIEW/RETRO/NOTES). |
+| `LESSONS.md` | The lessons ledger - read it before starting any task. |
+
+`dist/`, `data.csv`, `test.csv`, and `commontree-metajurassic.json` are
+gitignored build/scratch artifacts (`.gitignore`: `*.csv`, `*metajurassic.json`,
+`dist`). The markdown under `src/jurassic/` is what is versioned and canonical.
+
+## Build, run, test
+
+**The JS toolchain is NOT on PATH outside the nix dev shell.** `node`, `npm`,
+and `npx` come from the `flake.nix` devShell (`pkgs.nodejs`). Enter it first:
+
+```sh
+nix develop                 # enter the dev shell (node + uv + python venv on PATH)
+
+npm install                 # install JS deps (first time / after package.json changes)
+npm run serve               # dev server at localhost:8080
+npm run build               # production bundle into dist/
+
+npm test                    # Jest
+npm run test:coverage       # Jest with coverage (writes coverage/ + test-results/junit.xml)
+npm run lint                # eslint over src/ and test/
+npm run format              # prettier --write; format:check to verify only
+npm run ci                  # THE GATE: format:check + lint + test:coverage
+```
+
+`npm run ci` is the source of truth for green. Run it (inside `nix develop`)
+before calling a change done, and say plainly when you skipped a step.
+
+To run `npm` without paying for the full Python venv build, you can invoke a
+nix-store `nodejs` bin directly plus a `node_modules` symlink into the worktree,
+or `nix develop -c npm run ci`. (See `LESSONS.md`:
+`metajurassic-js-toolchain-lives-in-the-nix-devshell`.)
+
+## Content pipeline
+
+The markdown files under `src/jurassic/` are authored by hand; everything else
+is generated. All scripts use only the Python stdlib and are run from the repo
+root (inside `nix develop`, or with any `python3`):
+
+```sh
+python scripts/markdown_to_json.py   # md source -> src/jurassic/index.json (+ commontree-metajurassic.json)
+python scripts/json_to_markdown.py   # index.json -> md files (reverse; regenerate the source layout)
+python scripts/csv_to_json.py <csv>  # merge a data CSV into index.json (bulk content edits)
+```
+
+The normal loop after editing a species/clade markdown file is
+`python scripts/markdown_to_json.py`, which rewrites the served `index.json` and
+the `commontree-metajurassic.json` tree. `index.json` is checked in (it is the
+runtime payload); the CSVs and the commontree JSON are gitignored scratch.
+
+## CI vs local nix (known drift)
+
+CI (`.github/workflows/ci.yml`) does NOT use nix. It runs `npm ci` then
+`npm run ci` on stock `ubuntu-latest` against a Node matrix (20.x and 22.x),
+then a separate `build` job runs `npm run build`. Local development requires the
+nix dev shell to get Node at all. This drift is intentional and workable, but
+the environments differ: CI pins Node via `actions/setup-node`, local uses
+`pkgs.nodejs` from the flake. If a build passes locally but fails in CI (or vice
+versa), suspect a Node-version difference first.
+
+Deploy is a third path: `.github/workflows/gh-pages.yaml` builds with
+`PUBLIC_PATH=/metajurassic/` on Node 18 and publishes `dist/` to GitHub Pages on
+every push to `master`.
+
+## Conventions
+
+- Global rules from `~/AGENTS.md` apply: plain ASCII punctuation only (`-`,
+  `--`, `...`, `->`, straight quotes - no em dashes, smart quotes, or arrows),
+  plain commit messages with NO AI attribution, and no time-based technical
+  arguments.
+- TypeScript style is enforced by prettier and eslint; keep `npm run ci` clean
+  rather than disabling rules inline.
+- Content changes go through the markdown source, then regenerate `index.json` -
+  never hand-edit the generated JSON.
+- Tests that guard content integrity should run over the REAL payload
+  (`src/jurassic/index.json`), not a hand-written mock (see `LESSONS.md`).
+
+## Development flow and records
+
+`/flow` drives development here: plan a goal into tatr tasks, then `/work`
+(implement in a sprout worktree), `/review` (out-of-context round-1 review until
+APPROVE), and `/compound` (retro + lesson) for each. Everything tied to one task
+lives under `tasks/<id>/` (TASK.md, REVIEW.md, RETRO.md, NOTES.md); the lessons
+ledger is `LESSONS.md` at the repo root. `tatr check` and
+`tatr check --ledger LESSONS.md` are the conformance gates - keep them clean.
+
+Isolated work happens in a **sprout** worktree (`cd "$(sprout new <type>/<slug>)"`).
+A fresh sprout has no `node_modules`; if you symlink the main checkout's, stage
+explicit paths and never `git add -A` (the symlink is not matched by
+`.gitignore`'s `node_modules/` and will ride into the commit - see `LESSONS.md`:
+`sprout-worktrees-have-no-node_modules-dont-git-add-all`).
