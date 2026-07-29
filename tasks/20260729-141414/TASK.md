@@ -21,20 +21,33 @@ From the playtest pass (`20260729-092435`, NOTES.md F3.5-F3.7), all ON-SCREEN:
 
 ## Steps
 
-- [ ] Decide the phone behaviour for the info panel after a guess and record it in `DECISION.md`: a non-occluding presentation (sheet/inline card under the tree) or no auto-open on narrow viewports at all. The tree must remain the primary feedback surface either way.
-- [ ] Implement it without re-breaking the `manuallyClosedPanel` preference - read the body of any helper before reusing it (`LESSONS.md` `read-the-helper-body-not-its-name-before-reusing-it`).
-- [ ] Give the pull tab a visible, un-clipped affordance on both viewports.
-- [ ] Let long clade descriptions scroll instead of being cut off.
-- [ ] Address the empty first screen (F3.9) while in this layout: the arena's vertical space should not be mostly blank before the first guess.
-- [ ] Add mobile E2E coverage asserting the tree container is visible after the first guess and after a mid-game reload.
+- [x] Decide the phone behaviour for the info panel after a guess and record it in `DECISION.md`. CHOSEN: no auto-open on narrow viewports, plus a labelled pull tab. See `DECISION.md` for the constraint (panel and `#arena` share the same box at 390px) and for why this reverses the "no breakpoint fork" stance of `20260729-092315/DECISION.md`.
+- [ ] Add a single narrow-viewport predicate to `src/ui/panel.ts` - one named constant wrapping `matchMedia("(max-width: 768px)")`, commented as mirroring the `@media (max-width: 768px)` block in `src/style.css`. Evaluate it per call, not once at module load, so a resized desktop window behaves correctly.
+- [ ] In `renderLastGuess`, skip the tail `openPanel()` on narrow viewports and mark the tab as carrying unseen info instead. Do NOT touch the `manuallyClosedPanel` bookkeeping: `openPanel()` clears that flag as a side effect, so the new branch must not route through it (`LESSONS.md` `read-the-helper-body-not-its-name-before-reusing-it`). The desktop branch stays exactly as it is today.
+- [ ] Rework the `#open-panel` pull tab into a real affordance: move it fully inside the viewport (`.panel-pull` is `right: -5px` today, and `:hover` translates it a further 5px), give it a persistent text label, and let it name the newly revealed clade with an unseen marker while a rendered card has not been opened. Opening the panel clears the marker; the `aria-label` tracks the state.
+- [ ] Give `.card-content` a visible overflow affordance. It is already `overflow-y: auto`, but the thin scrollbar is invisible on a phone, so a clipped description reads as truncated rather than scrollable (F3.7). A CSS scroll-shadow / bottom fade that appears only when the content overflows is enough; no JS.
+- [ ] Fix the empty first screen (F3.9): anchor the tree to the TOP of the arena on narrow viewports instead of centring it under `padding-top: 120px`, so the blank band lands below the tree and the tree stops sliding up on every guess.
+- [ ] Extend `e2e/mobile.spec.ts`: tree visible and panel not `active` after the first guess; same after a mid-game reload; the tab names the revealed clade and opening it still shows the card. Extend `e2e/panel.spec.ts` with the desktop tab bounding-box check, and keep its existing auto-open and manual-close tests green unchanged.
+- [ ] Re-shoot `01-first-screen-mobile.png` and `03-after-first-guess-mobile.png` via `npm run playtest:walkthrough` to confirm the two ON-SCREEN findings visually, and run `npm run ci`.
 
 ## Definition of Done
 
-- After the first guess on a phone viewport the tree is still visible. (test: `e2e/mobile.spec.ts`)
-- The panel pull tab is fully within the viewport on desktop and mobile. (test: browser E2E bounding-box check)
-- A long clade description is reachable in full. (manual: inspect on a phone viewport)
+- After the first guess on a phone viewport the tree is visible and `#info-panel` does not have the `active` class. (test: `e2e/mobile.spec.ts`)
+- After a mid-game reload on a phone viewport the tree is visible. (test: `e2e/mobile.spec.ts`)
+- Desktop still auto-opens the panel with card content after a guess. (test: `e2e/panel.spec.ts`, existing "auto-opens with card content after a guess")
+- The `manuallyClosedPanel` preference still survives a later guess and a mid-game hint. (test: `e2e/panel.spec.ts`, existing two tests, unmodified)
+- The panel pull tab is fully within the viewport on desktop and mobile and carries a text label. (test: bounding-box check in `e2e/panel.spec.ts` and `e2e/mobile.spec.ts`)
+- After a guess on a phone the tab names the clade that was just revealed. (test: `e2e/mobile.spec.ts`)
+- A long clade description is reachable in full and the cut-off is visibly a scroll, not a truncation. (manual: inspect on a phone viewport)
+- The pre-guess arena does not read as mostly blank. (manual: re-shot `playtest-shots/01-first-screen-mobile.png`)
 - `npm run ci` passes. (cmd: `npm run ci`)
 
 ## Notes
 
 - Coordinate with `20260729-125313` (reload auto-open) and `20260729-092327` (onboarding); all three touch the same first-minute surface.
+- This change fixes the reload occlusion on PHONES as a side effect (the phone branch never auto-opens, whatever triggered the render). `20260729-125313` keeps its scope: the desktop reload path and the "page load vs fresh guess" contract change.
+
+## Flow State
+
+- FLOW STEP: PLANNED
+- PLAN STATUS: APPROVED
