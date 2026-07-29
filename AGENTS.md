@@ -76,10 +76,9 @@ and points Playwright at it via `PLAYWRIGHT_BROWSERS_PATH`, so `npm run test:e2e
 just works inside `nix develop` - do NOT `npx playwright install` on NixOS. Keep
 `@playwright/test` in `package.json` pinned to the `playwright-driver` version in
 `flake.lock`; a mismatch fails with "Executable doesn't exist" because the browser
-revisions differ. A couple of assertions that encode still-broken behavior
-(species icons, `20260729-092404`; the mobile auto-open panel, `20260729-092315`)
-are committed as `test.fixme` so they document the invariant without reddening the
-gate; they flip on when those tasks land.
+revisions differ. An assertion that encodes still-broken behavior (species icons,
+`20260729-092404`) is committed as `test.fixme` so it documents the invariant
+without reddening the gate; it flips on when that task lands.
 
 To run `npm` without paying for the full Python venv build, you can invoke a
 nix-store `nodejs` bin directly plus a `node_modules` symlink into the worktree,

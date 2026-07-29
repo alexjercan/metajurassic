@@ -199,6 +199,17 @@ export function initGame({ data, state, saveState, share }: GameOptions) {
             state.useHint(nextCladeId);
             save();
             updateUI();
+            // Buying a hint is an explicit request to SEE something, so it
+            // opens the panel even before the first guess - the branch of
+            // renderLastGuess that serves that path deliberately no longer
+            // auto-opens (tasks/20260729-092315/DECISION.md), and without this
+            // the only feedback for three spent guesses would be the tree
+            // redraw. Only that case: once there is a last guess, the
+            // updateUI() above has already opened the panel unless the player
+            // closed it by hand, and openPanel() would clear that preference.
+            if (!state.lastGuessId) {
+                openPanel();
+            }
 
             if (state.isGameOver()) {
                 showGameOverModal();

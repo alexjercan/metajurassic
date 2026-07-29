@@ -1,8 +1,13 @@
 # Fix first-run mobile game focus
 
-- STATUS: OPEN
+- STATUS: CLOSED
 - PRIORITY: 90
 - TAGS: bug,ui,ux,mobile
+
+## Flow State
+
+- FLOW STEP: DONE
+- PLAN STATUS: APPROVED
 
 ## Story
 
@@ -17,12 +22,13 @@ As a new mobile player, I want the first screen to clearly show the mystery targ
 
 ## Steps
 
-- [ ] Decide the intended first-load behavior for desktop and mobile: closed panel, collapsed panel, bottom sheet, or inline intro card.
-- [ ] If the chosen behavior has a product fork, record the decision in `DECISION.md` for this task before implementation.
-- [ ] Update the startup panel behavior so the tree and input are the primary focus before the first guess, especially on mobile.
-- [ ] Preserve an easy way to inspect the starting clade hint without forcing it over the play surface.
-- [ ] Verify that manual panel close/open behavior still works after guesses.
-- [ ] Add or update browser tests for first-load desktop and mobile layout.
+- [x] Decide the intended first-load behavior for desktop and mobile: closed panel, collapsed panel, bottom sheet, or inline intro card.
+- [x] If the chosen behavior has a product fork, record the decision in `DECISION.md` for this task before implementation.
+- [x] Write the browser tests FIRST and watch them fail for the right reason: flip the `test.fixme` occlusion test in `e2e/mobile.spec.ts` (left blocked on this task by 20260729-092258), add first-load "panel closed" assertions for mobile and desktop, add "panel still auto-opens after a guess", and invert the first-load expectation in `e2e/panel.spec.ts`.
+- [x] Update the startup panel behavior so the tree and input are the primary focus before the first guess, especially on mobile: drop the `openPanel()` call from the `!state.lastGuessId` branch of `renderLastGuess` (`src/ui/panel.ts`).
+- [x] Preserve an easy way to inspect the starting clade hint without forcing it over the play surface: keep rendering the hint clade card into the panel on load, so the always-visible `#open-panel` pull tab reveals it in one tap.
+- [x] Verify that manual panel close/open behavior still works after guesses.
+- [x] Run `npm run ci` inside the nix dev shell and confirm it is green.
 
 ## Definition of Done
 

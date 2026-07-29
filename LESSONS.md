@@ -13,6 +13,13 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
 
 ## Process / flow
 
+- `read-the-helper-body-not-its-name-before-reusing-it` (x1): the panel-focus fix
+  called `openPanel()` to give a hint purchase feedback, but that four-line
+  helper ALSO clears the module-level `manuallyClosedPanel`, so a fix aimed at
+  the pre-first-guess case silently re-enabled auto-open mid-game and undid the
+  preference the branch's own test pinned. When a fix reuses a helper that
+  mutates module state, read its body in the same breath as the call.
+  20260729-092315.
 - `close-a-task-with-its-review-and-retro-not-just-the-status` (x1): the first
   tracked task here (`20260331-154614`, graph scaling) was set CLOSED with no
   `REVIEW.md` and no `RETRO.md`, so `tatr check` went red and the reasoning
@@ -76,6 +83,19 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
 
 ## Testing
 
+- `side-effect-cleared-state-is-not-proof-of-success` (x1): an e2e helper retried
+  a guess until the input went empty, calling that proof the guess landed - but
+  the FAILURE path empties it too (a swallowed Enter falls through to
+  `src/game.ts`, submits raw text, throws, and `finally { updateUI() }` clears
+  the box), so the harness could not fail and reported a false "48/48 green".
+  Before using cleared/reset state as a success signal, ask what else sets it;
+  prefer a domain counter with an exact expectation (`toBe(before - 1)`).
+  20260729-092315.
+- `measure-a-flake-fix-against-its-original-failure-rate` (x1): a ~1-in-48 race
+  was declared fixed after one clean `--repeat-each=6` run; the reviewer
+  reproduced the failure immediately. Run enough repeats to have seen the old
+  failure several times over (here 240) before calling a flake dead.
+  20260729-092315.
 - `test-must-cross-the-format-parse-seam-not-assert-each-side` (x1): unit tests
   that assert `parse` and `format` in isolation can encode the very bug they
   should catch. `parseGameStateKey` did not invert `gameStateKey` (an off-by-one

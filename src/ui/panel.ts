@@ -36,15 +36,18 @@ export function renderLastGuess(
     roots: CladeNode[]
 ) {
     if (!state.lastGuessId) {
-        // If there is no last guess, show the root clades as hint
+        // Before the first guess, render the root-clade hint into the panel but
+        // leave the panel CLOSED: the first screen belongs to the tree and the
+        // input, not to a card the player has not asked for. On a phone the
+        // panel is full-width and overlays the arena exactly, which hid the game
+        // itself on first load. The card sits ready behind the always-visible
+        // #open-panel pull tab, so the hint is one tap away.
+        // See tasks/20260729-092315/DECISION.md.
         const bestCladeId = findBestHintCladeId(roots);
         if (!bestCladeId) return;
         const clade = data.findCladeById(bestCladeId);
         if (!clade) return;
         renderCladeCard(clade);
-        if (!manuallyClosedPanel) {
-            openPanel();
-        }
         return;
     }
 

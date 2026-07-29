@@ -33,14 +33,13 @@ test.describe("mobile game layout", () => {
         await input.click({ trial: true });
     });
 
-    // KNOWN FAILING: on first load the info panel auto-opens and, on a phone
-    // viewport, overlays the arena exactly (panel and #arena share the same
-    // box), so the tree - the primary game surface - is hidden behind the hint
-    // card. Owned by 20260729-092315 (first-run mobile focus). This encodes the
-    // "player can see the primary surface without incoherent overlap" invariant
-    // and flips green when that task stops the auto-open on mobile; fixme keeps
-    // the npm run ci gate green now. See DECISION.md.
-    test.fixme("primary surface is not occluded by the auto-opened panel (blocked on 20260729-092315)", async ({
+    // Was a test.fixme left by 20260729-092258 and owned by this task: on first
+    // load the info panel auto-opened and, on a phone viewport, overlayed the
+    // arena exactly (panel and #arena share the same box), so the tree - the
+    // primary game surface - was hidden behind the hint card. 20260729-092315
+    // stopped the first-load auto-open, so this is now a live regression pin on
+    // the "player can see the primary surface" invariant.
+    test("primary surface is not occluded by the info panel on first load", async ({
         page,
     }) => {
         await page.goto("/");
@@ -56,5 +55,41 @@ test.describe("mobile game layout", () => {
             return !!top && panel.contains(top);
         });
         expect(occluded).toBe(false);
+    });
+
+    // The 390x844-class first screen from the task's Definition of Done: the
+    // panel is closed, and the tree plus the guess input are what the player
+    // sees. Guards against a regression that re-opens the panel on load.
+    test("first load shows the game, not the info panel", async ({ page }) => {
+        await page.goto("/");
+
+        const panel = page.locator("#info-panel");
+        await expect(panel).not.toHaveClass(/active/);
+
+        // The tree is populated and the input is reachable behind no overlay.
+        const tree = page.locator("#tree-container");
+        await expect(tree).toBeVisible();
+        await expect
+            .poll(async () => (await tree.innerHTML()).trim().length)
+            .toBeGreaterThan(0);
+        await page.locator("#player-input").click({ trial: true });
+
+        // The panel must not be covering the viewport: with the panel closed it
+        // is translated off-screen, so its box starts at or past the right edge.
+        const viewport = page.viewportSize();
+        const panelBox = await panel.boundingBox();
+        expect(panelBox).not.toBeNull();
+        if (panelBox && viewport) {
+            expect(panelBox.x).toBeGreaterThanOrEqual(viewport.width - 1);
+        }
+
+        // The hint is still one tap away via the always-present pull tab.
+        const toggle = page.locator("#open-panel");
+        await expect(toggle).toBeVisible();
+        await toggle.click();
+        await expect(panel).toHaveClass(/active/);
+        await expect(
+            page.locator("#panel-card-container .card-title")
+        ).toBeVisible();
     });
 });
