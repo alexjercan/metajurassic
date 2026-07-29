@@ -122,7 +122,9 @@ export function initGame({ data, state, saveState, share }: GameOptions) {
         const canHint =
             !state.isGameOver() &&
             nextCladeId !== null &&
-            state.canAffordHint();
+            // canUseHint, not canAffordHint: the button must also respect the
+            // per-round MAX_HINTS cap, not only the guess budget.
+            state.canUseHint();
 
         if (canHint) {
             hintBox.classList.remove("disabled");
@@ -198,7 +200,7 @@ export function initGame({ data, state, saveState, share }: GameOptions) {
             if (state.isGameOver()) return;
 
             const nextCladeId = findNextHintCladeId(state);
-            if (!nextCladeId || !state.canAffordHint()) return;
+            if (!nextCladeId || !state.canUseHint()) return;
 
             state.useHint(nextCladeId);
             save();

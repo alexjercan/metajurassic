@@ -126,7 +126,35 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   turned a narrow finding into a better one (a late hint for a weak player is
   near break-even and cuts the loss rate 5.8% -> 4.6%). 20260729-092435.
 
+- `anchor-programmatic-edits-on-code-not-prose-and-read-the-diff-back` (x1): a
+  scripted insertion anchored on a comment string landed INSIDE another symbol's
+  doc block, splitting `ShareStats`'s documentation in half and re-attributing
+  it to a new function. Prettier, eslint and 193 tests are all blind to a comment
+  attached to the wrong symbol; reading the FILE looked fine because the prose
+  still flowed. Only the DIFF showed the mid-paragraph splice. Anchor scripted
+  edits on code, and when the anchor is prose, verify by reading the diff.
+  Sharpens [[an-edit-you-believe-you-made-is-a-hypothesis-until-the-artifact-shows-it]]
+  - the artifact to check is sometimes the diff, not the file. 20260729-141424.
+- `naming-something-shipped-rots-when-the-shipped-thing-changes` (x1): the
+  playtest rig labelled its baseline policy `top-down (shipped)`. The moment the
+  shipped rule became the threshold split, that label was false and the row had
+  to become `top-down (was)`. Same family as
+  [[hand-copied-logic-mirrors-rot-update-them-in-the-same-change]] but in
+  vocabulary rather than logic: name what a thing IS, not its current status.
+  20260729-141424.
+
 ## Testing
+
+- `count-both-branches-in-a-property-test-or-it-passes-vacuously` (x1): the hint
+  rule has a qualifying path and a fallback path, and the first property test
+  only ever reached the qualifying one - it looped over COLD boards, where the
+  fallback cannot fire (from 150 candidates something always cuts to half). It
+  failed loudly only because it also counted how many times each branch ran and
+  asserted both were non-zero; without that counter it would have gone green
+  while testing the fallback with zero cases. A property test over two branches
+  should count them and fail when either is unexercised. Fixed by walking each
+  target DOWN its hint ladder into the deep states. 20260729-141424.
+
 
 - `poll-dot-not-resolves-on-the-first-sample-so-it-cannot-watch-a-transition` (x1):
   `expectTreeNotOccludedByPanel` asserted the info panel was not covering the tree

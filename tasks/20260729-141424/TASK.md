@@ -1,9 +1,14 @@
 # Rework hint reveal order and price
 
-- STATUS: OPEN
+- STATUS: CLOSED
 - PRIORITY: 88
 - TAGS: bug,gameplay,design
 
+
+## Flow State
+
+- FLOW STEP: DONE
+- PLAN STATUS: APPROVED
 
 ## Story
 
@@ -62,23 +67,44 @@ exactly when a stuck player presses it.
 - [x] Confirm the build shape with the user and record it in `DECISION.md`.
       Done 20260729: threshold split at 1/2, `HINT_COST` unchanged at 3,
       `MAX_HINTS = -1`.
-- [ ] Add `HINT_SPLIT_FRACTION` and `MAX_HINTS` to `src/constants.ts`.
-- [ ] Implement the threshold split in `findNextHintCladeId`. The live candidate
+- [x] Add `HINT_SPLIT_FRACTION` and `MAX_HINTS` to `src/constants.ts`.
+- [x] Implement the threshold split in `findNextHintCladeId`. The live candidate
       set is derived from the guess history (a species is still consistent iff
       its LCA with each past guess matches what that guess showed); no new
       persisted state.
-- [ ] Enforce `MAX_HINTS` in `GameState.canAffordHint()` (and whatever gates the
+- [x] Enforce `MAX_HINTS` in `GameState.canAffordHint()` (and whatever gates the
       button), with `-1` meaning uncapped. Ship the mechanism even though it is
       open, so closing the two-hint collapse later is a constant change.
-- [ ] Re-run `npm run playtest:hint` and confirm section 5: one hint takes the
+- [x] Re-run `npm run playtest:hint` and confirm section 5: one hint takes the
       `hint-follower` player from 83% loss to roughly 50%, and the hint stays a
       net LOSS for the `deduce` player at every buy point.
-- [ ] Update the hint affordance copy so it names what a hint does, not only its
-      price (coordinate with `20260729-092327`) - there is now a guarantee to
-      state, and it should read honestly on the ~19% of hints that take the
-      fallback path and cannot make that promise.
-- [ ] Test the reveal rule and the affordability edge (a hint must not be
+- [x] Hint affordance copy: NOT this task (user, 20260729). `HINT_COST` is
+      unchanged so `Hint: Cost 3 Guesses` stays true, and `20260729-092327`
+      already owns that string. The guarantee now worth stating, and the ~19%
+      fallback caveat, are recorded there instead.
+- [x] Test the reveal rule and the affordability edge (a hint must not be
       purchasable into an unwinnable state, and must respect `MAX_HINTS`).
+
+## Verification (20260729, `PLAYTEST_TRIALS=20`)
+
+Measured on the branch with the rule in place, via `npm run playtest:hint`:
+
+- **Rescue.** `hint-follower` loss with the shipped rule at cost 3: 83% with no
+  hint, **55% after one**. (At cost 1 it is 50%; the price was set to 3
+  deliberately.)
+- **Not a shortcut.** For the `deduce` player the hint stays a clear net loss at
+  every buy point: **+2.2 / +2.2 / +2.4** guesses per hint bought (up front,
+  after 2, after 4).
+- **Blind control.** Unchanged and slightly worse, as expected: 83% -> 85%. A
+  player who ignores information cannot be helped by more of it.
+- **Bits delivered.** 1.57 cold and 1.67 / 1.30 / 0.99 / 0.86 after 1/2/4/6
+  guesses, against the old walk's 0.92 cold and **0.06** / 0.15 / 0.39 / 0.44.
+  The mid-round emptiness that made the button a trap is gone.
+- **Mirror check.** The rig's reproduction of the rule agrees with the shipped
+  function 548/548, so the harness measures the game that actually ships.
+- **Cost of the rule.** 0.21 ms per `findNextHintCladeId` call with 20 guesses
+  on the board; it runs on every UI update, so this was measured rather than
+  assumed.
 
 ## Definition of Done
 

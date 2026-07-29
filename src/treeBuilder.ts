@@ -1,5 +1,6 @@
 import { GameData } from "./gameData";
-import { GameState } from "./gameState";
+import { HINT_SPLIT_FRACTION } from "./constants";
+import { consistentCandidates, GameState } from "./gameState";
 import type { Species } from "./types";
 
 type NodeBase = {
@@ -35,14 +36,29 @@ export function isSpeciesNode(node: TreeNode): node is SpeciesNode {
 
 /**
  * Find the next clade in the target's lineage that can be revealed as a hint.
- * Walks the lineage from the target's immediate clade up to the root and
- * returns the deepest clade that is not yet in the revealedClades set.
  *
- * The revealedClades set should contain all clades currently visible in the
- * tree (root, LCA clades, and previously hinted clades).
+ * Of the clades more specific than anything already on screen, this returns the
+ * SHALLOWEST one that cuts the still-possible species to at most
+ * `HINT_SPLIT_FRACTION` of their current number - so the reveal still walks
+ * top-down, one clade at a time, but skips the rungs that eliminate nothing.
+ *
+ * That skipping is the whole point. The lineage ladder is lumpy: consecutive
+ * levels routinely hold ~66% and ~65% of the field, so advancing exactly one
+ * level per hint spends a hint on a step worth almost nothing. Measured on the
+ * real graph, the old one-level walk delivered 0.06-0.39 bits mid-round, i.e.
+ * close to nothing exactly when a stuck player presses the button.
+ *
+ * When NO unrevealed clade meets the threshold, the deepest unrevealed one is
+ * returned instead. That branch fires on ~19% of calls and is safe by
+ * construction: it is only reachable when nothing met the threshold, INCLUDING
+ * the deepest clade, so what it hands back necessarily holds more than
+ * `HINT_SPLIT_FRACTION` of the field. It can under-deliver; it cannot give away
+ * the answer.
  *
  * Returns null if every clade in the target's lineage is already revealed
  * (i.e. no further hints can be given).
+ *
+ * See tasks/20260729-141424/DECISION.md and tasks/20260729-160500/SPIKE.md.
  */
 export function findNextHintCladeId(state: GameState): string | null {
     const { gameData, targetId } = state;
@@ -90,15 +106,30 @@ export function findNextHintCladeId(state: GameState): string | null {
     // No revealed clade at all — shouldn't happen (root is always revealed)
     if (deepestRevealedIdx < 0) return null;
 
-    // Walk from just below the deepest revealed clade toward the most
-    // specific clade, and return the first unrevealed one we find.
+    const candidates = consistentCandidates(state);
+    const cutoff = Math.max(
+        1,
+        Math.floor(candidates.length * HINT_SPLIT_FRACTION)
+    );
+
+    // Walk from just below the deepest revealed clade toward the most specific
+    // clade. Return the first (shallowest) unrevealed clade that cuts the
+    // candidate set to the cutoff, remembering the deepest unrevealed clade as
+    // the fallback for when none of them does.
+    let fallback: string | null = null;
     for (let i = deepestRevealedIdx - 1; i >= 0; i--) {
-        if (!revealedClades.has(targetLineage[i])) {
-            return targetLineage[i];
-        }
+        const cladeId = targetLineage[i];
+        if (revealedClades.has(cladeId)) continue;
+
+        fallback = cladeId;
+
+        const inside = candidates.filter((s) =>
+            gameData.lineage(s.clade).includes(cladeId)
+        ).length;
+        if (inside <= cutoff) return cladeId;
     }
 
-    return null;
+    return fallback;
 }
 
 /**

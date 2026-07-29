@@ -2,10 +2,11 @@
 // same currency as a guess - and, in section 5, does it RESCUE the player it is
 // aimed at?
 //
-// ACCEPTED DESIGN (tasks/20260729-141424/DECISION.md): threshold split at 1/2,
-// HINT_COST unchanged at 3, MAX_HINTS = -1 (uncapped). Sections 1-4 measure
-// return on investment and pointed at 1/4 + cost 2; section 5 measures rescue,
-// which is the bar that was accepted. Where they disagree, section 5 wins.
+// SHIPPED DESIGN (tasks/20260729-141424/DECISION.md, landed): threshold split at
+// HINT_SPLIT_FRACTION = 1/2, HINT_COST unchanged at 3, MAX_HINTS = -1
+// (uncapped). Sections 1-4 measure return on investment and pointed at 1/4 +
+// cost 2; section 5 measures rescue, which is the bar that was accepted. Where
+// they disagree, section 5 wins.
 //
 // Measures over the REAL content graph (`src/jurassic/index.json`):
 //   1. the information a guess delivers (bits), i.e. the price a hint must beat
@@ -23,7 +24,7 @@ import { buildGameData, RawGameData } from "../../src/jsonLoader";
 import { GameData } from "../../src/gameData";
 import { GameState } from "../../src/gameState";
 import { findNextHintCladeId } from "../../src/treeBuilder";
-import { MAX_GUESSES } from "../../src/constants";
+import { MAX_GUESSES, HINT_SPLIT_FRACTION } from "../../src/constants";
 import type { Species } from "../../src/types";
 
 const REPO_ROOT = path.resolve(__dirname, "..", "..");
@@ -101,10 +102,9 @@ interface HintContext {
 
 type HintPolicy = (ctx: HintContext) => string | null;
 
-// What the shipped game does: the first UNrevealed clade below the deepest
-// revealed one, walking toward the target. Reproduced here from the real
-// implementation for the policies to be compared like-for-like; the shipped
-// function is also exercised directly in the sanity check below.
+// What the game did BEFORE 20260729-141424: the first unrevealed clade below
+// the deepest revealed one, one level per hint. Kept as the baseline every
+// alternative is measured against - it is why the hint was a trap.
 const topDown: HintPolicy = ({ lineage, revealed }) => {
     let deepestRevealedIdx = -1;
     for (let i = 0; i < lineage.length; i++) {
@@ -219,10 +219,16 @@ const splitHalfNearest: HintPolicy = ({
     return best;
 };
 
+// The rule the game now ships (20260729-141424). Reproduced here so the
+// policies can be compared like-for-like; `sanityCheck` verifies the
+// reproduction against the real function on every run, so a change to `src/`
+// shows up as a mismatch instead of a silently stale comparison.
+const shipped: HintPolicy = splitThreshold(HINT_SPLIT_FRACTION);
+
 const POLICIES: { name: string; play: HintPolicy }[] = [
-    { name: "top-down (shipped)", play: topDown },
+    { name: "top-down (was)", play: topDown },
     { name: "bottom-up", play: bottomUp },
-    { name: "split<=1/2", play: splitThreshold(0.5) },
+    { name: "split<=1/2 (SHIPPED)", play: shipped },
     { name: "split<=1/3", play: splitThreshold(1 / 3) },
     { name: "split<=1/4", play: splitThreshold(0.25) },
     { name: "split-nearest-half", play: splitHalfNearest },
@@ -551,7 +557,7 @@ function simulate(data: GameData, trials: number): void {
 }
 
 // ---------------------------------------------------------------------------
-// 5. Sanity: the reproduced top-down policy matches the shipped function
+// 5. Sanity: the reproduced shipped policy matches the real function
 // ---------------------------------------------------------------------------
 
 function sanityCheck(data: GameData): void {
@@ -562,10 +568,10 @@ function sanityCheck(data: GameData): void {
         const state = new GameState(data, target.id);
         let candidates = data.species.slice();
         for (let g = 0; g < 4; g++) {
-            const mine = topDown(contextFor(data, state, candidates));
-            const shipped = findNextHintCladeId(state);
+            const mine = shipped(contextFor(data, state, candidates));
+            const real = findNextHintCladeId(state);
             checked++;
-            if (mine !== shipped) mismatch++;
+            if (mine !== real) mismatch++;
             if (candidates.length <= 1) break;
             const guess = consistentPick(candidates, rand);
             const res = state.makeGuess(guess.species);
@@ -579,7 +585,7 @@ function sanityCheck(data: GameData): void {
         }
     }
     console.log(
-        `  sanity: reproduced top-down policy vs shipped findNextHintCladeId: ${checked - mismatch}/${checked} agree\n`
+        `  sanity: reproduced split<=${HINT_SPLIT_FRACTION} policy vs shipped findNextHintCladeId: ${checked - mismatch}/${checked} agree\n`
     );
 }
 

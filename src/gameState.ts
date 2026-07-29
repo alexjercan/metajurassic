@@ -1,7 +1,7 @@
-import { MAX_GUESSES, HINT_COST } from "./constants";
+import { MAX_GUESSES, HINT_COST, MAX_HINTS } from "./constants";
 import { dateToSeed, GameData, seedToDate } from "./gameData";
 import { StorageProvider, defaultStorage } from "./storage";
-import { GuessResult } from "./types";
+import { GuessResult, Species } from "./types";
 
 const PADDING_LENGTH = 5;
 // Puzzle numbers wrap at this modulus so a key is always PADDING_LENGTH digits.
@@ -207,7 +207,24 @@ export class GameState {
         return this.guessesLeft() >= HINT_COST;
     }
 
+    // Hints still allowed by the per-round cap, ignoring the guess budget.
+    // MAX_HINTS = -1 means uncapped, which is the shipped setting.
+    hintsRemaining(): number {
+        if (MAX_HINTS < 0) return Infinity;
+        return Math.max(0, MAX_HINTS - this.hintClades.size);
+    }
+
+    // The gate the UI should ask: a hint must be both affordable AND allowed.
+    // `canAffordHint` deliberately stays budget-only so the two reasons a hint
+    // is unavailable can be told apart (and reported) separately.
+    canUseHint(): boolean {
+        return this.canAffordHint() && this.hintsRemaining() > 0;
+    }
+
     useHint(cladeId: string): void {
+        if (this.hintsRemaining() <= 0) {
+            throw new Error("No hints left this round");
+        }
         if (!this.canAffordHint()) {
             throw new Error("Not enough guesses left to use a hint");
         }
@@ -240,6 +257,43 @@ export class GameState {
         );
         return { isCorrect: false, lca: lcaClade };
     }
+}
+
+// Every species still consistent with everything the board shows: it has not
+// been guessed, it lies inside every clade a hint has revealed, and for each
+// past guess it would have produced the SAME join clade the player actually
+// saw. This is the deduction the game asks the player to perform, computed from
+// the guess history alone - no new state is stored, and it tells the caller
+// nothing about the target that the board has not already shown.
+export function consistentCandidates(state: GameState): Species[] {
+    const { gameData, targetId } = state;
+
+    // What the player saw for each guess, computed once rather than per
+    // candidate.
+    const observed = new Map<string, string | null>();
+    for (const guessId of state.guesses) {
+        if (guessId === targetId) continue;
+        observed.set(guessId, gameData.computeLCA(guessId, targetId));
+    }
+
+    return gameData.species.filter((candidate) => {
+        if (state.guesses.has(candidate.id)) return false;
+
+        if (state.hintClades.size > 0) {
+            const lineage = gameData.lineage(candidate.clade);
+            for (const hintCladeId of state.hintClades) {
+                if (!lineage.includes(hintCladeId)) return false;
+            }
+        }
+
+        for (const [guessId, join] of observed) {
+            if (gameData.computeLCA(guessId, candidate.id) !== join) {
+                return false;
+            }
+        }
+
+        return true;
+    });
 }
 
 // Real, player-earned numbers for the share message. The caller computes these
