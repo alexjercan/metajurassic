@@ -1,8 +1,13 @@
 # Randomize the daily puzzle sequence
 
-- STATUS: OPEN
+- STATUS: CLOSED
 - PRIORITY: 98
 - TAGS: bug,gameplay,design
+
+## Flow State
+
+- FLOW STEP: DONE
+- PLAN STATUS: APPROVED
 
 ## Story
 
@@ -17,11 +22,11 @@ As a daily player, I want the mystery dinosaur to be unpredictable from day to d
 
 ## Steps
 
-- [ ] Replace the modulo pick with a seeded permutation of the species list (for example a hash of the seed with a fixed salt) so consecutive seeds map to unrelated species.
-- [ ] Keep the mapping stable per seed: the same date must produce the same target on every device, offline included.
-- [ ] Decide whether already-played dates keep their old targets or the new mapping applies retroactively, and record the choice in `DECISION.md` (saved games store `targetId`, so restored games are safe either way).
-- [ ] Add unit tests: determinism per seed, full coverage of the species list over `species.length` consecutive seeds, and an adjacency test that consecutive seeds do not map to adjacent JSON entries.
-- [ ] Confirm practice mode still behaves (it shares `getRandomSpecies` with random seeds, which is fine either way).
+- [x] Replace the modulo pick with a seeded permutation of the species list (for example a hash of the seed with a fixed salt) so consecutive seeds map to unrelated species.
+- [x] Keep the mapping stable per seed: the same date must produce the same target on every device, offline included.
+- [x] Decide whether already-played dates keep their old targets or the new mapping applies retroactively, and record the choice in `DECISION.md` (saved games store `targetId`, so restored games are safe either way).
+- [x] Add unit tests: determinism per seed, full coverage of the species list over `species.length` consecutive seeds, and an adjacency test that consecutive seeds do not map to adjacent JSON entries.
+- [x] Confirm practice mode still behaves (it shares `getRandomSpecies` with random seeds, which is fine either way).
 
 ## Definition of Done
 

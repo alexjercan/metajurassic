@@ -2,6 +2,38 @@ import { Clade, Species } from "./types";
 
 const FIRST_DAY = new Date(2026, 0, 1); // January 1, 2026
 
+// Fixed salt for the daily shuffle. The adjacency guarantee (consecutive days
+// never land on array-adjacent species positions) is a purely positional
+// property of the permutation, so it depends only on the species count and
+// this salt. This value (the golden-ratio hashing constant) yields zero
+// adjacent pairs for the shipped count of 150; gameData.test.ts pins that
+// against the real list. Changing it reshuffles the whole schedule, so keep it
+// stable.
+const DAILY_SHUFFLE_SALT = 0x9e3779b9;
+
+// mulberry32: a tiny deterministic 32-bit PRNG. Pure, no global state, so the
+// same seed produces the same stream on every device and offline.
+function mulberry32(seed: number): () => number {
+    let a = seed >>> 0;
+    return () => {
+        a = (a + 0x6d2b79f5) | 0;
+        let t = Math.imul(a ^ (a >>> 15), 1 | a);
+        t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+}
+
+// Deterministic Fisher-Yates permutation of [0, n) seeded by `salt`.
+function seededPermutation(n: number, salt: number): number[] {
+    const perm = Array.from({ length: n }, (_, i) => i);
+    const rand = mulberry32(salt);
+    for (let i = n - 1; i > 0; i--) {
+        const j = Math.floor(rand() * (i + 1));
+        [perm[i], perm[j]] = [perm[j], perm[i]];
+    }
+    return perm;
+}
+
 export function dateToSeed(date: Date): number {
     const msPerDay = 1000 * 60 * 60 * 24;
 
@@ -15,6 +47,10 @@ export function seedToDate(seed: number): Date {
 }
 
 export class GameData {
+    // Lazily built, then cached: the seeded permutation of the species list
+    // that maps a daily seed to a species index.
+    private dailyOrder?: number[];
+
     constructor(
         public readonly species: Species[],
         public readonly clades: Record<string, Clade>
@@ -76,7 +112,17 @@ export class GameData {
     }
 
     speciesIndexForDate(seed: number): number {
-        return seed % this.species.length;
+        const n = this.species.length;
+        if (n === 0) return 0;
+
+        if (!this.dailyOrder) {
+            this.dailyOrder = seededPermutation(n, DAILY_SHUFFLE_SALT);
+        }
+
+        // Normalize the seed into [0, n) before the permutation lookup so that
+        // negative or out-of-range seeds still map deterministically.
+        const slot = ((seed % n) + n) % n;
+        return this.dailyOrder[slot];
     }
 
     getRandomSpecies(seed: number): string {

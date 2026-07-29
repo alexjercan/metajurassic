@@ -26,6 +26,20 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   never happened. The trail is append-only history: record honestly what can be
   verified from the diff today and what was missing at the original closeout,
   rather than pretending the flow gate occurred. 20260729-092239.
+- `sprout-worktrees-have-no-node_modules-dont-git-add-all` (x1): a fresh sprout
+  worktree has no `node_modules`, so the convenient fix is to symlink the main
+  checkout's. But `git add -A` then STAGES that symlink: `.gitignore` lists
+  `node_modules/` with a trailing slash, which matches a directory, not a symlink
+  named `node_modules`. It rode into the first branch commit and had to be
+  `git rm --cached`ed. In a worktree with a symlinked `node_modules`, stage
+  explicit paths (never `git add -A`) and eyeball the commit stat for a stray
+  `node_modules` before moving on. 20260729-101740.
+- `metajurassic-js-toolchain-lives-in-the-nix-devshell` (x1): `node`/`npm` are
+  not on PATH in this environment; the JS toolchain comes from the `flake.nix`
+  devShell (`pkgs.nodejs`). To run `npm run ci` without building the Python venv,
+  use a nix-store `nodejs` bin directly (e.g. `/nix/store/*-nodejs-*/bin`) plus a
+  `node_modules` symlink into the worktree, or `nix develop -c <cmd>`. Establish
+  this up front instead of re-deriving it each session. 20260729-101740.
 
 ## Testing
 
@@ -36,14 +50,21 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   `parse(format(seed))`. When two functions are meant to be inverses, test the
   round-trip over a range (including the modulo edge), not each side alone; the
   bug lived at the seam the isolated tests never crossed. 20260729-101747.
-- `mock-fixtures-hide-real-data-defects-test-the-real-payload` (x1): tests built
+- `mock-fixtures-hide-real-data-defects-test-the-real-payload` (x2): tests built
   on small hand-written mock datasets validated the loader's happy path while ALL
   150 real species `icon` fields were stringified Python lists
   (`['https://.../x.svg']`) straight from the markdown frontmatter, undetected.
   For content-integrity guarantees, run at least one test over the REAL served
   payload (`src/jurassic/index.json`) and, better, over the frontmatter source it
   is generated from, so defects are caught where they are authored - mock data
-  proves the code shape, never the content. 20260729-092352.
+  proves the code shape, never the content. 20260729-092352. Second hit
+  (20260729-101740): the daily-shuffle salt's zero-adjacency/full-coverage
+  guarantee was proven only on a same-sized dummy list. The property is
+  positional (species count + salt), so the dummy proved the algorithm, but the
+  PRODUCTION invariant (it holds for the real count) stayed unpinned until a test
+  built `GameData` from the real `index.json` and asserted `length === 150` plus
+  adjacency/coverage. When a claim is "holds for the shipped data", pin it
+  against the real payload so a data resize fails CI, not just a fixture.
 
 ## Pending promotions (3+ occurrences, user decides)
 
