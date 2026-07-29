@@ -15,25 +15,97 @@ As a player who just finished a round, I want a share message that honestly and 
 - The function calls `getTodaySeed()` unconditionally, so sharing a practice win labels it with today's daily puzzle number.
 - Share is clipboard-only; on mobile `navigator.share` is the expected affordance.
 
+## Design (confirmed 2026-07-29)
+
+**Closeness metric.** For a guess `g` against target `t`:
+`lineage = gameData.lineage(target.clade)` (index 0 = the target's own clade,
+last = root); `idx = lineage.indexOf(computeLCA(g, t))`;
+`closeness = (lineage.length - idx) / lineage.length`, so 1.0 means the guess
+shares the target's own clade and ~1/len means it only meets at the root.
+Sampled over 5000 random real pairs from `src/jurassic/index.json` the metric
+spreads across all five bins (0.1 -> 41%, then a tail out to 1.0), so the grid
+really does vary. Spoiler-free: it names nothing, only how deep the join was.
+
+**Grid: 5-tier heat scale**, one cell per guess in guess order.
+
+| closeness | cell |
+|-----------|------|
+| <= 0.2 | `⬛` |
+| <= 0.4 | `🟦` |
+| <= 0.6 | `🟨` |
+| <= 0.8 | `🟧` |
+| < 1.0 (and any non-winning guess in the target's own clade) | `🟩` |
+| the winning guess | `🦖` |
+
+A guess whose LCA is null (disjoint lineages) or whose species is missing from
+the data renders `⬛`. Each hint purchase renders one `💡`.
+
+**Hint placement.** Saved state stores `guesses` and `hintClades` as two
+separate sets with no interleaving order, so the exact moment a hint was bought
+is NOT recoverable. Hints are therefore appended as `💡` cells after the guess
+cells. Exact in-line placement would need an ordered event log in the persisted
+state plus a migration for existing saves; that is out of scope here and filed
+as a follow-up if it is wanted.
+
+**Stats line: real values from `gameStats`, zero-data values omitted.**
+`game.ts` computes `computeGameStats(data, storage, mode)` at share time and
+passes a plain `{ currentStreak, averageGuesses, wins }` record into
+`formatGameStateForSharing`; `gameState.ts` stays free of storage. Daily wins
+render `🔥 N day streak | Avg. N.N`; practice renders only the average (the
+streak is day-based and meaningless for practice). A stat with no data is
+DROPPED, not printed as zero - `Avg. 0.0` on a first-ever share would be
+exactly the fabricated number this task exists to remove. With no stats at all
+the line is omitted entirely.
+
+**Practice labelling.** Practice shares already read
+`Practice Dinosaur dinosaur-#NNNNN` where the number is the practice SEED id,
+not a daily puzzle number (task `20260729-101819`, documented in AGENTS.md and
+pinned by `test/seedMode.test.ts`). That satisfies the original finding; this
+task keeps that behavior rather than stripping the id.
+
+**Share affordance.** A new `src/ui/share.ts` exports a DOM-free
+`shareResult(text, deps)` returning `"shared" | "copied"`: try
+`navigator.share({ text })` when it exists, return `"shared"`; swallow a user
+cancel (`AbortError`) as a no-op; on any other failure, or when the API is
+absent, fall back to `navigator.clipboard.writeText` and return `"copied"`.
+`game.ts` keeps the existing "Copied!" confirmation for the clipboard path.
+
 ## Steps
 
-- [ ] Design the share grid so each guess encodes taxonomic closeness (for example colored steps by LCA depth toward the target); keep it spoiler-free.
-- [ ] Use real stats (streak, average) from `gameStats`, or omit them entirely; never fabricate.
-- [ ] Label practice shares as practice, without a daily puzzle number.
-- [ ] Use `navigator.share` when available with clipboard as fallback; keep the copied-confirmation UX.
-- [ ] Unit-test the share text for win, loss, practice, and hint-using games; assert no hardcoded stats remain.
-- [ ] Coordinate copy with the link-preview task so the URL unfurls well wherever it is pasted.
+- [ ] Add a closeness-tier grid builder in `src/gameState.ts` (uses
+      `state.gameData`, so no new plumbing) covering win, loss, hints, null LCA.
+- [ ] Rewrite `formatGameStateForSharing` to take an optional real-stats record
+      and emit the grid; delete the hardcoded `5.2` and the fake streak.
+- [ ] Compute the stats in `src/game.ts` via `computeGameStats` for the share
+      context's mode and pass them in.
+- [ ] Add `src/ui/share.ts` with the navigator.share/clipboard fallback and wire
+      the modal share button to it, keeping the "Copied!" confirmation.
+- [ ] Jest: grid tiers over the REAL `index.json` payload (distinct scenarios
+      produce distinct grids), win/loss/practice/hint share text, stats
+      omitted-when-empty, and no hardcoded numbers.
+- [ ] Jest: `shareResult` unit tests for native share, user cancel, share
+      failure -> clipboard, and no-API -> clipboard.
+- [ ] Playwright `e2e/share.spec.ts`: a seeded practice round played to a win,
+      asserting the native share path (stubbed `navigator.share`) and the
+      clipboard fallback with the "Copied!" confirmation.
+- [ ] Update AGENTS.md's seed-mode note if the practice share wording changes.
 
 ## Definition of Done
 
-- Share text contains no fabricated numbers. (test: Jest share tests; cmd: `rg -n "5\.2" src`)
-- The grid varies with guess closeness across distinct scenarios. (test: Jest share grid test)
-- Practice shares are labeled practice and carry no daily puzzle id. (test: Jest practice share test)
-- Mobile native share path exists with clipboard fallback. (test: browser E2E, or manual on a phone)
-- `npm run ci` passes. (cmd: `npm run ci`)
+- Share text contains no fabricated numbers. (test: Jest share tests; cmd: `rg -n "5\.2|Avg. Guesses" src`)
+- The grid varies with guess closeness across distinct scenarios, proven against the real content graph. (test: Jest share grid test over `src/jurassic/index.json`)
+- Practice shares are labeled practice and carry the practice seed id, never a daily puzzle number. (test: Jest practice share test)
+- Stats are real or absent: no stat is rendered as a zero placeholder. (test: Jest first-ever-share test)
+- Mobile native share path exists with clipboard fallback. (test: `e2e/share.spec.ts`)
+- `npm run ci` passes. (cmd: `nix develop -c npm run ci`)
 
 ## Notes
 
 - The share message is the game's only growth loop; treat the copy as a product feature, not a formatting detail.
 - Depends on: `20260729-092258` for browser coverage of the share button path (Jest can cover the text itself immediately).
-- Related: `20260729-101751` (link unfurl) and the post-game ritual task; land them as one coherent share experience.
+- Related: `20260729-101751` (link unfurl) and the post-game ritual task; land them as one coherent share experience. The URL line stays as it is here; the unfurl task owns the meta tags on the other side of that link.
+
+## Flow State
+
+- FLOW STEP: PLANNED
+- PLAN STATUS: APPROVED
