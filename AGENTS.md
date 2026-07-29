@@ -47,13 +47,26 @@ npm run build               # production bundle into dist/
 
 npm test                    # Jest
 npm run test:coverage       # Jest with coverage (writes coverage/ + test-results/junit.xml)
+npm run test:e2e            # Playwright browser E2E suite (e2e/, Chromium)
 npm run lint                # eslint over src/ and test/
 npm run format              # prettier --write; format:check to verify only
-npm run ci                  # THE GATE: format:check + lint + test:coverage
+npm run ci                  # THE GATE: format:check + lint + test:coverage + test:e2e
 ```
 
 `npm run ci` is the source of truth for green. Run it (inside `nix develop`)
 before calling a change done, and say plainly when you skipped a step.
+
+The browser E2E suite lives in `e2e/` (config `playwright.config.ts`) and drives
+the real screens in Chromium. It needs a browser binary: locally the `flake.nix`
+dev shell supplies a NixOS-patched Chromium (`pkgs.playwright-driver.browsers`)
+and points Playwright at it via `PLAYWRIGHT_BROWSERS_PATH`, so `npm run test:e2e`
+just works inside `nix develop` - do NOT `npx playwright install` on NixOS. Keep
+`@playwright/test` in `package.json` pinned to the `playwright-driver` version in
+`flake.lock`; a mismatch fails with "Executable doesn't exist" because the browser
+revisions differ. A couple of assertions that encode still-broken behavior
+(species icons, `20260729-092404`; the mobile auto-open panel, `20260729-092315`)
+are committed as `test.fixme` so they document the invariant without reddening the
+gate; they flip on when those tasks land.
 
 To run `npm` without paying for the full Python venv build, you can invoke a
 nix-store `nodejs` bin directly plus a `node_modules` symlink into the worktree,
@@ -79,13 +92,18 @@ runtime payload); the CSVs and the commontree JSON are gitignored scratch.
 
 ## CI vs local nix (known drift)
 
-CI (`.github/workflows/ci.yml`) does NOT use nix. It runs `npm ci` then
-`npm run ci` on stock `ubuntu-latest` against a Node matrix (20.x and 22.x),
-then a separate `build` job runs `npm run build`. Local development requires the
-nix dev shell to get Node at all. This drift is intentional and workable, but
-the environments differ: CI pins Node via `actions/setup-node`, local uses
-`pkgs.nodejs` from the flake. If a build passes locally but fails in CI (or vice
-versa), suspect a Node-version difference first.
+CI (`.github/workflows/ci.yml`) does NOT use nix. It runs `npm ci` then the gate
+steps individually (`format:check`, `lint`, `test:coverage`, and a browser-E2E
+step that first runs `npx playwright install --with-deps chromium` then
+`npm run test:e2e`) on stock `ubuntu-latest` against a Node matrix (20.x and
+22.x), then a separate `build` job runs `npm run build`. It runs the steps
+separately rather than `npm run ci` so the Codecov uploads can slot between them;
+`npm run ci` bundles the same steps for local use. Local development requires the
+nix dev shell to get Node at all. This drift is intentional and workable, but the
+environments differ: CI pins Node via `actions/setup-node` and installs the
+Playwright browser itself, local uses `pkgs.nodejs` and the nix-provided browser
+from the flake. If a build passes locally but fails in CI (or vice versa),
+suspect a Node-version difference first.
 
 Deploy is a third path: `.github/workflows/gh-pages.yaml` builds with
 `PUBLIC_PATH=/metajurassic/` on Node 18 and publishes `dist/` to GitHub Pages on

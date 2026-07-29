@@ -8,16 +8,18 @@
     "scripts": {
         "build": "webpack --config webpack.config.js",
         "serve": "webpack serve --config webpack.config.js",
-        "format": "prettier --write \"src/**/*.ts\" \"src/**/*.html\" webpack.config.js",
-        "format:check": "prettier --check \"src/**/*.ts\" \"src/**/*.html\" webpack.config.js",
-        "lint": "eslint \"src/**/*.ts\" \"test/**/*.ts\"",
-        "lint:fix": "eslint \"src/**/*.ts\" \"test/**/*.ts\" --fix",
+        "format": "prettier --write \"src/**/*.ts\" \"src/**/*.html\" \"e2e/**/*.ts\" webpack.config.js playwright.config.ts",
+        "format:check": "prettier --check \"src/**/*.ts\" \"src/**/*.html\" \"e2e/**/*.ts\" webpack.config.js playwright.config.ts",
+        "lint": "eslint \"src/**/*.ts\" \"test/**/*.ts\" \"e2e/**/*.ts\" playwright.config.ts",
+        "lint:fix": "eslint \"src/**/*.ts\" \"test/**/*.ts\" \"e2e/**/*.ts\" playwright.config.ts --fix",
         "test": "jest",
         "test:coverage": "jest --coverage",
-        "ci": "npm run format:check && npm run lint && npm run test:coverage"
+        "test:e2e": "playwright test",
+        "ci": "npm run format:check && npm run lint && npm run test:coverage && npm run test:e2e"
     },
     "devDependencies": {
         "@eslint/js": "^9.39.4",
+        "@playwright/test": "1.57.0",
         "@tailwindcss/postcss": "^4.1.18",
         "@types/canvas-confetti": "^1.9.0",
         "@types/eslint__js": "^8.42.3",

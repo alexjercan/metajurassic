@@ -131,6 +131,11 @@
             virtualenv
             pkgs.uv
             pkgs.nodejs
+            # Pre-patched Playwright browsers for the browser E2E suite. NixOS
+            # cannot run Playwright's own downloaded binaries; nixpkgs ships
+            # patched ones. Keep @playwright/test in package.json pinned to the
+            # same version as pkgs.playwright-driver (see tasks/20260729-092258).
+            pkgs.playwright-driver.browsers
           ];
           env = {
             # Prevent uv from managing a virtual environment, this is managed by uv2nix.
@@ -140,6 +145,11 @@
             UV_PYTHON = editablePythonSet.python.interpreter;
             # Prevent uv from downloading managed Python interpreters, we use Nix instead.
             UV_PYTHON_DOWNLOADS = "never";
+            # Point Playwright at the nix-provided browsers and stop it from
+            # downloading/validating its own (which do not run on NixOS).
+            PLAYWRIGHT_BROWSERS_PATH = "${pkgs.playwright-driver.browsers}";
+            PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS = "true";
+            PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1";
           };
           shellHook = ''
             # Unset to eliminate bad side effects from Nixpkgs Python builders.

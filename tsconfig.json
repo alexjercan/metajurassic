@@ -14,5 +14,12 @@
             "src/*": ["./src/*"]
         }
     },
-    "include": ["src/**/*", "test/**/*", "index.d.ts", "jest.config.js"]
+    "include": [
+        "src/**/*",
+        "test/**/*",
+        "e2e/**/*",
+        "playwright.config.ts",
+        "index.d.ts",
+        "jest.config.js"
+    ]
 }

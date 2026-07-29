@@ -37,6 +37,12 @@ jobs:
             - name: Run tests with coverage
               run: npm run test:coverage
 
+            - name: Install Playwright browser
+              run: npx playwright install --with-deps chromium
+
+            - name: Run browser E2E tests
+              run: npm run test:e2e
+
             - name: Upload coverage to Codecov
               if: matrix.node-version == '22.x'
               uses: codecov/codecov-action@v5

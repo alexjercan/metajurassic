@@ -31,8 +31,9 @@ export default tseslint.config(
         },
     },
     {
-        // Relaxed rules for test files
-        files: ["test/**/*.ts", "**/*.test.ts", "**/*.spec.ts"],
+        // Relaxed rules for test files (Jest specs and Playwright E2E, whose
+        // browser-side page.evaluate callbacks are inherently loosely typed).
+        files: ["test/**/*.ts", "e2e/**/*.ts", "**/*.test.ts", "**/*.spec.ts"],
         rules: {
             "@typescript-eslint/no-explicit-any": "off",
             "@typescript-eslint/no-unsafe-assignment": "off",

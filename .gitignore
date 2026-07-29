@@ -36,6 +36,11 @@ coverage
 # Test results
 test-results/
 
+# Playwright browser E2E artifacts
+playwright-report/
+blob-report/
+.playwright/
+
 # nyc test coverage
 .nyc_output
 

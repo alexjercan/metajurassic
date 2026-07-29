@@ -48,6 +48,17 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   use a nix-store `nodejs` bin directly (e.g. `/nix/store/*-nodejs-*/bin`) plus a
   `node_modules` symlink into the worktree, or `nix develop -c <cmd>`. Establish
   this up front instead of re-deriving it each session. 20260729-101740.
+- `pin-tool-versions-to-flake-lock-not-the-registry` (x1): pinning
+  `@playwright/test` to the version from `nix eval nixpkgs#playwright-driver.version`
+  (registry: 1.60.0) launched no browser - `nix develop` uses the flake's LOCKED
+  nixpkgs (1.57.0), whose browser revisions differ, so Chromium was "Executable
+  doesn't exist". Read tool versions from `flake.lock` / the flake's own package
+  set, never `nixpkgs#...` in the system registry; the two pins drift. 20260729-092258.
+- `new-source-dir-needs-toolchain-globs-in-the-same-change` (x1): the `e2e/`
+  directory failed `format:check` and `lint` because the prettier/eslint/tsconfig
+  globs still only listed `src/` and `test/`. When adding a new top-level source
+  dir, extend the format, lint and tsconfig globs in the SAME change and run the
+  gate once - the globs are explicit lists, not wildcards. 20260729-092258.
 
 ## Testing
 
