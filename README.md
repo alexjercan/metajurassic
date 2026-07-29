@@ -11,6 +11,23 @@ npm run serve
 
 Access the page at `localhost:8080`
 
+### Seed mode (reproducible practice rounds)
+
+The practice page accepts a `?seed=` query param that loads a chosen,
+reproducible target instead of a random one:
+
+```
+localhost:8080/practice/?seed=42
+```
+
+The same seed always yields the same dinosaur (the seed is routed through the
+daily permutation, so it reproduces the mapped target), which makes it the
+primitive for bug repros, E2E fixtures, and manual playtests. Seeded rounds are
+stored under their own `practice-` storage key and share as "Practice
+Dinosaur ...", so they never touch or masquerade as the daily puzzle. The daily
+page ignores the param on purpose - the daily target stays clock-derived and
+uncheatable. `e2e/seed.spec.ts` is a runnable walkthrough of a fixed round.
+
 ### Testing
 
 ```console

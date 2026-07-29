@@ -59,6 +59,20 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   globs still only listed `src/` and `test/`. When adding a new top-level source
   dir, extend the format, lint and tsconfig globs in the SAME change and run the
   gate once - the globs are explicit lists, not wildcards. 20260729-092258.
+- `user-chosen-seed-makes-inherited-id-boundaries-reachable` (x1): the seed-mode
+  task let a user supply the seed via `?seed=N`. That seed feeds an EXISTING
+  derivation chain - `formatPuzzleId` (id/storage key via `seed % 10^5`) and
+  `getRandomSpecies` (target via `seed % 150`) - whose two moduli are decoupled.
+  Daily seeds stay small for centuries so previous callers never reached the
+  boundaries, but a user-supplied seed hits them on day one: `seed=99999` formats
+  to a 6-digit id the 5-digit `parseGameStateKey` regex rejects, and seeds 100000
+  apart collide in id/key while resolving to different targets. Also, the same
+  read found `formatGameStateForSharing` hardcoded `getTodaySeed()`, so practice
+  shares already masqueraded as the daily. Lesson: when a feature lets a user
+  feed a value into an existing derived identifier (id, storage key, hash), audit
+  the WHOLE chain for boundaries prior callers could never reach - the new input
+  surfaces them immediately; document or guard them in the same change.
+  20260729-101819.
 
 ## Testing
 

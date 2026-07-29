@@ -56,6 +56,19 @@ npm run ci                  # THE GATE: format:check + lint + test:coverage + te
 `npm run ci` is the source of truth for green. Run it (inside `nix develop`)
 before calling a change done, and say plainly when you skipped a step.
 
+### Seed mode (deterministic targets)
+
+The practice page honors a `?seed=N` query param (`localhost:8080/practice/?seed=42`)
+that loads a chosen, reproducible target instead of a random one - the seed is
+routed through the daily permutation, so it reproduces the MAPPED species, not a
+raw modulo pick. This is the primitive for bug repros, E2E fixtures, and
+playtests that need a known dinosaur. Seeded rounds persist under their own
+`gameState-practice-...` key (isolated from the daily `gameState-...` key) and
+share as "Practice Dinosaur ...", so they never clobber or masquerade as the
+daily. The daily page (`src/index.ts`) deliberately ignores the param - the
+daily target stays clock-derived (see `tasks/20260729-101819/DECISION.md`).
+`e2e/seed.spec.ts` is the runnable "play a fixed round" walkthrough.
+
 The browser E2E suite lives in `e2e/` (config `playwright.config.ts`) and drives
 the real screens in Chromium. It needs a browser binary: locally the `flake.nix`
 dev shell supplies a NixOS-patched Chromium (`pkgs.playwright-driver.browsers`)

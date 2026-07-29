@@ -9,6 +9,32 @@ export function getTodaySeed(): number {
     return dateToSeed(new Date());
 }
 
+// Identifies which puzzle a share message is for. Daily rounds use today's
+// seed; practice/seeded rounds carry their own seed and a "practice" mode so
+// the share text is labelled distinctly and never masquerades as the daily.
+export interface ShareContext {
+    mode: "daily" | "practice";
+    seed: number;
+}
+
+// Parse a `?seed=` query string into an integer seed, or null when absent or
+// malformed. Kept pure (takes the raw search string) so it is unit-testable
+// without a DOM; `src/practice.ts` passes `window.location.search`. Only whole
+// integers are accepted - a non-integer or garbage value falls back to null so
+// the caller can roll a random practice seed instead.
+export function parseSeedParam(search: string): number | null {
+    const raw = new URLSearchParams(search).get("seed");
+    if (raw === null) return null;
+
+    const trimmed = raw.trim();
+    if (!/^-?\d+$/.test(trimmed)) return null;
+
+    const seed = Number(trimmed);
+    if (!Number.isSafeInteger(seed)) return null;
+
+    return seed;
+}
+
 function formatPuzzleId(seed: number): string {
     const index = seed % Math.pow(10, PADDING_LENGTH);
     return `dinosaur-#${(index + 1).toString().padStart(PADDING_LENGTH, "0")}`;
@@ -193,20 +219,26 @@ export class GameState {
     }
 }
 
-export function formatGameStateForSharing(state: GameState): string {
-    const puzzleId = formatPuzzleId(getTodaySeed());
+export function formatGameStateForSharing(
+    state: GameState,
+    context: ShareContext = { mode: "daily", seed: getTodaySeed() }
+): string {
+    const puzzleId = formatPuzzleId(context.seed);
     const guessCount = state.numberOfGuesses();
+    // Practice/seeded rounds are labelled so their share text cannot be
+    // mistaken for the daily puzzle. Daily output is unchanged (empty prefix).
+    const label = context.mode === "practice" ? "Practice " : "";
 
     if (state.isWin()) {
         return (
-            `✅ Dinosaur ${puzzleId} 🦖\n` +
+            `✅ ${label}Dinosaur ${puzzleId} 🦖\n` +
             `I figured it out in ${guessCount} guesses!\n` +
             `${"🟩".repeat(guessCount)}\n🔥 ${guessCount} | Avg. Guesses: 5.2\n\n` +
             `https://alexjercan.github.io/metajurassic\n#metajurassic`
         );
     } else if (state.isLoss()) {
         return (
-            `💀 Dinosaur ${puzzleId} 🦖\n` +
+            `💀 ${label}Dinosaur ${puzzleId} 🦖\n` +
             `I couldn't figure it out in ${MAX_GUESSES} guesses.\n` +
             `${"⬛".repeat(MAX_GUESSES)}\n🔥 ${MAX_GUESSES} | Avg. Guesses: 5.2\n\n` +
             `https://alexjercan.github.io/metajurassic\n#metajurassic`

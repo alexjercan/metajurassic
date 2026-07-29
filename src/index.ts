@@ -12,6 +12,7 @@ async function main() {
         data,
         state,
         saveState: (s) => saveGameState(s, seed, defaultStorage(), "daily"),
+        share: { mode: "daily", seed },
     });
 }
 

@@ -1,5 +1,10 @@
 import { GameData } from "./gameData";
-import { formatGameStateForSharing, GameState } from "./gameState";
+import {
+    formatGameStateForSharing,
+    getTodaySeed,
+    GameState,
+    ShareContext,
+} from "./gameState";
 import { setupAutocomplete } from "./ui";
 import {
     renderLastGuess,
@@ -20,13 +25,21 @@ export interface GameOptions {
     data: GameData;
     state: GameState;
     saveState?: (state: GameState) => void;
+    // Which puzzle the share button should attribute this round to. Defaults to
+    // today's daily; the practice page passes its own seed and mode so seeded
+    // rounds share as "Practice" and do not masquerade as the daily.
+    share?: ShareContext;
 }
 
 export async function loadData(): Promise<GameData> {
     return await loadGameData();
 }
 
-export function initGame({ data, state, saveState }: GameOptions) {
+export function initGame({ data, state, saveState, share }: GameOptions) {
+    const shareContext: ShareContext = share ?? {
+        mode: "daily",
+        seed: getTodaySeed(),
+    };
     const playerInput = document.getElementById(
         "player-input"
     ) as HTMLInputElement;
@@ -203,7 +216,7 @@ export function initGame({ data, state, saveState }: GameOptions) {
     });
 
     modalShareBtn?.addEventListener("click", () => {
-        const shareData = formatGameStateForSharing(state);
+        const shareData = formatGameStateForSharing(state, shareContext);
         navigator.clipboard
             .writeText(shareData)
             .then(() => {
