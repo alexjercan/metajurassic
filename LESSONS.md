@@ -83,6 +83,24 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   `parse(format(seed))`. When two functions are meant to be inverses, test the
   round-trip over a range (including the modulo edge), not each side alone; the
   bug lived at the seam the isolated tests never crossed. 20260729-101747.
+- `hand-copied-logic-mirrors-rot-update-them-in-the-same-change` (x1): fixing the
+  `formatPuzzleId` off-by-one changed the key formula, but `e2e/helpers.ts`
+  `computeDailyKey` is a hand-copied browser mirror of that formula (its own
+  comment says so) and silently diverged at the modulus edge - the out-of-context
+  review caught it, the author's context did not. A duplicated implementation is a
+  second seam that rots: when you change the original, grep for its mirrors
+  (comments saying "mirrors X", copied constants/regexes) and update them in the
+  SAME change. Same family as
+  [[new-source-dir-needs-toolchain-globs-in-the-same-change]]. 20260729-101747.
+- `anchor-date-fixtures-to-the-code-under-test-not-the-inverse` (x1): streak tests
+  built "today/yesterday" seeds with `dateToSeed(midnight)`, but
+  `seedToDate(dateToSeed(x))` is not a clean inverse at local midnight across a
+  DST boundary (winter `FIRST_DAY` vs summer now), so the fixtures dated a day
+  off and failed for a reason unrelated to the bug. When a fixture needs a date
+  that passes through a seed<->date conversion, derive it from the SAME function
+  the code under test reads dates from (here `seedToDate`), not its inverse - the
+  pair may not round-trip. Underlying drift filed as task 20260729-122943.
+  20260729-101747.
 - `mock-fixtures-hide-real-data-defects-test-the-real-payload` (x2): tests built
   on small hand-written mock datasets validated the loader's happy path while ALL
   150 real species `icon` fields were stringified Python lists
