@@ -74,3 +74,42 @@ band, and it is THIS task's to fill. Two constraints it inherits:
 - The `#open-panel` pull tab now sits at the top-right of `.game-area` carrying a
   text label and an "unseen card" dot. It is the established affordance for "there
   is something to read"; new guidance should not introduce a second, competing one.
+
+## Metazooa reference (2026-07-29, from `20260729-092452`)
+
+The alignment pass captured the live game at <https://metazooa.com>; full
+context and capture commands in `tasks/20260729-092452/NOTES.md`. Three things
+bear directly on this task.
+
+- REFERENCE, the hint string to beat, verbatim: **"Need a hint? Exchange 3
+  guesses to reveal a rank!"** Metazooa charges the same 3 guesses and states
+  its product; Metajurassic's chip states only its price. That is the whole
+  captured fact, and it is enough for this task: the copy is what lags.
+- JUDGMENT, kept separate because it is inference and not capture: Metajurassic
+  probably has the better mechanic at that price. Which rank Metazooa reveals is
+  NOT observable - its hint resolves server-side and no selection rule appears
+  in the client bundles - so "Metazooa advances exactly one rank, including
+  rungs that narrow nothing" is read off the offer string. On this side, the
+  reveal is ALSO top-down (that order never changed); what `20260729-141424`
+  rejected was the one-level-per-hint walk, replaced by "shallowest clade that
+  cuts the field to at most `HINT_SPLIT_FRACTION`". Do not let copy imply
+  Metajurassic hints differ from Metazooa's in DIRECTION - they differ in which
+  rungs get skipped. The caveats already recorded above (the ~19% fallback that
+  narrows less than half, and "rescue, not edge") still bound the wording.
+- REFERENCE, and it changes the shape of the onboarding fork: Metazooa's rules
+  are NOT in its FAQ. Its `/faq` is four content questions (how animals were
+  chosen, taxonomy disagreements, no Reptilia, privacy); the goal, the
+  rank-narrowing rule, a worked example tree and the guess budget all live on
+  the home page you pass through before "Enter the zoo!". Metajurassic's `/` IS
+  the board and its rules are in the footer FAQ - the one place the reference
+  deliberately avoids. The alignment note recommends AGAINST copying the
+  interstitial (`NOTES.md` section 5), which puts the whole explanation in-board.
+  That is a load-bearing artifact fork - in-board guidance versus a pre-board
+  page - and it must be confirmed with the user and recorded in a `DECISION.md`
+  before anything is built, not inferred from this note.
+- FALSIFIED, so this task does not owe it: "the game should describe each guess
+  result in words" is not a Metazooa expectation. The reference game's message
+  line never mentions the guess - its entire vocabulary is "Guess any species to
+  begin!", "Enter your next guess.", the win line and "No more guesses." The
+  tree is the whole feedback surface there too. Narration may still help a first
+  timer, but it has to be argued on its own merits rather than as parity.

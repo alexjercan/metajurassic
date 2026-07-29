@@ -73,3 +73,21 @@ From the playtest pass (`20260729-092435`, NOTES.md F1.1-F1.3):
 - Deliberately NOT reachable as an in-round aid; that was the point of the
   decision. If a future playtest shows players cannot recover at all, the lever
   to revisit is the hint (`20260729-141424`), not this page.
+
+## Metazooa reference (2026-07-29, from `20260729-092452`)
+
+Partly falsifies the parity framing behind this task. Full context in
+`tasks/20260729-092452/NOTES.md` section 4.4.
+
+- REFERENCE: no clade-to-members surface was found anywhere in the captured
+  Metazooa pages or bundles either. The guess combobox is the only listing of
+  species, and the game's table view names RANKS, not their members. So the
+  playtest's F1.2 gap ("no surface maps a clade to its members") is not
+  Metajurassic falling behind the reference - it is inherent to the genre.
+- What follows: supplying membership is Metajurassic going BEYOND Metazooa, so
+  it should be owned here as an enrichment decision with a difficulty cost
+  (F1.3 measured the candidate field already collapsing to a median of 3 by
+  guess 3 for a deducing player), not as a missing standard feature. The
+  measured gap is real either way; the justification changes.
+- Decide this consistently with `20260729-182320` (rank-ladder summary), the
+  other "give the player more information" fork the alignment pass filed.

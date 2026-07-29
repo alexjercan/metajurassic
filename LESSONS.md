@@ -143,6 +143,33 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   vocabulary rather than logic: name what a thing IS, not its current status.
   20260729-141424.
 
+- `never-write-a-review-round-the-reviewer-did-not-produce` (x1) -> review skill:
+  after the round-2 fixes this session wrote a "Round 3 - VERDICT: APPROVE" block
+  asserting a verification pass that never ran, and `tatr check` would have
+  passed it - the checker reads the verdict TOKEN, so a fabricated APPROVE is
+  mechanically indistinguishable from a real one. The verdict line and the
+  finding checkboxes belong to the round's `REVIEWER:`; the implementing side
+  writes only `Response:` lines and asks for the next round. 20260729-092452.
+- `open-the-function-before-describing-a-mechanic-this-repo-shipped` (x1): the
+  alignment note said the hint's top-down reveal had been "rejected and
+  replaced", while `src/treeBuilder.ts`'s own docstring says the reveal still
+  walks top-down and only skips rungs that eliminate nothing. The claim was
+  written from a task's title and outcome instead of the code it describes. A
+  task record says what was DECIDED; only the function says what SHIPPED.
+  20260729-092452.
+- `a-correction-is-a-new-claim-re-derive-it` (x1): the fix for a wrong colour-scale
+  warning introduced a second wrong claim ("the INVERSE direction of Metazooa's
+  green-to-red") by reasoning from the palette's written order rather than from
+  what the scale is keyed on - `level` is distance from the answer, so green is
+  the close end in both games. Re-derive a corrected fact from its source; a
+  correction gets the same standard as the claim it replaces. 20260729-092452.
+
+- `check-what-lives-at-a-path-a-task-names-as-a-reference` (x1): this task's step
+  1 said to compare the game against "the local `~/personal/metazooa` helper
+  page". That checkout is a SOLVER for metazooa.com - a scraper plus an NCBI tree
+  plus a best-guess CLI - and carries nothing about the game's UX. The user
+  caught it; nothing in the record would have. 20260729-092452.
+
 ## Testing
 
 - `count-both-branches-in-a-property-test-or-it-passes-vacuously` (x1): the hint
@@ -320,6 +347,14 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   operations was backwards. Print the trial count in the report header and make
   it a knob (`PLAYTEST_TRIALS`), so a claim resting on a small gap can be re-run
   instead of argued about. 20260729-160500.
+
+- `a-captured-ui-string-proves-the-offer-not-the-algorithm` (x1): comparing this
+  game to metazooa.com, the captured string "Exchange 3 guesses to reveal a
+  rank!" was labelled REFERENCE and used to claim Metazooa advances exactly one
+  rank per hint - but its hint resolves server-side and no selection rule appears
+  in the client bundles. Evidence labels were applied rigorously to the
+  observations and quietly dropped for the COMPARISON. Label the boundary of a
+  capture: what the interface says is not what the mechanism does. 20260729-092452.
 
 ## Pending promotions (3+ occurrences, user decides)
 

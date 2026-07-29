@@ -44,3 +44,28 @@ ON-SCREEN unless noted; full context in `tasks/20260729-092435/NOTES.md`.
 - JUDGMENT: the share message is now genuinely worth pasting after `20260729-101823` (grid varies, stats are real), but nothing on the end screen refers to tomorrow at all. The retention gap is the modal around the share, not the share.
 - Practice game over offers both a "Practice" link in the hint chip and a "Practice" button in the modal; on the practice page both mean "play again", which works. Keeping practice lightweight, as this task plans, is consistent with what is there.
 - BLOCKER to note: the modal action row already overflows a phone viewport (`20260729-141428`). A stats card and countdown make it taller and wider, so land that fix first.
+
+## Metazooa reference (2026-07-29, from `20260729-092452`)
+
+Captured from the live game; full context in `tasks/20260729-092452/NOTES.md`.
+
+- REFERENCE, the reference close: modal `You win!` / `No more guesses.`, the
+  line "Share your score or play a practice game!", a mini-stats block of FOUR
+  numbers (Games: Plays, Wins / Streak: Current, Max), a share button and a
+  practice outlet. There is no distribution histogram.
+- REFERENCE, and it moves the countdown decision: Metazooa's "A new game will
+  start in 8h 54m" renders on the HOME page - the page a player passes through
+  on the way in - not in the game-over modal. Metajurassic has no such page, so
+  the countdown has nowhere else to go and the modal is the right home for it
+  here; worth stating explicitly rather than assuming parity.
+- JUDGMENT from the alignment pass: the reference ritual is LIGHTER than what
+  this task's steps plan. Four numbers and a share button retain; density is not
+  what does the work. Consider that before designing a large card, especially
+  given the phone-width blocker (`20260729-141428`) this task already records.
+- REFERENCE, no work owed: the share TEXT is at parity or better after
+  `20260729-101823` - same shape as Metazooa's (id, headline, heat grid, streak
+  and average, URL). The gap really is the modal around it.
+- REFERENCE, minor and unfiled: Metazooa stamps the board itself with the round
+  number (`Animal #1094`). Metajurassic computes `dinosaur-#NNNNN` already but
+  shows it only inside the share text. If the modal grows a stats card, that id
+  is the cheapest way to make the round feel like today's puzzle.
