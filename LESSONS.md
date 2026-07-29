@@ -191,6 +191,19 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   as exact rather than approximate. Direct application of
   [[hand-copied-logic-mirrors-rot-update-them-in-the-same-change]] at design
   time instead of at bug time. 20260729-092435.
+- `a-stale-dev-server-on-8080-makes-e2e-test-the-wrong-app` (x1): `npm run ci`
+  went red on master with all 28 E2E failing on "element(s) not found" for the
+  header, minutes after the same suite passed on the branch. Cause: an orphaned
+  `npm run serve` from a deleted sprout worktree was still bound to port 8080,
+  and `playwright.config.ts` sets `reuseExistingServer: !process.env.CI`, so
+  Playwright attached to it instead of starting its own - testing a webpack
+  error page. Symptom to recognise: EVERY spec fails on a missing basic element
+  rather than a few failing on behaviour. Check `curl -s localhost:8080 | head`
+  and `ss -ltnp | grep :8080` before believing a total E2E wipeout, and kill the
+  listener by its PID from `ss` (never `pkill -f`, per the global rules). Serve
+  on a different port (`npm run serve -- --port 8181`, with `BASE_URL` for the
+  playtest walkthrough) when a round of work needs its own long-lived server.
+  20260729-092435.
 
 ## Pending promotions (3+ occurrences, user decides)
 
