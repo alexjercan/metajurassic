@@ -1,5 +1,9 @@
 import { test, expect } from "@playwright/test";
-import { guessFirstSuggestion, loadContent } from "./helpers";
+import {
+    expectPullTabInsideViewport,
+    guessFirstSuggestion,
+    loadContent,
+} from "./helpers";
 
 // The info panel can be opened and closed, shows clade/species card content,
 // and closing it leaves the control path (the guess input) usable. Runs on the
@@ -88,6 +92,25 @@ test.describe("info panel", () => {
         await expect(
             page.locator("#panel-card-container .card-title")
         ).toBeVisible();
+    });
+
+    // The desktop half of the pull-tab fix (F3.3): it sat at `right: -5px` and
+    // was clipped by the viewport edge on BOTH viewports, and its only content
+    // was an unlabelled glyph. The mobile half is in e2e/mobile.spec.ts.
+    test("the pull tab is labelled and fully within the viewport", async ({
+        page,
+    }) => {
+        await page.goto("/");
+        await expectPullTabInsideViewport(page);
+
+        const label = page.locator("#open-panel .panel-pull-label");
+        await expect(label).toBeVisible();
+        await expect(label).not.toBeEmpty();
+
+        // Still on screen once opened, when it acts as the close control.
+        await page.locator("#open-panel").click();
+        await expect(page.locator("#info-panel")).toHaveClass(/active/);
+        await expectPullTabInsideViewport(page);
     });
 
     // A player who dismisses the panel mid-game should not have it shoved back

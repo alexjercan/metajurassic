@@ -11,6 +11,7 @@ import {
     openPanel,
     closePanelManually,
     isPanelOpen,
+    isNarrowViewport,
     renderCladeCard,
     renderSpeciesCard,
 } from "./ui/panel";
@@ -202,15 +203,24 @@ export function initGame({ data, state, saveState, share }: GameOptions) {
             state.useHint(nextCladeId);
             save();
             updateUI();
-            // Buying a hint is an explicit request to SEE something, so it
-            // opens the panel even before the first guess - the branch of
-            // renderLastGuess that serves that path deliberately no longer
-            // auto-opens (tasks/20260729-092315/DECISION.md), and without this
-            // the only feedback for three spent guesses would be the tree
-            // redraw. Only that case: once there is a last guess, the
-            // updateUI() above has already opened the panel unless the player
-            // closed it by hand, and openPanel() would clear that preference.
-            if (!state.lastGuessId) {
+            // Buying a hint is an explicit request to SEE something, unlike a
+            // page load or the feedback that follows a guess, so it opens the
+            // panel itself in exactly the cases where the updateUI() above will
+            // not have done it - otherwise three spent guesses buy nothing but a
+            // tree redraw.
+            //
+            //  - before the first guess, on any viewport: that branch of
+            //    renderLastGuess deliberately does not auto-open
+            //    (tasks/20260729-092315/DECISION.md);
+            //  - on a narrow viewport at any point in the game: renderLastGuess
+            //    never auto-opens there at all
+            //    (tasks/20260729-141414/DECISION.md).
+            //
+            // Outside those two, updateUI() has already opened the panel unless
+            // the player closed it by hand, and openPanel() would clear that
+            // preference. Clearing it on the narrow path is harmless because the
+            // narrow branch of renderLastGuess never consults it.
+            if (!state.lastGuessId || isNarrowViewport()) {
                 openPanel();
             }
 

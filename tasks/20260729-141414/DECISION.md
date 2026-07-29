@@ -54,6 +54,46 @@ stylesheet, and the mobile E2E project (Pixel 5, 393px) pins the behaviour on th
 phone side while `e2e/panel.spec.ts` (Desktop Chrome) pins that desktop still
 auto-opens.
 
+## An explicit request still opens the panel, on every viewport
+
+Suppressing the auto-open is about UNREQUESTED cards. These paths are the player
+asking to see something, and they still open the panel on a phone:
+
+- tapping a node in the tree (`src/game.ts`, `renderTree`'s `onSelect`);
+- tapping the pull tab itself;
+- buying a hint before the first guess, on any viewport;
+- buying a hint at any point in the game, on a narrow viewport.
+
+The hint case is deliberately NOT symmetric across viewports, because a manual
+close means different things on each. On desktop a mid-game hint yields to a
+manual close - the panel stays shut, pinned by "a mid-game hint does not
+resurrect the panel for later guesses" (`e2e/panel.spec.ts`) - because there the
+player who closed the panel is refusing a card that would otherwise keep
+reappearing beside the tree on every guess. On a phone nothing reappears on its
+own, so a closed panel is just a closed panel, and a hint the player paid three
+guesses for has no other way to show its product.
+
+The hint case was found in review round 1 (R1.4) rather than at plan time, and it
+was a real defect: `src/game.ts` opened the panel by hand only when there was no
+last guess, on the assumption that `updateUI()` had already opened it otherwise.
+That assumption is exactly what this change invalidates on a phone, so a mid-game
+hint bought three guesses' worth of nothing but a tree redraw. The condition is
+now `!state.lastGuessId || isNarrowViewport()`. Pinned by "a mid-game hint on a
+phone still shows its clade" in `e2e/mobile.spec.ts`.
+
+## Resizing across the breakpoint mid-game is left to the player
+
+`isNarrowViewport()` is evaluated per render, so a narrowed window gets the phone
+behaviour from its next render onward. Nothing listens for the resize EVENT,
+which means a desktop window with the panel already open, dragged below 768px,
+keeps a now-full-width panel over the tree until the player closes it.
+
+Deliberate. A real phone never crosses this breakpoint, and the player who
+narrowed the window has the pull tab (labelled "Close" in that state) right
+there. Adding a `matchMedia` change listener that force-closes the panel would
+mean the window manager dismissing a card the player deliberately opened, which
+is a worse behaviour than the one it fixes.
+
 ## Rejected alternatives
 
 - **Bottom sheet** (panel pinned to the lower ~40% of the game area on narrow

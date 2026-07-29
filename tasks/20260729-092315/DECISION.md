@@ -27,6 +27,13 @@ asks for.
 
 ## Same behavior on desktop and mobile (no breakpoint fork)
 
+> SUPERSEDED IN PART (2026-07-29) by `tasks/20260729-141414/DECISION.md`. This
+> section's "one rule for both viewports" holds for the PRE-FIRST-GUESS screen it
+> was written about, and that part still stands. It does NOT hold after a guess:
+> the playtest pass measured desktop reading well with the panel beside the tree
+> and a phone losing the tree entirely behind it, so the auto-open that follows a
+> guess is now suppressed below 768px. Read that record before citing this one.
+
 Rejected: keeping the auto-open on desktop and suppressing it only on mobile.
 Desktop is not actually better off - the panel still dominates the right side
 before the player makes a move (task Review Findings) - and a viewport-dependent

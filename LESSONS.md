@@ -13,6 +13,17 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
 
 ## Process / flow
 
+- `when-a-fix-changes-an-invariant-grep-its-callers-for-documented-dependencies` (x1):
+  dropping the phone auto-open in `renderLastGuess` was reasoned about carefully in
+  that function, while `src/game.ts`'s hint handler opened the panel by hand only
+  before the first guess - justified by a comment stating that `updateUI()` had
+  already opened it otherwise. That comment named the invariant being removed, in
+  plain English, and a grep for `openPanel` would have found it; instead a
+  mid-game hint on a phone spent three guesses for nothing visible, and review
+  caught it. Read the CALLERS' stated assumptions, not just the function you are
+  changing. Sibling of
+  [[read-the-helper-body-not-its-name-before-reusing-it]] pointed the other way up
+  the call graph. 20260729-141414.
 - `read-the-helper-body-not-its-name-before-reusing-it` (x1): the panel-focus fix
   called `openPanel()` to give a hint purchase feedback, but that four-line
   helper ALSO clears the module-level `manuallyClosedPanel`, so a fix aimed at
@@ -49,6 +60,15 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   actually running `nix develop -c npm run ci` (122 pass, exit 0), not by trusting
   package.json. Pin a doc's runnable claims to an executed command, not a read
   one. 20260729-101744.
+- `metajurassic-webpack-type-checks-e2e-so-a-test-type-error-breaks-the-app` (x1):
+  a bad `expect.poll` option type in `e2e/helpers.ts` broke the webpack BUNDLE,
+  because the build type-checks `e2e/` alongside `src/`. The dev-server error
+  overlay iframe then covered the page and every click-based test timed out with
+  "intercepts pointer events". The symptom looks exactly like
+  [[a-stale-dev-server-on-8080-makes-e2e-test-the-wrong-app]] - a total wipeout
+  rather than a few behavioural failures - so check BOTH: `ss -ltnp | grep :8080`
+  for the stale server, and `nix develop -c npx tsc --noEmit` for a type error in
+  a test file. 20260729-141414.
 - `metajurassic-js-toolchain-lives-in-the-nix-devshell` (x1): `node`/`npm` are
   not on PATH in this environment; the JS toolchain comes from the `flake.nix`
   devShell (`pkgs.nodejs`). To run `npm run ci` without building the Python venv,
@@ -108,6 +128,23 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
 
 ## Testing
 
+- `poll-dot-not-resolves-on-the-first-sample-so-it-cannot-watch-a-transition` (x1):
+  `expectTreeNotOccludedByPanel` asserted the info panel was not covering the tree
+  with `expect.poll(...).not.toContain(...)`. That resolves on the FIRST sample
+  satisfying the negation, and `.info-panel` opens over `transform 0.4s`, so the
+  sample landed while the panel was still off-screen: the test pinning the whole
+  task PASSED with the fix reverted. Against anything with a CSS transition, wait
+  for it to come to REST (rAF until the box stops moving, with a deadline) and
+  assert once. Same family as
+  [[side-effect-cleared-state-is-not-proof-of-success]]: ask what else makes the
+  assertion pass. 20260729-141414.
+- `never-add-a-tolerance-to-silence-an-undiagnosed-failure` (x1): a flaky
+  occlusion check was "fixed" by switching it to a poll, with a confident comment
+  explaining which race the poll absorbed - written before the race had actually
+  been diagnosed. The real cause was the `style-loader` unstyled frame, and the
+  poll also swallowed the genuine regression. Diagnose first, THEN choose the
+  assertion; a comment justifying an unverified tolerance is worse than no
+  comment, because the next reader trusts it. 20260729-141414.
 - `render-every-branch-of-a-message-side-by-side` (x1): both review findings on
   the share rewrite (a loss bragging about a streak, a headline count that
   disagreed with its own grid) are invisible in a diff and obvious in a rendered

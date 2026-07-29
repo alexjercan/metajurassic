@@ -47,3 +47,21 @@ full context in `tasks/20260729-092435/NOTES.md`.
 - MEASURED, and it sharpens the hint copy problem: the hint is currently a bad buy at any moment (each one costs 3 guesses and saves ~0.5-1.0). Copy that sells the hint before `20260729-141424` reprices it would be selling a trap. Sequence this task after that one.
 - The single largest onboarding gap is not copy at all: no surface in the game maps a clade name to its member species, so the deduction the game asks for is unsupported. Filed as `20260729-141425`; that decision constrains what this task's guidance should say.
 - On a phone the panel hides the tree from the first guess onward (filed as `20260729-141414`), so any guidance added here must not compete for the same space.
+
+## Interim note from `20260729-141414` (2026-07-29)
+
+That task fixed the phone panel occlusion and, as its share of playtest finding
+F3.9, anchored the pre-guess tree to the TOP of the arena instead of letting it
+float between two blank bands. It could go no further: with the bottom-sheet
+presentation rejected (`tasks/20260729-141414/DECISION.md`), it had no content to
+put in the space and deliberately did not invent any.
+
+So the room below the pre-guess tree on a phone is now a single contiguous empty
+band, and it is THIS task's to fill. Two constraints it inherits:
+
+- The space is below the tree and above the input, inside `#arena` (which
+  scrolls). Guidance placed there grows downward as the tree does, so it must
+  tolerate being pushed off-screen mid-game rather than assuming it stays put.
+- The `#open-panel` pull tab now sits at the top-right of `.game-area` carrying a
+  text label and an "unseen card" dot. It is the established affordance for "there
+  is something to read"; new guidance should not introduce a second, competing one.

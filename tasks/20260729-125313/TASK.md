@@ -58,3 +58,26 @@ returning player is shown a clade card and NO tree at all - the reload throws
 away the board they came back to. Worth noting when judging this task's
 priority: its mobile consequence is severe, and it is the same surface as
 `20260729-141414`.
+
+## Interim note from `20260729-141414` (2026-07-29)
+
+That task suppressed the post-guess panel auto-open on viewports at or below
+768px (`tasks/20260729-141414/DECISION.md`), which changes this task's ground in
+two ways.
+
+- The phone half of this bug is already fixed. `renderLastGuess` never
+  auto-opens on a narrow viewport whatever triggered the render, so a mid-game
+  reload on a phone now leaves the tree visible; pinned by "the tree stays
+  visible after a mid-game reload" in `e2e/mobile.spec.ts`. What remains for this
+  task is the DESKTOP reload and the underlying contract change - teaching
+  `renderLastGuess` to distinguish "render from page load" from "render from a
+  fresh guess" - which is still unaddressed and still worth doing.
+- This task's Definition of Done item "The panel still auto-opens after a fresh
+  guess and on a hint purchase" is now false as written: on a narrow viewport a
+  fresh guess deliberately does NOT auto-open. Narrow that item to desktop when
+  this task is picked up. The hint-purchase half of the item is not a simple
+  "still true" either: `src/game.ts` opens the panel by hand before the first
+  guess on any viewport, and at any point on a narrow viewport, but a mid-game
+  hint on DESKTOP still yields to a manual close - which is deliberate and pinned
+  by "a mid-game hint does not resurrect the panel for later guesses" in
+  `e2e/panel.spec.ts`. Do not "fix" that desktop case; it has a test.
