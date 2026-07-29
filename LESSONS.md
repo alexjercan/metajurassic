@@ -183,6 +183,28 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   target DOWN its hint ladder into the deep states. 20260729-141424.
 
 
+- `a-layout-assertion-at-one-viewport-is-a-sample-of-one` (x1): the onboarding
+  brief passed every check while being sliced at 1440x660 and 1366x600 - the
+  suite only ever ran the Playwright project's default 1280x720, where the arena
+  happened to have exactly 0px of slack. Zero slack read as a pass. When a change
+  introduces a size constraint, sweep the sizes that STRESS it (short, narrow,
+  and the transient states like an error message being shown) rather than the
+  sizes the harness already had. 20260729-092327.
+- `re-render-and-look-after-every-layout-change-not-once-per-task` (x1): the
+  first screenshot of this task caught a hint chip clipped off the screen edge
+  that no assertion saw. After the next layout fix the screenshots were not
+  retaken, and that fix drew the inline error behind the footer - making the
+  feedback the task exists to add unreadable on a phone, found only by review.
+  The cheap screenshot is the instrument for what geometry assertions cannot
+  see; it expires the moment the layout changes. 20260729-092327.
+- `a-verification-result-expires-when-the-code-it-ran-against-changes` (x1):
+  revert experiments proving four new pins were load-bearing were run, then the
+  helper they depended on was rewritten, then the ORIGINAL numbers were written
+  into the review record. They were true when produced and false when committed
+  (only one pin still failed). Before recording that an experiment passed, check
+  it ran against the code being committed - re-run rather than recall. Sibling of
+  [[an-edit-you-believe-you-made-is-a-hypothesis-until-the-artifact-shows-it]].
+  20260729-092327.
 - `poll-dot-not-resolves-on-the-first-sample-so-it-cannot-watch-a-transition` (x1):
   `expectTreeNotOccludedByPanel` asserted the info panel was not covering the tree
   with `expect.poll(...).not.toContain(...)`. That resolves on the FIRST sample
@@ -207,11 +229,17 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   EACH and read them together before review - and vary the stats, since the
   zero-stats loss previewed here was the one case that hid the bug.
   20260729-101823.
-- `absence-proving-greps-must-be-run-when-written` (x1) -> plan skill: this
+- `absence-proving-greps-must-be-run-when-written` (x2) -> plan skill: this
   task's DoD shipped `cmd: rg -n "5\.2" src`, which can never go clean - the
   content graph has a 5.2-metre Sauropelta and `share.svg` a 5.2 coordinate. An
   absence proof written at plan time must be EXECUTED then, and narrowed with its
-  reason recorded, or it is not a proof. 20260729-101823.
+  reason recorded, or it is not a proof. 20260729-101823. Second hit
+  (20260729-092327), in a comment rather than a DoD: a replacement E2E assertion
+  carried "still fails the original F3.9 layout", reasoned from geometry and
+  never run - and it was false, because `renderTree` scrolls the arena, so the
+  viewport-relative gap could not tell the two layouts apart. Any claim that a
+  check DISCRIMINATES must be produced by running it against the thing it is
+  supposed to reject.
 - `side-effect-cleared-state-is-not-proof-of-success` (x1): an e2e helper retried
   a guess until the input went empty, calling that proof the guess landed - but
   the FAILURE path empties it too (a swallowed Enter falls through to
@@ -296,6 +324,14 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   on a different port (`npm run serve -- --port 8181`, with `BASE_URL` for the
   playtest walkthrough) when a round of work needs its own long-lived server.
   20260729-092435.
+
+- `css-media-blocks-on-different-axes-are-resolved-by-file-order` (x1): a
+  `@media (max-height: 700px)` compaction was written before the
+  `@media (max-width: 768px)` block, so at narrow widths the later block won at
+  equal specificity and the compaction never applied on ANY phone. It went
+  unnoticed because its effect had only been measured at desktop widths - the
+  axis where it did work. Verify a media block's EFFECT on both axes it can be
+  overridden on, and order height blocks after width blocks. 20260729-092327.
 
 ## Game design and measurement
 

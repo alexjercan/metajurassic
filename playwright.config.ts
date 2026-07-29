@@ -9,7 +9,13 @@ import { defineConfig, devices } from "@playwright/test";
 // PLAYWRIGHT_BROWSERS_PATH); in GitHub CI it is installed with
 // `npx playwright install --with-deps chromium`.
 
-const PORT = 8080;
+// Port 8080 by default, overridable with E2E_PORT. `reuseExistingServer` below
+// means a dev server already bound to 8080 - the main checkout's, or an orphan
+// from a deleted sprout worktree - is silently ATTACHED to instead of started,
+// so a branch's suite would test the wrong app (LESSONS.md:
+// a-stale-dev-server-on-8080-makes-e2e-test-the-wrong-app). Running a parallel
+// worktree's suite on its own port is the escape hatch; the default is unchanged.
+const PORT = Number(process.env.E2E_PORT ?? 8080);
 const baseURL = `http://localhost:${PORT}`;
 
 export default defineConfig({
@@ -38,7 +44,7 @@ export default defineConfig({
         },
     ],
     webServer: {
-        command: "npm run serve",
+        command: `npm run serve -- --port ${PORT}`,
         url: baseURL,
         reuseExistingServer: !process.env.CI,
         timeout: 120_000,

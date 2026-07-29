@@ -22,9 +22,9 @@
                 <div class="top-bar">
                     <div class="stat-box" id="stat-box">Guesses Left: 25</div>
                     <div class="hint-box" id="hint-box">
-                        <div class="hint-text" id="hint-text">
-                            <strong>Hint:</strong><span>Cost 3 Guesses</span>
-                        </div>
+                        <!-- Filled by updateHintButton(); the price comes from
+                             HINT_COST rather than being typed in here. -->
+                        <div class="hint-text" id="hint-text"></div>
                     </div>
                 </div>
                 <div class="game-area">
@@ -69,6 +69,18 @@
                             placeholder="Enter a dinosaur..."
                             autocomplete="off"
                         />
+                        <!-- Inline rejection feedback for a guess the game
+                             cannot accept. Replaces a browser alert(), which
+                             broke the game feel. Hidden until it has something
+                             to say, and absolutely positioned inside the
+                             wrapper so showing it never changes the layout's
+                             height - see .input-error in style.css. -->
+                        <p
+                            class="input-error"
+                            id="input-error"
+                            role="alert"
+                            hidden
+                        ></p>
                     </div>
                 </div>
             </div>

@@ -92,8 +92,10 @@ describe("GameState", () => {
         const state = new GameState(data, "trex", new Set());
 
         state.makeGuess("Allosaurus");
+        // The message is player-facing (src/game.ts renders it into
+        // #input-error), so it names the species the player repeated.
         expect(() => state.makeGuess("Allosaurus")).toThrow(
-            /already been guessed/i
+            /already guessed "Allosaurus"/i
         );
     });
 

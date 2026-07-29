@@ -3,6 +3,8 @@ import {
     expectPullTabInsideViewport,
     guessFirstSuggestion,
     expectTreeNotOccludedByPanel,
+    expectNoBoxOverlap,
+    expectFullyVisibleWithin,
 } from "./helpers";
 
 // Mobile viewport coverage (runs on the Pixel 5 project). The player must be
@@ -199,26 +201,277 @@ test.describe("mobile game layout", () => {
 
     // F3.9: before the first guess the two-node tree floated mid-arena with
     // large blank bands above and below it. The tree is now anchored near the
-    // top, so the empty room is below it (where the tree grows) rather than
-    // split around it. Measured as a fraction of the arena's own height so the
-    // assertion does not encode one device's pixel count.
-    test("the pre-guess tree is anchored near the top of the arena", async ({
+    // top, so the band above it is nothing but clearance for the #open-panel
+    // pull tab.
+    //
+    // 20260729-141414 expressed this as `(treeTop - arenaTop) / arenaHeight <
+    // 0.2`, normalised by the arena height to avoid encoding one device's pixel
+    // count. 20260729-092327 had to replace the METRIC (not relax it): the
+    // numerator is unchanged at 56px, but the arena is now shorter because the
+    // band BELOW the tree is filled by the onboarding brief - so the ratio rose
+    // to 0.23 precisely because the blank space F3.9 complained about stopped
+    // being blank. A proxy that degrades when the thing it proxies for improves
+    // is the wrong proxy.
+    //
+    // The replacement states the intent directly and is still device
+    // independent: the band above the tree is the pull tab's clearance and
+    // nothing more. It still fails the original F3.9 layout - the desktop 120px
+    // padding would put the tree 76px below the tab.
+    test("the pre-guess tree sits just below the pull tab, not mid-arena", async ({
         page,
     }) => {
         await page.goto("/");
         const tree = page.locator("#tree-container");
         await expect(tree).toBeVisible();
 
-        const gap = await page.evaluate(() => {
+        // Measured inside the arena's CONTENT box (offsetTop), not from
+        // viewport rects. #arena is a scroll container and renderTree scrolls it,
+        // so a viewport-relative gap already has the auto-scroll subtracted out
+        // and reads nearly the same however much padding sits above the tree -
+        // it cannot tell the two layouts apart. Review round 2 caught exactly
+        // that: with the anchor reverted to the desktop 120px, the
+        // viewport-relative form read 25px and PASSED.
+        const offset = await page.evaluate(() => {
             const arena = document.getElementById("arena");
             const tree = document.getElementById("tree-container");
-            if (!arena || !tree) return 1;
-            const a = arena.getBoundingClientRect();
-            const t = tree.getBoundingClientRect();
-            return (t.y - a.y) / a.height;
+            if (!arena || !tree) return null;
+            return tree.offsetTop - arena.offsetTop;
         });
-        // The tab needs clearance above the tree, so this is not zero - but the
-        // blank band must not be a large fraction of the play surface.
-        expect(gap).toBeLessThan(0.2);
+
+        expect(offset).not.toBeNull();
+        if (offset === null) return;
+        // Enough to clear the pull tab, which is 36px tall and sits 8px down...
+        expect(
+            offset,
+            `the tree starts ${Math.round(offset)}px into the arena, under the pull tab`
+        ).toBeGreaterThanOrEqual(44);
+        // ...and no more, so the band is clearance and not a void. 56px here;
+        // the pre-20260729-141414 layout put the tree 120px down and fails.
+        expect(
+            offset,
+            `the tree floats ${Math.round(offset)}px into the arena, well below the pull tab`
+        ).toBeLessThanOrEqual(72);
     });
+
+    // The other half of F3.9, and the half this task owns: the room below the
+    // pre-guess tree is filled rather than blank.
+    test("the band below the pre-guess tree is filled, not blank", async ({
+        page,
+    }) => {
+        await page.goto("/");
+
+        const gap = await page.evaluate(() => {
+            const tree = document.getElementById("tree-container");
+            const brief = document.getElementById("onboarding-brief");
+            if (!tree || !brief) return null;
+            return (
+                brief.getBoundingClientRect().y -
+                tree.getBoundingClientRect().bottom
+            );
+        });
+
+        expect(gap).not.toBeNull();
+        if (gap === null) return;
+        expect(gap).toBeGreaterThanOrEqual(-1);
+        expect(
+            gap,
+            `${Math.round(gap)}px of blank band remains between the tree and the brief`
+        ).toBeLessThan(100);
+    });
+
+    // The band F3.9 left below the pre-guess tree is what 20260729-092327 fills.
+    // On this viewport it measured 239px before the change.
+    test("the onboarding brief fills the band below the pre-guess tree", async ({
+        page,
+    }) => {
+        await page.goto("/");
+
+        const brief = page.locator("#onboarding-brief");
+        await expect(brief).toBeVisible();
+
+        const box = await brief.boundingBox();
+        expect(box).not.toBeNull();
+        if (!box) return;
+
+        // Readable without a scroll on the viewport with least room, which is
+        // the whole reason the copy is short. Measured against the clipping
+        // ancestor rather than the viewport - .game-area clips, so a viewport
+        // check passes while the brief's last lines are cut off.
+        await expectFullyVisibleWithin(page, "#onboarding-brief", ".game-area");
+
+        // Below the tree, not over it, and clear of the input.
+        const treeBox = await page.locator("#tree-container").boundingBox();
+        expect(treeBox).not.toBeNull();
+        if (treeBox) {
+            expect(box.y).toBeGreaterThanOrEqual(
+                treeBox.y + treeBox.height - 1
+            );
+        }
+        await expectNoBoxOverlap(page, "#onboarding-brief", ".bottom-bar");
+    });
+
+    test("the brief gives the band back to the tree after the first guess", async ({
+        page,
+    }) => {
+        await page.goto("/");
+        await expect(page.locator("#onboarding-brief")).toBeVisible();
+
+        await guessFirstSuggestion(page, "Tyrannosaurus");
+
+        await expect(page.locator("#onboarding-brief")).toBeHidden();
+    });
+
+    // Naming the hint's product makes the chip string much longer than the old
+    // "Cost 3 Guesses". An always-on top-bar line is the shape the user
+    // explicitly rejected (DECISION.md fork 1), so this copy change must not
+    // smuggle its cost back in by wrapping .top-bar onto an extra row.
+    // Measured baseline on this viewport before the change: 68px.
+    // Asserted as the INVARIANT rather than as a pixel count. What the design
+    // rejected is a separate always-on line in the top bar; a chip that is a
+    // few px taller because its sentence wrapped is not that. A height
+    // threshold conflated the two and was wrong in both directions: it passed
+    // at 393px while the chip escaped sideways off the screen, and it failed at
+    // 360px on a chip that had merely wrapped inside a still-single row.
+    for (const size of [
+        { width: 393, height: 727 },
+        { width: 360, height: 740 },
+        { width: 320, height: 568 },
+    ]) {
+        test(`the top bar stays one row at ${size.width}px`, async ({
+            page,
+        }) => {
+            await page.setViewportSize(size);
+            await page.goto("/");
+
+            const rows = await page.evaluate(() => {
+                const stat = document
+                    .getElementById("stat-box")
+                    ?.getBoundingClientRect();
+                const hint = document
+                    .getElementById("hint-box")
+                    ?.getBoundingClientRect();
+                return {
+                    statMid: stat ? stat.y + stat.height / 2 : 0,
+                    hintMid: hint ? hint.y + hint.height / 2 : 9999,
+                };
+            });
+            // Compared on CENTRES, not top edges. `.top-bar` is
+            // `align-items: center`, so once the chip's sentence wraps it is
+            // taller than the counter and their TOPS differ by ~14px while they
+            // still share a row - which is not the thing being guarded against.
+            // Wrapping puts the chip on its own line below, moving the centres
+            // apart by a whole row.
+            expect(
+                Math.abs(rows.statMid - rows.hintMid),
+                "the counter and the hint chip are on different rows, so .top-bar has wrapped"
+            ).toBeLessThan(10);
+
+            // And the chip still says both things it must say, in full.
+            await expect(page.locator("#hint-box")).toContainText(/stuck\?/i);
+            await expect(page.locator("#hint-box")).toContainText(
+                /spend 3 guesses to reveal a clade/i
+            );
+        });
+    }
+
+    // The inline error had NO phone coverage at all: playwright.config.ts binds
+    // the mobile project with `testMatch: /mobile\.spec\.ts/`, so the desktop
+    // spec's inline-error test never ran on a phone - and the phone is where it
+    // broke. The messages quote the name the player typed, so they run to two or
+    // three lines here, and an out-of-flow message with a fixed reservation had
+    // its tail drawn behind the footer.
+    for (const name of ["Notadinosaurus", "Micropachycephalosaurusrex"]) {
+        test(`the rejection message for "${name}" is fully readable`, async ({
+            page,
+        }) => {
+            await page.goto("/");
+
+            const input = page.locator("#player-input");
+            await input.click();
+            await input.fill(name);
+            await input.press("Enter");
+
+            const error = page.locator("#input-error");
+            await expect(error).toBeVisible();
+
+            const geometry = await page.evaluate(() => {
+                const err = document
+                    .getElementById("input-error")
+                    ?.getBoundingClientRect();
+                const bar = document
+                    .querySelector(".bottom-bar")
+                    ?.getBoundingClientRect();
+                const foot = document
+                    .querySelector("footer")
+                    ?.getBoundingClientRect();
+                return {
+                    errBottom: err?.bottom ?? 0,
+                    errTop: err?.top ?? 0,
+                    barBottom: bar?.bottom ?? 0,
+                    footTop: foot?.top ?? Number.MAX_SAFE_INTEGER,
+                    viewport: window.innerHeight,
+                };
+            });
+
+            // Inside its own bar, above the footer, and on screen. Any one of
+            // these failing means the player cannot read why the guess bounced.
+            expect(
+                geometry.errBottom,
+                `#input-error overhangs .bottom-bar by ${Math.round(geometry.errBottom - geometry.barBottom)}px`
+            ).toBeLessThanOrEqual(geometry.barBottom + 1);
+            expect(
+                geometry.errBottom,
+                `#input-error runs ${Math.round(geometry.errBottom - geometry.footTop)}px into the footer`
+            ).toBeLessThanOrEqual(geometry.footTop + 1);
+            expect(geometry.errTop).toBeGreaterThanOrEqual(0);
+            expect(geometry.errBottom).toBeLessThanOrEqual(
+                geometry.viewport + 1
+            );
+        });
+    }
+
+    // The single-row check above is about VERTICAL cost; on its own it is
+    // satisfied by a chip that stays on one row by running off the side of the
+    // screen, which is exactly what the first attempt at the nowrap top bar did
+    // (`.top-bar` was `width: 100%` plus padding, so 24px wider than the
+    // viewport). Assert the readable thing directly, at the narrow widths where
+    // there is least room for it.
+    for (const size of [
+        { width: 393, height: 727 },
+        { width: 360, height: 740 },
+        { width: 320, height: 568 },
+    ]) {
+        test(`the whole hint chip is on screen at ${size.width}px`, async ({
+            page,
+        }) => {
+            await page.setViewportSize(size);
+            await page.goto("/");
+
+            const chip = await page.locator("#hint-box").boundingBox();
+            const stat = await page.locator("#stat-box").boundingBox();
+            expect(chip).not.toBeNull();
+            expect(stat).not.toBeNull();
+            if (!chip || !stat) return;
+
+            expect(stat.x).toBeGreaterThanOrEqual(-1);
+            expect(
+                chip.x + chip.width,
+                `hint chip runs ${Math.round(chip.x + chip.width - size.width)}px past the right edge`
+            ).toBeLessThanOrEqual(size.width + 1);
+
+            // Clipping is not the only way to lose the text: the chip could
+            // also be squeezed until the sentence is truncated inside it.
+            const overflows = await page.evaluate(() => {
+                const el = document.getElementById("hint-text");
+                if (!el) return true;
+                return (
+                    el.scrollWidth > el.clientWidth + 1 ||
+                    el.scrollHeight > el.clientHeight + 1
+                );
+            });
+            expect(overflows, "#hint-text is clipped inside the chip").toBe(
+                false
+            );
+        });
+    }
 });

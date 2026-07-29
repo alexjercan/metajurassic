@@ -3,6 +3,7 @@ import { GameState } from "../gameState";
 import type { CladeNode } from "../treeBuilder";
 import { findBestHintCladeId } from "../treeBuilder";
 import { createSpeciesCard, createCladeCard, mountCard } from "./card";
+import { buildHowToPlayCard } from "./onboarding";
 
 const arenaWrapper = document.getElementById("arena-wrapper");
 const panel = document.getElementById("info-panel");
@@ -156,6 +157,15 @@ export function renderSpeciesCard(
     const card = createSpeciesCard(species, clade);
     mountCard(cardContainer, card);
     noteCardRendered(species.species);
+}
+
+// The deeper onboarding reference. It is a card like any other, so it reuses
+// the panel the pull tab already advertises rather than introducing a second
+// "there is something to read" surface (tasks/20260729-141414/DECISION.md).
+export function renderHowToPlayCard() {
+    if (!cardContainer) return;
+    mountCard(cardContainer, buildHowToPlayCard());
+    noteCardRendered("How to play");
 }
 
 export function renderCladeCard(clade: import("../types").Clade) {

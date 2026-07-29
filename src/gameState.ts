@@ -235,13 +235,20 @@ export class GameState {
     }
 
     makeGuess(species: string): GuessResult {
+        // These two messages are PLAYER-FACING: src/game.ts renders them into
+        // #input-error next to the guess box. They used to surface only through
+        // a browser alert(), which is why they read like internal diagnostics;
+        // 20260729-092327 put them on the board, so they say what the player did
+        // and what to do next rather than naming the data structure that missed.
         const guessSpecies = this.gameData.findSpeciesByName(species);
         if (!guessSpecies) {
-            throw new Error(`Species "${species}" not found in game data`);
+            throw new Error(
+                `No dinosaur called "${species}" - check the spelling, or pick one from the list.`
+            );
         }
 
         if (this.guesses.has(guessSpecies.id)) {
-            throw new Error(`Species "${species}" has already been guessed`);
+            throw new Error(`You have already guessed "${species}".`);
         }
         this.guesses.add(guessSpecies.id);
         this.lastGuessId = guessSpecies.id;

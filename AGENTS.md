@@ -49,6 +49,7 @@ npm run build               # production bundle into dist/
 npm test                    # Jest
 npm run test:coverage       # Jest with coverage (writes coverage/ + test-results/junit.xml)
 npm run test:e2e            # Playwright browser E2E suite (e2e/, Chromium)
+E2E_PORT=8181 npm run test:e2e   # ...on another port; see below
 npm run lint                # eslint over src/ and test/
 npm run format              # prettier --write; format:check to verify only
 npm run ci                  # THE GATE: format:check + lint + test:coverage + test:e2e
@@ -56,6 +57,17 @@ npm run ci                  # THE GATE: format:check + lint + test:coverage + te
 
 `npm run ci` is the source of truth for green. Run it (inside `nix develop`)
 before calling a change done, and say plainly when you skipped a step.
+
+**`E2E_PORT` when another checkout is already serving.** `playwright.config.ts`
+sets `reuseExistingServer: !CI`, so if anything is already bound to port 8080 -
+the main checkout's dev server, or an orphan from a deleted sprout worktree -
+Playwright ATTACHES to it instead of starting its own, and the suite silently
+tests the wrong app. Symptom: every spec fails on a missing basic element rather
+than a few failing on behaviour. Check with `ss -ltnp | grep :8080`, and when the
+listener belongs to someone else, run this worktree's suite on its own port
+(`E2E_PORT=8181 npm run ci`) rather than killing it. The default is still 8080,
+so CI is unaffected. See `LESSONS.md`:
+`a-stale-dev-server-on-8080-makes-e2e-test-the-wrong-app`.
 
 ### Seed mode (deterministic targets)
 
