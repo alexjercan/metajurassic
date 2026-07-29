@@ -1,9 +1,10 @@
-import { GameData } from "../src/gameData";
+import { GameData, dateToSeed, seedToDate } from "../src/gameData";
 import {
     computeGameStats,
     calculateRollingAverage,
     loadAllGames,
 } from "../src/gameStats";
+import { GameState, gameStateKey, saveGameState } from "../src/gameState";
 import { StorageProvider } from "../src/storage";
 import { Clade, Species } from "../src/types";
 
@@ -211,9 +212,12 @@ describe("loadAllGames", () => {
             seed: 2,
         };
 
-        storage.setItem("gameState-dinosaur-#00003", JSON.stringify(game1));
-        storage.setItem("gameState-dinosaur-#00001", JSON.stringify(game2));
-        storage.setItem("gameState-dinosaur-#00002", JSON.stringify(game3));
+        // Keys are derived from the real format so key and stored seed agree,
+        // as they do in production. Hand-writing "#0000N" here paired with
+        // seed N is the inconsistency that hid the off-by-one.
+        storage.setItem(gameStateKey(3, "daily"), JSON.stringify(game1));
+        storage.setItem(gameStateKey(1, "daily"), JSON.stringify(game2));
+        storage.setItem(gameStateKey(2, "daily"), JSON.stringify(game3));
 
         const games = loadAllGames(gameData, storage, "daily");
 
@@ -963,5 +967,107 @@ describe("calculateRollingAverage", () => {
         expect(avg).toHaveLength(2);
         expect(avg[0].value).toBe(1);
         expect(avg[0].gamesCount).toBe(1);
+    });
+});
+
+// Regression coverage for the puzzle-key round-trip bug: a daily game saved
+// under its real key must be read back dated to the day it was played, so
+// profile dates and the current-streak check are correct. These cross the
+// format/parse seam via the production writer `saveGameState`, rather than
+// hand-writing a key that silently disagrees with its stored seed.
+describe("daily profile dating and streaks (round-trip regression)", () => {
+    let gameData: GameData;
+    let storage: MockLocalStorage;
+    let originalLocalStorage: any;
+
+    beforeEach(() => {
+        gameData = new GameData(species, clades);
+        storage = new MockLocalStorage();
+        originalLocalStorage = global.localStorage;
+        // @ts-ignore
+        global.localStorage = storage;
+    });
+
+    afterEach(() => {
+        // @ts-ignore
+        global.localStorage = originalLocalStorage;
+    });
+
+    const saveDailyWin = (seed: number, targetId: string) => {
+        const state = new GameState(
+            gameData,
+            targetId,
+            new Set([targetId]),
+            targetId
+        );
+        saveGameState(state, seed, storage, "daily");
+    };
+
+    // The daily seed whose PROFILE date (seedToDate(seed) floored to local
+    // midnight, exactly how loadAllGames/calculateStreak read it) is `today`
+    // offset by `deltaDays`. Anchored to seedToDate rather than dateToSeed
+    // because the two are not clean inverses at local midnight across a DST
+    // boundary (see the seed/date DST-drift follow-up task); this keeps the
+    // streak assertions about the streak logic, not that latent drift.
+    const midnightOf = (seed: number) => {
+        const d = seedToDate(seed);
+        d.setHours(0, 0, 0, 0);
+        return d.getTime();
+    };
+    const daySeed = (deltaDays: number) => {
+        const target = new Date();
+        target.setHours(0, 0, 0, 0);
+        target.setDate(target.getDate() + deltaDays);
+        const targetMs = target.getTime();
+        let seed = dateToSeed(target);
+        while (midnightOf(seed) < targetMs) seed++;
+        while (midnightOf(seed) > targetMs) seed--;
+        return seed;
+    };
+
+    test("a game saved for seed N is dated seedToDate(N) in the profile", () => {
+        saveDailyWin(7, "species1");
+
+        const games = loadAllGames(gameData, storage, "daily");
+
+        expect(games).toHaveLength(1);
+        expect(games[0].seed).toBe(7);
+        expect(games[0].date.getTime()).toBe(seedToDate(7).getTime());
+    });
+
+    test("a win today is a current streak", () => {
+        saveDailyWin(daySeed(0), "species1");
+
+        const stats = computeGameStats(gameData, storage, "daily");
+
+        expect(stats.currentStreak).toBe(1);
+        expect(stats.longestStreak).toBe(1);
+    });
+
+    test("a win yesterday is still a current streak", () => {
+        saveDailyWin(daySeed(-1), "species1");
+
+        const stats = computeGameStats(gameData, storage, "daily");
+
+        expect(stats.currentStreak).toBe(1);
+    });
+
+    test("a win two days ago is not a current streak", () => {
+        saveDailyWin(daySeed(-2), "species1");
+
+        const stats = computeGameStats(gameData, storage, "daily");
+
+        expect(stats.currentStreak).toBe(0);
+        expect(stats.longestStreak).toBe(1);
+    });
+
+    test("consecutive wins yesterday and today form a streak of two", () => {
+        saveDailyWin(daySeed(-1), "species1");
+        saveDailyWin(daySeed(0), "species2");
+
+        const stats = computeGameStats(gameData, storage, "daily");
+
+        expect(stats.currentStreak).toBe(2);
+        expect(stats.longestStreak).toBe(2);
     });
 });

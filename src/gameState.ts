@@ -4,6 +4,19 @@ import { StorageProvider, defaultStorage } from "./storage";
 import { GuessResult } from "./types";
 
 const PADDING_LENGTH = 5;
+// Puzzle numbers wrap at this modulus so a key is always PADDING_LENGTH digits.
+// `formatPuzzleId` and `parseGameStateKey` are exact inverses over the residue
+// ring [0, PUZZLE_ID_MODULUS): parse recovers `seed mod PUZZLE_ID_MODULUS`.
+const PUZZLE_ID_MODULUS = Math.pow(10, PADDING_LENGTH);
+
+// Least non-negative residue of `value` modulo `PUZZLE_ID_MODULUS`. JS `%`
+// keeps the sign of the dividend, so negative practice seeds (from `?seed=-N`)
+// need this normalization to land in [0, PUZZLE_ID_MODULUS).
+function puzzleResidue(value: number): number {
+    return (
+        ((value % PUZZLE_ID_MODULUS) + PUZZLE_ID_MODULUS) % PUZZLE_ID_MODULUS
+    );
+}
 
 export function getTodaySeed(): number {
     return dateToSeed(new Date());
@@ -35,12 +48,18 @@ export function parseSeedParam(search: string): number | null {
     return seed;
 }
 
+// Human-facing puzzle id for a seed. The displayed number is 1-based (the +1
+// display offset), and is wrapped by the modulus so it always fits
+// PADDING_LENGTH digits: residue 99999 renders "#00000", not a 6-digit key.
 function formatPuzzleId(seed: number): string {
-    const index = seed % Math.pow(10, PADDING_LENGTH);
-    return `dinosaur-#${(index + 1).toString().padStart(PADDING_LENGTH, "0")}`;
+    const display = (puzzleResidue(seed) + 1) % PUZZLE_ID_MODULUS;
+    return `dinosaur-#${display.toString().padStart(PADDING_LENGTH, "0")}`;
 }
 
-function gameStateKey(seed: number, gameMode: "daily" | "practice"): string {
+export function gameStateKey(
+    seed: number,
+    gameMode: "daily" | "practice"
+): string {
     const puzzleId = formatPuzzleId(seed);
     if (gameMode === "practice") {
         return `gameState-practice-${puzzleId}`;
@@ -66,8 +85,12 @@ export function parseGameStateKey(
     );
     if (!indexMatch) return null;
 
-    const index = parseInt(indexMatch[1], 10) - 1;
-    const seed = index + 1; // since index is 0-based and seed is 1-based
+    // Exact inverse of formatPuzzleId: undo the +1 display offset and wrap, so
+    // the recovered seed is the residue `seed mod PUZZLE_ID_MODULUS`. For daily
+    // seeds (far below the modulus) this is the original seed, which is what
+    // the profile dating in gameStats relies on.
+    const display = parseInt(indexMatch[1], 10);
+    const seed = puzzleResidue(display - 1);
 
     return { puzzleId, seed, gameMode };
 }

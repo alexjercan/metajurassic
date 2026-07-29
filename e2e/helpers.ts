@@ -16,8 +16,12 @@ export function computeDailyKey(page: Page): Promise<string> {
             Math.floor(
                 (new Date().getTime() - FIRST_DAY.getTime()) / msPerDay
             ) + 1;
+        // Mirror formatPuzzleId's modulus wrap so this stays an exact copy of
+        // the app's key even at the residue-99999 edge (unreachable for daily
+        // seeds, but the mirror must not silently diverge from source).
         const index = seed % Math.pow(10, 5);
-        return `gameState-dinosaur-#${(index + 1).toString().padStart(5, "0")}`;
+        const display = (index + 1) % Math.pow(10, 5);
+        return `gameState-dinosaur-#${display.toString().padStart(5, "0")}`;
     });
 }
 

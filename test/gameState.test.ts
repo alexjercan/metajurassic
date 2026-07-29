@@ -5,6 +5,7 @@ import {
     loadGameState,
     formatGameStateForSharing,
     parseGameStateKey,
+    gameStateKey,
     getTodaySeed,
     createNewGameState,
 } from "../src/gameState";
@@ -347,12 +348,16 @@ describe("formatGameStateForSharing", () => {
 });
 
 describe("parseGameStateKey", () => {
+    // `parse` must be the exact inverse of `format`: the first daily puzzle has
+    // seed 0 and is keyed `dinosaur-#00001` (the +1 display offset makes the
+    // human-facing number 1-based). Asserting the raw seed here documents the
+    // inverse; the round-trip block below is the real seam guard.
     test("parses daily game state key", () => {
         const result = parseGameStateKey("gameState-dinosaur-#00001");
 
         expect(result).not.toBeNull();
         expect(result?.puzzleId).toBe("dinosaur-#00001");
-        expect(result?.seed).toBe(1);
+        expect(result?.seed).toBe(0);
         expect(result?.gameMode).toBe("daily");
     });
 
@@ -361,7 +366,7 @@ describe("parseGameStateKey", () => {
 
         expect(result).not.toBeNull();
         expect(result?.puzzleId).toBe("dinosaur-#00005");
-        expect(result?.seed).toBe(5);
+        expect(result?.seed).toBe(4);
         expect(result?.gameMode).toBe("practice");
     });
 
@@ -373,10 +378,50 @@ describe("parseGameStateKey", () => {
 
     test("handles different puzzle numbers", () => {
         const result1 = parseGameStateKey("gameState-dinosaur-#00042");
-        expect(result1?.seed).toBe(42);
+        expect(result1?.seed).toBe(41);
 
         const result2 = parseGameStateKey("gameState-dinosaur-#12345");
-        expect(result2?.seed).toBe(12345);
+        expect(result2?.seed).toBe(12344);
+    });
+});
+
+describe("gameStateKey <-> parseGameStateKey round-trip", () => {
+    // The seam the isolated tests never crossed: format-then-parse must return
+    // the original seed and mode. A range plus the modulus edge (99999) plus a
+    // negative practice seed exercise the wrap normalization end to end.
+    const modes: Array<"daily" | "practice"> = ["daily", "practice"];
+    const seeds = [0, 1, 2, 5, 42, 100, 1234, 12345, 99998, 99999];
+
+    for (const mode of modes) {
+        for (const seed of seeds) {
+            test(`round-trips seed ${seed} in ${mode} mode`, () => {
+                const key = gameStateKey(seed, mode);
+                const parsed = parseGameStateKey(key);
+
+                expect(parsed).not.toBeNull();
+                expect(parsed?.seed).toBe(seed);
+                expect(parsed?.gameMode).toBe(mode);
+            });
+        }
+    }
+
+    test("keys are always 5 digits, even at the modulus edge", () => {
+        // seed 99999 previously rendered as a 6-digit "100000" key that the
+        // parse regex rejected outright; the wrap keeps it 5 digits.
+        expect(gameStateKey(99999, "daily")).toBe("gameState-dinosaur-#00000");
+        expect(parseGameStateKey("gameState-dinosaur-#00000")?.seed).toBe(
+            99999
+        );
+    });
+
+    test("normalizes negative practice seeds into the modulus", () => {
+        // Practice seeds can be negative via ?seed=-N; the returned residue must
+        // still round-trip through the key.
+        const key = gameStateKey(-1, "practice");
+        const parsed = parseGameStateKey(key);
+        expect(parsed?.gameMode).toBe("practice");
+        // -1 mod 100000 === 99999
+        expect(parsed?.seed).toBe(99999);
     });
 });
 
