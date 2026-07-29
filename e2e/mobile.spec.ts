@@ -5,6 +5,14 @@ import {
     expectTreeNotOccludedByPanel,
     expectNoBoxOverlap,
     expectFullyVisibleWithin,
+    playWideTree,
+    expectNodeVisibleInArena,
+    expectNewestGuessFramed,
+    expectNoDeadScrollBand,
+    expectEveryNodeReachable,
+    expectNodeTextReadable,
+    touchScrollArena,
+    MIN_PAINTED_FONT_PX,
 } from "./helpers";
 
 // Mobile viewport coverage (runs on the Pixel 5 project). The player must be
@@ -474,4 +482,177 @@ test.describe("mobile game layout", () => {
             );
         });
     }
+});
+
+// Many-guess tree on a phone (task 20260729-092339). The desktop half is in
+// e2e/tree.spec.ts; this is the size the bug was reported at and the size it is
+// worst at. Measured on this viewport before the fix, with the twelve-guess
+// fixture: 2152px of scroll range for a 393px arena, 4 of 24 nodes on screen,
+// the mystery target 222px off the left edge - and on the short viewport below,
+// ZERO of 24 nodes on screen. The arena was a blank rectangle with two clipped
+// nodes at the right edge.
+test.describe("many-guess tree on a phone", () => {
+    // A short phone-shaped window, where the arena has least room and the
+    // pre-fix resting position showed nothing at all. Kept as an explicit size
+    // rather than a device profile so the height is the variable under test.
+    const SHORT = { width: 393, height: 560 };
+
+    test("the mystery target and the newest guess are both on screen", async ({
+        page,
+    }) => {
+        const newest = await playWideTree(page);
+
+        await expectNodeVisibleInArena(
+            page,
+            "#tree-container .node-mystery",
+            "the mystery target"
+        );
+        await expectNewestGuessFramed(page, newest);
+        await page.locator("#player-input").click({ trial: true });
+    });
+
+    test("the mystery target is on screen on a short phone too", async ({
+        page,
+    }) => {
+        await page.setViewportSize(SHORT);
+        const newest = await playWideTree(page);
+
+        await expectNodeVisibleInArena(
+            page,
+            "#tree-container .node-mystery",
+            "the mystery target"
+        );
+        await expectNewestGuessFramed(page, newest);
+        await page.locator("#player-input").click({ trial: true });
+    });
+
+    test("the scroll range holds content, not empty bands", async ({
+        page,
+    }) => {
+        await playWideTree(page);
+        await expectNoDeadScrollBand(page);
+    });
+
+    test("every node can be scrolled into view", async ({ page }) => {
+        await playWideTree(page);
+        await expectEveryNodeReachable(page);
+    });
+
+    test("nodes stay readable however wide the tree gets", async ({ page }) => {
+        await playWideTree(page);
+        await expectNodeTextReadable(page, MIN_PAINTED_FONT_PX);
+    });
+
+    // The symptom the original report (20260331-154614) actually named: on
+    // Android Chrome the tree could not be scrolled left. Driven here through
+    // Chromium's touch pipeline rather than by assigning scrollLeft, which is
+    // as close as this harness gets; a real device stays a manual acceptance
+    // item on the task.
+    test("a touch drag scrolls the tree both ways", async ({ page }) => {
+        await playWideTree(page);
+
+        const start = await page.evaluate(
+            () => document.getElementById("arena")?.scrollLeft ?? NaN
+        );
+
+        // Finger drags left, so the tree moves left and scrollLeft grows.
+        const afterRight = await touchScrollArena(page, -150);
+        expect(
+            afterRight,
+            `dragging the finger left moved scrollLeft from ${start} to ${afterRight}`
+        ).toBeGreaterThan(start);
+
+        // Finger drags right: back the other way. This is the direction the
+        // original report said was impossible on Android Chrome.
+        const afterLeft = await touchScrollArena(page, 150);
+        expect(
+            afterLeft,
+            `dragging the finger right moved scrollLeft from ${afterRight} to ${afterLeft}`
+        ).toBeLessThan(afterRight);
+    });
+
+    // The other half of the resize story, and a regression this task's own
+    // relayout listener introduced before review round 1 caught it: a resize
+    // that does NOT change the picture must leave the player where they
+    // scrolled to. On Android Chrome the URL bar hiding during a drag resizes
+    // the layout viewport and fires `resize`; re-centring there would eat the
+    // gesture, which is the same family of symptom as the original report.
+    // `computeTreeScale` is a function of WIDTH alone, so a height-only change
+    // cannot alter the scale and has nothing to re-frame.
+    // Measured before the fix: scrollLeft 571 -> 0.
+    test("a height-only resize does not throw away the player's scroll", async ({
+        page,
+    }) => {
+        await playWideTree(page);
+
+        const scrolled = await page.evaluate(() => {
+            const arena = document.getElementById("arena");
+            if (!arena) return NaN;
+            arena.scrollLeft = arena.scrollWidth - arena.clientWidth;
+            return arena.scrollLeft;
+        });
+        expect(
+            scrolled,
+            "the fixture left no room to scroll, so this proves nothing"
+        ).toBeGreaterThan(0);
+
+        const size = page.viewportSize();
+        expect(size).not.toBeNull();
+        if (!size) return;
+        await page.setViewportSize({
+            width: size.width,
+            height: size.height - 60,
+        });
+
+        // Give the relayout its frames, then confirm nothing moved. Polled to
+        // the timeout would pass on a handler that has not run yet, so wait
+        // for two frames and read once.
+        await page.evaluate(
+            () =>
+                new Promise<void>((resolve) =>
+                    requestAnimationFrame(() =>
+                        requestAnimationFrame(() => resolve())
+                    )
+                )
+        );
+        const after = await page.evaluate(
+            () => document.getElementById("arena")?.scrollLeft ?? NaN
+        );
+        expect(
+            after,
+            `a height-only resize moved scrollLeft from ${scrolled} to ${after}`
+        ).toBeCloseTo(scrolled, 0);
+    });
+
+    // Turning the phone is a resize, and the pre-fix renderer sized and
+    // scrolled once in a requestAnimationFrame after render with no listener
+    // for anything after that.
+    test("rotating to landscape brings the mystery target back on screen", async ({
+        page,
+    }) => {
+        await playWideTree(page);
+        await page.setViewportSize({ width: 851, height: 393 });
+
+        await expect
+            .poll(
+                () =>
+                    page.evaluate(() => {
+                        const arena = document.getElementById("arena");
+                        const node = document.querySelector(".node-mystery");
+                        if (!arena || !node) return false;
+                        const a = arena.getBoundingClientRect();
+                        const n = node.getBoundingClientRect();
+                        return (
+                            n.left >= a.left - 1 &&
+                            n.right <= a.right + 1 &&
+                            n.top >= a.top - 1 &&
+                            n.bottom <= a.bottom + 1
+                        );
+                    }),
+                { timeout: 3000 }
+            )
+            .toBe(true);
+
+        await expectNoDeadScrollBand(page);
+    });
 });

@@ -8,6 +8,7 @@ module.exports = {
         "src/**/*.ts",
         "!src/**/*.d.ts",
         "!src/ui/**/*.ts", // Exclude UI components (DOM-heavy, hard to unit test)
+        "src/ui/treeLayout.ts", // ...except this one: pure geometry, no DOM
         "!src/index.ts", // Exclude entry point
     ],
     coverageThreshold: {

@@ -31,13 +31,17 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   preference the branch's own test pinned. When a fix reuses a helper that
   mutates module state, read its body in the same breath as the call.
   20260729-092315.
-- `close-a-task-with-its-review-and-retro-not-just-the-status` (x1): the first
+- `close-a-task-with-its-review-and-retro-not-just-the-status` (x2): the first
   tracked task here (`20260331-154614`, graph scaling) was set CLOSED with no
   `REVIEW.md` and no `RETRO.md`, so `tatr check` went red and the reasoning
   behind the fix survived only in the commit diff. A task is not done when its
   STATUS flips to CLOSED; it is done when the verdict and the retro are on disk
   next to it. Run the work -> review -> compound sequence and let the squash-land
-  fold all three records into the one commit. 20260729-092239.
+  fold all three records into the one commit. 20260729-092239. Second hit
+  (20260729-092339): the branch sat at `FLOW STEP: COMPOUNDING` with STATUS
+  CLOSED and no REVIEW.md - the marker is a CLAIM, the artifact is the evidence.
+  Running the missing round found two majors, one of them a behavioural
+  regression the branch itself had introduced.
 - `backfilled-records-must-say-so` (x1): when reconstructing a REVIEW/RETRO for a
   task that was closed without one, label it a BACKFILL and date it to now, and
   do not invent a `PLAN STATUS: APPROVED` marker or an out-of-context round that
@@ -183,6 +187,23 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   target DOWN its hint ladder into the deep states. 20260729-141424.
 
 
+- `a-new-listener-inherits-every-trigger-of-its-event` (x1): a rotation fix added
+  `resize` + `orientationchange` + a `ResizeObserver` where the renderer had had
+  no listener at all, and the handler re-scrolled unconditionally - so Android
+  Chrome's URL bar hiding mid-drag (a height-only resize, which cannot even
+  change the width-derived scale) threw the player's scroll away, re-creating the
+  "the tree fights my drag" symptom the task existed to remove. Enumerate what
+  ELSE fires the event on the target platform before writing the handler, and
+  make it idempotent: recompute always, ACT only when the inputs moved.
+  20260729-092339.
+- `assert-the-promise-not-the-fixture-and-read-the-margin` (x1): an E2E check
+  asserted the newest guess is always framed, which the renderer explicitly does
+  NOT promise (it frames the pair only when it fits) - and it passed on 5.0px of
+  margin decided by text widths, on a font stack CI does not have. Written from
+  what the fixture did rather than from what the code guarantees. Print the
+  margin before trusting a geometric assertion: a thin one usually means the
+  assertion is claiming more than the code does. 20260729-092339.
+
 - `a-layout-assertion-at-one-viewport-is-a-sample-of-one` (x1): the onboarding
   brief passed every check while being sliced at 1440x660 and 1366x600 - the
   suite only ever ran the Playwright project's default 1280x720, where the arena
@@ -215,13 +236,19 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   assert once. Same family as
   [[side-effect-cleared-state-is-not-proof-of-success]]: ask what else makes the
   assertion pass. 20260729-141414.
-- `never-add-a-tolerance-to-silence-an-undiagnosed-failure` (x1): a flaky
+- `never-add-a-tolerance-to-silence-an-undiagnosed-failure` (x2): a flaky
   occlusion check was "fixed" by switching it to a poll, with a confident comment
   explaining which race the poll absorbed - written before the race had actually
   been diagnosed. The real cause was the `style-loader` unstyled frame, and the
   poll also swallowed the genuine regression. Diagnose first, THEN choose the
   assertion; a comment justifying an unverified tolerance is worse than no
-  comment, because the next reader trusts it. 20260729-141414.
+  comment, because the next reader trusts it. 20260729-141414. Second hit
+  (20260729-092339), the fitted variant: a dead-band allowance of
+  `max(96px, 8% of the range)` was set against a measured band of 96.25px - a
+  threshold read off the number it had to clear, and shaped so a NARROWER honest
+  tree would fail it. If a check needs a fudge factor, derive it from the layout
+  that produces it; if it cannot be derived, the invariant is not stated right
+  yet (here: scroll extent <= painted tree + the arena's own padding, no knob).
 - `render-every-branch-of-a-message-side-by-side` (x1): both review findings on
   the share rewrite (a loss bragging about a streak, a headline count that
   disagreed with its own grid) are invisible in a diff and obvious in a rendered
@@ -260,7 +287,7 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   `parse(format(seed))`. When two functions are meant to be inverses, test the
   round-trip over a range (including the modulo edge), not each side alone; the
   bug lived at the seam the isolated tests never crossed. 20260729-101747.
-- `hand-copied-logic-mirrors-rot-update-them-in-the-same-change` (x1): fixing the
+- `hand-copied-logic-mirrors-rot-update-them-in-the-same-change` (x2): fixing the
   `formatPuzzleId` off-by-one changed the key formula, but `e2e/helpers.ts`
   `computeDailyKey` is a hand-copied browser mirror of that formula (its own
   comment says so) and silently diverged at the modulus edge - the out-of-context
@@ -269,6 +296,11 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   (comments saying "mirrors X", copied constants/regexes) and update them in the
   SAME change. Same family as
   [[new-source-dir-needs-toolchain-globs-in-the-same-change]]. 20260729-101747.
+  Second hit (20260729-092339), constant rather than logic: two E2E specs
+  restated the shipped `MIN_NODE_FONT_PX` as a literal `10.5`, so the DoD's
+  claim "node text never renders below MIN_NODE_FONT_PX" was pinned to nothing -
+  lowering the constant left the suite green. Import the constant; a restated
+  number proves the behaviour, never the claim about the constant.
 - `anchor-date-fixtures-to-the-code-under-test-not-the-inverse` (x1): streak tests
   built "today/yesterday" seeds with `dateToSeed(midnight)`, but
   `seedToDate(dateToSeed(x))` is not a clean inverse at local midnight across a

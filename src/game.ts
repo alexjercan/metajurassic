@@ -241,6 +241,7 @@ export function initGame({ data, state, saveState, share }: GameOptions) {
             renderTree({
                 container: treeContainer,
                 roots,
+                lastGuessId: state.lastGuessId,
                 onSelect: (node) => {
                     if (node.type === "species") {
                         const species = data.findSpeciesById(node.speciesId);

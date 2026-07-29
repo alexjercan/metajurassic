@@ -353,36 +353,55 @@ main {
     padding-bottom: 0;
 }
 
+/* The tree is drawn as a sizing box (.tree) wrapping a canvas (.tree-canvas)
+   that carries the scale transform. `layoutTree` in src/ui/treeVisualizer.ts
+   sets .tree's width and height inline to the SCALED size of the canvas.
+
+   The two-element split is what makes #arena's scroll range honest. A transform
+   leaves the layout box it is applied to at full size, so the previous
+   single-element version (a `transform: scale()` straight on .tree, at
+   `transform-origin: center top`, in four fixed buckets) gave the arena a
+   scroll range the size of the UNSCALED tree: measured at 12 guesses, 2152px of
+   scroll for 1291px of painted tree, so a third of the range at each end was
+   empty, and the render then parked the player in the middle of that emptiness.
+   See tasks/20260729-092339/DECISION.md.
+
+   `margin: 0 auto` centres the tree while it fits and resolves to zero once it
+   overflows, which is what the old `min-width: max-content` plus
+   `justify-content: center` was for. */
 .tree {
-    min-width: max-content;
+    position: relative;
+    margin: 0 auto;
+}
+
+.tree-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* Explicit max-content, not the shrink-to-fit an absolutely positioned box
+       would otherwise get. Its containing block is .tree, whose width is set to
+       the SCALED size, so shrink-to-fit would squeeze the flex rows of nodes to
+       that smaller width and the tree would be measured against its own
+       compressed self. */
+    width: max-content;
     display: flex;
     justify-content: center;
     padding: 0 50px;
-    transform-origin: center top;
-    transition: transform 0.3s ease;
+    /* Top left, not centre top: the canvas has to paint from the container's
+       own origin, or the painted tree and the box sized to it do not line up. */
+    transform-origin: top left;
 }
 
-/* Dynamic scaling classes for when tree is too wide */
-.tree.tree-scale-90 {
-    transform: scale(0.9);
-}
-
-.tree.tree-scale-80 {
-    transform: scale(0.8);
-}
-
-.tree.tree-scale-70 {
-    transform: scale(0.7);
-}
-
-.tree.tree-scale-60 {
-    transform: scale(0.6);
-}
-
+/* No `transition: all` inside the tree. It has nothing to animate here - the
+   list has no state changes - and `all` catches the properties a media query
+   switches, so a rotation ANIMATED font-size and padding from the phone values
+   to the desktop ones over 0.3s. The renderer measures the tree to size it, and
+   any measurement taken during that window read a font part-way between the two
+   (14.5px of a 14.4 -> 16 transition) and scaled the tree to a floor that
+   belonged to neither viewport. See tasks/20260729-092339/RETRO.md. */
 .tree ul {
     padding-top: 20px;
     position: relative;
-    transition: all 0.3s ease;
     display: flex;
     justify-content: center;
     padding-left: 0;
@@ -394,7 +413,6 @@ main {
     list-style-type: none;
     position: relative;
     padding: 20px 15px 0 15px;
-    transition: all 0.3s ease;
 }
 
 .tree li::before,
@@ -460,7 +478,17 @@ main {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
     white-space: nowrap;
     cursor: pointer;
-    transition: all 0.2s ease;
+    /* Named properties rather than `all`, for the same reason as .tree ul
+       above: these are what :hover and the guess-feedback colours change, and
+       leaving font-size and padding out of it keeps a media-query switch from
+       animating the geometry the renderer is trying to measure. */
+    transition:
+        filter 0.2s ease,
+        transform 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        color 0.2s ease;
     animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
@@ -1978,8 +2006,9 @@ footer a + a::before {
         padding-bottom: 24px;
     }
 
-    /* Mobile-specific tree adjustments */
-    .tree {
+    /* Mobile-specific tree adjustments. The padding is on the canvas, which is
+       the element that holds the tree; .tree is only the sizing box. */
+    .tree-canvas {
         padding: 0 20px;
     }
 
