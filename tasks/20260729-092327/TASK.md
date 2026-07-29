@@ -18,7 +18,16 @@ As a first-time player, I want the game to explain just enough of the guessing l
 
 - [ ] Identify the smallest in-game onboarding surface that does not turn the game into a landing page.
 - [ ] Add concise first-run or always-available guidance for the objective, the `?` node, clade feedback, and guesses-left budget.
-- [ ] Clarify hint affordance text or tooltip so players know what spending 3 guesses does.
+- [ ] Clarify hint affordance text or tooltip so players know what spending 3
+      guesses does. There is now a GUARANTEE worth stating: since
+      `20260729-141424` a hint reveals a clade that cuts the still-possible
+      species by at least half (`HINT_SPLIT_FRACTION`). Two caveats for the
+      wording: on ~19% of presses no clade meets the threshold and the hint
+      falls back to the best available cut, which narrows LESS than half - so
+      "always halves the field" would be a lie; and the hint is deliberately a
+      bad deal for a player who can read the tree (it costs them +2.2 guesses),
+      so the copy should read as a rescue, not as an edge. This task owns the
+      string; `20260729-141424` deliberately left it alone.
 - [ ] Ensure the guidance is accessible on mobile and desktop without occluding the tree/input loop.
 - [ ] Keep the FAQ as deeper reference, but make the first play understandable without it.
 - [ ] Replace the `alert()` error feedback for invalid guesses with inline UI near the input (`src/game.ts:81`); a browser alert breaks the game feel.
