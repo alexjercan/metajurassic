@@ -1,6 +1,6 @@
 # Rewrite share text with real stats and a guess-story grid
 
-- STATUS: OPEN
+- STATUS: CLOSED
 - PRIORITY: 88
 - TAGS: feature,ux,gameplay
 
@@ -55,7 +55,9 @@ render `🔥 N day streak | Avg. N.N`; practice renders only the average (the
 streak is day-based and meaningless for practice). A stat with no data is
 DROPPED, not printed as zero - `Avg. 0.0` on a first-ever share would be
 exactly the fabricated number this task exists to remove. With no stats at all
-the line is omitted entirely.
+the line is omitted entirely. A LOSS share drops the streak too (review R1.1):
+`calculateStreak` counts wins only, so a loss leaves the previous run standing,
+and printing it would claim a streak the shared round just failed to extend.
 
 **Practice labelling.** Practice shares already read
 `Practice Dinosaur dinosaur-#NNNNN` where the number is the practice SEED id,
@@ -64,7 +66,7 @@ pinned by `test/seedMode.test.ts`). That satisfies the original finding; this
 task keeps that behavior rather than stripping the id.
 
 **Share affordance.** A new `src/ui/share.ts` exports a DOM-free
-`shareResult(text, deps)` returning `"shared" | "copied"`: try
+`shareResult(text, deps)` returning `"shared" | "copied" | "cancelled"`: try
 `navigator.share({ text })` when it exists, return `"shared"`; swallow a user
 cancel (`AbortError`) as a no-op; on any other failure, or when the API is
 absent, fall back to `navigator.clipboard.writeText` and return `"copied"`.
@@ -72,27 +74,32 @@ absent, fall back to `navigator.clipboard.writeText` and return `"copied"`.
 
 ## Steps
 
-- [ ] Add a closeness-tier grid builder in `src/gameState.ts` (uses
+- [x] Add a closeness-tier grid builder in `src/gameState.ts` (uses
       `state.gameData`, so no new plumbing) covering win, loss, hints, null LCA.
-- [ ] Rewrite `formatGameStateForSharing` to take an optional real-stats record
+- [x] Rewrite `formatGameStateForSharing` to take an optional real-stats record
       and emit the grid; delete the hardcoded `5.2` and the fake streak.
-- [ ] Compute the stats in `src/game.ts` via `computeGameStats` for the share
+- [x] Compute the stats in `src/game.ts` via `computeGameStats` for the share
       context's mode and pass them in.
-- [ ] Add `src/ui/share.ts` with the navigator.share/clipboard fallback and wire
+- [x] Add `src/ui/share.ts` with the navigator.share/clipboard fallback and wire
       the modal share button to it, keeping the "Copied!" confirmation.
-- [ ] Jest: grid tiers over the REAL `index.json` payload (distinct scenarios
+- [x] Jest: grid tiers over the REAL `index.json` payload (distinct scenarios
       produce distinct grids), win/loss/practice/hint share text, stats
       omitted-when-empty, and no hardcoded numbers.
-- [ ] Jest: `shareResult` unit tests for native share, user cancel, share
+- [x] Jest: `shareResult` unit tests for native share, user cancel, share
       failure -> clipboard, and no-API -> clipboard.
-- [ ] Playwright `e2e/share.spec.ts`: a seeded practice round played to a win,
-      asserting the native share path (stubbed `navigator.share`) and the
-      clipboard fallback with the "Copied!" confirmation.
-- [ ] Update AGENTS.md's seed-mode note if the practice share wording changes.
+- [x] Playwright `e2e/share.spec.ts`: asserting the native share path (stubbed
+      `navigator.share`) and the clipboard fallback with the "Copied!"
+      confirmation. Built on the existing `seedFinishedDailyGame` helper (a
+      finished DAILY game with a known guess ladder) rather than playing a
+      seeded practice round to a win: the daily path is the one that exercises
+      the real streak/average line, and the helper already pins the clock.
+- [x] Update AGENTS.md's seed-mode note if the practice share wording changes.
+      It did not - practice still shares as `Practice Dinosaur dinosaur-#NNNNN`
+      - so AGENTS.md is untouched.
 
 ## Definition of Done
 
-- Share text contains no fabricated numbers. (test: Jest share tests; cmd: `rg -n "5\.2|Avg. Guesses" src`)
+- Share text contains no fabricated numbers. (test: Jest share tests; cmd: `rg -n "5\.2|Avg\. Guesses" src/*.ts src/ui/*.ts` - scoped to the TS sources because a repo-wide grep hits a real 5.2-metre Sauropelta in the content graph and an SVG path)
 - The grid varies with guess closeness across distinct scenarios, proven against the real content graph. (test: Jest share grid test over `src/jurassic/index.json`)
 - Practice shares are labeled practice and carry the practice seed id, never a daily puzzle number. (test: Jest practice share test)
 - Stats are real or absent: no stat is rendered as a zero placeholder. (test: Jest first-ever-share test)
@@ -107,5 +114,5 @@ absent, fall back to `navigator.clipboard.writeText` and return `"copied"`.
 
 ## Flow State
 
-- FLOW STEP: PLANNED
+- FLOW STEP: DONE
 - PLAN STATUS: APPROVED

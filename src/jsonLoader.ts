@@ -20,7 +20,7 @@ interface RawClade {
     image?: string;
 }
 
-interface RawGameData {
+export interface RawGameData {
     species: Record<string, RawSpecies>;
     clades: Record<string, RawClade>;
 }
@@ -30,6 +30,15 @@ export async function loadGameData(): Promise<GameData> {
     const response = await fetch(url);
     const raw = (await response.json()) as RawGameData;
 
+    return buildGameData(raw);
+}
+
+// The raw payload -> GameData mapping, split out from the fetch so tests can
+// build the shipped graph straight from `src/jurassic/index.json` without
+// re-implementing this shape. A hand-copied mirror in a test file is a second
+// seam that rots (LESSONS.md
+// `hand-copied-logic-mirrors-rot-update-them-in-the-same-change`).
+export function buildGameData(raw: RawGameData): GameData {
     const species: Species[] = Object.entries(raw.species).map(([id, s]) => ({
         id,
         species: s.species || "",

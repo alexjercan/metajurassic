@@ -17,7 +17,10 @@ import {
 import { renderTree } from "./ui/treeVisualizer";
 import { buildGuessTree, findNextHintCladeId } from "./treeBuilder";
 import { showWinModal, showLossModal } from "./ui/modal";
+import { shareResult } from "./ui/share";
 import { loadGameData } from "./jsonLoader";
+import { computeGameStats } from "./gameStats";
+import { defaultStorage } from "./storage";
 
 declare const __webpack_public_path__: string;
 
@@ -227,10 +230,27 @@ export function initGame({ data, state, saveState, share }: GameOptions) {
     });
 
     modalShareBtn?.addEventListener("click", () => {
-        const shareData = formatGameStateForSharing(state, shareContext);
-        navigator.clipboard
-            .writeText(shareData)
-            .then(() => {
+        // Real numbers only: whatever this player has actually banked in this
+        // mode. `computeGameStats` reads the same storage the finished round
+        // was just saved to, so this game is already counted.
+        const stats = computeGameStats(
+            data,
+            defaultStorage(),
+            shareContext.mode
+        );
+        const shareData = formatGameStateForSharing(state, shareContext, {
+            currentStreak: stats.currentStreak,
+            averageGuesses: stats.averageGuesses,
+            wins: stats.wins,
+        });
+
+        shareResult(shareData)
+            .then((outcome) => {
+                // The native sheet gives its own feedback, and a cancelled
+                // share deserves none; only the silent clipboard write needs a
+                // confirmation.
+                if (outcome !== "copied") return;
+
                 // Change the text to "Copied!" for 2 seconds, then revert back
                 const shareBtnSpan = modalShareBtn.querySelector("span");
                 if (shareBtnSpan) {
@@ -242,8 +262,8 @@ export function initGame({ data, state, saveState, share }: GameOptions) {
                 }
             })
             .catch((err) => {
-                console.error("Failed to copy game state: ", err);
-                alert("Failed to copy game state. Please try again.");
+                console.error("Failed to share game state: ", err);
+                alert("Failed to share game state. Please try again.");
             });
     });
 

@@ -242,29 +242,146 @@ export class GameState {
     }
 }
 
+// Real, player-earned numbers for the share message. The caller computes these
+// (`computeGameStats` in gameStats.ts, which needs storage) and passes them in,
+// so this module stays storage-free. A stat with no data behind it is DROPPED
+// rather than printed as a zero: "Avg. 0.0" on a first-ever share would be
+// exactly the fabricated number this format exists to avoid.
+export interface ShareStats {
+    currentStreak: number;
+    averageGuesses: number;
+    wins: number;
+}
+
+const SHARE_URL = "https://alexjercan.github.io/metajurassic";
+
+// How close a guess landed, as a fraction of the target's lineage: 1.0 means
+// the guess shares the target's own clade, ~1/depth means the two only meet at
+// the root. Spoiler-free - it reveals how deep the join was, never which clade.
+const CLOSENESS_TIERS: { below: number; cell: string }[] = [
+    { below: 0.2, cell: "⬛" },
+    { below: 0.4, cell: "🟦" },
+    { below: 0.6, cell: "🟨" },
+    { below: 0.8, cell: "🟧" },
+    { below: Infinity, cell: "🟩" },
+];
+const CORRECT_CELL = "🦖";
+const HINT_CELL = "💡";
+
+export function guessCloseness(
+    gameData: GameData,
+    guessId: string,
+    targetId: string
+): number {
+    const target = gameData.findSpeciesById(targetId);
+    if (!target) return 0;
+
+    const lineage = gameData.lineage(target.clade);
+    if (lineage.length === 0) return 0;
+
+    const lca = gameData.computeLCA(guessId, targetId);
+    if (!lca) return 0;
+
+    // `lineage` runs target-clade-first, so index 0 is the deepest join.
+    const index = lineage.indexOf(lca);
+    if (index < 0) return 0;
+
+    return (lineage.length - index) / lineage.length;
+}
+
+function closenessCell(closeness: number): string {
+    const tier = CLOSENESS_TIERS.find((t) => closeness <= t.below);
+    return tier ? tier.cell : CLOSENESS_TIERS[CLOSENESS_TIERS.length - 1].cell;
+}
+
+// The story of the round: one cell per guess in the order they were made,
+// hottest colour for the closest join, plus one bulb per hint bought. Hints
+// land after the guesses because the saved state keeps `guesses` and
+// `hintClades` as two unordered sets - the moment a hint was bought is not
+// recoverable, and inventing a position would be a fabrication of its own.
+export function buildShareGrid(state: GameState): string {
+    const cells = Array.from(state.guesses).map((guessId) =>
+        guessId === state.targetId
+            ? CORRECT_CELL
+            : closenessCell(
+                  guessCloseness(state.gameData, guessId, state.targetId)
+              )
+    );
+
+    for (let i = 0; i < state.hintClades.size; i++) {
+        cells.push(HINT_CELL);
+    }
+
+    return cells.join("");
+}
+
+function formatStatsLine(
+    stats: ShareStats | undefined,
+    mode: ShareContext["mode"],
+    isWin: boolean
+): string {
+    if (!stats) return "";
+
+    const parts: string[] = [];
+    // The streak counts consecutive DAYS, which only means something for the
+    // daily puzzle; practice rounds have no calendar behind them. It is also
+    // withheld from a LOSS share: `calculateStreak` counts wins only, so a loss
+    // today leaves yesterday's streak standing, and printing it here would
+    // brag about a run the very round being shared just failed to extend.
+    if (mode === "daily" && isWin && stats.currentStreak > 0) {
+        parts.push(`🔥 ${stats.currentStreak} day streak`);
+    }
+    if (stats.wins > 0 && stats.averageGuesses > 0) {
+        parts.push(`Avg. ${stats.averageGuesses.toFixed(1)}`);
+    }
+
+    return parts.join(" | ");
+}
+
+function shareMessage(
+    headline: string,
+    sentence: string,
+    grid: string,
+    statsLine: string
+): string {
+    const lines = [headline, sentence, grid];
+    if (statsLine) lines.push(statsLine);
+
+    return `${lines.join("\n")}\n\n${SHARE_URL}\n#metajurassic`;
+}
+
 export function formatGameStateForSharing(
     state: GameState,
-    context: ShareContext = { mode: "daily", seed: getTodaySeed() }
+    context: ShareContext = { mode: "daily", seed: getTodaySeed() },
+    stats?: ShareStats
 ): string {
     const puzzleId = formatPuzzleId(context.seed);
     const guessCount = state.numberOfGuesses();
     // Practice/seeded rounds are labelled so their share text cannot be
     // mistaken for the daily puzzle. Daily output is unchanged (empty prefix).
     const label = context.mode === "practice" ? "Practice " : "";
+    const statsLine = formatStatsLine(stats, context.mode, state.isWin());
 
     if (state.isWin()) {
-        return (
-            `✅ ${label}Dinosaur ${puzzleId} 🦖\n` +
-            `I figured it out in ${guessCount} guesses!\n` +
-            `${"🟩".repeat(guessCount)}\n🔥 ${guessCount} | Avg. Guesses: 5.2\n\n` +
-            `https://alexjercan.github.io/metajurassic\n#metajurassic`
+        const noun = guessCount === 1 ? "guess" : "guesses";
+        // A hint costs HINT_COST guesses but draws a single bulb, so without
+        // this the sentence and the grid would give a reader two different
+        // numbers. Naming the hints reconciles them, and owns up to the help.
+        const hints = state.hintClades.size;
+        const help =
+            hints > 0 ? ` (${hints} ${hints === 1 ? "hint" : "hints"})` : "";
+        return shareMessage(
+            `✅ ${label}Dinosaur ${puzzleId} 🦖`,
+            `I figured it out in ${guessCount} ${noun}${help}!`,
+            buildShareGrid(state),
+            statsLine
         );
     } else if (state.isLoss()) {
-        return (
-            `💀 ${label}Dinosaur ${puzzleId} 🦖\n` +
-            `I couldn't figure it out in ${MAX_GUESSES} guesses.\n` +
-            `${"⬛".repeat(MAX_GUESSES)}\n🔥 ${MAX_GUESSES} | Avg. Guesses: 5.2\n\n` +
-            `https://alexjercan.github.io/metajurassic\n#metajurassic`
+        return shareMessage(
+            `💀 ${label}Dinosaur ${puzzleId} 🦖`,
+            `I couldn't figure it out in ${MAX_GUESSES} guesses.`,
+            buildShareGrid(state),
+            statsLine
         );
     } else {
         throw new Error("Game is not over yet, cannot share results");

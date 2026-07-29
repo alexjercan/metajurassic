@@ -81,8 +81,26 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   surfaces them immediately; document or guard them in the same change.
   20260729-101819.
 
+- `real-but-unearned-is-its-own-fabrication` (x1): the share rewrite hunted
+  fabricated numbers and still shipped a LOSS message printing `🔥 5 day streak`
+  - real (streaks count wins, so a loss does not break one) but not the shared
+  round's to claim. For any displayed value ask "did THIS event earn it?", not
+  just "is it true?". 20260729-101823.
+
 ## Testing
 
+- `render-every-branch-of-a-message-side-by-side` (x1): both review findings on
+  the share rewrite (a loss bragging about a streak, a headline count that
+  disagreed with its own grid) are invisible in a diff and obvious in a rendered
+  example. When a change spans win/loss/practice/first-run branches, print one of
+  EACH and read them together before review - and vary the stats, since the
+  zero-stats loss previewed here was the one case that hid the bug.
+  20260729-101823.
+- `absence-proving-greps-must-be-run-when-written` (x1) -> plan skill: this
+  task's DoD shipped `cmd: rg -n "5\.2" src`, which can never go clean - the
+  content graph has a 5.2-metre Sauropelta and `share.svg` a 5.2 coordinate. An
+  absence proof written at plan time must be EXECUTED then, and narrowed with its
+  reason recorded, or it is not a proof. 20260729-101823.
 - `side-effect-cleared-state-is-not-proof-of-success` (x1): an e2e helper retried
   a guess until the input went empty, calling that proof the guess landed - but
   the FAILURE path empties it too (a swallowed Enter falls through to

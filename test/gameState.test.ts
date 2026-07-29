@@ -304,13 +304,15 @@ describe("formatGameStateForSharing", () => {
         gameData = makeGameData();
     });
 
+    // The grid's closeness tiers are pinned in test/share.test.ts against the
+    // REAL taxonomy; these cases only guard the surrounding message shape.
     test("formats win message correctly", () => {
         const state = new GameState(gameData, "trex", new Set(["trex"]));
         const message = formatGameStateForSharing(state);
 
         expect(message).toContain("✅");
-        expect(message).toContain("1 guesses");
-        expect(message).toContain("🟩");
+        expect(message).toContain("1 guess!");
+        expect(message).toContain("🦖");
         expect(message).toContain("#metajurassic");
     });
 
@@ -334,7 +336,7 @@ describe("formatGameStateForSharing", () => {
         );
     });
 
-    test("includes correct number of emoji squares", () => {
+    test("the grid has one cell per guess, ending on the win", () => {
         const state = new GameState(
             gameData,
             "trex",
@@ -342,8 +344,9 @@ describe("formatGameStateForSharing", () => {
         );
         const message = formatGameStateForSharing(state);
 
-        const squares = message.match(/🟩/g);
-        expect(squares?.length).toBe(2);
+        const grid = message.split("\n")[2];
+        expect(Array.from(grid)).toHaveLength(2);
+        expect(grid.endsWith("🦖")).toBe(true);
     });
 });
 
