@@ -1,8 +1,17 @@
 # Spike: make the hint split the remaining candidates
 
 - DATE: 20260729-160500
-- STATUS: RECOMMENDED
+- STATUS: RECOMMENDED (superseded in part - read the Addendum first)
 - TAGS: spike, gameplay, design
+
+> **Addendum, 20260729.** Sections 1-4 optimise for RETURN ON INVESTMENT and
+> recommend a 1/4 split at cost 2. The user rejected that bar - a hint should be
+> a desperate move, not an edge - and section 5 re-measures against a RESCUE bar
+> instead. The accepted design is a **1/2 split at the unchanged cost of 3**.
+> Where sections 1-4 and section 5 disagree, section 5 wins. The measurements in
+> sections 1-4 are unchanged and still true; it is the conclusion drawn from
+> them that was replaced. Decision record:
+> `tasks/20260729-141424/DECISION.md`.
 
 ## Question
 
@@ -206,7 +215,12 @@ player), which makes "buy both hints immediately" a mildly dominant opening.
 It also drops the tree-reader's loss rate furthest, 5.5% to 3.4%, so it is the
 right choice if accessibility outweighs the dominant-opening risk.
 
-## Recommendation
+## Recommendation (SUPERSEDED by section 5 - kept for the reasoning)
+
+> This section is the ROI-bar conclusion. The user replaced the bar; the
+> accepted design is a **1/2 split at the unchanged cost of 3**. The selection
+> MECHANISM below (threshold split, single tunable fraction, fallback to the
+> deepest clade) was accepted unchanged - only the fraction and the price moved.
 
 **Selection: threshold split. Price: 2.**
 
@@ -236,25 +250,118 @@ are both constants.
 
 ## Open questions
 
-- **The DoD in `20260729-141424` contradicts this recommendation and needs the
-  user's call.** It requires the hint to lower mean total cost for the
-  `consistent` (deducing) player both up front and mid-round. Only cost 1 does
-  that. This spike argues the bar itself is wrong: a player holding a perfect
-  candidate set does not need a hint, and a hint that pays off for THEM is a
-  shortcut, not a hint. Recommendation: rewrite the DoD to require net-negative
-  for the `read-tree` player at all three buy points, and net-positive (not
-  exploitable) for `deduce`. Recorded as the decision the implementing task must
-  confirm before building.
-- Whether a first hint at cost 2 feels different in the hand from the measured
-  numbers. The sim's `read-tree` player is a floor, not a human; a real player
+- ~~**The DoD in `20260729-141424` contradicts this recommendation.**~~
+  RESOLVED 20260729. The spike argued the bar was wrong (a player who can
+  already deduce does not need a hint); the user went further and replaced it
+  with a rescue bar entirely. The DoD is rewritten in that task and the choice
+  is recorded in its `DECISION.md`. See section 5.
+- Whether a first hint feels different in the hand from the measured numbers. The sim's `read-tree` player is a floor, not a human; a real player
   reads silhouettes and names too.
 - Whether the hint copy (`20260729-092327`) should state the guarantee ("this
   will at least quarter the field") now that there is one to state - and how it
   should read on the ~19% of hints that take the fallback path and cannot make
   that promise.
+- The two-hint collapse (section 5). Shipping `MAX_HINTS = -1` leaves it open
+  deliberately; real play decides whether it needs closing.
 - Content, not code: levels 1-2 and 3-5 of the ladder are near-duplicate clades.
   Collapsing them would improve the tree for every mechanism, not only hints.
   Out of scope here; worth its own look.
+
+
+## 5. Rescue: the bar that replaced the ROI bar
+
+Sections 1-4 ask whether a hint pays for itself. The user rejected that question
+outright:
+
+> a hint is supposed to be a bad investment, it's like a desperate move, not
+> something that gives you an advantage over someone who knows how to play;
+> it's more of a "I have no idea how to play (the blind guy kind of) and I need
+> a bit of help" ... basically bring the 80% loss to something like 50% or so
+> for the bad players
+
+That is a different objective function, and it ranks the options differently.
+
+### The player a hint is for did not exist in the simulation
+
+The 84.8% loss figure from the playtest pass belongs to the `blind` policy - a
+player who ignores the tree entirely. A player who ignores information cannot be
+helped by more of it, so no hint design can move that number. Measured, to make
+the point concrete rather than assert it:
+
+```
+[blind]                 0 hints  1 hint  2 hints  3 hints
+split<=1/2  cost=1        83%     84%      84%      85%
+split<=1/2  cost=3        83%     85%      86%      90%
+```
+
+Buying hints makes a truly blind player WORSE off - they pay budget for
+information they do not use.
+
+So section 5 adds a third model, `hint-follower`: a player who cannot deduce
+from join points, but CAN act on a clade named in plain words, and guesses at
+random from inside the deepest hinted clade. That is the player a hint is
+actually for.
+
+### One hint, loss rate for the hint-follower
+
+```
+[hint-follower]         0 hints  1 hint  2 hints  3 hints
+split<=1/2  cost=3        83%     55%       6%       5%
+split<=1/3  cost=3        83%     38%       4%       4%
+split<=1/4  cost=3        83%     17%       5%       5%
+split<=1/2  cost=1        83%     50%       4%       4%
+split<=1/3  cost=1        83%     34%       3%       4%
+split<=1/4  cost=1        83%     14%       4%       4%
+```
+
+**1/2 lands on the stated target.** 1/4 - the ROI winner - overshoots badly:
+one press takes a helpless player to 14-17% loss, which is precisely the
+advantage-over-a-good-player the bar exists to prevent.
+
+### Price stops mattering for rescue, so it decides something else
+
+At 1/2, one hint gives 50% / 51% / 55% loss at cost 1 / 2 / 3. Rescue is nearly
+price-independent, so price becomes purely the "how bad an investment is this"
+knob:
+
+```
+split<=1/2, net guesses per hint bought (positive = the hint cost more than it saved)
+            deduce (expert)        read-tree (middling)
+cost=1        +0.2 to +0.4           -0.7 to -1.5
+cost=2        +1.2 to +1.4           +0.2 to -0.5
+cost=3        +2.2 to +2.4           +0.5 to +1.3
+```
+
+Cost 1 is nearly free for an expert, so it fails the "bad investment" test.
+**Accepted: cost 3, unchanged** - a bad buy for anyone who can play at all,
+while still rescuing the player who cannot. (Cost 2 was the recommendation; the
+user's stronger reading of "desperate move" won, and the same table supports
+it.)
+
+### The finding neither bar was looking for
+
+**The SECOND hint collapses the round to 4-6% loss at every fraction and every
+price.** The ladder is lumpy, so hint two typically lands in a clade of a
+handful of species and the remaining budget brute-forces it. Price cannot fix
+this: two hints at cost 3 still leaves 6%.
+
+The lever is a CAP, not a fraction or a price. Accepted: ship the mechanism as
+`MAX_HINTS` (`-1` = uncapped, any positive integer = a per-round cap) and set it
+to `-1` for now, so closing the collapse after real play is a constant change
+rather than a redesign.
+
+### What the rescue depends on
+
+A hint names a clade. The `hint-follower` model assumes the player can turn that
+name into a set of species. The user declined to put that mapping in the round
+(`20260729-141425`, rejected as making the game too easy) and routed it to a
+filter on the species archive instead. So the rescue is real but effortful: the
+player must leave the round to cash the clade name in. Deliberate - see
+`tasks/20260729-141425/DECISION.md`.
+
+Model caveat: `hint-follower` guesses at RANDOM inside the hinted clade, which
+is a floor. A real person recognises some names, so the true rescue is somewhat
+better than 50%.
 
 ## Next steps
 
@@ -262,5 +369,10 @@ The direction lands in the task that already owns this problem rather than a new
 one - `20260729-141424` is rewritten to build this recommendation, and cites
 this doc. No further tasks seeded.
 
-- tatr 20260729-141424: rework the hint reveal rule and price (was framed as a
-  two-way fork; now carries this spike's measured direction)
+- tatr 20260729-141424: rework the hint reveal rule (threshold split at 1/2,
+  `HINT_COST` unchanged at 3, `MAX_HINTS = -1`). Decision recorded in its
+  `DECISION.md`.
+- tatr 20260729-141425: re-scoped by the same conversation from an in-round
+  clade-to-species mapping to a clade FILTER on the species archive, and
+  dropped 86 -> 60. Its `DECISION.md` records why the in-round shapes were
+  rejected.

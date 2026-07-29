@@ -7,7 +7,9 @@
 
 ## Story
 
-As a player who is stuck, I want a hint that is worth what it costs, so that spending guesses on it is a real choice rather than a trap.
+As a player who cannot read the tree, I want a hint that actually rescues my
+round, so that being lost is recoverable - while a player who CAN read the tree
+still has no reason to press it.
 
 ## Review Findings
 
@@ -34,60 +36,60 @@ Recorded verbatim, because it re-framed the task:
 So: the reveal stays top-down, the price is open, and the two-way fork below was
 the wrong question. The research ran as `20260729-160500`.
 
-## Direction (from the spike)
+## Direction (DECIDED - see DECISION.md)
 
-`tasks/20260729-160500/SPIKE.md` answers it with numbers from
-`scripts/playtest/hint.ts` over the real graph:
+`tasks/20260729-160500/SPIKE.md` measured it; the user then rejected the
+spike's own bar (return on investment) in favour of a RESCUE bar - a hint is a
+desperate move, not an edge - and that flipped the answer. Accepted shape:
 
-- A guess is worth 1.74 bits, so a hint at cost 3 must deliver 5.2 bits - i.e.
-  cut 150 species to under 5. Nothing can do that and still be a hint. The price
-  is load-bearing.
-- The shipped hint delivers 0.92 bits cold and **0.06-0.39 bits mid-round**: it
-  is close to empty exactly when a player presses it.
-- Literal halving is the WEAKEST split rule (capped at ~1 bit). The winner is a
-  threshold split: the shallowest unrevealed lineage clade that cuts the
-  candidate set to <= 1/4. It delivers 2.9 bits cold, 1.1 late, offers a median
-  of 2 hints per round, and keeps the top-down feel.
-- Recommended shape: threshold split at `HINT_SPLIT_FRACTION = 1/4` plus
-  `HINT_COST = 2`. Only that combination is net-negative for the tree-reading
-  player at every buy point while staying a bad deal for a player who can
-  already deduce.
+- **Reveal: threshold split at `HINT_SPLIT_FRACTION = 1/2`** - the shallowest
+  unrevealed lineage clade that cuts the live candidate set to at most half,
+  falling back to the deepest unrevealed clade when nothing qualifies. Keeps the
+  top-down direction; skips only the rungs that narrow nothing.
+- **Price: `HINT_COST` stays 3.** Once the fraction is fixed, price barely moves
+  rescue (50/51/55% at cost 1/2/3) and only decides how bad an investment the
+  hint is. At 3 it costs an expert +2.2 to +2.4 guesses.
+- **`MAX_HINTS`, a new constant: `-1` = uncapped, any positive integer = a
+  per-round cap. Set to `-1`.** The mechanism ships now, the cap stays open.
+
+Why these numbers: one hint takes a player who cannot read the tree from 83%
+loss to 50% (at 1/3 it is 34%, at 1/4 it is 14% - too generous). The shipped
+rule delivers 0.92 bits cold and 0.06-0.39 mid-round, i.e. close to nothing
+exactly when a stuck player presses it.
 
 ## Steps
 
-- [ ] Confirm with the user, and record in `DECISION.md`, the one fork the spike
-      could not settle: this task's old Definition of Done demanded the hint pay
-      off for the DEDUCING player, which only cost 1 achieves. Cost 2 helps the
-      tree-reader at every buy point and stays a bad deal for the expert. The
-      two cannot both hold - accepting cost 2 means rewriting that DoD line
-      (SPIKE.md "Open questions").
-- [ ] Decide, in the same `DECISION.md`, what a hint does when NO clade meets
-      the threshold. That branch fires on ~19% of calls. It is safe by
-      construction (what it hands over necessarily holds more than the threshold
-      share - measured min 25%, median 67% of the live field), so the choice is
-      between handing over the best available narrowing anyway and refusing the
-      sale. The spike leans toward handing it over.
-- [ ] Implement the threshold split in `findNextHintCladeId`, with the fraction
-      as a single constant in `src/constants.ts`, plus the agreed `HINT_COST`.
-      The candidate set is derived from the guess history (a species is still
-      consistent iff its LCA with each past guess matches what that guess
-      showed); no new persisted state.
-- [ ] Re-run `npm run playtest:hint` and confirm the agreed break-even bar at
-      all three buy points (up front, after 2, after 4), not just up front - the
-      stuck player is the one who presses the button.
+- [x] Confirm the build shape with the user and record it in `DECISION.md`.
+      Done 20260729: threshold split at 1/2, `HINT_COST` unchanged at 3,
+      `MAX_HINTS = -1`.
+- [ ] Add `HINT_SPLIT_FRACTION` and `MAX_HINTS` to `src/constants.ts`.
+- [ ] Implement the threshold split in `findNextHintCladeId`. The live candidate
+      set is derived from the guess history (a species is still consistent iff
+      its LCA with each past guess matches what that guess showed); no new
+      persisted state.
+- [ ] Enforce `MAX_HINTS` in `GameState.canAffordHint()` (and whatever gates the
+      button), with `-1` meaning uncapped. Ship the mechanism even though it is
+      open, so closing the two-hint collapse later is a constant change.
+- [ ] Re-run `npm run playtest:hint` and confirm section 5: one hint takes the
+      `hint-follower` player from 83% loss to roughly 50%, and the hint stays a
+      net LOSS for the `deduce` player at every buy point.
 - [ ] Update the hint affordance copy so it names what a hint does, not only its
       price (coordinate with `20260729-092327`) - there is now a guarantee to
-      state.
-- [ ] Test the reveal order and the affordability edge (a hint must not be
-      purchasable into an unwinnable state).
+      state, and it should read honestly on the ~19% of hints that take the
+      fallback path and cannot make that promise.
+- [ ] Test the reveal rule and the affordability edge (a hint must not be
+      purchasable into an unwinnable state, and must respect `MAX_HINTS`).
 
 ## Definition of Done
 
-- The hint clears the break-even bar agreed in `DECISION.md`, at all three buy
-  points. (cmd: `npm run playtest:hint`)
-- The reveal rule matches the decision, over the real payload. (test: Jest test
-  that a hint never reveals a clade holding more than the agreed fraction of the
-  live candidate set when a qualifying one exists)
+- One hint takes the `hint-follower` player from ~83% loss to roughly 50%, and
+  a hint remains a net loss for the `deduce` player at every buy point. This
+  REPLACES the old bar ("a hint must lower total cost for a deducing player"),
+  which the user rejected: a hint that pays off for someone who can already
+  deduce is a shortcut, not a hint. (cmd: `npm run playtest:hint`)
+- A hint never reveals a clade holding more than half the live candidate set
+  when a qualifying clade exists, over the real payload. (test: Jest)
+- `MAX_HINTS` is enforced, and `-1` means uncapped. (test: Jest)
 - `npm run ci` passes. (cmd: `npm run ci`)
 
 ## Notes
@@ -96,4 +98,10 @@ the wrong question. The research ran as `20260729-160500`.
 - Superseded framing: the original Steps offered a fork between (a) bottom-up at
   cost 3 and (b) top-down at cost 1. The spike measured (a) as a solve button
   (4.98 bits, drops a tree-reader's round from 8.9 to 6.5) and rejected it.
-- Spike: `tasks/20260729-160500/SPIKE.md`.
+- Spike: `tasks/20260729-160500/SPIKE.md` (sections 1-4 measure ROI, section 5
+  measures rescue - the bar this task is built against).
+- Decision: `DECISION.md` next to this file.
+- The rescue only materialises for a player who can act on a clade NAME. The
+  user declined to put a clade-to-species mapping in the round
+  (`20260729-141425`) and routed it to the species archive instead, so looking a
+  clade up is deliberately effortful.

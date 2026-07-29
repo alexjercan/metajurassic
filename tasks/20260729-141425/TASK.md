@@ -1,37 +1,75 @@
-# Show which species belong to a revealed clade
+# Filter the species archive by clade
 
 - STATUS: OPEN
-- PRIORITY: 86
-- TAGS: feature,ux,gameplay
+- PRIORITY: 60
+- TAGS: feature,ux,archive
 
 
 ## Story
 
-As a player told the answer is in "Cerapoda", I want some way to find out which dinosaurs that includes, so that the deduction the game asks for is one I can actually perform.
+As a player who wants to learn how the tree fits together, I want to filter the
+Species Archive by clade, so that "which dinosaurs are in Cerapoda" is a
+question I can answer between rounds.
 
-## Review Findings
+## Re-scoped (see DECISION.md)
 
-From the playtest pass (`20260729-092435`, NOTES.md F1.1-F1.3) - this is the pass's single biggest finding.
+This task began as "show which species belong to a revealed clade", aimed at the
+in-round deduction. The user rejected that shape on 20260729:
 
-- MEASURED: how much of the tree a player can use decides the whole game. Simulated over all 150 targets: a player who ignores the tree loses 84.8% of rounds; one who only knows "the target is inside the revealed clade" loses 5.8%; one who can fully deduce loses 0% and wins in a median of 4.
-- ON-SCREEN: no surface maps a clade to its member species. `buildGuessTree` (`src/treeBuilder.ts`) renders only GUESSED species plus the `?` placeholder; `createCladeCard` (`src/ui/card.ts`) is name, silhouette and description; `/clades` (`src/clades.ts`) renders those same cards.
-- The one partial exception, and it is weak: `/species` (`src/species.ts`) lists all 150 species alphabetically with a `Clade:` line on each card, so the INVERSE mapping exists. But it is linked only from inside the FAQ (`src/faq.html:81`), it is a 150-card carousel, and each card names only a species' IMMEDIATE clade - so it can answer "who else is in Ceratosauria" by brute-force scan and cannot answer "who is in Cerapoda" at all. Any solution here should consider whether to strengthen that page rather than add a fourth surface.
-- So the game asks for a deduction it gives the player almost no means to make, and a real player lands somewhere on that 84.8%-to-5.8% spread largely on prior dinosaur knowledge.
+> this one we won't do; it feels a bit like cheating (makes the game way too
+> easy); and if a player wants this feature they can go into the archive and
+> search the clade for each dino to see how it fits; so maybe it can turn into a
+> "filter in the archive page"
+
+So the clade-to-species mapping stays OUT of a round, and the archive becomes
+the place to learn it. Priority drops 86 -> 60: this is no longer on the
+critical path for whether a lost player can recover. It reads alongside
+`20260729-141424`, whose hint deliberately names a clade the player must go and
+look up.
+
+## Findings that still apply
+
+From the playtest pass (`20260729-092435`, NOTES.md F1.1-F1.3):
+
+- `/species` (`src/species.ts`) lists all 150 species alphabetically with a
+  `Clade:` line per card, so the INVERSE mapping already exists - but it is a
+  150-card carousel with no filter, and each card names only a species'
+  IMMEDIATE clade. It can answer "who else is in Ceratosauria" by brute-force
+  scan and cannot answer "who is in Cerapoda" at all.
+- It is linked only from inside the FAQ (`src/faq.html:81`), so it is hard to
+  find even when it would help.
+- `/clades` (`src/clades.ts`) renders clade cards (name, silhouette,
+  description) from the same archive shell.
 
 ## Steps
 
-- [ ] Confirm the artifact with the user and record it in `DECISION.md`. This is a load-bearing fork with a real tension: showing a clade's members makes the game solvable by reading rather than knowing, which may be the point or may remove the challenge. Candidate shapes, and they are not interchangeable: (a) the clade card lists its member species; (b) the tree renders unguessed members of a revealed clade as locked/unnamed leaves so the player sees the SIZE of the field without the names; (c) nothing in-game, and instead the `/clades` archive gains membership (and a link from somewhere other than the FAQ) so the knowledge is learnable outside a round.
-- [ ] Implement the chosen shape.
-- [ ] Make sure it cannot spoil the answer: any surface listing members of the target's own clade narrows it to a handful (median leaf clade has 2 members, 34 clades are singletons).
-- [ ] Add coverage over the real payload, not a mock (`LESSONS.md` `mock-fixtures-hide-real-data-defects-test-the-real-payload`).
+- [ ] Add a clade filter to the Species Archive (`src/species.html`,
+      `src/species.ts`). Filtering must be LINEAGE-aware: a species belongs to
+      Cerapoda if Cerapoda appears anywhere in `GameData.lineage(species.clade)`,
+      not only when it is the card's immediate clade.
+- [ ] Decide how the filter is populated and presented - every clade in the
+      graph is 108 options, so consider grouping by depth or restricting to
+      clades with more than one member. Keep it usable on a phone.
+- [ ] Consider whether `/clades` should link into the filtered species view
+      ("show the species in this clade"), since that is the same question from
+      the other direction.
+- [ ] Make the archive discoverable from somewhere other than the FAQ.
+- [ ] Coverage over the real payload, not a mock (`LESSONS.md`
+      `mock-fixtures-hide-real-data-defects-test-the-real-payload`).
 
 ## Definition of Done
 
-- The chosen surface exists and is reachable from a round in progress. (test: browser E2E)
-- It does not reveal the target. (test: seeded E2E round asserting the target name is absent before the win)
+- The Species Archive can be filtered to the members of any clade, including
+  higher clades that are no card's immediate clade. (test: browser E2E over the
+  real payload, asserting a higher clade returns members drawn from more than
+  one immediate clade)
+- The filter is reachable without going through the FAQ. (test: browser E2E)
 - `npm run ci` passes. (cmd: `npm run ci`)
 
 ## Notes
 
-- Sequence with `20260729-092327` (onboarding) and `20260729-092452` (Metazooa alignment): all three answer "what does the first screen owe the player".
-- `scripts/playtest/difficulty.ts` re-measures the policy spread if the change is meant to move a player up it.
+- Decision record: `DECISION.md` next to this file, including the two rejected
+  in-round shapes and why.
+- Deliberately NOT reachable as an in-round aid; that was the point of the
+  decision. If a future playtest shows players cannot recover at all, the lever
+  to revisit is the hint (`20260729-141424`), not this page.

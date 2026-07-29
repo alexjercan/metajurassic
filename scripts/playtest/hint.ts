@@ -1,5 +1,11 @@
 // Spike instrumentation (tasks/20260729-160500): what is a hint WORTH, in the
-// same currency as a guess?
+// same currency as a guess - and, in section 5, does it RESCUE the player it is
+// aimed at?
+//
+// ACCEPTED DESIGN (tasks/20260729-141424/DECISION.md): threshold split at 1/2,
+// HINT_COST unchanged at 3, MAX_HINTS = -1 (uncapped). Sections 1-4 measure
+// return on investment and pointed at 1/4 + cost 2; section 5 measures rescue,
+// which is the bar that was accepted. Where they disagree, section 5 wins.
 //
 // Measures over the REAL content graph (`src/jurassic/index.json`):
 //   1. the information a guess delivers (bits), i.e. the price a hint must beat
@@ -665,18 +671,154 @@ function pacing(data: GameData): void {
 // it with PLAYTEST_TRIALS when a cell needs to be trusted to a tenth.
 const TRIALS = Number(process.env.PLAYTEST_TRIALS ?? 5);
 
+// ---------------------------------------------------------------------------
+// 7. Rescue: does a hint save the player who cannot read the tree?
+// ---------------------------------------------------------------------------
+//
+// Sections 1-4 ask "does a hint pay for itself", i.e. is it a good INVESTMENT.
+// That is the wrong bar if a hint is meant to be a desperate move rather than
+// an edge (user, 20260729). The bar here instead: a hint should rescue a player
+// who cannot play, without ever helping one who can.
+//
+// Two player models, neither of which reads the tree:
+//
+//   blind          - ignores everything, guesses an unplayed species at random.
+//                    Included to make a point concrete: a player who ignores
+//                    information cannot be helped by more of it, so a hint
+//                    CANNOT move this number. It is the wrong target.
+//   hint-follower  - cannot deduce from join points, but CAN act on a clade
+//                    named in plain words: it guesses at random from inside the
+//                    deepest hinted clade. This is the player a hint is for, and
+//                    it only exists in the real game if a surface maps a clade to
+//                    its member species (task 20260729-141425).
+
+type RescueModel = "blind" | "hint-follower";
+
+function rescueRound(
+    data: GameData,
+    targetId: string,
+    rand: () => number,
+    model: RescueModel,
+    policy: HintPolicy,
+    hintCost: number,
+    hintsWanted: number,
+    afterGuesses: number
+): boolean {
+    const state = new GameState(data, targetId);
+    // The GAME can always compute the consistent set from its own guess history,
+    // even when the PLAYER is ignoring it - so hint selection stays honest.
+    let candidates = data.species.slice();
+    let hints = 0;
+    let field = data.species.slice();
+    const spent = () => state.guesses.size + hints * hintCost;
+
+    const buyHints = (): void => {
+        for (let i = 0; i < hintsWanted; i++) {
+            if (spent() + hintCost > MAX_GUESSES) break;
+            const clade = policy(contextFor(data, state, candidates));
+            if (!clade) break;
+            state.hintClades.add(clade);
+            hints++;
+            candidates = narrowByClade(data, candidates, clade);
+            if (model === "hint-follower") {
+                field = narrowByClade(data, field, clade);
+            }
+        }
+    };
+
+    if (afterGuesses === 0) buyHints();
+
+    while (spent() < MAX_GUESSES) {
+        const left = field.filter((sp) => !state.guesses.has(sp.id));
+        if (left.length === 0) break;
+        const guess = left[Math.floor(rand() * left.length)];
+        const res = state.makeGuess(guess.species);
+        if (res.isCorrect) return true;
+        candidates = narrowByGuess(
+            data,
+            candidates,
+            guess.id,
+            res.lca ?? "__disjoint__"
+        );
+        if (afterGuesses > 0 && state.guesses.size === afterGuesses) buyHints();
+    }
+
+    return false;
+}
+
+function rescue(data: GameData, trials: number): void {
+    console.log(
+        "## 5. Rescue: loss rate for players who cannot read the tree\n"
+    );
+    console.log(
+        "  A hint should rescue a player who cannot play, and never help one who can.\n" +
+            "  Loss rate at MAX_GUESSES; lower is better. `blind` is the control.\n"
+    );
+
+    const fractions: { name: string; play: HintPolicy }[] = [
+        { name: "split<=1/2", play: splitThreshold(0.5) },
+        { name: "split<=1/3", play: splitThreshold(1 / 3) },
+        { name: "split<=1/4", play: splitThreshold(0.25) },
+    ];
+
+    for (const model of ["blind", "hint-follower"] as RescueModel[]) {
+        console.log(`  [${model}]`);
+        for (const { name, play } of fractions) {
+            for (const hintCost of [1, 2, 3]) {
+                const cells: string[] = [];
+                for (const hintsWanted of [0, 1, 2, 3]) {
+                    const rand = rng(31337);
+                    let lost = 0;
+                    let n = 0;
+                    for (const target of data.species) {
+                        for (let t = 0; t < trials; t++) {
+                            const won = rescueRound(
+                                data,
+                                target.id,
+                                rand,
+                                model,
+                                play,
+                                hintCost,
+                                hintsWanted,
+                                0
+                            );
+                            n++;
+                            if (!won) lost++;
+                        }
+                    }
+                    cells.push(
+                        `${hintsWanted} hint: ${((lost / n) * 100).toFixed(0).padStart(3)}%`.padEnd(
+                            14
+                        )
+                    );
+                }
+                console.log(
+                    `    ${name.padEnd(12)} cost=${hintCost}  ${cells.join("")}`
+                );
+            }
+            if (model === "blind") break; // hints cannot move it; one row makes the point
+        }
+        console.log();
+    }
+}
+
 function main(): void {
     const data = loadRealGameData();
     console.log("Metajurassic hint-value spike (tasks/20260729-160500)");
     console.log(
         `payload: ${path.relative(REPO_ROOT, PAYLOAD)}  species: ${data.species.length}  clades: ${Object.keys(data.clades).length}  trials/target: ${TRIALS}\n`
     );
+    if (process.env.PLAYTEST_ONLY === "rescue") {
+        rescue(data, TRIALS);
+        return;
+    }
     sanityCheck(data);
     cladeSizeShape(data);
     bitsPerGuess(data, TRIALS);
     hintValue(data, [0, 1, 2, 4, 6], TRIALS);
     pacing(data);
     simulate(data, TRIALS);
+    rescue(data, TRIALS);
 }
 
 main();

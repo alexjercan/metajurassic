@@ -264,6 +264,28 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   - measured min 25%, median 67%). Measure the fallback before recommending the
   rule; reading the happy path shows neither the rate nor the reason.
   20260729-160500.
+- `the-bar-you-measure-against-is-itself-a-design-decision` (x1): the hint spike
+  measured six selection rules carefully and recommended a 1/4 split at cost 2 -
+  on the bar "does a hint pay for itself". The user rejected the BAR, not the
+  data: a hint should be a desperate move, not an edge, so the right question is
+  "does it rescue a player who cannot play". Re-measuring the same rules against
+  rescue picked 1/2 instead, and revealed that the ROI winner (1/4) took a
+  helpless player from 83% loss to 14% - exactly the advantage the design was
+  supposed to deny. Same numbers, opposite answer. Name the objective function
+  out loud and confirm it BEFORE running the comparison, because the ranking is
+  a property of the bar, not of the options. Related:
+  [[price-a-mechanic-in-the-same-unit-as-what-it-costs]] found the unit; this
+  found that the unit alone does not tell you which direction is better.
+  20260729-160500.
+- `simulate-the-player-the-feature-is-for-not-the-one-you-have` (x1): the rescue
+  target was "bring the 84.8% loss down", but that figure belongs to the `blind`
+  policy, which ignores the tree entirely - and a player who ignores information
+  cannot be helped by more of it. Measured: buying hints makes a blind player
+  WORSE off (83% -> 85-90%, they pay budget for information they do not use).
+  The feature's actual audience needed a new model (`hint-follower`: cannot
+  deduce from join points, can act on a clade named in words). Before optimising
+  a helper feature against a loss rate, check that the policy behind that number
+  can consume the help at all. 20260729-160500.
 - `state-the-sample-before-quoting-the-tenths` (x1): the hint simulation ran at
   5 trials per target and the doc compared cells differing by 0.2 as if that
   were signal. Re-running at 20 trials held the headline gaps, but the order of
