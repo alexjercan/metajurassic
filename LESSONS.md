@@ -86,6 +86,25 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   - real (streaks count wins, so a loss does not break one) but not the shared
   round's to claim. For any displayed value ask "did THIS event earn it?", not
   just "is it true?". 20260729-101823.
+- `absence-claims-need-a-listing-not-a-recollection` (x1): the playtest notes
+  asserted "no surface in the game maps a clade to its member species" after
+  enumerating three surfaces from memory - and missed `src/species.ts`, which
+  lists all 150 species with their clade and sits right next to the
+  `src/clades.ts` that WAS checked. An absence claim is a claim about the whole
+  set, so derive it from a listing (`ls src/*.ts`, a grep over the tree), never
+  from the files you happen to have opened. Same family as
+  [[absence-proving-greps-must-be-run-when-written]]: both are proofs of a
+  negative that were asserted rather than executed. 20260729-092435.
+- `a-measurement-licenses-a-claim-only-over-the-range-it-swept` (x1): the
+  difficulty simulation measured hints bought BEFORE the first guess and the
+  write-up concluded "it is never correct to buy one" - but the hint reveals one
+  level below the DEEPEST REVEALED clade, so a mid-round hint is a different
+  (and better) purchase that the sweep never touched. The claim was filed under
+  a MEASURED label, which is how an inference gets mistaken for data. When an
+  instrument varies one knob, the conclusion must name that knob; and the fix is
+  usually to widen the sweep, not to soften the sentence - re-measuring here
+  turned a narrow finding into a better one (a late hint for a weak player is
+  near break-even and cuts the loss rate 5.8% -> 4.6%). 20260729-092435.
 
 ## Testing
 
@@ -154,6 +173,24 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   built `GameData` from the real `index.json` and asserted `length === 150` plus
   adjacency/coverage. When a claim is "holds for the shipped data", pin it
   against the real payload so a data resize fails CI, not just a fixture.
+- `a-dramatic-simulation-result-is-usually-the-harness` (x1): the first hint
+  policy bought a hint on every loop iteration while candidates exceeded a
+  threshold, and reported 26-66% loss rates - a headline-shaped number that was
+  measuring a degenerate player, not the game. Simulations fail silently: they
+  always produce a plausible table. Before reporting an aggregate that would be
+  a headline, trace ONE concrete case by hand against the real data (here, what
+  clade the first hint actually reveals for Tyrannosaurus, and how many species
+  are inside it) - the hand trace is what separates a finding from an artifact
+  of the policy. 20260729-092435.
+- `simulate-the-shipped-logic-by-importing-it` (x1): the playtest difficulty
+  harness imports `computeLCA`, `lineage`, `GameState` and `findNextHintCladeId`
+  from `src/` and adds only the player POLICIES, which do not exist in `src/` at
+  all. A simulation that re-implements the rules measures a game nobody plays
+  and rots the moment the rules change; keeping the seam at "policies are new,
+  rules are imported" made the out-of-context reviewer able to certify the model
+  as exact rather than approximate. Direct application of
+  [[hand-copied-logic-mirrors-rot-update-them-in-the-same-change]] at design
+  time instead of at bug time. 20260729-092435.
 
 ## Pending promotions (3+ occurrences, user decides)
 

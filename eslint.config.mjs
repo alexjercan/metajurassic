@@ -44,6 +44,15 @@ export default tseslint.config(
         },
     },
     {
+        // The playtest harness (tasks/20260729-092435): standalone node scripts
+        // whose whole output is a printed report, so `console.log` is the
+        // product, not debug residue.
+        files: ["scripts/**/*.ts"],
+        rules: {
+            "no-console": "off",
+        },
+    },
+    {
         ignores: [
             "dist/",
             "build/",

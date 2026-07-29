@@ -32,3 +32,16 @@ As a practice player, I want a reload or accidental tab close to bring back my i
 ## Notes
 
 - Depends on: `20260729-092258` for the browser-level reload coverage.
+
+## Playtest evidence (2026-07-29, from `20260729-092435`)
+
+Confirmed, ON-SCREEN. `src/practice.ts` calls `createNewGameState`, not
+`loadGameState`, so reloading a practice round starts a brand new random target
+even though `saveGameState` has been writing the round to
+`gameState-practice-...` all along. The state is on disk and simply never read
+back.
+
+Noted during the playtest walkthrough while playing seeded rounds: a seeded
+round reproduces its target on reload only because the SEED reconstructs it, not
+because the saved game is restored - so `?seed=N` masks this bug rather than
+exercising it. Any regression test should use an unseeded practice round.

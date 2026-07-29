@@ -1,6 +1,6 @@
 # Run a structured Metajurassic playtest pass
 
-- STATUS: OPEN
+- STATUS: CLOSED
 - PRIORITY: 86
 - TAGS: ux, gameplay, research
 
@@ -53,31 +53,31 @@ Assumptions recorded rather than asked:
 
 ## Steps
 
-- [ ] Record the instrument choice (simulation + scripted browser walkthrough +
+- [x] Record the instrument choice (simulation + scripted browser walkthrough +
       labelled judgment, in place of a human playtester) in `DECISION.md`.
-- [ ] Build `scripts/playtest/difficulty.ts`: a simulation that imports the REAL
+- [x] Build `scripts/playtest/difficulty.ts`: a simulation that imports the REAL
       `GameData`/`GameState`/`findNextHintCladeId` from `src/` (no hand-copied
       mirror of the LCA logic) and plays every one of the 150 targets with a
       candidate-set-narrowing strategy, reporting the guess distribution, the
       loss rate at MAX_GUESSES=25, and the guesses a hint saves versus its
       cost of 3.
-- [ ] Extend the prettier/eslint/tsconfig globs to cover `scripts/**/*.ts` in
+- [x] Extend the prettier/eslint/tsconfig globs to cover `scripts/**/*.ts` in
       the same change, and note the new directory in AGENTS.md.
-- [ ] Build `scripts/playtest/walkthrough.ts`: a Playwright script (outside the
+- [x] Build `scripts/playtest/walkthrough.ts`: a Playwright script (outside the
       CI gate) that drives the real dev server and captures the first-run,
       mid-game, hint, and game-over screens for daily and seeded practice at a
       desktop and a phone viewport, into a gitignored shots directory.
-- [ ] Run the walkthrough over several seeds spanning shallow/deep clades and
+- [x] Run the walkthrough over several seeds spanning shallow/deep clades and
       famous/obscure species, and read the captured screens for what a
       first-time player can and cannot see at each moment: objective, input,
       autocomplete, tree reading, hint affordance, panel, modal, share.
-- [ ] Evaluate 25 guesses and hint cost 3 against the simulation numbers, and
+- [x] Evaluate 25 guesses and hint cost 3 against the simulation numbers, and
       the session close against the captured game-over screens plus the current
       share text.
-- [ ] Write `NOTES.md`: the four answers, every finding labelled
+- [x] Write `NOTES.md`: the four answers, every finding labelled
       MEASURED/ON-SCREEN/JUDGMENT, and an explicit "what a human playtest still
       has to check" section.
-- [ ] File one tatr task per actionable finding; do not fix anything here.
+- [x] File one tatr task per actionable finding; do not fix anything here.
 
 ## Definition of Done
 
@@ -93,8 +93,28 @@ Assumptions recorded rather than asked:
 
 ## Flow State
 
-- FLOW STEP: PLANNED
+- FLOW STEP: DONE
 - PLAN STATUS: APPROVED
+
+## Outcome
+
+`NOTES.md` holds the findings, `DECISION.md` the instrument choice. Headline:
+**25 guesses is fine and should not change; the hint is the difficulty defect
+(a bad buy at every point measured, ruinous up front); and the biggest gap is
+that the game barely supports the clade-to-members deduction it asks for.**
+
+Follow-up tasks filed:
+
+- `20260729-141414` (p92) Keep the tree visible on mobile after a guess
+- `20260729-141424` (p88) Rework hint reveal order and price
+- `20260729-141425` (p86) Show which species belong to a revealed clade
+- `20260729-141427` (p78) Fix autocomplete filtering order and prefix ranking
+- `20260729-141428` (p76) Fix game-over modal overflow on phone viewports
+- `20260729-141429` (p50) Fix the duplicated word in the share headline
+- `20260729-141430` (p30) Normalize typographic punctuation in Jurassic content
+
+Interim evidence notes added to existing tasks: `20260729-092327`,
+`20260729-125313`, `20260729-101838`, `20260729-101754`.
 
 ## Notes
 

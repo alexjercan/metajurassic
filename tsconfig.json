@@ -18,6 +18,7 @@
         "src/**/*",
         "test/**/*",
         "e2e/**/*",
+        "scripts/**/*.ts",
         "playwright.config.ts",
         "index.d.ts",
         "jest.config.js"

@@ -23,6 +23,7 @@ the content graph from markdown.
 | `src/jurassic/species/*.md`, `src/jurassic/clades/*.md` | **Content source of truth** - one markdown file per species/clade, data in YAML-style frontmatter. |
 | `src/jurassic/index.json` | The served content graph, GENERATED from the markdown above. Do not hand-edit; regenerate it. |
 | `scripts/*.py` | Content pipeline (markdown <-> json <-> csv). See below. |
+| `scripts/playtest/*.ts` | Playtest harness: a difficulty simulation and a browser screen-capture walkthrough. Outside the CI gate. See below. |
 | `test/` | Jest suite (`*.test.ts`). |
 | `webpack.config.js` | Bundler + dev server config (port 8080). |
 | `flake.nix` | Nix dev shell: provides `nodejs`, `uv`, and the Python venv. |
@@ -68,6 +69,23 @@ share as "Practice Dinosaur ...", so they never clobber or masquerade as the
 daily. The daily page (`src/index.ts`) deliberately ignores the param - the
 daily target stays clock-derived (see `tasks/20260729-101819/DECISION.md`).
 `e2e/seed.spec.ts` is the runnable "play a fixed round" walkthrough.
+
+### Playtest harness (outside the gate)
+
+Two standalone TypeScript scripts under `scripts/playtest/` measure the game as
+a game rather than as code. They are NOT part of `npm run ci`:
+
+```sh
+npm run playtest:difficulty   # simulate all 150 targets, print the guess distribution and hint value
+npm run serve                 # in another shell
+npm run playtest:walkthrough  # drive the real screens, shots -> playtest-shots/ (gitignored)
+```
+
+`difficulty.ts` imports the shipped `computeLCA`/`GameState`/`findNextHintCladeId`
+rather than re-implementing them, so it measures the game that actually ships;
+only the player policies are new code. `walkthrough.ts` asserts nothing, which
+is why it lives here and not in `e2e/`. The findings from the first pass are in
+`tasks/20260729-092435/NOTES.md`.
 
 The browser E2E suite lives in `e2e/` (config `playwright.config.ts`) and drives
 the real screens in Chromium. It needs a browser binary: locally the `flake.nix`

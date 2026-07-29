@@ -163,3 +163,7 @@ vite.config.ts.timestamp-*
 tmp
 *metajurassic.json
 *.csv
+
+# Playtest screen captures (scripts/playtest/walkthrough.ts) - evidence for one
+# pass, not repository content. Findings live in the task NOTES.md.
+playtest-shots/

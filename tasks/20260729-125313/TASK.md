@@ -45,3 +45,16 @@ was before 20260729-092315 - just for a returning player instead of a new one.
 - The panel still auto-opens after a fresh guess and on a hint purchase.
   (test: `e2e/panel.spec.ts`)
 - `npm run ci` passes. (cmd: `npm run ci`)
+
+## Playtest evidence (2026-07-29, from `20260729-092435`)
+
+Confirmed still live, ON-SCREEN. A daily round with two guesses made, then
+reloaded: the info panel is `active` again on arrival, on both viewports
+(walkthrough scenario "returning", `07-returning-midgame-*.png`, 23 guesses
+left).
+
+On desktop this is cosmetic. On a phone the panel is full-width, so the
+returning player is shown a clade card and NO tree at all - the reload throws
+away the board they came back to. Worth noting when judging this task's
+priority: its mobile consequence is severe, and it is the same surface as
+`20260729-141414`.

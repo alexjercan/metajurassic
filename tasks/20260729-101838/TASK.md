@@ -33,3 +33,14 @@ As a player finishing the daily puzzle, I want the game-over moment to show my s
 
 - Depends on: `20260729-092504` (post-game flow mapping/tests) so the existing journey is captured first, and `20260729-101747` (round-trip fix) so the streak shown is actually correct.
 - Related: `20260729-101823` (share rewrite); the modal is where sharing happens, so design them together.
+
+## Playtest evidence (2026-07-29, from `20260729-092435`)
+
+The playtest pass evaluated the session close and confirms this task's premise.
+ON-SCREEN unless noted; full context in `tasks/20260729-092435/NOTES.md`.
+
+- The win modal is a trophy, "The answer was X", and `Solved in 2 / 25 guesses`. No streak, no distribution, no countdown. (`05-win-modal-seed42-desktop.png`)
+- The loss modal reads `You used all 25 guesses` - correct in the no-hint round captured, and still wrong when hints were spent, as this task already records.
+- JUDGMENT: the share message is now genuinely worth pasting after `20260729-101823` (grid varies, stats are real), but nothing on the end screen refers to tomorrow at all. The retention gap is the modal around the share, not the share.
+- Practice game over offers both a "Practice" link in the hint chip and a "Practice" button in the modal; on the practice page both mean "play again", which works. Keeping practice lightweight, as this task plans, is consistent with what is there.
+- BLOCKER to note: the modal action row already overflows a phone viewport (`20260729-141428`). A stats card and countdown make it taller and wider, so land that fix first.
