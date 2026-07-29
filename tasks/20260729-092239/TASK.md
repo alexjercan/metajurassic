@@ -1,8 +1,13 @@
 # Restore flow conformance records
 
-- STATUS: OPEN
+- STATUS: CLOSED
 - PRIORITY: 100
-- TAGS: process,flow,docs
+- TAGS: process, flow, docs
+
+## Flow State
+
+- FLOW STEP: DONE
+- PLAN STATUS: APPROVED
 
 ## Story
 
@@ -17,11 +22,11 @@ As a maintainer, I want Metajurassic's task trail to satisfy the flow/tatr lifec
 
 ## Steps
 
-- [ ] Create the repository lessons ledger in the expected location and seed it with the project-level guidance needed for future Metajurassic work.
-- [ ] Backfill a review artifact for `tasks/20260331-154614` that honestly records what can be verified now and what was missing from the original closeout.
-- [ ] Backfill a retro artifact for `tasks/20260331-154614` that records the process miss and what to do differently next time.
-- [ ] Decide whether any historical task text needs non-destructive append-only notes, without rewriting history to pretend the original flow happened.
-- [ ] Run the tatr conformance check and fix remaining process findings.
+- [x] Create the repository lessons ledger in the expected location and seed it with the project-level guidance needed for future Metajurassic work.
+- [x] Backfill a review artifact for `tasks/20260331-154614` that honestly records what can be verified now and what was missing from the original closeout.
+- [x] Backfill a retro artifact for `tasks/20260331-154614` that records the process miss and what to do differently next time.
+- [x] Decide whether any historical task text needs non-destructive append-only notes, without rewriting history to pretend the original flow happened.
+- [x] Run the tatr conformance check and fix remaining process findings.
 
 ## Definition of Done
 

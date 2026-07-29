@@ -23,3 +23,12 @@ idea is to scale down the CSS for the graph based on the number of guesses.
 
 Maybe we can even look at the tree more high-level. So basically if we have a
 lot of guesses on the same line (level), we can also scale it down.
+
+## History (appended 2026-07-29)
+
+This task shipped in commit `d684369` and was set CLOSED on 2026-04-01 without a
+REVIEW.md or RETRO.md. Those two records were BACKFILLED on 2026-07-29 under the
+flow-conformance repair task `20260729-092239`, reconstructed from the committed
+diff. The original text above is left verbatim; no flow gate or plan approval is
+claimed for the original work. Follow-up hardening (resize/orientation recompute,
+regression coverage) is tracked in `20260729-092339`.
