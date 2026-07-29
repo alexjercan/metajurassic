@@ -23,7 +23,7 @@ the content graph from markdown.
 | `src/jurassic/species/*.md`, `src/jurassic/clades/*.md` | **Content source of truth** - one markdown file per species/clade, data in YAML-style frontmatter. |
 | `src/jurassic/index.json` | The served content graph, GENERATED from the markdown above. Do not hand-edit; regenerate it. |
 | `scripts/*.py` | Content pipeline (markdown <-> json <-> csv). See below. |
-| `scripts/playtest/*.ts` | Playtest harness: a difficulty simulation and a browser screen-capture walkthrough. Outside the CI gate. See below. |
+| `scripts/playtest/*.ts` | Playtest harness: a difficulty simulation, a hint-value simulation, and a browser screen-capture walkthrough. Outside the CI gate. See below. |
 | `test/` | Jest suite (`*.test.ts`). |
 | `webpack.config.js` | Bundler + dev server config (port 8080). |
 | `flake.nix` | Nix dev shell: provides `nodejs`, `uv`, and the Python venv. |
@@ -72,14 +72,21 @@ daily target stays clock-derived (see `tasks/20260729-101819/DECISION.md`).
 
 ### Playtest harness (outside the gate)
 
-Two standalone TypeScript scripts under `scripts/playtest/` measure the game as
+Three standalone TypeScript scripts under `scripts/playtest/` measure the game as
 a game rather than as code. They are NOT part of `npm run ci`:
 
 ```sh
 npm run playtest:difficulty   # simulate all 150 targets, print the guess distribution and hint value
+npm run playtest:hint         # price a hint against a guess in bits, per selection policy and cost
 npm run serve                 # in another shell
 npm run playtest:walkthrough  # drive the real screens, shots -> playtest-shots/ (gitignored)
 ```
+
+`hint.ts` is the evidence rig for `tasks/20260729-160500/SPIKE.md` (why the hint
+is a bad buy and what selection rule and price fix it). Like `difficulty.ts` it
+imports the shipped game logic; it also re-checks its own reproduction of
+`findNextHintCladeId` against the real function on every run, so a change to the
+shipped rule shows up as a mismatch instead of a silently stale comparison.
 
 `difficulty.ts` imports the shipped `computeLCA`/`GameState`/`findNextHintCladeId`
 rather than re-implementing them, so it measures the game that actually ships;

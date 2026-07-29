@@ -242,6 +242,35 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   playtest walkthrough) when a round of work needs its own long-lived server.
   20260729-092435.
 
+## Game design and measurement
+
+- `price-a-mechanic-in-the-same-unit-as-what-it-costs` (x1): the hint was argued
+  about in feel ("hints are a bad deal") and the proposed fixes were all about
+  the reveal ORDER. Converting both sides to the unit the mechanic actually
+  trades in - bits of candidate-set reduction - settled it as arithmetic: a
+  guess is worth 1.77 bits, so a hint at `HINT_COST = 3` must return 5.2 bits,
+  i.e. cut 150 species to under 5. No reveal rule can do that and still be a
+  hint, so the PRICE was load-bearing and nobody had measured it. Find the
+  common unit before proposing changes to a game mechanic; it can reframe the
+  question out of the argument everyone is having. 20260729-160500.
+- `measure-the-fallback-branch-of-a-rule-you-recommend` (x1): the recommended
+  threshold-split hint rule has a "nothing met the threshold" path that returns
+  the deepest clade - which LOOKS exactly like the bottom-up policy the same doc
+  spends a paragraph rejecting as a solve button. The first draft recommended
+  the rule without noticing the branch existed. Instrumenting it corrected the
+  intuition in both directions: it fires on 18.6% of calls (more than assumed),
+  and it is harmless by construction (only reachable when nothing met the
+  threshold, so what it returns necessarily holds MORE than the threshold share
+  - measured min 25%, median 67%). Measure the fallback before recommending the
+  rule; reading the happy path shows neither the rate nor the reason.
+  20260729-160500.
+- `state-the-sample-before-quoting-the-tenths` (x1): the hint simulation ran at
+  5 trials per target and the doc compared cells differing by 0.2 as if that
+  were signal. Re-running at 20 trials held the headline gaps, but the order of
+  operations was backwards. Print the trial count in the report header and make
+  it a knob (`PLAYTEST_TRIALS`), so a claim resting on a small gap can be re-run
+  instead of argued about. 20260729-160500.
+
 ## Pending promotions (3+ occurrences, user decides)
 
 (none yet)
