@@ -1,6 +1,6 @@
 # Decision: canonical puzzle-key format
 
-STATUS: ACCEPTED
+- STATUS: ACCEPTED
 
 ## Context
 

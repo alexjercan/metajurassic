@@ -1,5 +1,7 @@
 # Review: puzzle key round-trip off-by-one fix
 
+- VERDICT: APPROVE
+
 ## Round 1 - REQUEST_CHANGES (out-of-context reviewer)
 
 Reviewed commit `266742f` on branch `fix/puzzle-key-roundtrip`.
