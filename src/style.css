@@ -1170,7 +1170,19 @@ footer a + a::before {
     border-radius: 16px;
     padding: 40px 48px;
     text-align: center;
-    max-width: 420px;
+    /* border-box, or `width: 90%` is the CONTENT width and the padding and
+       border are added OUTSIDE it: the box then measures 0.9v + 96 + 2, which
+       is wider than the viewport for anything under 960px. Above ~467px the old
+       `max-width` capped the content box first and hid it; below that it clipped
+       both edges (measured: 5.3px each side at 393px, 9.0px at 320px).
+       The cap is restated as the same OUTER width that rule produced -
+       420 content + 96 padding + 2 border - so the modal keeps the size it has
+       always had and only the narrow-viewport clipping changes. Because the cap
+       is now an outer width it has to be restated per padding step: the 768px
+       block below sets its own, or the tablet band would silently gain the 48px
+       of padding the desktop step accounts for. */
+    box-sizing: border-box;
+    max-width: 518px;
     width: 90%;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9);
     animation: modalIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
@@ -1237,6 +1249,15 @@ footer a + a::before {
     gap: 12px;
     justify-content: center;
     margin-top: 24px;
+    /* The guarantee that this row can never spill off the screen again. The
+       three actions want 421.6px at the desktop padding, so on a phone they do
+       not fit on one line at any honest padding below ~360px - and without
+       `wrap` the row simply overflowed its box in both directions
+       (`justify-content: center` splits the overshoot). The mobile block below
+       trims the button padding so the common phone width still gets ONE row;
+       this line is what makes a narrower screen, a longer label or a wider font
+       stack take a second row instead of hanging off the edge. */
+    flex-wrap: wrap;
 }
 
 .share-icon {
@@ -1249,14 +1270,30 @@ footer a + a::before {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 10px 40px;
+    /* 32px, not the 40px this used to be. At 40px the three actions need
+       421.6px against the modal's 420px content box - they overflowed on the
+       DESKTOP too, by 1.6px, invisibly, because the 48px padding absorbed it.
+       Adding `flex-wrap` to fix the phone turned that hairline overflow into a
+       wrapped second row at 1280px, so the row is given room to be honestly
+       one line: 373.6px of buttons in 420px. */
+    padding: 10px 32px;
     background: transparent;
     border: 1px solid var(--glass-border);
     border-radius: 30px;
     color: #ccc;
     font-size: 1rem;
     cursor: pointer;
-    transition: 0.2s;
+    /* Named properties, not the bare `0.2s` (which is `all`) this used to be.
+       :hover only changes these three, so the hover feel is unchanged - but
+       `all` also animated PADDING, so crossing the 768px breakpoint spent 0.2s
+       sliding the buttons between their two sizes. That made the row's width
+       mid-resize a value belonging to NEITHER layout (measured 31.0px, then
+       28.9px, then 23.9px of padding on successive samples while it settled),
+       which is not a size any layout rule asked for. */
+    transition:
+        background 0.2s,
+        color 0.2s,
+        border-color 0.2s;
     text-decoration: none;
 }
 
@@ -2100,6 +2137,46 @@ footer a + a::before {
 
     .modal {
         padding: 28px 24px;
+        /* The outer cap for THIS padding step: 420 content + 48 padding + 2
+           border, the width master rendered here. Without it the 518px cap set
+           for the desktop padding carries into the 576-768px band and, with
+           border-box, hands the extra 48px to the content box instead - a
+           tablet modal 48px wider than before, on a change that is meant to fix
+           clipping and nothing else (measured at 600/700/768px: master 470px
+           outer with a 420px row, uncapped branch 518px with a 468px row). */
+        max-width: 470px;
+    }
+
+    /* 80px of horizontal padding per button (the desktop `10px 40px`) is what
+       made the three actions need 421.6px against a 305.7px content box at
+       393px wide. 18px keeps them on ONE row on a Pixel 5 - 285.6px of buttons
+       in a 303.7px row, so 18.1px to spare - and lets 360px and 320px take the
+       second row `flex-wrap` provides, which is the honest outcome at those
+       widths.
+       Read that margin before spending it: 151.6px of the 285.6px is label
+       TEXT, so labels rendering ~12% wider wrap the row. The stack is
+       `"Segoe UI", Tahoma, sans-serif` and neither named face exists here or on
+       the CI runner, so both fall through to the generic - which `fc-match
+       sans-serif` resolves to DejaVu Sans on this machine, the same wide
+       default `ubuntu-latest` uses, so 18.1px is the margin on the widest face
+       in play rather than on a flattering local one. If a runner ever does wrap
+       it, the fix is a smaller padding here, not a weaker assertion: the row
+       wrapping is correct behaviour, and `e2e/modal.spec.ts`'s
+       `expectActionsOnOneRow` is what would report it.
+       Deliberately NO `min-width: 0` here. It was tried, and it makes an
+       overflow impossible for the wrong reason: with the floor removed the
+       pills shrink below their own labels and squeeze the text instead of
+       spilling, which kept every viewport assertion GREEN on a layout with no
+       `flex-wrap` and the old 40px padding - i.e. it silenced the exact failure
+       this task exists to catch. The default `min-width: auto` keeps a pill at
+       its label's width, so a row that does not fit has to wrap, and a row that
+       cannot wrap fails the test out loud. */
+    .modal-actions {
+        gap: 10px;
+    }
+
+    .modal-btn {
+        padding: 10px 18px;
     }
 
     footer {

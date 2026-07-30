@@ -1,5 +1,9 @@
 import { test, expect } from "@playwright/test";
-import { loadContent, seedFinishedDailyGame } from "./helpers";
+import {
+    loadContent,
+    seedFinishedDailyGame,
+    expectActionsOnOneRow,
+} from "./helpers";
 
 // End-of-game modal smoke coverage. The finished game state is injected into
 // localStorage keyed off a frozen clock (see helpers.ts and DECISION.md), so
@@ -46,5 +50,30 @@ test.describe("end-of-game modal", () => {
         await expect(page.locator("#modal-title")).toHaveClass(
             /modal-title-loss/
         );
+    });
+});
+
+// The desktop side of the phone-overflow fix (tasks/20260729-141428). Making
+// `.modal-actions` wrap is what guarantees the row can never hang off a narrow
+// screen again - but the three buttons at their old 40px padding needed 421.6px
+// against the modal's 420px content box, so they had been overflowing it by
+// 1.6px on the DESKTOP too, invisibly absorbed by the padding. With `wrap` that
+// hairline became a wrapped second row at 1280px. The padding was cut to 32px to
+// give the row honest room, and this pins the outcome: on a desktop viewport the
+// actions are one row, with the margin stated rather than assumed.
+test.describe("end-of-game modal on desktop", () => {
+    test("the actions sit on a single row", async ({ page }) => {
+        await page.clock.install({ time: new Date("2026-06-15T12:00:00") });
+        await page.goto("/");
+        const { speciesIds } = await loadContent(page);
+        const target = speciesIds[0];
+        await seedFinishedDailyGame(page, {
+            targetId: target,
+            guesses: [target],
+            lastGuessId: target,
+        });
+        await page.reload();
+
+        await expectActionsOnOneRow(page);
     });
 });

@@ -234,7 +234,26 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   wrong answers too. Sibling of
   [[count-both-branches-in-a-property-test-or-it-passes-vacuously]] - both are
   assertions that look like coverage and are not. 20260729-182255.
-- `quote-the-mutation-not-the-memory-of-it` (x1): a mutation experiment proving a
+- `revert-each-part-of-a-fix-separately-not-the-fix-as-a-whole` (x1): the phone
+  modal fix had four independent CSS changes, and "revert the whole file -> all 5
+  tests red" was treated as proof they were all load-bearing. The reviewer
+  reverted them one at a time: three left the suite GREEN. One-at-a-time reverts
+  are N experiments and the whole-file revert is the weakest one; run the N.
+  20260729-141428.
+- `a-speculative-knob-beside-a-failing-test-is-a-suspect` (x1): a `min-width: 0`
+  added to flex items "in case a label gets long" removed the flex floor, so the
+  buttons shrank below their own labels instead of spilling off screen - and kept
+  every viewport assertion green on the exact layout the task existed to reject.
+  A tolerance, `min-width: 0` or `!important` added just-in-case next to a test
+  meant to fail: ask what it makes unobservable. Family of
+  [[never-add-a-tolerance-to-silence-an-undiagnosed-failure]], but the knob is in
+  the PRODUCT here, not the test. 20260729-141428.
+- `turn-every-axis-word-in-a-plan-into-a-number-before-ticking-it` (x1): a step
+  promising a sweep of "narrow AND short" viewports was ticked with three tall
+  portrait sizes, so the vertical half of the new assertion could not fail
+  anywhere in the swept set - an untested axis presented as covered. Sibling of
+  [[a-layout-assertion-at-one-viewport-is-a-sample-of-one]]. 20260729-141428.
+- `quote-the-mutation-not-the-memory-of-it` (x2): a mutation experiment proving a
   new test discriminates was recorded as `guessTier(...) - 1`; what had actually
   been run was `Math.max(0, guessTier(...) - 1)`, and the clamp was the ONLY
   reason the test failed (it collapses two tiers onto one value). So the record
@@ -246,7 +265,10 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   down exactly. Sibling of
   [[a-verification-result-expires-when-the-code-it-ran-against-changes]]: that one
   is the result going stale, this one is the write-up describing code that never
-  ran. 20260729-182255.
+  ran. 20260729-182255. Second hit (20260729-141428): the recorded
+  "box-sizing only" CSS mutation had quietly KEPT one of the fix's own
+  overrides, so the figure was 12px where the described mutation prints 14px -
+  again caught by the reviewer re-running the description.
 
 
 - `a-new-listener-inherits-every-trigger-of-its-event` (x1): a rotation fix added
@@ -428,6 +450,22 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   unnoticed because its effect had only been measured at desktop widths - the
   axis where it did work. Verify a media block's EFFECT on both axes it can be
   overridden on, and order height blocks after width blocks. 20260729-092327.
+
+- `converting-a-css-property-between-coordinate-systems-must-be-restated-per-media-block`
+  (x1): `.modal`'s `max-width` was converted from a content width to an outer
+  width (`box-sizing: border-box`), correctly, at the DESKTOP padding - and the
+  `@media (max-width: 768px)` block reads a different padding, so the 520-768px
+  band silently gained 48px while the comment claimed nothing had changed. When a
+  declaration changes coordinate system, grep that property inside EVERY media
+  block before writing what changed. 20260729-141428.
+- `a-bare-transition-duration-animates-layout-properties-too` (x1): `.modal-btn`
+  carried `transition: 0.2s`, which is `all`, so crossing a breakpoint spent 0.2s
+  animating PADDING - three successive samples of one layout read 31.0px, 28.9px
+  and 23.9px, a width belonging to neither rule. Name the properties a hover
+  transition actually needs, and when a measurement disagrees with itself between
+  samples suspect a transition before suspecting a stale bundle. Sibling of
+  [[poll-dot-not-resolves-on-the-first-sample-so-it-cannot-watch-a-transition]].
+  20260729-141428.
 
 ## Game design and measurement
 

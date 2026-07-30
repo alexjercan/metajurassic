@@ -13,7 +13,29 @@ import {
     expectNodeTextReadable,
     touchScrollArena,
     MIN_PAINTED_FONT_PX,
+    expectModalFitsViewport,
+    expectActionsOnOneRow,
+    loadContent,
+    seedFinishedDailyGame,
+    playSeededPracticeToWin,
+    playSeededPracticeToLoss,
 } from "./helpers";
+
+// Phone sizes the game-over modal must hold at. 393px is the Pixel 5 this
+// project runs (the width the reported overflow was measured on); 360px is the
+// commonest Android width; 320px is the narrowest phone viewport still in use
+// and the case with the least room for the action row. The last entry is short
+// rather than narrow: every other size here is tall enough that the modal's
+// ~331px cannot reach the fold, so without it the helper's top/bottom
+// assertions could not fail anywhere in the swept set (LESSONS.md:
+// a-layout-assertion-at-one-viewport-is-a-sample-of-one - a sweep that cannot
+// fail on an axis has not covered that axis).
+const NARROW_VIEWPORTS = [
+    { width: 393, height: 851 },
+    { width: 360, height: 640 },
+    { width: 320, height: 568 },
+    { width: 393, height: 500 },
+];
 
 // Mobile viewport coverage (runs on the Pixel 5 project). The player must be
 // able to see the primary game surface AND reach the guess input, without the
@@ -654,5 +676,104 @@ test.describe("many-guess tree on a phone", () => {
             .toBe(true);
 
         await expectNoDeadScrollBand(page);
+    });
+});
+
+// The finished round on a phone. The playtest pass (tasks/20260729-092435,
+// NOTES.md F3.8) caught the game-over modal's action row spilling off both
+// edges of a Pixel 5: "OK" clipped at x=0 and "Share" - the retention action -
+// hanging off the right. Two separate CSS overflows produced it (see
+// tasks/20260729-141428/TASK.md), so these pin the OUTCOME (every control on
+// screen) rather than either rule.
+//
+// Daily rounds are injected into localStorage off a frozen clock; practice
+// cannot be (it always rolls a fresh state) and is played out for real. Both
+// pages render the same three-button row from src/index.html, so the four cases
+// are a divergence guard, not four different widths.
+test.describe("mobile game-over modal", () => {
+    test.describe("daily", () => {
+        test.beforeEach(async ({ page }) => {
+            await page.clock.install({ time: new Date("2026-06-15T12:00:00") });
+            await page.goto("/");
+        });
+
+        test("every win action is on screen", async ({ page }) => {
+            const { speciesIds } = await loadContent(page);
+            const target = speciesIds[0];
+            await seedFinishedDailyGame(page, {
+                targetId: target,
+                guesses: [target],
+                lastGuessId: target,
+            });
+            await page.reload();
+
+            await expect(page.locator("#modal-title")).toHaveText(
+                "You found it!"
+            );
+            await expectModalFitsViewport(page);
+            // At the Pixel 5's 393px the three actions are meant to sit on ONE
+            // row - that is what the trimmed button padding and gap buy, and
+            // fitting the viewport does not prove it (a row wrapped to two
+            // lines fits too).
+            await expectActionsOnOneRow(page);
+        });
+
+        test("every loss action is on screen", async ({ page }) => {
+            const { speciesIds } = await loadContent(page);
+            const target = speciesIds[0];
+            const wrong = speciesIds.slice(1, 26);
+            expect(wrong).toHaveLength(25);
+            await seedFinishedDailyGame(page, {
+                targetId: target,
+                guesses: wrong,
+                lastGuessId: wrong[wrong.length - 1],
+            });
+            await page.reload();
+
+            await expect(page.locator("#modal-title")).toHaveText("Game Over");
+            await expectModalFitsViewport(page);
+        });
+
+        // A single viewport is a sample of one (LESSONS.md:
+        // a-layout-assertion-at-one-viewport-is-a-sample-of-one). The Pixel 5's
+        // 393px is not the narrowest phone in use, and the row has to hold at
+        // 320px too - the width where the three buttons have the least room.
+        test("the actions stay on screen down to a 320px phone", async ({
+            page,
+        }) => {
+            const { speciesIds } = await loadContent(page);
+            const target = speciesIds[0];
+            await seedFinishedDailyGame(page, {
+                targetId: target,
+                guesses: [target],
+                lastGuessId: target,
+            });
+            await page.reload();
+            await expect(page.locator("#modal-title")).toHaveText(
+                "You found it!"
+            );
+
+            for (const size of NARROW_VIEWPORTS) {
+                await page.setViewportSize(size);
+                await expectModalFitsViewport(page);
+            }
+        });
+    });
+
+    test.describe("practice", () => {
+        // A real playthrough: a page load plus up to 25 guesses, each of which
+        // waits on the autocomplete and the counter, so this needs more than
+        // the default per-test budget.
+        test.setTimeout(180_000);
+
+        test("every win action is on screen", async ({ page }) => {
+            await playSeededPracticeToWin(page);
+            await expectModalFitsViewport(page);
+        });
+
+        test("every loss action is on screen", async ({ page }) => {
+            await playSeededPracticeToLoss(page);
+            await expectModalFitsViewport(page);
+        });
     });
 });

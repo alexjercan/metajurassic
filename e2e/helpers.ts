@@ -1,5 +1,6 @@
 import { expect, Page } from "@playwright/test";
 import { MIN_NODE_FONT_PX } from "../src/ui/treeLayout";
+import { MAX_GUESSES } from "../src/constants";
 import { dailyKeyForNow } from "./dailyKeyMirror";
 
 // Shared fixtures for the browser E2E suite. See tasks/20260729-092258/DECISION.md
@@ -874,4 +875,310 @@ export async function touchScrollArena(
                 requestAnimationFrame(tick);
             })
     );
+}
+
+// Wait until the end-of-game modal has stopped moving.
+//
+// Not optional bookkeeping, and the direction of the error matters: `.modal`
+// runs a `modalIn` keyframe that starts at `scale(0.8) translateY(20px)`, so a
+// rect read straight after the overlay goes `active` reports a box up to 20%
+// NARROWER and 20px lower than the layout. For an assertion about a row
+// spilling past the viewport edge that is the dangerous direction - the broken
+// layout measures as fitting. Wait for the animation to reach rest and read
+// once. Same trap as `waitForTreeToSettle` and `waitForPanelToSettle`, third
+// element.
+//
+// `subtree: true` because the row's controls animate too, not just the modal
+// box: `.modal-btn` used to carry `transition: 0.2s` - which is `all`, padding
+// included - so crossing the 768px breakpoint left the buttons at a padding
+// belonging to neither layout for 0.2s. That transition is now narrowed to the
+// three properties :hover actually changes, but reading the subtree keeps this
+// honest against the next transition someone adds, and a measurement taken
+// while a control is still resizing is not a measurement of the layout.
+export async function waitForModalToSettle(page: Page): Promise<void> {
+    await expect(page.locator("#modal-overlay")).toHaveClass(/active/);
+    await page.locator("#modal").evaluate((el) => {
+        // Force style and layout first: a transition started by a viewport
+        // change does not exist as an Animation until the styles are
+        // recalculated, and collecting before that would find nothing to wait
+        // for and return immediately.
+        el.getBoundingClientRect();
+        return Promise.all(
+            el
+                .getAnimations({ subtree: true })
+                // A resize that supersedes a running transition REJECTS its
+                // finished promise. Settling is the goal, not completion.
+                .map((a) => a.finished.catch(() => undefined))
+        ).then(() => undefined);
+    });
+}
+
+type MeasuredBox = {
+    name: string;
+    left: number;
+    right: number;
+    top: number;
+    bottom: number;
+};
+
+// Assert the game-over modal and EVERY control in its action row lie inside the
+// viewport.
+//
+// TWO containers, and both are load-bearing:
+//
+//  - the viewport, because the modal box itself was wider than the screen
+//    (`width: 90%` on a content-box with 48px of padding either side), which a
+//    check nested inside `.modal` could never have seen; and
+//  - `.modal`'s own padding box, because the viewport check ALONE does not
+//    discriminate the second overflow. At 320px the un-wrapped row measures
+//    [17.2, 302.8] - inside a 320px viewport, so green - while the modal's
+//    content box is [41.0, 279.0]: the controls sit 24px out over the modal's
+//    padding and rounded border on each side. That is the "row wider than the
+//    box" defect this task exists to fix, passing a viewport-only assertion.
+//
+// Every child of `.modal-actions` is measured, not a hand-listed pair, so a
+// control added to the row later is covered without touching this helper. The
+// two ids are then asserted PRESENT, so an empty or half-rendered row fails
+// here instead of vacuously passing a loop over nothing.
+export async function expectModalFitsViewport(page: Page): Promise<void> {
+    await waitForModalToSettle(page);
+
+    const measured = await page.evaluate(() => {
+        const boxes: MeasuredBox[] = [];
+        const record = (name: string, el: Element | null) => {
+            if (!el) return;
+            const r = el.getBoundingClientRect();
+            boxes.push({
+                name,
+                left: r.left,
+                right: r.right,
+                top: r.top,
+                bottom: r.bottom,
+            });
+        };
+
+        const modal = document.getElementById("modal");
+        record(".modal", modal);
+        const row = document.querySelector(".modal-actions");
+        record(".modal-actions", row);
+
+        const controls: MeasuredBox[] = [];
+        for (const child of Array.from(row?.children ?? [])) {
+            const label = (child.textContent ?? "").trim() || "unlabelled";
+            const name = child.id
+                ? `#${child.id}`
+                : `.modal-actions "${label}"`;
+            record(name, child);
+            const r = child.getBoundingClientRect();
+            controls.push({
+                name,
+                left: r.left,
+                right: r.right,
+                top: r.top,
+                bottom: r.bottom,
+            });
+        }
+
+        // The modal's padding box: where its own content is allowed to be, i.e.
+        // inside the border but including the padding the row must not spill
+        // across.
+        let inner = null;
+        if (modal) {
+            const r = modal.getBoundingClientRect();
+            const cs = getComputedStyle(modal);
+            const px = (v: string) => parseFloat(v || "0");
+            inner = {
+                left: r.left + px(cs.borderLeftWidth) + px(cs.paddingLeft),
+                right: r.right - px(cs.borderRightWidth) - px(cs.paddingRight),
+            };
+        }
+
+        return {
+            boxes,
+            controls,
+            inner,
+            viewportWidth: window.innerWidth,
+            viewportHeight: window.innerHeight,
+        };
+    });
+
+    const names = measured.boxes.map((b) => b.name);
+    expect(names, "the modal action row rendered no OK button").toContain(
+        "#modal-close-btn"
+    );
+    expect(names, "the modal action row rendered no Share button").toContain(
+        "#modal-share-btn"
+    );
+
+    const { viewportWidth: vw, viewportHeight: vh } = measured;
+    for (const box of measured.boxes) {
+        // One pixel of slack for subpixel layout, matching the other geometry
+        // helpers here. The overflows under test are tens of pixels wide, so
+        // this cannot be the difference between a pass and a fail.
+        expect(
+            box.left,
+            `${box.name} starts ${Math.round(-box.left)}px left of the ${vw}px viewport`
+        ).toBeGreaterThanOrEqual(-1);
+        expect(
+            box.right,
+            `${box.name} extends ${Math.round(box.right - vw)}px past the right edge of the ${vw}px viewport`
+        ).toBeLessThanOrEqual(vw + 1);
+        expect(
+            box.top,
+            `${box.name} starts ${Math.round(-box.top)}px above the ${vh}px viewport`
+        ).toBeGreaterThanOrEqual(-1);
+        expect(
+            box.bottom,
+            `${box.name} extends ${Math.round(box.bottom - vh)}px below the ${vh}px viewport`
+        ).toBeLessThanOrEqual(vh + 1);
+    }
+
+    expect(measured.inner, "#modal is absent").not.toBeNull();
+    if (!measured.inner) return;
+    const inner = measured.inner;
+    for (const control of measured.controls) {
+        expect(
+            control.left,
+            `${control.name} starts ${Math.round(inner.left - control.left)}px left of the modal's own content box`
+        ).toBeGreaterThanOrEqual(inner.left - 1);
+        expect(
+            control.right,
+            `${control.name} extends ${Math.round(control.right - inner.right)}px past the right of the modal's own content box`
+        ).toBeLessThanOrEqual(inner.right + 1);
+    }
+}
+
+// Assert the modal's actions are on a SINGLE row, with the margin stated.
+//
+// Separate from `expectModalFitsViewport` because it is not true at every size:
+// the row deliberately wraps below ~393px, where three pills genuinely do not
+// fit a phone. It is the promise made at the sizes where they DO fit - the
+// desktop, and the 393px phone the reported overflow was measured on - and
+// without it nothing distinguishes "fits" from "wrapped to two lines", so the
+// button-padding trims that buy the single row are unguarded.
+export async function expectActionsOnOneRow(page: Page): Promise<void> {
+    await waitForModalToSettle(page);
+
+    const row = await page.evaluate(() => {
+        const actions = document.querySelector(".modal-actions");
+        if (!actions) return null;
+        const kids = Array.from(actions.children);
+        const gap = parseFloat(getComputedStyle(actions).columnGap || "0");
+        return {
+            distinctTops: new Set(
+                kids.map((c) => Math.round(c.getBoundingClientRect().top))
+            ).size,
+            needed:
+                kids.reduce(
+                    (sum, c) => sum + c.getBoundingClientRect().width,
+                    0
+                ) +
+                gap * (kids.length - 1),
+            available: actions.getBoundingClientRect().width,
+            viewportWidth: window.innerWidth,
+        };
+    });
+
+    expect(row, ".modal-actions is absent").not.toBeNull();
+    if (!row) return;
+
+    expect(
+        row.distinctTops,
+        `at ${row.viewportWidth}px the ${row.needed.toFixed(1)}px of actions wrapped inside a ${row.available.toFixed(1)}px row`
+    ).toBe(1);
+    expect(
+        row.needed,
+        `at ${row.viewportWidth}px the actions need ${row.needed.toFixed(1)}px of the row's ${row.available.toFixed(1)}px`
+    ).toBeLessThanOrEqual(row.available);
+}
+
+// The species name for a species id, read from the real served payload.
+async function speciesNameById(page: Page, id: string): Promise<string> {
+    return page.evaluate(async (speciesId) => {
+        const res = await fetch("/jurassic/index.json");
+        const raw = (await res.json()) as {
+            species: Record<string, { species: string }>;
+        };
+        return raw.species[speciesId]?.species ?? "";
+    }, id);
+}
+
+// The target of the practice round currently in localStorage.
+//
+// Practice CANNOT be seeded the way the daily is: `src/practice.ts` always
+// calls `createNewGameState` and never restores a save, so a finished round
+// written into localStorage is simply ignored. The only way to reach the
+// practice game-over modal is to play a round out - and the only way to know
+// which species to guess is to spend one guess, which is what makes the app
+// persist the state this reads. The key is found by prefix rather than
+// recomputed from the seed, so the padding formula living in two places cannot
+// silently drift (LESSONS.md: hand-copied-logic-mirrors-rot).
+async function practiceTargetName(page: Page): Promise<string> {
+    const targetId = await page.evaluate(() => {
+        const key = Object.keys(localStorage).find((k) =>
+            k.startsWith("gameState-practice-")
+        );
+        if (!key) return "";
+        const raw = localStorage.getItem(key);
+        return raw ? (JSON.parse(raw) as { targetId: string }).targetId : "";
+    });
+    expect(targetId, "no practice game state was persisted").not.toBe("");
+
+    const name = await speciesNameById(page, targetId);
+    expect(name, `no species named by id ${targetId}`).not.toBe("");
+    return name;
+}
+
+// Play the seeded practice round to a WIN, and return the target's name.
+export async function playSeededPracticeToWin(page: Page): Promise<string> {
+    await page.goto(`/practice/?seed=${WIDE_TREE_SEED}`);
+    await page.waitForSelector("#tree-container .node-box");
+
+    // One guess to make the app persist the round, so the target can be read.
+    // "saurus" is an interior match of many species names, so the list is
+    // non-empty whatever the target is (same trick as e2e/seed.spec.ts).
+    await guessFirstSuggestion(page, "saurus");
+    await expect(
+        page.locator("#modal-overlay"),
+        "the throwaway guess hit the target, so this is not the 2-guess win it claims to be"
+    ).not.toHaveClass(/active/);
+
+    const target = await practiceTargetName(page);
+    await guessNamedSpecies(page, target);
+
+    await expect(page.locator("#modal-title")).toHaveText("You found it!");
+    return target;
+}
+
+// Play the seeded practice round to a LOSS: every guess spent, none of them the
+// target. The wrong guesses are taken from the served payload at run time and
+// filtered against the target read after the first one, so no hand-kept list
+// can rot into an accidental win.
+export async function playSeededPracticeToLoss(page: Page): Promise<void> {
+    await page.goto(`/practice/?seed=${WIDE_TREE_SEED}`);
+    await page.waitForSelector("#tree-container .node-box");
+
+    const { speciesNames } = await loadContent(page);
+    const first = speciesNames[0];
+    await guessNamedSpecies(page, first);
+
+    const target = await practiceTargetName(page);
+    expect(
+        first,
+        "the first guess was the target, so this round cannot lose"
+    ).not.toBe(target);
+
+    const wrong = speciesNames
+        .filter((name) => name !== target && name !== first)
+        .slice(0, MAX_GUESSES - 1);
+    expect(
+        wrong,
+        `the payload has too few species to spend ${MAX_GUESSES} guesses`
+    ).toHaveLength(MAX_GUESSES - 1);
+    for (const name of wrong) {
+        await guessNamedSpecies(page, name);
+    }
+
+    await expect(page.locator("#stat-box")).toContainText("Guesses Left: 0");
+    await expect(page.locator("#modal-title")).toHaveText("Game Over");
 }
