@@ -1,4 +1,5 @@
 import { GameData, dateToSeed, seedToDate } from "../src/gameData";
+import { expectPinnedZone } from "./timeZone";
 import {
     computeGameStats,
     calculateRollingAverage,
@@ -976,6 +977,12 @@ describe("calculateRollingAverage", () => {
 // format/parse seam via the production writer `saveGameState`, rather than
 // hand-writing a key that silently disagrees with its stored seed.
 describe("daily profile dating and streaks (round-trip regression)", () => {
+    // These assertions are only meaningful in a zone that shifts: run them in
+    // UTC and the DST streak cases pass without ever crossing a transition.
+    beforeAll(() => {
+        expectPinnedZone();
+    });
+
     let gameData: GameData;
     let storage: MockLocalStorage;
     let originalLocalStorage: any;
@@ -1003,26 +1010,15 @@ describe("daily profile dating and streaks (round-trip regression)", () => {
         saveGameState(state, seed, storage, "daily");
     };
 
-    // The daily seed whose PROFILE date (seedToDate(seed) floored to local
-    // midnight, exactly how loadAllGames/calculateStreak read it) is `today`
-    // offset by `deltaDays`. Anchored to seedToDate rather than dateToSeed
-    // because the two are not clean inverses at local midnight across a DST
-    // boundary (see the seed/date DST-drift follow-up task); this keeps the
-    // streak assertions about the streak logic, not that latent drift.
-    const midnightOf = (seed: number) => {
-        const d = seedToDate(seed);
-        d.setHours(0, 0, 0, 0);
-        return d.getTime();
-    };
+    // The daily seed whose PROFILE date (seedToDate(seed), which is exactly how
+    // loadAllGames/calculateStreak read it) is `today` offset by `deltaDays`.
+    // This used to need a correction loop, because seedToDate and dateToSeed
+    // were not clean inverses at local midnight across a DST boundary; they now
+    // are, pinned by test/dstSeedDate.test.ts.
     const daySeed = (deltaDays: number) => {
         const target = new Date();
-        target.setHours(0, 0, 0, 0);
         target.setDate(target.getDate() + deltaDays);
-        const targetMs = target.getTime();
-        let seed = dateToSeed(target);
-        while (midnightOf(seed) < targetMs) seed++;
-        while (midnightOf(seed) > targetMs) seed--;
-        return seed;
+        return dateToSeed(target);
     };
 
     test("a game saved for seed N is dated seedToDate(N) in the profile", () => {
@@ -1069,5 +1065,48 @@ describe("daily profile dating and streaks (round-trip regression)", () => {
 
         expect(stats.currentStreak).toBe(2);
         expect(stats.longestStreak).toBe(2);
+    });
+
+    test("a streak survives the night the clocks go forward", () => {
+        // 2026-03-29 is the spring-forward Sunday in the suite's pinned zone,
+        // so the local midnights of the 29th and the 30th are 23h apart. Diffed
+        // as elapsed milliseconds that floors to zero days and reads as "same
+        // day", breaking the streak; as calendar days it is 1.
+        saveDailyWin(dateToSeed(new Date(2026, 2, 29)), "species1");
+        saveDailyWin(dateToSeed(new Date(2026, 2, 30)), "species2");
+
+        const stats = computeGameStats(gameData, storage, "daily");
+
+        expect(stats.longestStreak).toBe(2);
+    });
+
+    test("a streak survives the night the clocks go back", () => {
+        // The fall-back Sunday's midnight-to-midnight gap is 25h. The elapsed
+        // milliseconds version happened to get this direction right; the test
+        // pins it so a correction for the 23h night cannot overshoot into it.
+        saveDailyWin(dateToSeed(new Date(2026, 9, 25)), "species1");
+        saveDailyWin(dateToSeed(new Date(2026, 9, 26)), "species2");
+
+        const stats = computeGameStats(gameData, storage, "daily");
+
+        expect(stats.longestStreak).toBe(2);
+    });
+
+    test("a win two days ago is stale even when a DST night is in between", () => {
+        // The other half of the same arithmetic: "is the last win today or
+        // yesterday" was also an elapsed-hours division. Two calendar days back
+        // across the spring-forward night is 47h, which floors to 1 and used to
+        // keep a dead streak alive.
+        jest.useFakeTimers({ now: new Date(2026, 2, 31, 10, 0) });
+        try {
+            saveDailyWin(dateToSeed(new Date(2026, 2, 29)), "species1");
+
+            const stats = computeGameStats(gameData, storage, "daily");
+
+            expect(stats.currentStreak).toBe(0);
+            expect(stats.longestStreak).toBe(1);
+        } finally {
+            jest.useRealTimers();
+        }
     });
 });

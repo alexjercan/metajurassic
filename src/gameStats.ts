@@ -1,4 +1,4 @@
-import { GameData, seedToDate } from "./gameData";
+import { calendarDaysBetween, GameData, seedToDate } from "./gameData";
 import { StorageProvider, defaultStorage } from "./storage";
 import { GameState, parseGameStateKey } from "./gameState";
 
@@ -275,9 +275,6 @@ function calculateStreak(results: GameResult[]): {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    const yesterday = new Date(today);
-    yesterday.setDate(yesterday.getDate() - 1);
-
     for (const result of wins) {
         const resultDate = new Date(result.date);
         resultDate.setHours(0, 0, 0, 0);
@@ -285,10 +282,10 @@ function calculateStreak(results: GameResult[]): {
         if (lastDate === null) {
             tempStreak = 1;
         } else {
-            const daysDiff = Math.floor(
-                (resultDate.getTime() - lastDate.getTime()) /
-                    (1000 * 60 * 60 * 24)
-            );
+            // Calendar days, not elapsed hours: the night a zone enters summer
+            // time is 23h long, and dividing that by 86400000 rounds to zero -
+            // which used to break a streak that spanned it.
+            const daysDiff = calendarDaysBetween(lastDate, resultDate);
 
             if (daysDiff === 1) {
                 // Consecutive day
@@ -305,9 +302,7 @@ function calculateStreak(results: GameResult[]): {
 
     // Current streak only counts if the last win was today or yesterday
     if (lastDate) {
-        const daysSinceLastWin = Math.floor(
-            (today.getTime() - lastDate.getTime()) / (1000 * 60 * 60 * 24)
-        );
+        const daysSinceLastWin = calendarDaysBetween(lastDate, today);
 
         if (daysSinceLastWin <= 1) {
             currentStreak = tempStreak;

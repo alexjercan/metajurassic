@@ -34,16 +34,42 @@ function seededPermutation(n: number, salt: number): number[] {
     return perm;
 }
 
-export function dateToSeed(date: Date): number {
+// A daily seed counts CALENDAR days, not 24h intervals. Subtracting two
+// instants and dividing by 86400000 drifts by an hour each time the local zone
+// enters or leaves summer time, which is enough to push a round-trip onto the
+// previous day (`FIRST_DAY` is a winter midnight; a summer local midnight sits
+// 23h - not 24h - after the one before it). So both directions go through the
+// local calendar fields instead of through elapsed milliseconds.
+function localDayIndex(date: Date): number {
     const msPerDay = 1000 * 60 * 60 * 24;
 
-    return Math.floor((date.getTime() - FIRST_DAY.getTime()) / msPerDay) + 1;
+    // Date.UTC of the LOCAL y/m/d: a zone-free integer for "which calendar day
+    // is this", so differences between two of them are exact whole days.
+    return (
+        Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) / msPerDay
+    );
+}
+
+// Whole calendar days from `from` to `to`, counting local midnights crossed
+// rather than elapsed time. Consecutive days are always exactly 1 apart here,
+// including the 23h and 25h nights around a DST transition - which is what
+// streak counting needs.
+export function calendarDaysBetween(from: Date, to: Date): number {
+    return localDayIndex(to) - localDayIndex(from);
+}
+
+export function dateToSeed(date: Date): number {
+    return calendarDaysBetween(FIRST_DAY, date) + 1;
 }
 
 export function seedToDate(seed: number): Date {
-    const msPerDay = 1000 * 60 * 60 * 24;
-
-    return new Date(FIRST_DAY.getTime() + (seed - 1) * msPerDay);
+    // Day-of-month arithmetic normalizes past month and year ends, and lands on
+    // real local midnight in every zone and season.
+    return new Date(
+        FIRST_DAY.getFullYear(),
+        FIRST_DAY.getMonth(),
+        FIRST_DAY.getDate() + (seed - 1)
+    );
 }
 
 export class GameData {

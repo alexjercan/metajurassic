@@ -3,6 +3,8 @@ module.exports = {
     preset: "ts-jest",
     testEnvironment: "node",
     roots: ["<rootDir>/test"],
+    // Pins the suite's time zone to a DST-observing one; see the file.
+    globalSetup: "<rootDir>/test/setTimeZone.js",
     moduleFileExtensions: ["ts", "js", "json"],
     collectCoverageFrom: [
         "src/**/*.ts",

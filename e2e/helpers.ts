@@ -1,5 +1,6 @@
 import { expect, Page } from "@playwright/test";
 import { MIN_NODE_FONT_PX } from "../src/ui/treeLayout";
+import { dailyKeyForNow } from "./dailyKeyMirror";
 
 // Shared fixtures for the browser E2E suite. See tasks/20260729-092258/DECISION.md
 // for why modal state is injected via localStorage keyed off a frozen clock
@@ -169,24 +170,11 @@ export async function expectFullyVisibleWithin(
 }
 
 // Recompute the daily storage key the app uses, inside the browser, so it is
-// derived from the SAME frozen `new Date()` the app sees. Mirrors
-// getTodaySeed()/gameStateKey() in src/gameState.ts and dateToSeed() in
-// src/gameData.ts. Must be called after page.clock has fixed the time.
+// derived from the SAME frozen `new Date()` the app sees. Must be called after
+// page.clock has fixed the time. The mirror itself lives in
+// `dailyKeyMirror.ts`, where a Jest test holds it to the real functions.
 export function computeDailyKey(page: Page): Promise<string> {
-    return page.evaluate(() => {
-        const FIRST_DAY = new Date(2026, 0, 1);
-        const msPerDay = 1000 * 60 * 60 * 24;
-        const seed =
-            Math.floor(
-                (new Date().getTime() - FIRST_DAY.getTime()) / msPerDay
-            ) + 1;
-        // Mirror formatPuzzleId's modulus wrap so this stays an exact copy of
-        // the app's key even at the residue-99999 edge (unreachable for daily
-        // seeds, but the mirror must not silently diverge from source).
-        const index = seed % Math.pow(10, 5);
-        const display = (index + 1) % Math.pow(10, 5);
-        return `gameState-dinosaur-#${display.toString().padStart(5, "0")}`;
-    });
+    return page.evaluate(dailyKeyForNow);
 }
 
 // Read the real served content graph from the browser. Uses the actual payload

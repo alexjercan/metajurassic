@@ -58,6 +58,14 @@ npm run ci                  # THE GATE: format:check + lint + test:coverage + te
 `npm run ci` is the source of truth for green. Run it (inside `nix develop`)
 before calling a change done, and say plainly when you skipped a step.
 
+The Jest suite runs in a **pinned time zone**: `test/setTimeZone.js`
+(`globalSetup`) sets `TZ=Europe/Bucharest`, which observes DST, so date logic is
+exercised across a real transition instead of in CI's never-shifting UTC. Set it
+there and only there - jest hands each spec a COPY of `process.env`, so assigning
+`TZ` inside a test is silently inert. Date-sensitive specs call
+`expectPinnedZone()` (`test/timeZone.ts`) so a lost pin fails loudly rather than
+turning DST assertions green in a zone that never shifts.
+
 **`E2E_PORT` when another checkout is already serving.** `playwright.config.ts`
 sets `reuseExistingServer: !CI`, so if anything is already bound to port 8080 -
 the main checkout's dev server, or an orphan from a deleted sprout worktree -

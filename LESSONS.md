@@ -174,8 +174,31 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   plus a best-guess CLI - and carries nothing about the game's UX. The user
   caught it; nothing in the record would have. 20260729-092452.
 
+- `restore-a-mutation-experiment-from-a-copy-not-git-checkout` (x1): proving a new
+  test bites by reverting the fix and then restoring with `git checkout <file>`
+  threw away the UNCOMMITTED real work in that same file - the jest `globalSetup`
+  line - leaving the whole time-zone pin inert while the suite stayed green,
+  because the machine's own zone happened to be the one the pin selects. Copy the
+  file aside and copy it back, and read the staged path list against the step
+  list before committing: the missing path was on screen. Sibling of
+  [[an-edit-you-believe-you-made-is-a-hypothesis-until-the-artifact-shows-it]].
+  20260729-122943.
+
 ## Testing
 
+- `an-environment-dependent-test-must-assert-its-environment` (x1): the DST
+  round-trip specs are meaningless outside a zone that shifts, and CI runs in UTC
+  - so they would have gone vacuously green exactly where the gate is. jest also
+  hands each spec a COPY of `process.env`, so setting `TZ` inside a test is
+  silently inert; the pin belongs in `globalSetup` and the specs call
+  `expectPinnedZone()` to prove it held. Same family as
+  [[count-both-branches-in-a-property-test-or-it-passes-vacuously]].
+  20260729-122943.
+- `fix-the-arithmetic-class-not-the-reported-callsite` (x1): the reported bug was
+  `seedToDate`/`dateToSeed` dividing elapsed milliseconds by 86400000 across a
+  DST night; `calculateStreak` did the identical thing in both its day
+  comparisons and nobody had reported it. When a fix replaces a formula, grep for
+  the formula, not for the symptom. 20260729-122943.
 - `count-both-branches-in-a-property-test-or-it-passes-vacuously` (x1): the hint
   rule has a qualifying path and a fallback path, and the first property test
   only ever reached the qualifying one - it looped over COLD boards, where the
@@ -308,8 +331,10 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   off and failed for a reason unrelated to the bug. When a fixture needs a date
   that passes through a seed<->date conversion, derive it from the SAME function
   the code under test reads dates from (here `seedToDate`), not its inverse - the
-  pair may not round-trip. Underlying drift filed as task 20260729-122943.
-  20260729-101747.
+  pair may not round-trip. The drift itself is fixed (20260729-122943): the pair
+  now round-trips in every zone and season, so that particular workaround is
+  gone, but the advice stands - derive a fixture from the function the code
+  under test reads, not from its inverse. 20260729-101747.
 - `mock-fixtures-hide-real-data-defects-test-the-real-payload` (x2): tests built
   on small hand-written mock datasets validated the loader's happy path while ALL
   150 real species `icon` fields were stringified Python lists
