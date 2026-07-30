@@ -48,11 +48,12 @@ npm run build               # production bundle into dist/
 
 npm test                    # Jest
 npm run test:coverage       # Jest with coverage (writes coverage/ + test-results/junit.xml)
+npm run test:pipeline       # content-pipeline tests (python3, stdlib unittest)
 npm run test:e2e            # Playwright browser E2E suite (e2e/, Chromium)
 E2E_PORT=8181 npm run test:e2e   # ...on another port; see below
 npm run lint                # eslint over src/ and test/
 npm run format              # prettier --write; format:check to verify only
-npm run ci                  # THE GATE: format:check + lint + test:coverage + test:e2e
+npm run ci                  # THE GATE: format:check + lint + test:pipeline + test:coverage + test:e2e
 ```
 
 `npm run ci` is the source of truth for green. Run it (inside `nix develop`)
@@ -121,9 +122,11 @@ and points Playwright at it via `PLAYWRIGHT_BROWSERS_PATH`, so `npm run test:e2e
 just works inside `nix develop` - do NOT `npx playwright install` on NixOS. Keep
 `@playwright/test` in `package.json` pinned to the `playwright-driver` version in
 `flake.lock`; a mismatch fails with "Executable doesn't exist" because the browser
-revisions differ. An assertion that encodes still-broken behavior (species icons,
-`20260729-092404`) is committed as `test.fixme` so it documents the invariant
-without reddening the gate; it flips on when that task lands.
+revisions differ. An assertion that encodes still-broken behavior may be
+committed as `test.fixme` so it documents the invariant without reddening the
+gate, and flips on when the owning task lands - that is what happened to the
+species-icon assertion in `e2e/images.spec.ts`, which is now a real test
+(`20260729-092352`).
 
 To run `npm` without paying for the full Python venv build, you can invoke a
 nix-store `nodejs` bin directly plus a `node_modules` symlink into the worktree,
@@ -146,6 +149,31 @@ The normal loop after editing a species/clade markdown file is
 `python scripts/markdown_to_json.py`, which rewrites the served `index.json` and
 the `commontree-metajurassic.json` tree. `index.json` is checked in (it is the
 runtime payload); the CSVs and the commontree JSON are gitignored scratch.
+
+All three scripts REFUSE a value that is a serialized collection
+(`['https://...']`, `{...}`) or a non-string, exiting non-zero and naming the
+file, and none writes anything until every record has validated - including
+`csv_to_json.py`, which is the only one that rewrites `index.json` without
+going through the markdown source (re-run `markdown_to_json.py` after a CSV
+merge to bring source and payload back in step). That guard exists
+because all 150 species `icon` values shipped as stringified Python lists that
+the pipeline copied straight through into `index.json`, breaking every card
+icon in the game (`20260729-092352`). The rule it encodes: the pipeline surfaces
+an authoring defect, it never sanitizes one, because a silently-cleaned value
+would put the generated JSON out of step with the markdown that is the source of
+truth. `markdown_to_json.py` takes `--jurassic-path`/`--index-path`/`--tree-path`
+so the refusal can be exercised against a scratch content tree, and
+`scripts/test_content_pipeline.py` (stdlib `unittest`, run by `npm run ci` as
+`npm run test:pipeline`) does exactly that in both directions. Without it the
+guard was unfalsifiable: the Jest suites only see the committed content, which
+is clean, so deleting the check left the whole gate green.
+
+Content is guarded from the test side too, over the REAL payload rather than a
+fixture: `test/dataIntegrity.test.ts` (graph references, uniqueness, media
+shape, every species icon equal to its own clade's image, no HTML in text the
+cards interpolate unescaped) and `test/contentSource.test.ts` (the authored
+frontmatter, plus an exact round-trip proving `index.json` is not stale). If you
+edit content and forget to regenerate, the round-trip test is what tells you.
 
 ## CI vs local nix (known drift)
 

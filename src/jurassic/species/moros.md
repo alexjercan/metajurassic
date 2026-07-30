@@ -6,7 +6,7 @@ period: Late Cretaceous (96 Ma)
 size: 1.2 meters
 weight: 78 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/moros.png
-icon: ['https://alexjercan.github.io/metajurassic-images/clades/pantyrannosauria.svg']
+icon: https://alexjercan.github.io/metajurassic-images/clades/pantyrannosauria.svg
 ---
 
 This tiny, deer-sized runner is the crucial "missing link" that perfectly explains how tyrannosaurs survived as speedy, lightweight underdogs for millions of years before finally evolving into giant kings.

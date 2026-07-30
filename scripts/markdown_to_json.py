@@ -1,11 +1,52 @@
+import argparse
 import json
 import os
 import re
+import sys
 
-JURASSIC_PATH = os.path.join("src", "jurassic")
-CLADES_PATH = os.path.join(JURASSIC_PATH, "clades")
-SPECIES_PATH = os.path.join(JURASSIC_PATH, "species")
-INDEX_JSON_PATH = os.path.join(JURASSIC_PATH, "index.json")
+DEFAULT_JURASSIC_PATH = os.path.join("src", "jurassic")
+DEFAULT_TREE_PATH = "commontree-metajurassic.json"
+
+# A frontmatter value is a plain scalar. Every one of the 150 species `icon`
+# fields once held a stringified Python list (`['https://...svg']`) that leaked
+# out of the content scraper, and because this script copied frontmatter
+# strings straight through, the repr landed in index.json and every card in the
+# game rendered a broken <img>.
+#
+# The fix is to REFUSE, not to sanitize: unwrapping the value here would make
+# the generated JSON disagree with the markdown that is the source of truth,
+# which hides the authoring bug instead of surfacing it. See
+# tasks/20260729-092352/DECISION.md, choice 2.
+#
+# MIRRORED in TypeScript as `isSerializedCollection` in `src/frontMatter.ts`,
+# which the Jest data tests use. The two must accept and reject the same
+# values; `scripts/test_content_pipeline.py` and the "recognises the historical
+# defect shape" case in `test/contentSource.test.ts` assert the SAME five
+# examples on both sides, so loosening one without the other reddens a test
+# instead of leaving the pair silently out of step.
+COLLECTION_REPR = re.compile(r"^(\[.*\]|\{.*\}|\(.*,.*\))$")
+
+
+class ContentError(Exception):
+    """A defect in the authored markdown that must not reach index.json."""
+
+
+def validate_attributes(attributes: dict, filepath: str) -> None:
+    for key, value in attributes.items():
+        # Frontmatter parsing only ever yields strings, but the reverse
+        # direction validates records loaded from index.json, where a number,
+        # null or a nested object is representable. Refuse those by name rather
+        # than letting `.strip()` raise a bare AttributeError traceback.
+        if not isinstance(value, str):
+            raise ContentError(
+                f"{filepath}: frontmatter '{key}' is not a string: "
+                f"{value!r} ({type(value).__name__})"
+            )
+        if COLLECTION_REPR.match(value.strip()):
+            raise ContentError(
+                f"{filepath}: frontmatter '{key}' is a serialized collection, "
+                f"not a scalar: {value}"
+            )
 
 
 def parse_markdown_file(filepath: str) -> dict:
@@ -34,6 +75,8 @@ def parse_markdown_file(filepath: str) -> dict:
         key = key.strip()
         value = raw_value.strip().strip('"')
         attributes[key] = value
+
+    validate_attributes(attributes, filepath)
 
     return {**attributes, "description": body.strip()}
 
@@ -76,30 +119,64 @@ def build_tree(data: dict) -> dict:
     return root
 
 
-if __name__ == "__main__":
-    species_files = [f for f in os.listdir(SPECIES_PATH) if f.endswith(".md")]
-    clades_files = [f for f in os.listdir(CLADES_PATH) if f.endswith(".md")]
+def load_directory(path: str) -> dict:
+    # Directory order, NOT sorted: the committed index.json is in this order,
+    # and sorting it here would bury a content change under a 1900-line
+    # reshuffle. Making the generated order deterministic is worth doing, but
+    # as its own change - filed as 20260730-120355.
+    entries = {}
+    for filename in os.listdir(path):
+        if not filename.endswith(".md"):
+            continue
+        entries[filename[:-3]] = parse_markdown_file(os.path.join(path, filename))
+    return entries
 
-    species_data = {}
-    for filename in species_files:
-        filepath = os.path.join(SPECIES_PATH, filename)
-        species_id = filename[:-3]
-        species_data[species_id] = parse_markdown_file(filepath)
 
-    clades_data = {}
-    for filename in clades_files:
-        filepath = os.path.join(CLADES_PATH, filename)
-        clade_id = filename[:-3]
-        clades_data[clade_id] = parse_markdown_file(filepath)
-
+def main(jurassic_path: str, index_path: str, tree_path: str) -> None:
     data = {
-        "species": species_data,
-        "clades": clades_data,
+        "species": load_directory(os.path.join(jurassic_path, "species")),
+        "clades": load_directory(os.path.join(jurassic_path, "clades")),
     }
 
-    with open(INDEX_JSON_PATH, "w") as f:
+    tree = build_tree(data)
+
+    # Both files are written only after every markdown file has parsed and
+    # validated, so a rejected value leaves the committed index.json untouched
+    # rather than half-rewritten.
+    with open(index_path, "w") as f:
         json.dump(data, f, indent=4)
 
-    tree = build_tree(data)
-    with open("commontree-metajurassic.json", "w") as f:
+    with open(tree_path, "w") as f:
         json.dump(tree, f, indent=4)
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        description="Generate the served content graph from the markdown source"
+    )
+    parser.add_argument(
+        "--jurassic-path",
+        default=DEFAULT_JURASSIC_PATH,
+        help="content root holding species/ and clades/ (default: src/jurassic)",
+    )
+    parser.add_argument(
+        "--index-path",
+        default=None,
+        help="output index.json (default: <jurassic-path>/index.json)",
+    )
+    parser.add_argument(
+        "--tree-path",
+        default=DEFAULT_TREE_PATH,
+        help=f"output common tree json (default: {DEFAULT_TREE_PATH})",
+    )
+    args = parser.parse_args()
+
+    index_path = args.index_path or os.path.join(args.jurassic_path, "index.json")
+
+    try:
+        main(args.jurassic_path, index_path, args.tree_path)
+    except ContentError as exc:
+        # Exit non-zero and name the offending file, so a defect in the authored
+        # frontmatter stops the pipeline instead of being laundered into JSON.
+        print(f"error: {exc}", file=sys.stderr)
+        sys.exit(1)

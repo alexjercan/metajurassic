@@ -323,10 +323,10 @@ export async function expectPullTabInsideViewport(page: Page): Promise<void> {
     expect(box.y + box.height).toBeLessThanOrEqual(viewport.height);
 }
 
-// A URL src is "structurally valid" if it is a non-empty http(s) URL. The known
-// species-icon bug stores a stringified Python list ("['https://...svg']"),
-// which fails this check without needing the external CDN. See DECISION.md
-// choice 4 and task 20260729-092352.
+// A URL src is "structurally valid" if it is a non-empty http(s) URL. The
+// species-icon defect repaired by 20260729-092352 stored a stringified Python
+// list ("['https://...svg']"); the leading-"[" guard is what keeps that shape
+// failing, without needing the external CDN. See DECISION.md choice 4.
 export function isStructurallyValidImageSrc(src: string | null): boolean {
     if (!src) return false;
     if (src.trim().startsWith("[")) return false;

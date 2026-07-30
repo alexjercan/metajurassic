@@ -6,7 +6,7 @@ period: Late Cretaceous (76 Ma)
 size: 5 meters
 weight: 2,500 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/kosmoceratops.png
-icon: ['https://alexjercan.github.io/metajurassic-images/clades/chasmosaurinae.svg']
+icon: https://alexjercan.github.io/metajurassic-images/clades/chasmosaurinae.svg
 ---
 
 Known as the most "ornate" dinosaur ever discovered, it had a total of 15 different horns and spikes on its head, including a bizarre row of hooks that curved downward like a fringe of hair.

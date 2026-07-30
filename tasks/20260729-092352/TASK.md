@@ -1,6 +1,6 @@
 # Validate Jurassic data and media integrity
 
-- STATUS: OPEN
+- STATUS: CLOSED
 - PRIORITY: 75
 - TAGS: testing,data,content
 
@@ -53,37 +53,37 @@ Three load-bearing choices, recorded in `DECISION.md`:
 
 ## Steps
 
-- [ ] Add `test/dataIntegrity.test.ts` over the real payload, built through the
+- [x] Add `test/dataIntegrity.test.ts` over the real payload, built through the
       shipped `buildGameData` (not a re-implementation).
-- [ ] Verify every species points to an existing clade after loader normalization.
-- [ ] Verify every clade parent resolves, and exactly one clade is rootless.
-- [ ] Verify species ids/names and clade ids/names are unique and non-empty.
-- [ ] Pin the `jsonLoader` fragility: the clade map is keyed by lowercase display
+- [x] Verify every species points to an existing clade after loader normalization.
+- [x] Verify every clade parent resolves, and exactly one clade is rootless.
+- [x] Verify species ids/names and clade ids/names are unique and non-empty.
+- [x] Pin the `jsonLoader` fragility: the clade map is keyed by lowercase display
       name and the JSON key is discarded, so key and lowercase name must agree.
-- [ ] Verify `image` fields are well-formed absolute URLs, and that no media
+- [x] Verify `image` fields are well-formed absolute URLs, and that no media
       value is a serialized array or other non-scalar repr.
-- [ ] REPAIR (folds in `20260729-092404`): unwrap the `icon` frontmatter in all
+- [x] REPAIR (folds in `20260729-092404`): unwrap the `icon` frontmatter in all
       150 `src/jurassic/species/*.md`, make `scripts/markdown_to_json.py` REJECT
       a non-scalar frontmatter value loudly instead of laundering it into
       `index.json`, and regenerate `index.json`.
-- [ ] Pin the repaired invariant: every species `icon` equals its own clade's
+- [x] Pin the repaired invariant: every species `icon` equals its own clade's
       `image`. Flip the `test.fixme` in `e2e/images.spec.ts` on.
-- [ ] Verify text fields (species, translation, description, clade names)
+- [x] Verify text fields (species, translation, description, clade names)
       contain no HTML, since cards interpolate them into `innerHTML` unescaped.
-- [ ] Extract `parseFrontMatter` into `src/frontMatter.ts`, rewire
+- [x] Extract `parseFrontMatter` into `src/frontMatter.ts`, rewire
       `src/markdownLoader.ts` to it.
-- [ ] Add `test/contentSource.test.ts`: parse the markdown frontmatter source and
+- [x] Add `test/contentSource.test.ts`: parse the markdown frontmatter source and
       assert it round-trips to the committed `index.json` exactly.
-- [ ] Add `test/cardRendering.test.ts` (jsdom): species/clade/locked cards with
+- [x] Add `test/cardRendering.test.ts` (jsdom): species/clade/locked cards with
       missing `icon`/`image` fall back to the default icon and the
       `[ Hologram Render ]` / `[ No Image ]` placeholders rather than emitting
       an empty `src`.
-- [ ] Verify the species, clades and profile routes render icons for real in the
+- [x] Verify the species, clades and profile routes render icons for real in the
       browser (the `20260729-092404` DoD item), via the E2E suite.
-- [ ] Close `20260729-092404` as delivered by this branch: tick its steps, record
+- [x] Close `20260729-092404` as delivered by this branch: tick its steps, record
       the merge in its `TASK.md`, and give it the same REVIEW/RETRO pointer.
-- [ ] File a follow-up task for the dead `src/markdownLoader.ts`.
-- [ ] Run `npm run ci` green and `tatr check --ledger LESSONS.md` clean.
+- [x] File a follow-up task for the dead `src/markdownLoader.ts`.
+- [x] Run `npm run ci` green and `tatr check --ledger LESSONS.md` clean.
 
 ## Definition of Done
 
@@ -109,15 +109,41 @@ Three load-bearing choices, recorded in `DECISION.md`:
 - `npm run ci` passes. (cmd: `npm run ci`)
 - `tatr check --ledger LESSONS.md` is clean. (cmd: `tatr check --ledger LESSONS.md`)
 
+## Evidence (2026-07-30)
+
+- Test-first: `test/dataIntegrity.test.ts` was written and run BEFORE the
+  repair. It failed 3 of 15 - exactly the icon assertions (well-formed icon,
+  icon-equals-clade-image, no serialized collection) - and the other 12 passed.
+  After the repair all 15 pass.
+- The staleness pin was verified by breaking it on purpose: changing
+  `size: 3.5 meters` to `3.6` in one species markdown reddens
+  "regenerates index.json exactly", and only that test.
+- Pipeline refusal, run against a poisoned copy of the content tree:
+  `python scripts/markdown_to_json.py --jurassic-path <tmp>` exits 1 with
+  `error: <tmp>/species/zuniceratops.md: frontmatter 'icon' is a serialized
+  collection, not a scalar: [...]`, and writes NEITHER output file, so a
+  rejected value cannot leave a half-rewritten index.json.
+- Repair diff: 150 markdown files, one `icon:` line each, plus the 150
+  matching lines in the regenerated `index.json`. Nothing else changed in the
+  content. `grep -rn "\['https\?://" src/jurassic` returns nothing.
+- Full gate green in the worktree: `npm run ci` -> 279 Jest tests in 18 suites,
+  87 Playwright tests, including the species-icon assertion that had been
+  parked as `test.fixme`.
+- Coverage rose enough that the old floors stopped guarding anything, so
+  `jest.config.js` thresholds were raised to just under the new numbers
+  (statements 89 -> 94, branches 65 -> 78, lines 93 -> 97, functions 95 -> 98).
+  This is adjacent to `20260729-092419` (tighten CI signal) but leaving stale
+  floors and stale "Current:" comments behind was the worse option.
+
 ## Notes
 
 - This is intentionally content-aware. Mock data tests are not enough for this category.
 - If the real data contains many existing defects, split mechanical content cleanup into separate tasks rather than hiding it inside the test harness work.
 - Fragility worth pinning with a test: `jsonLoader` keys the clade map by lowercase display name and discards the JSON key, so renaming a clade silently breaks every species/parent reference to it.
-- Found while planning (2026-07-30): `src/markdownLoader.ts` is DEAD CODE - every page imports `loadGameData` from `jsonLoader`, nothing imports `markdownLoader`. It still sits in the coverage denominator. Whether to delete it is a follow-up task, not this one; this task only lifts its frontmatter parser into a shared module that the source-validation test can use.
+- Found while planning (2026-07-30): `src/markdownLoader.ts` is DEAD CODE - every page imports `loadGameData` from `jsonLoader`, nothing imports `markdownLoader`. Whether to delete it is a follow-up task (`20260730-120401`), not this one; this task only lifts its frontmatter parser into a shared module that the source-validation test can use. Correction to the planning note: it does NOT show up in the coverage report at all - not as 0%, but absent - which the follow-up should explain before deleting.
 - Out of scope but noted: `src/ui/card.ts` interpolates content into `innerHTML` unescaped. With in-repo authored content there is no injection vector today, so this task guards the DATA (no HTML in content) rather than changing the renderer.
 
 ## Flow State
 
-- FLOW STEP: PLANNED
+- FLOW STEP: DONE
 - PLAN STATUS: APPROVED

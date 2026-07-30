@@ -34,6 +34,11 @@ jobs:
             - name: Run linter
               run: npm run lint
 
+            # The content pipeline is Python; ubuntu-latest ships python3, and
+            # the scripts are stdlib-only, so no setup step is needed.
+            - name: Run content pipeline tests
+              run: npm run test:pipeline
+
             - name: Run tests with coverage
               run: npm run test:coverage
 

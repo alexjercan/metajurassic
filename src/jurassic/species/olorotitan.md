@@ -6,7 +6,7 @@ period: Late Cretaceous (70–66 Ma)
 size: 8 meters
 weight: 3,100 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/olorotitan.png
-icon: ['https://alexjercan.github.io/metajurassic-images/clades/lambeosaurini.svg']
+icon: https://alexjercan.github.io/metajurassic-images/clades/lambeosaurini.svg
 ---
 
 Named for its unusually long neck (containing 18 vertebrae); it was one of the last and most spectacular lambeosaurines in Asia.

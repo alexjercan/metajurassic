@@ -1,6 +1,6 @@
 # Repair broken Jurassic media references
 
-- STATUS: OPEN
+- STATUS: CLOSED
 - PRIORITY: 70
 - TAGS: bug,content,ui
 
@@ -18,11 +18,11 @@ As a player, I want species and clade cards to show valid icons and images, so t
 
 ## Steps
 
-- [ ] Use the data-integrity task results to list every malformed or missing media reference.
-- [ ] Fix the `icon` values at the source: correct the frontmatter in `src/jurassic/species/*.md` (and the pipeline in `scripts/` so it cannot regenerate the list repr), then regenerate `src/jurassic/index.json`.
-- [ ] Decide whether missing images should use a deliberate default visual, a locked/mystery treatment, or content repair.
-- [ ] Verify species archive, clades archive, profile collection, and in-game panel render without broken image icons.
-- [ ] Add regression coverage for representative species and clade cards.
+- [x] Use the data-integrity task results to list every malformed or missing media reference.
+- [x] Fix the `icon` values at the source: correct the frontmatter in `src/jurassic/species/*.md` (and the pipeline in `scripts/` so it cannot regenerate the list repr), then regenerate `src/jurassic/index.json`.
+- [x] Decide whether missing images should use a deliberate default visual, a locked/mystery treatment, or content repair.
+- [x] Verify species archive, clades archive, profile collection, and in-game panel render without broken image icons.
+- [x] Add regression coverage for representative species and clade cards.
 
 ## Definition of Done
 
@@ -44,7 +44,26 @@ very invariant this task restores. Both tasks are delivered by one branch and
 close together; the REVIEW.md and RETRO.md for the combined cycle live in
 `tasks/20260729-092352/`.
 
+What this task's steps mean, as delivered:
+
+- The 150 `icon` values were unwrapped in the AUTHORED frontmatter
+  (`src/jurassic/species/*.md`) and `index.json` regenerated from it, so the
+  generated payload was never hand-edited.
+- Both pipeline scripts now REFUSE a serialized-collection frontmatter value
+  instead of copying it through, which is the "so it cannot regenerate the list
+  repr" step. The scraper that originally produced the repr is not in this
+  repository, so refusal at the pipeline boundary is the containment available.
+- "Decide whether missing images should use a deliberate default visual": no
+  decision needed for the content - every one of the 150 species and 108 clades
+  HAS both media fields. The renderer's existing fallbacks (default icon,
+  `[ Hologram Render ]`, `[ No Image ]`) are now pinned by
+  `test/cardRendering.test.ts` against constructed media-less input, since no
+  route can reach that path with the shipped data.
+- Regression coverage: `test/dataIntegrity.test.ts` pins
+  `species.icon === clades[species.clade].image` over the real payload, and the
+  `test.fixme` in `e2e/images.spec.ts` is now a real, passing test.
+
 ## Flow State
 
-- FLOW STEP: PLANNED
+- FLOW STEP: DONE
 - PLAN STATUS: APPROVED

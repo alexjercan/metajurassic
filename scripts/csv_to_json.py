@@ -2,7 +2,10 @@ import argparse
 import csv
 import json
 import os
+import sys
 from typing import Dict
+
+from markdown_to_json import ContentError, validate_attributes
 
 JURASSIC_PATH = os.path.join("src", "jurassic")
 CLADES_PATH = os.path.join(JURASSIC_PATH, "clades")
@@ -36,12 +39,8 @@ def read_csv_data(csv_path: str) -> Dict[str, Dict[str, str]]:
     return data
 
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Convert CSV files to Markdown")
-    parser.add_argument("csv_file", help="Path to the input CSV file")
-    args = parser.parse_args()
-
-    csv_data = read_csv_data(args.csv_file)
+def merge_csv(csv_path: str) -> None:
+    csv_data = read_csv_data(csv_path)
     with open(INDEX_JSON_PATH, "r") as f:
         data = json.load(f)
 
@@ -62,5 +61,29 @@ if __name__ == "__main__":
             clade["clade"] = new_data["name"]
             clade["description"] = new_data["museum_fact"]
 
+    # This script is the THIRD pipeline entry point, and the only one that
+    # writes index.json without going through the markdown source, so an
+    # unguarded merge could both launder a defect and leave the payload out of
+    # step with the files it is generated from. Same refusal as the other two,
+    # applied before anything is written: a bad CSV cell stops the merge rather
+    # than landing in the served graph. Re-run markdown_to_json.py afterwards
+    # (or json_to_markdown.py first) to keep source and payload in step.
+    for species_id, species in data["species"].items():
+        validate_attributes(species, f"index.json species/{species_id}")
+    for clade_id, clade in data["clades"].items():
+        validate_attributes(clade, f"index.json clades/{clade_id}")
+
     with open(INDEX_JSON_PATH, "w") as f:
         json.dump(data, f, indent=4)
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Merge a data CSV into index.json")
+    parser.add_argument("csv_file", help="Path to the input CSV file")
+    args = parser.parse_args()
+
+    try:
+        merge_csv(args.csv_file)
+    except ContentError as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        sys.exit(1)

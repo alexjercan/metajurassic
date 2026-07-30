@@ -43,9 +43,12 @@ export function hintChipCopy(): { label: string; detail: string } {
  * The four facts a first-timer is missing (playtest F3.1), as plain strings.
  *
  * Kept separate from the DOM building below so the copy - and the MAX_GUESSES
- * wiring inside it - is unit-testable. `src/ui/**` is excluded from Jest
- * coverage as DOM-heavy by design (jest.config.js), and this repo has no jsdom
- * environment; the seam is "copy is pure, mounting is end-to-end".
+ * wiring inside it - is unit-testable. The constraint that still binds is
+ * coverage: `src/ui/**` is excluded from it as DOM-heavy by design
+ * (jest.config.js). A jsdom environment IS available since 20260729-092352,
+ * but opt-in per file (`@jest-environment jsdom`, see
+ * test/cardRendering.test.ts) rather than the default. The seam is still worth
+ * keeping: "copy is pure, mounting is end-to-end".
  */
 export function briefCopy(): {
     objective: string;

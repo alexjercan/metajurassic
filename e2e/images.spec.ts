@@ -37,14 +37,11 @@ test.describe("image integrity", () => {
         expect(isStructurallyValidImageSrc(src)).toBe(true);
     });
 
-    // KNOWN FAILING: every species `icon` field is a stringified Python list
-    // ("['https://...svg']"), so card-icon <img> src is malformed. Owned by
-    // 20260729-092352 (validation) and 20260729-092404 (repair). This test
-    // encodes the invariant and flips green when the media is repaired; it is
-    // fixme so the npm run ci gate stays green now. See DECISION.md.
-    test.fixme("a representative species card has a valid icon (blocked on 20260729-092404)", async ({
-        page,
-    }) => {
+    // Was `test.fixme` while every species `icon` field held a stringified
+    // Python list ("['https://...svg']"). The media was repaired and the data
+    // pinned by 20260729-092352 (which folded in 20260729-092404), so the
+    // invariant this test always encoded is now asserted for real.
+    test("a representative species card has a valid icon", async ({ page }) => {
         await page.goto("/species/");
         const icon = page.locator(".archive-card .card-icon").first();
         await expect(icon).toBeVisible();

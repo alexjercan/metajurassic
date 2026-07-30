@@ -36,9 +36,11 @@ export type SpeciesNode = NodeBase & {
      * warm/cold scale. See tasks/20260729-182255/DECISION.md.
      *
      * The tier lives on the DATA rather than being computed in `renderTree`
-     * because jest here runs `testEnvironment: "node"` with no jsdom and
-     * excludes `src/ui/**` from coverage - a tier computed in the renderer
-     * could not be pinned by a unit test at all.
+     * because jest excludes `src/ui/**` from coverage, and its DEFAULT
+     * environment is `testEnvironment: "node"` - jsdom exists since
+     * 20260729-092352 but only per file, via an `@jest-environment jsdom`
+     * docblock. A tier computed in the renderer would still be the harder
+     * thing to pin.
      */
     closenessTier?: number;
     children: [];

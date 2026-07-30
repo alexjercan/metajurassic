@@ -24,6 +24,35 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   changing. Sibling of
   [[read-the-helper-body-not-its-name-before-reusing-it]] pointed the other way up
   the call graph. 20260729-141414.
+- `a-guard-no-test-can-fail-is-a-comment` (x1): the content pipeline gained a
+  Python `validate_attributes` that refuses a malformed frontmatter value, and
+  nothing in `npm run ci` exercised it - deleting the call from both sites left
+  the whole gate green, because every test asserts over the committed content,
+  which is clean. A hand-run `cmd:` proof in the DoD is evidence for one moment,
+  not a guard. When a change adds enforcement in a language or layer the suite
+  does not reach, the same change adds the test that reaches it: ask "if I
+  delete this guard, what turns red?". Caught by the out-of-context reviewer,
+  not the implementer. 20260729-092352.
+- `enumerate-every-writer-before-guarding-an-invariant` (x1): the same guard
+  landed on two of the THREE scripts that write `index.json` - `csv_to_json.py`
+  was read during planning, then not revisited when the guard was designed - and
+  the docs written afterwards said "both conversion scripts", which read as a
+  claim about the pipeline as a whole. Before guarding a data-writing
+  invariant, list every writer mechanically (here
+  `grep -l 'open(.*index.json.*w'`) and guard the SET; a guard on the paths you
+  happened to be editing is a guard with a documentation bug attached.
+  20260729-092352.
+- `unrelated-cleanup-rides-along-at-the-cost-of-the-diff` (x1): adding `sorted()`
+  to the content generator while fixing 150 icon values turned a 150-line repair
+  into a 1886-line reshuffle nobody could review. Caught by reading the diff
+  stat, not by a test. Reverted and filed as its own task (20260730-120355). A
+  "while I am in here" improvement is not free - it spends the reviewability of
+  the change it rides along with. 20260729-092352.
+- `revert-a-test-mutation-with-a-scratch-copy-not-git-checkout` (x1): undoing a
+  deliberate sabotage with `git checkout <file>` also reverted that file's real
+  fix, silently restoring one of the 150 broken icons; only a re-grep caught it.
+  On any file the branch has already modified, mutate and restore via a scratch
+  copy (`cp f /tmp/f.bak` ... `cp /tmp/f.bak f`). 20260729-092352.
 - `read-the-helper-body-not-its-name-before-reusing-it` (x1): the panel-focus fix
   called `openPanel()` to give a hint purchase feedback, but that four-line
   helper ALSO clears the module-level `manuallyClosedPanel`, so a fix aimed at
@@ -396,7 +425,8 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   now round-trips in every zone and season, so that particular workaround is
   gone, but the advice stands - derive a fixture from the function the code
   under test reads, not from its inverse. 20260729-101747.
-- `mock-fixtures-hide-real-data-defects-test-the-real-payload` (x2): tests built
+- `mock-fixtures-hide-real-data-defects-test-the-real-payload` (x3, PENDING
+  PROMOTION): tests built
   on small hand-written mock datasets validated the loader's happy path while ALL
   150 real species `icon` fields were stringified Python lists
   (`['https://.../x.svg']`) straight from the markdown frontmatter, undetected.
@@ -411,6 +441,9 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   built `GameData` from the real `index.json` and asserted `length === 150` plus
   adjacency/coverage. When a claim is "holds for the shipped data", pin it
   against the real payload so a data resize fails CI, not just a fixture.
+  Third hit (20260729-092352): the icon defect finally got its real-payload
+  suite, and writing the test BEFORE the repair is what made the green mean
+  something - 3 of 15 red, exactly the icon assertions.
 - `a-dramatic-simulation-result-is-usually-the-harness` (x1): the first hint
   policy bought a hint on every loop iteration while candidates exceeded a
   threshold, and reported 26-66% loss rates - a headline-shaped number that was
@@ -527,6 +560,13 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   capture: what the interface says is not what the mechanism does. 20260729-092452.
 
 ## Pending promotions (3+ occurrences, user decides)
+
+- `mock-fixtures-hide-real-data-defects-test-the-real-payload` (x3) -> AGENTS.md
+  already carries this rule and it recurred anyway, so prose is not holding it.
+  Proposal: name `test/dataIntegrity.test.ts` in AGENTS.md as THE home for any
+  "holds for the shipped data" claim, so a new content test has an obvious place
+  to go rather than a rule to remember. User decides.
+  20260729-092352, 20260729-101740.
 
 - `close-a-task-with-its-review-and-retro-not-just-the-status` (x3) -> tatr CLI
   guard, not prose. Three sessions have flipped STATUS to CLOSED before the

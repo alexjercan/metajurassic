@@ -18,7 +18,8 @@
         "playtest:difficulty": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' ts-node scripts/playtest/difficulty.ts",
         "playtest:walkthrough": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' ts-node scripts/playtest/walkthrough.ts",
         "playtest:hint": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' ts-node scripts/playtest/hint.ts",
-        "ci": "npm run format:check && npm run lint && npm run test:coverage && npm run test:e2e"
+        "test:pipeline": "python3 scripts/test_content_pipeline.py",
+        "ci": "npm run format:check && npm run lint && npm run test:pipeline && npm run test:coverage && npm run test:e2e"
     },
     "devDependencies": {
         "@eslint/js": "^9.39.4",
@@ -34,6 +35,7 @@
         "eslint": "^9.39.4",
         "html-webpack-plugin": "^5.6.6",
         "jest": "^30.2.0",
+        "jest-environment-jsdom": "^30.4.1",
         "jest-junit": "^16.0.0",
         "postcss": "^8.5.6",
         "postcss-loader": "^8.2.0",

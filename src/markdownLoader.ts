@@ -1,5 +1,6 @@
 import { Clade, Species } from "./types";
 import { GameData } from "./gameData";
+import { parseFrontMatter } from "./frontMatter";
 
 type WebpackContext = {
     keys: () => string[];
@@ -12,35 +13,6 @@ type WebpackRequire = typeof require & {
         recursive?: boolean,
         regExp?: RegExp
     ) => WebpackContext;
-};
-
-const parseFrontMatter = (text: string) => {
-    const match =
-        /^---\s*[\r\n]+([\s\S]*?)[\r\n]+---\s*[\r\n]*([\s\S]*)$/m.exec(text);
-    if (!match) {
-        return {
-            attributes: {} as Record<string, string>,
-            body: text.trim(),
-        };
-    }
-
-    const [, header, body] = match;
-    const attributes: Record<string, string> = {};
-
-    header
-        .split(/\r?\n/)
-        .map((line) => line.trim())
-        .filter(Boolean)
-        .forEach((line) => {
-            const idx = line.indexOf(":");
-            if (idx === -1) return;
-            const key = line.slice(0, idx).trim();
-            const rawValue = line.slice(idx + 1).trim();
-            const value = rawValue.replace(/^"|"$/g, "");
-            attributes[key] = value;
-        });
-
-    return { attributes, body: body.trim() };
 };
 
 const loadMarkdown = async <T>(
