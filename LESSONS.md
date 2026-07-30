@@ -183,6 +183,17 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   list before committing: the missing path was on screen. Sibling of
   [[an-edit-you-believe-you-made-is-a-hypothesis-until-the-artifact-shows-it]].
   20260729-122943.
+- `open-a-neighbouring-record-before-writing-a-new-one` (x1): the closeness task's
+  `DECISION.md` was authored from an idea of what a decision record contains, and
+  reddened `tatr check` with `bad-decision-status` - the document-level `- STATUS:`
+  line the linter parses lived only inside each fork section, while all 13
+  existing records carry it in a header block under the H1. It survived a whole
+  out-of-context review round and was caught only when a later pass ran
+  `tatr check` on the branch AND on master. When a repo has a machine-checked
+  artifact convention, read one existing instance instead of reconstructing the
+  format, and run the repo's OWN conformance gate (`tatr check`) as part of a
+  task's verification - it is a different gate from `npm run ci`, and only the
+  code one was being run. 20260729-182255.
 
 ## Testing
 
@@ -208,6 +219,30 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   while testing the fallback with zero cases. A property test over two branches
   should count them and fail when either is unexercised. Fixed by walking each
   target DOWN its hint ladder into the deep states. 20260729-141424.
+- `assert-the-exact-values-not-a-property-they-happen-to-have` (x1): the tree
+  closeness ladder test asserted "five distinct ascending tier values", which
+  reads as strong as "the tiers are `[0,1,2,3,4]`" and is not: a uniform drift
+  (`guessTier(...) - 1`) yields `[-1,0,1,2,3]`, still five, still ascending, so
+  it walked straight through - and the drifted low end has no `.node-close-N`
+  rule, i.e. it renders unstyled. The out-of-context reviewer found it by
+  mutating. When a test's job is to pin a fixture to a KNOWN scale, assert the
+  scale itself; a property the right answer happens to satisfy is satisfied by
+  wrong answers too. Sibling of
+  [[count-both-branches-in-a-property-test-or-it-passes-vacuously]] - both are
+  assertions that look like coverage and are not. 20260729-182255.
+- `quote-the-mutation-not-the-memory-of-it` (x1): a mutation experiment proving a
+  new test discriminates was recorded as `guessTier(...) - 1`; what had actually
+  been run was `Math.max(0, guessTier(...) - 1)`, and the clamp was the ONLY
+  reason the test failed (it collapses two tiers onto one value). So the record
+  overstated the suite, invisibly from inside the session - the numbers and test
+  names were real, only the mutation string was paraphrased from memory. The
+  reviewer reproduced the DESCRIBED mutation, got a different answer, and that
+  gap was the finding. Paste the mutation verbatim from the command that produced
+  the result; a verification claim is re-runnable only if what was run is written
+  down exactly. Sibling of
+  [[a-verification-result-expires-when-the-code-it-ran-against-changes]]: that one
+  is the result going stale, this one is the write-up describing code that never
+  ran. 20260729-182255.
 
 
 - `a-new-listener-inherits-every-trigger-of-its-event` (x1): a rotation fix added
