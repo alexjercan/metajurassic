@@ -496,18 +496,6 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   it). The reviewer found it by mutating the line nobody had wondered about.
   Sibling of [[a-guard-no-test-can-fail-is-a-comment]] - that one is a guard with
   no test, this one is a test with no guard behind it. 20260729-092504.
-- `re-run-the-reviewers-mutation-against-your-own-fix` (x1): told that an
-  assertion could not fail, the fix was a new test that plays the round's last
-  guess in-page with the suggestion list OPEN - which looks exactly like
-  "reaching the branch" and passed under the SAME mutation. `selectAndSubmit`
-  hides the box before `onSelect` hands the guess to the game
-  (`src/ui/autocomplete.ts:67`), and the blur handler covers the click-away path
-  (it fires even under `page.clock.install`), so `disableInput`'s hide is
-  redundant on every reachable path - unfalsifiable in principle, not merely
-  untested. Right answer: delete the coverage claim and record WHY, keeping the
-  test for the live-round path it does pin. A fix for "this test cannot fail" is
-  itself a verification claim; the only proof is the original mutation against
-  the new test. 20260729-092504.
 - `test-must-cross-the-format-parse-seam-not-assert-each-side` (x1): unit tests
   that assert `parse` and `format` in isolation can encode the very bug they
   should catch. `parseGameStateKey` did not invert `gameStateKey` (an off-by-one
@@ -638,7 +626,7 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   `lint`/`lint:fix`, `test`/`test:e2e`, `build`/`build:prod` all collide. The
   hole is invisible in the passing direction, which is the argument for
   [[verify-a-guard-fix-with-the-attack-that-defeated-it]]. 20260729-092419.
-- `verify-a-guard-fix-with-the-attack-that-defeated-it` (x1): after fixing the
+- `verify-a-guard-fix-with-the-attack-that-defeated-it` (x2): after fixing the
   substring hole above, re-running the suite clean proved nothing about it - the
   suite had ALREADY been green with the hole. What proved the fix was re-running
   the reviewer's exact mutations: `ci` pointing at `lint:fix` went 9-passed ->
@@ -647,7 +635,17 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   warning: exit 1 with the flag, exit 0 without) rather than one run - a single
   red proves a warning fails, only the counterfactual proves the flag is why.
   Mutate in two directions: delete the protected thing, and swap it for a
-  plausible near-miss. 20260729-092419.
+  plausible near-miss. 20260729-092419. Second hit (20260729-092504), where the
+  attack falsified the FIX rather than confirming it: told that
+  `expect("#autocomplete-box").toBeHidden()` could not fail, the repair was a new
+  test that plays the round's last guess in-page with the suggestion list OPEN -
+  which looks exactly like reaching the branch, and passed under the reviewer's
+  same mutation. `selectAndSubmit` hides the box before `onSelect` hands the guess
+  to the game (`src/ui/autocomplete.ts:67`), and the blur handler covers the
+  click-away path (it fires even under `page.clock.install`), so the line is
+  unfalsifiable in principle rather than merely untested. Re-running the attack is
+  what turned a plausible fix into the right answer - delete the coverage claim,
+  record why, keep the test for the path it does pin.
 
 - `a-claim-that-a-test-cannot-cheat-must-be-run-not-written` (x1): a reachability
   check scrolled a control into view and then asserted it was visible, with a

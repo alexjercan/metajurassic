@@ -67,10 +67,13 @@ at face value - that audit is what made the real gaps visible.
   what the author finds interesting leaves the autopilot assertions unproven.
   List every assertion the change adds and pair each with a mutation, or say
   which ones are unpinned and why.
-- `re-run-the-reviewers-mutation-against-your-own-fix`: a fix for "this test
+- `verify-a-guard-fix-with-the-attack-that-defeated-it`: a fix for "this test
   cannot fail" is itself a claim that can be false. The only proof is the
   original mutation against the new test - which here revealed the assertion was
-  unfalsifiable in principle, not merely untested.
+  unfalsifiable in principle, not merely untested. Filed first as a new slug of
+  its own, then folded into this EXISTING entry as its second occurrence: the
+  ledger already carried the lesson from `20260729-092419`, and a near-duplicate
+  slug would have hidden a recurrence instead of compounding it.
 - `an-edit-you-believe-you-made-is-a-hypothesis`: existing ledger entry, new
   variant - a string replace that matches NOTHING is a silent no-op. The
   planning edits went to the main checkout and the branch never had them.
