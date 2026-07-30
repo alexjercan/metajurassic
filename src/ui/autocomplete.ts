@@ -1,3 +1,45 @@
+// How many suggestions the box shows at once.
+export const MAX_SUGGESTIONS = 8;
+
+/**
+ * The suggestions to offer for `query`, in the order they should be shown.
+ *
+ * Two ordering rules, and both matter:
+ *
+ * - Guessed species are dropped BEFORE the list is truncated. Truncating first
+ *   let already-guessed names eat suggestion slots, so a player who guessed the
+ *   8 offered "saur" species got an EMPTY box with 75 valid candidates left.
+ * - Names STARTING with the query rank above names merely containing it, each
+ *   group keeping source order. Without this, typing "tyr" offered
+ *   `Tyrannosaurus` fourth, behind `Yutyrannus` and `Styracosaurus`.
+ *
+ * Exported so the ordering rules are testable without driving the DOM.
+ */
+export function findMatches(
+    speciesNames: string[],
+    query: string,
+    isGuessed: (name: string) => boolean
+): string[] {
+    const normalized = query.trim().toLowerCase();
+    if (!normalized) return [];
+
+    const prefix: string[] = [];
+    const interior: string[] = [];
+
+    for (const name of speciesNames) {
+        if (isGuessed(name)) continue;
+
+        const lowered = name.toLowerCase();
+        if (lowered.startsWith(normalized)) {
+            prefix.push(name);
+        } else if (lowered.includes(normalized)) {
+            interior.push(name);
+        }
+    }
+
+    return prefix.concat(interior).slice(0, MAX_SUGGESTIONS);
+}
+
 type AutocompleteOptions = {
     inputEl: HTMLInputElement;
     autocompleteBox: HTMLDivElement;
@@ -12,16 +54,6 @@ export function setupAutocomplete(options: AutocompleteOptions) {
 
     let activeIndex = -1;
     let currentMatches: string[] = [];
-
-    const findMatches = (query: string): string[] => {
-        const normalized = query.trim().toLowerCase();
-        if (!normalized) return [];
-
-        return speciesNames
-            .filter((name) => name.toLowerCase().includes(normalized))
-            .slice(0, 8)
-            .filter((name) => !isGuessed(name));
-    };
 
     const updateHighlight = () => {
         const items = autocompleteBox.querySelectorAll(".autocomplete-item");
@@ -41,7 +73,7 @@ export function setupAutocomplete(options: AutocompleteOptions) {
     const renderSuggestions = (query: string) => {
         autocompleteBox.innerHTML = "";
         activeIndex = -1;
-        currentMatches = findMatches(query);
+        currentMatches = findMatches(speciesNames, query, isGuessed);
 
         if (!currentMatches.length) {
             autocompleteBox.style.display = "none";

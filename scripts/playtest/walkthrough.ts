@@ -268,9 +268,12 @@ async function returningDaily(browser: Browser): Promise<void> {
 // Scenario 5: does the autocomplete survive a long round?
 // --------------------------------------------------------------------------
 //
-// `findMatches` in src/ui/autocomplete.ts truncates to 8 BEFORE filtering out
-// guessed species, so guessed names keep consuming suggestion slots. This plays
-// the case out against the real widget instead of arguing it from the source.
+// `findMatches` in src/ui/autocomplete.ts used to truncate to 8 BEFORE
+// filtering out guessed species, so guessed names kept consuming suggestion
+// slots and the box went empty with dozens of candidates left (task
+// 20260729-141427). It now filters first, so this plays out the endurance case
+// against the real widget: guess everything the box offers, and it must offer a
+// full list again.
 
 async function autocompleteEndurance(
     browser: Browser,
@@ -298,10 +301,16 @@ async function autocompleteEndurance(
         `  suggested before any guess: ${(await suggest()).join(", ")}`
     );
 
-    // Guess exactly the first 8 matches - the ones `slice(0, 8)` will keep
-    // offering slots to.
+    // Guess exactly what the box OFFERS, which is what a player does and what
+    // used to starve the list. Read before each guess, because the offered set
+    // changes as names are consumed.
+    const played: string[] = [];
     let landed = 0;
-    for (const name of matches.slice(0, 8)) {
+    for (let i = 0; i < 8; i++) {
+        const offered = await suggest();
+        if (!offered.length) break;
+        const name = offered[0].trim();
+        played.push(name);
         if (await guess(page, name)) landed++;
     }
 
@@ -311,19 +320,27 @@ async function autocompleteEndurance(
     // reporting a number that looks like a result.
     if (landed < 8) {
         console.log(
-            `  INVALID RUN: only ${landed}/8 guesses landed - the round almost certainly ended early (is seed 5's target among the first 8 "${query}" matches?). Pick another seed.`
+            `  INVALID RUN: only ${landed}/8 guesses landed - the round almost certainly ended early (is seed 5's target among the suggested "${query}" matches?). Pick another seed.`
         );
     }
+
+    console.log(`  guessed the offered: ${played.join(", ")}`);
 
     const after = await suggest();
     console.log(`  guesses left: ${await guessesLeft(page)}`);
     console.log(
-        `  suggested after guessing those 8: ${after.length ? after.join(", ") : "(EMPTY)"}`
+        `  suggested after guessing those ${played.length}: ${after.length ? after.join(", ") : "(EMPTY)"}`
     );
+    const stillOffered = after.filter((n) => played.includes(n.trim()));
+    if (stillOffered.length) {
+        console.log(
+            `  BUG: the box re-offered already-guessed species: ${stillOffered.join(", ")}`
+        );
+    }
     console.log(
-        `  unguessed matches that remain reachable only by typing in full: ${matches.length - 8}`
+        `  unguessed matches remaining in the data: ${matches.length - played.length}`
     );
-    await shoot(page, `08-autocomplete-exhausted-desktop`);
+    await shoot(page, `08-autocomplete-endurance-desktop`);
 
     await context.close();
 }

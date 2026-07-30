@@ -1,6 +1,6 @@
 # Fix autocomplete filtering order and prefix ranking
 
-- STATUS: OPEN
+- STATUS: CLOSED
 - PRIORITY: 78
 - TAGS: bug,ui,input
 
@@ -29,15 +29,23 @@ From the playtest pass (`20260729-092435`, NOTES.md F3.10-F3.11), ON-SCREEN and 
 
 ## Steps
 
-- [ ] Filter guessed species BEFORE truncating, so the list always offers up to 8 usable suggestions.
-- [ ] Rank prefix matches above interior substring matches, keeping substring matching as the fallback.
-- [ ] Add a Jest test for `findMatches`-level ordering and a browser E2E regression for the empty-list case (guess 8 "saur" species, assert the list is still populated).
+- [x] Extract the match logic out of the `setupAutocomplete` closure into an exported pure function `findMatches(speciesNames, query, isGuessed)` in `src/ui/autocomplete.ts`, so it is directly unit-testable; `setupAutocomplete` calls it with its own options.
+- [x] Filter guessed species BEFORE truncating to 8, so the list always offers up to 8 usable suggestions.
+- [x] Rank prefix matches above interior substring matches (stable partition, source order preserved within each group), keeping substring matching as the fallback.
+- [x] Add `test/autocomplete.test.ts` covering both the filter-order fix and prefix ranking against the REAL `src/jurassic/index.json` species list.
+- [x] Extend `e2e/autocomplete.spec.ts` with the browser regression: on a fixed practice seed, guess 8 "saur" species, then type "saur" and assert the suggestion list is still populated.
 
 ## Definition of Done
 
 - After guessing 8 matching species, the query still returns suggestions. (test: browser E2E, the exact repro above)
-- A prefix match outranks an interior match for the same query. (test: Jest)
+- A prefix match outranks an interior match for the same query. (test: Jest, `test/autocomplete.test.ts`)
+- Up to 8 suggestions are offered while unguessed candidates remain. (test: Jest)
 - `npm run ci` passes. (cmd: `npm run ci`)
+
+## Flow State
+
+- FLOW STEP: DONE
+- PLAN STATUS: APPROVED
 
 ## Notes
 

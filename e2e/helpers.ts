@@ -371,10 +371,12 @@ export const WIDE_TREE_GUESSES = [
 ];
 
 // Submit one named species. Distinct from `guessFirstSuggestion`, which takes
-// whatever ranks first: here the species is chosen by EXACT item text, because
-// the suggestion list is a plain substring match with no prefix ranking (task
-// 20260729-141427), so typing "Ceratosaurus" can put "Proceratosaurus" first.
-// A fixture that silently guesses a different animal is not a fixture.
+// whatever ranks first: here the species is chosen by EXACT item text. Prefix
+// matches now outrank interior ones (task 20260729-141427), so typing
+// "Ceratosaurus" does put it ahead of "Proceratosaurus" - but ranking is not a
+// guarantee of uniqueness, and one species name can still be a prefix of
+// another. A fixture that silently guesses a different animal is not a fixture,
+// so it stays pinned to the exact text.
 export async function guessNamedSpecies(
     page: Page,
     name: string

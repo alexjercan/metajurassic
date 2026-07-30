@@ -31,7 +31,8 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   preference the branch's own test pinned. When a fix reuses a helper that
   mutates module state, read its body in the same breath as the call.
   20260729-092315.
-- `close-a-task-with-its-review-and-retro-not-just-the-status` (x2): the first
+- `close-a-task-with-its-review-and-retro-not-just-the-status` (x3, PENDING
+  PROMOTION): the first
   tracked task here (`20260331-154614`, graph scaling) was set CLOSED with no
   `REVIEW.md` and no `RETRO.md`, so `tatr check` went red and the reasoning
   behind the fix survived only in the commit diff. A task is not done when its
@@ -41,7 +42,10 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   (20260729-092339): the branch sat at `FLOW STEP: COMPOUNDING` with STATUS
   CLOSED and no REVIEW.md - the marker is a CLAIM, the artifact is the evidence.
   Running the missing round found two majors, one of them a behavioural
-  regression the branch itself had introduced.
+  regression the branch itself had introduced. Third hit (20260729-141427):
+  CLOSED at the end of the work phase, caught by the out-of-context reviewer
+  running `tatr check` - which the work phase itself never ran, because
+  `npm run ci` was treated as "the gate" when it only gates the CODE.
 - `backfilled-records-must-say-so` (x1): when reconstructing a REVIEW/RETRO for a
   task that was closed without one, label it a BACKFILL and date it to now, and
   do not invent a `PLAN STATUS: APPROVED` marker or an out-of-context round that
@@ -486,4 +490,11 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
 
 ## Pending promotions (3+ occurrences, user decides)
 
-(none yet)
+- `close-a-task-with-its-review-and-retro-not-just-the-status` (x3) -> tatr CLI
+  guard, not prose. Three sessions have flipped STATUS to CLOSED before the
+  REVIEW/RETRO artifacts existed, each time caught after the fact by
+  `tatr check`. Prose has not held it. Proposal: make `tatr` REFUSE the
+  transition to CLOSED unless `REVIEW.md` exists with an APPROVE verdict in its
+  latest round (`--force` for the deliberate exception), so the mistake becomes
+  impossible rather than merely detectable. 20260729-092239, 20260729-092339,
+  20260729-141427.
