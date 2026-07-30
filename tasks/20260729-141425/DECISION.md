@@ -2,9 +2,11 @@
 
 - DATE: 20260729 (accepted by the user in conversation)
 - STATUS: ACCEPTED
+- TASK: 20260729-141425
+- TAGS: decision, feature, ux, archive
 - CONTEXT: `tasks/20260729-092435/NOTES.md` F1.1-F1.3, `tasks/20260729-160500/SPIKE.md`
 
-## The fork
+## Context
 
 The playtest pass found that no surface maps a clade to its member species, so
 the game asks for a deduction it gives the player almost no means to make. Three
@@ -16,7 +18,9 @@ candidate shapes were on the table, and they are not interchangeable:
 - (c) nothing in-round; the archive gains the knowledge so it is learnable
   outside a round.
 
-## Accepted: (c), as a clade FILTER on the species archive
+## Decision
+
+Accepted: (c), as a clade FILTER on the species archive.
 
 The user rejected the in-round shapes:
 
@@ -43,7 +47,7 @@ rather than automatic: a hint names a clade, and cashing that name in means a
 trip to the archive. Both decisions were taken together and should be read
 together.
 
-## Rejected
+## Alternatives considered
 
 - **(a) member species on the clade card.** Rejected as cheating: it answers the
   puzzle by reading, in the round, for free.
@@ -51,7 +55,7 @@ together.
   it adds tree-rendering complexity for a partial answer. Not taken; still
   available if play shows the field SIZE is the missing signal.
 
-## Consequence
+## Consequences
 
 The task is re-scoped from an in-round gameplay feature to an archive
 convenience, and drops in priority accordingly (86 -> 60): it no longer sits on

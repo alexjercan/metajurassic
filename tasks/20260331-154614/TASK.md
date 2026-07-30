@@ -3,6 +3,9 @@
 - STATUS: CLOSED
 - PRIORITY: 100
 - TAGS: bug
+- KIND: TASK
+- FLOW STEP: DONE
+- PLAN STATUS: APPROVED
 
 The graph tree that displays the dinosaurs and clades is not displayed properly
 on some devices. This happens especially if the screen is really small. What

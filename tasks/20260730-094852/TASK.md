@@ -3,6 +3,9 @@
 - STATUS: OPEN
 - PRIORITY: 62
 - TAGS: feature,ux,a11y
+- KIND: TASK
+- FLOW STEP: BACKLOG
+- PLAN STATUS: DRAFT
 
 ## Story
 

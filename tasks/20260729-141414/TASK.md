@@ -3,6 +3,9 @@
 - STATUS: CLOSED
 - PRIORITY: 92
 - TAGS: bug,ui,ux,mobile
+- KIND: TASK
+- FLOW STEP: DONE
+- PLAN STATUS: APPROVED
 
 
 ## Story
@@ -79,8 +82,3 @@ initially carried the amber unseen dot and read "Dinosauria", duplicating the
 tree's only node. The starting hint is not information a guess earned, so
 `renderLastGuess`'s no-last-guess branch now clears the marker and the tab reads
 "Info"; pinned in `e2e/mobile.spec.ts`.
-
-## Flow State
-
-- FLOW STEP: DONE
-- PLAN STATUS: APPROVED

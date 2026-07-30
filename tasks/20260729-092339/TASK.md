@@ -3,6 +3,9 @@
 - STATUS: CLOSED
 - PRIORITY: 80
 - TAGS: bug,ui,mobile,testing
+- KIND: TASK
+- FLOW STEP: DONE
+- PLAN STATUS: APPROVED
 
 ## Story
 
@@ -119,8 +122,3 @@ old behaviour for exactly that reason.
 - Useful code areas: `src/ui/treeVisualizer.ts`, `src/style.css`, and `src/treeBuilder.ts`.
 - The three load-bearing forks (sizing strategy, scroll anchor, touch-proof
   depth) were put to the user and are recorded in `DECISION.md`.
-
-## Flow State
-
-- FLOW STEP: DONE
-- PLAN STATUS: APPROVED

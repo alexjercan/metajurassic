@@ -3,6 +3,9 @@
 - STATUS: OPEN
 - PRIORITY: 55
 - TAGS: docs,ux
+- KIND: TASK
+- FLOW STEP: BACKLOG
+- PLAN STATUS: DRAFT
 
 ## Story
 

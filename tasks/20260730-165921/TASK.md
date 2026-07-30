@@ -3,6 +3,9 @@
 - STATUS: OPEN
 - PRIORITY: 58
 - TAGS: bug,ux,ui
+- KIND: TASK
+- FLOW STEP: BACKLOG
+- PLAN STATUS: DRAFT
 
 ## Story
 
@@ -41,7 +44,7 @@ for a clipboard write that failed") so this change has a baseline to move.
 
 - A failed clipboard write shows an in-game message and raises no dialog.
   (test: `npm run test:e2e -- share.spec.ts`)
-- No `alert(` remains in `src/`. (cmd: `grep -rn "alert(" src/`)
+- No `alert(` remains in `src/`. (cmd: `grep -rn 'alert' src/`)
 - `npm run ci` passes. (cmd: `npm run ci`)
 
 ## Notes

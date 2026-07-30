@@ -3,6 +3,9 @@
 - STATUS: CLOSED
 - PRIORITY: 62
 - TAGS: bug,ui,mobile
+- KIND: TASK
+- FLOW STEP: DONE
+- PLAN STATUS: APPROVED
 
 ## Story
 
@@ -271,8 +274,3 @@ ends of the scroll range: 26 screenshots, all read.
   (p58) with the measurements; the compaction this task scoped out is what closes
   it, and the escape hatch remains the guarantee for 360x300, which needs 113px
   of scroll and cannot be trimmed into fitting.
-
-## Flow State
-
-- FLOW STEP: DONE
-- PLAN STATUS: APPROVED

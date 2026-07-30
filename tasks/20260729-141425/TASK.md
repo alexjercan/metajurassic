@@ -3,6 +3,9 @@
 - STATUS: OPEN
 - PRIORITY: 60
 - TAGS: feature,ux,archive
+- KIND: TASK
+- FLOW STEP: BACKLOG
+- PLAN STATUS: DRAFT
 
 
 ## Story

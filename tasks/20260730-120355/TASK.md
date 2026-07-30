@@ -3,6 +3,9 @@
 - STATUS: OPEN
 - PRIORITY: 35
 - TAGS: chore,content,tooling
+- KIND: TASK
+- FLOW STEP: BACKLOG
+- PLAN STATUS: DRAFT
 
 
 ## Story

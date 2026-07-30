@@ -3,6 +3,9 @@
 - STATUS: CLOSED
 - PRIORITY: 94
 - TAGS: testing,feature,e2e
+- KIND: TASK
+- FLOW STEP: DONE
+- PLAN STATUS: APPROVED
 
 ## Story
 
@@ -27,11 +30,6 @@ As a developer or tester, I want to load the game with a chosen seed (for exampl
 - Loading with a seed param yields the same target every time. (test: browser E2E or Jest integration test)
 - The daily state in storage is untouched by seeded rounds. (test: storage isolation test)
 - The param is documented. (cmd: `rg -n "seed" AGENTS.md README.md`)
-
-## Flow State
-
-- FLOW STEP: DONE
-- PLAN STATUS: APPROVED
 
 ## Notes
 

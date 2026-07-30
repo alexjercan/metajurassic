@@ -3,6 +3,9 @@
 - STATUS: CLOSED
 - PRIORITY: 92
 - TAGS: bug,testing
+- KIND: TASK
+- FLOW STEP: DONE
+- PLAN STATUS: APPROVED
 
 ## Story
 
@@ -35,11 +38,6 @@ As a daily player checking my profile, I want game history, dates, and streaks c
 
 - Fix the seam with a test that crosses it, not just the constant. This bug is the canonical example of isolated unit tests missing a format/parse seam; the lesson belongs in LESSONS.md when this closes.
 - Discovered mid-fix: `seedToDate`/`dateToSeed` are not clean inverses at local midnight across a DST boundary, so daily profile dates drift by a day for half the year. Out of scope here; filed as follow-up task 20260729-122943. The streak tests anchor to `seedToDate` to stay robust to that drift.
-
-## Flow State
-
-- FLOW STEP: DONE
-- PLAN STATUS: APPROVED
 
 ## Decision
 

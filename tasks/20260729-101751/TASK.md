@@ -3,6 +3,9 @@
 - STATUS: OPEN
 - PRIORITY: 55
 - TAGS: feature,ux,content
+- KIND: TASK
+- FLOW STEP: BACKLOG
+- PLAN STATUS: DRAFT
 
 ## Story
 

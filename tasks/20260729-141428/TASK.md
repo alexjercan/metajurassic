@@ -3,6 +3,9 @@
 - STATUS: CLOSED
 - PRIORITY: 76
 - TAGS: bug, ui, mobile
+- KIND: TASK
+- FLOW STEP: DONE
+- PLAN STATUS: APPROVED
 
 ## Story
 
@@ -175,8 +178,3 @@ speculative knob that made the task's own failure unfalsifiable.
 - Not in scope: whether the practice page should still offer a "Practice" link
   in its own game-over modal. It is a product question, not the overflow bug;
   raised at the plan gate.
-
-## Flow State
-
-- FLOW STEP: DONE
-- PLAN STATUS: APPROVED

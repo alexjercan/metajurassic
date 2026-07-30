@@ -3,6 +3,9 @@
 - STATUS: OPEN
 - PRIORITY: 40
 - TAGS: chore,cleanup
+- KIND: TASK
+- FLOW STEP: BACKLOG
+- PLAN STATUS: DRAFT
 
 
 ## Story

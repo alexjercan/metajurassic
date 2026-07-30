@@ -3,6 +3,9 @@
 - STATUS: CLOSED
 - PRIORITY: 88
 - TAGS: spike,gameplay,design
+- KIND: SPIKE
+- FLOW STEP: DONE
+- PLAN STATUS: APPROVED
 
 
 ## Question

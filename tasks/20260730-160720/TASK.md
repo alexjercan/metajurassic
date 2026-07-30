@@ -3,6 +3,9 @@
 - STATUS: OPEN
 - PRIORITY: 58
 - TAGS: bug,ui,mobile,ux
+- KIND: TASK
+- FLOW STEP: BACKLOG
+- PLAN STATUS: DRAFT
 
 ## Story
 

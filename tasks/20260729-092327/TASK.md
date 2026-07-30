@@ -3,6 +3,9 @@
 - STATUS: CLOSED
 - PRIORITY: 82
 - TAGS: feature, ux, gameplay
+- KIND: TASK
+- FLOW STEP: DONE
+- PLAN STATUS: APPROVED
 
 ## Story
 
@@ -226,8 +229,3 @@ bear directly on this task.
   begin!", "Enter your next guess.", the win line and "No more guesses." The
   tree is the whole feedback surface there too. Narration may still help a first
   timer, but it has to be argued on its own merits rather than as parity.
-
-## Flow State
-
-- FLOW STEP: DONE
-- PLAN STATUS: APPROVED

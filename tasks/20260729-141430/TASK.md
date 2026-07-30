@@ -3,6 +3,9 @@
 - STATUS: OPEN
 - PRIORITY: 30
 - TAGS: content,docs
+- KIND: TASK
+- FLOW STEP: BACKLOG
+- PLAN STATUS: DRAFT
 
 
 ## Story

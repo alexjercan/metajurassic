@@ -3,6 +3,9 @@
 - STATUS: CLOSED
 - PRIORITY: 84
 - TAGS: ux, gameplay, design
+- KIND: TASK
+- FLOW STEP: DONE
+- PLAN STATUS: APPROVED
 
 ## Story
 
@@ -48,8 +51,3 @@ As a player who understands Metazooa-style taxonomy guessing, I want Metajurassi
   says "Metazooa" it means <https://metazooa.com>, the played game.
 - The out-of-context review's direction call, to be validated or overturned here: keep the tree as the primary feedback surface and the museum-card collection as the game's own identity layer; the gap versus Metazooa is retention polish (share, ritual), not the core loop.
 - Priority raised to 84 on 2026-07-29: run this research before the onboarding design task (`20260729-092327`).
-
-## Flow State
-
-- FLOW STEP: DONE
-- PLAN STATUS: APPROVED

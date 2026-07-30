@@ -3,9 +3,7 @@
 - STATUS: CLOSED
 - PRIORITY: 100
 - TAGS: process, flow, docs
-
-## Flow State
-
+- KIND: TASK
 - FLOW STEP: DONE
 - PLAN STATUS: APPROVED
 

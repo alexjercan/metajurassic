@@ -3,6 +3,9 @@
 - STATUS: CLOSED
 - PRIORITY: 70
 - TAGS: bug,ui,input
+- KIND: TASK
+- FLOW STEP: DONE
+- PLAN STATUS: APPROVED
 
 ## Story
 
@@ -198,8 +201,3 @@ change that greens it.
 - `e2e/panel.spec.ts` passes repeatedly with the retry workaround removed.
   (cmd: `npx playwright test e2e/panel.spec.ts --repeat-each=30`)
 - `npm run ci` passes. (cmd: `npm run ci`)
-
-## Flow State
-
-- FLOW STEP: DONE
-- PLAN STATUS: APPROVED

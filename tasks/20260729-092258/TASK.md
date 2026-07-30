@@ -3,9 +3,7 @@
 - STATUS: CLOSED
 - PRIORITY: 95
 - TAGS: testing,e2e,ui,flow
-
-## Flow State
-
+- KIND: TASK
 - FLOW STEP: DONE
 - PLAN STATUS: APPROVED
 

@@ -3,6 +3,9 @@
 - STATUS: CLOSED
 - PRIORITY: 75
 - TAGS: testing,data,content
+- KIND: TASK
+- FLOW STEP: DONE
+- PLAN STATUS: APPROVED
 
 ## Story
 
@@ -142,8 +145,3 @@ Three load-bearing choices, recorded in `DECISION.md`:
 - Fragility worth pinning with a test: `jsonLoader` keys the clade map by lowercase display name and discards the JSON key, so renaming a clade silently breaks every species/parent reference to it.
 - Found while planning (2026-07-30): `src/markdownLoader.ts` is DEAD CODE - every page imports `loadGameData` from `jsonLoader`, nothing imports `markdownLoader`. Whether to delete it is a follow-up task (`20260730-120401`), not this one; this task only lifts its frontmatter parser into a shared module that the source-validation test can use. Correction to the planning note: it does NOT show up in the coverage report at all - not as 0%, but absent - which the follow-up should explain before deleting.
 - Out of scope but noted: `src/ui/card.ts` interpolates content into `innerHTML` unescaped. With in-repo authored content there is no injection vector today, so this task guards the DATA (no HTML in content) rather than changing the renderer.
-
-## Flow State
-
-- FLOW STEP: DONE
-- PLAN STATUS: APPROVED

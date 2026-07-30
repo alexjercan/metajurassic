@@ -3,6 +3,9 @@
 - STATUS: CLOSED
 - PRIORITY: 78
 - TAGS: bug,ui,input
+- KIND: TASK
+- FLOW STEP: DONE
+- PLAN STATUS: APPROVED
 
 
 ## Story
@@ -41,11 +44,6 @@ From the playtest pass (`20260729-092435`, NOTES.md F3.10-F3.11), ON-SCREEN and 
 - A prefix match outranks an interior match for the same query. (test: Jest, `test/autocomplete.test.ts`)
 - Up to 8 suggestions are offered while unguessed candidates remain. (test: Jest)
 - `npm run ci` passes. (cmd: `npm run ci`)
-
-## Flow State
-
-- FLOW STEP: DONE
-- PLAN STATUS: APPROVED
 
 ## Notes
 

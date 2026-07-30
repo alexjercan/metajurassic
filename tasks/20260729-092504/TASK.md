@@ -3,9 +3,7 @@
 - STATUS: CLOSED
 - PRIORITY: 62
 - TAGS: ux, gameplay, feature
-
-## Flow State
-
+- KIND: TASK
 - FLOW STEP: DONE
 - PLAN STATUS: APPROVED
 

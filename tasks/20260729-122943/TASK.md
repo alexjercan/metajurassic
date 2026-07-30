@@ -3,6 +3,9 @@
 - STATUS: CLOSED
 - PRIORITY: 80
 - TAGS: bug,testing
+- KIND: TASK
+- FLOW STEP: DONE
+- PLAN STATUS: APPROVED
 
 ## Story
 
@@ -26,11 +29,6 @@ current streak off "today".
 Discovered while fixing 20260729-101747 (puzzle-key round-trip). That fix's
 streak tests anchor to `seedToDate` to stay robust to this drift; this task is
 the drift itself.
-
-## Flow State
-
-- FLOW STEP: DONE
-- PLAN STATUS: APPROVED
 
 ## Steps
 

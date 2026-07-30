@@ -3,6 +3,9 @@
 - STATUS: CLOSED
 - PRIORITY: 68
 - TAGS: bug, ux, gameplay
+- KIND: TASK
+- FLOW STEP: DONE
+- PLAN STATUS: APPROVED
 
 ## Story
 
@@ -142,11 +145,6 @@ a 10:1 fold -- and by rejecting a draw whose key is already occupied.
 - The playtest evidence below says any regression test must use an UNSEEDED
   round; the E2E spec above does, which is why it cannot reuse the seeded
   fixtures in `e2e/seed.spec.ts`.
-
-## Flow State
-
-- FLOW STEP: DONE
-- PLAN STATUS: APPROVED
 
 ## Playtest evidence (2026-07-29, from `20260729-092435`)
 

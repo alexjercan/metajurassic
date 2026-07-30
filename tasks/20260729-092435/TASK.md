@@ -3,6 +3,9 @@
 - STATUS: CLOSED
 - PRIORITY: 86
 - TAGS: ux, gameplay, research
+- KIND: TASK
+- FLOW STEP: DONE
+- PLAN STATUS: APPROVED
 
 ## Story
 
@@ -90,11 +93,6 @@ Assumptions recorded rather than asked:
 - Every finding carries an evidence label. (manual: inspect notes)
 - Follow-up tasks exist for every actionable finding. (manual: compare notes to `tatr ls`)
 - `npm run ci` passes. (cmd: `npm run ci`)
-
-## Flow State
-
-- FLOW STEP: DONE
-- PLAN STATUS: APPROVED
 
 ## Outcome
 

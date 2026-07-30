@@ -3,6 +3,9 @@
 - STATUS: CLOSED
 - PRIORITY: 65
 - TAGS: ci,testing,lint
+- KIND: TASK
+- FLOW STEP: DONE
+- PLAN STATUS: APPROVED
 
 ## Story
 
@@ -102,8 +105,3 @@ free first with `ss -ltnp` regardless.
   is recorded in AGENTS.md (`20260729-101744`) rather than papered over here.
   `.github/workflows/ci.yml` calls `npm run lint`, so the strict flag reaches CI
   with no workflow edit.
-
-## Flow State
-
-- FLOW STEP: DONE
-- PLAN STATUS: APPROVED

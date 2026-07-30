@@ -3,6 +3,9 @@
 - STATUS: CLOSED
 - PRIORITY: 78
 - TAGS: feature,ux,gameplay
+- KIND: TASK
+- FLOW STEP: DONE
+- PLAN STATUS: APPROVED
 
 ## Story
 
@@ -56,11 +59,6 @@ Run on the branch, against the code being committed.
   - Winner: `Struthiomimus` renders as solid filled gold with its glow, immediately beside tier-4 green `Gallimimus`. Filled-bright vs outline-plus-tint - no chance of reading the winner as a point on the scale.
   - Mystery: dashed red with the pulse, unchanged, and there is no red anywhere in the closeness scale for it to compete with.
   - The screenshot rig was a throwaway spec, deleted before commit; the standing browser proof is `e2e/closeness.spec.ts`.
-
-## Flow State
-
-- FLOW STEP: DONE
-- PLAN STATUS: APPROVED
 
 ## Notes
 

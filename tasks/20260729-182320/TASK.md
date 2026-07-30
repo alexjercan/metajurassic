@@ -3,6 +3,9 @@
 - STATUS: OPEN
 - PRIORITY: 58
 - TAGS: feature,ux,gameplay
+- KIND: TASK
+- FLOW STEP: BACKLOG
+- PLAN STATUS: DRAFT
 
 ## Story
 

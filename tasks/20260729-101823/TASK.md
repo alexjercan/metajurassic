@@ -3,6 +3,9 @@
 - STATUS: CLOSED
 - PRIORITY: 88
 - TAGS: feature,ux,gameplay
+- KIND: TASK
+- FLOW STEP: DONE
+- PLAN STATUS: APPROVED
 
 ## Story
 
@@ -111,8 +114,3 @@ absent, fall back to `navigator.clipboard.writeText` and return `"copied"`.
 - The share message is the game's only growth loop; treat the copy as a product feature, not a formatting detail.
 - Depends on: `20260729-092258` for browser coverage of the share button path (Jest can cover the text itself immediately).
 - Related: `20260729-101751` (link unfurl) and the post-game ritual task; land them as one coherent share experience. The URL line stays as it is here; the unfurl task owns the meta tags on the other side of that link.
-
-## Flow State
-
-- FLOW STEP: DONE
-- PLAN STATUS: APPROVED

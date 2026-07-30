@@ -3,6 +3,9 @@
 - STATUS: CLOSED
 - PRIORITY: 70
 - TAGS: bug,content,ui
+- KIND: TASK
+- FLOW STEP: DONE
+- PLAN STATUS: APPROVED
 
 ## Story
 
@@ -62,8 +65,3 @@ What this task's steps mean, as delivered:
 - Regression coverage: `test/dataIntegrity.test.ts` pins
   `species.icon === clades[species.clade].image` over the real payload, and the
   `test.fixme` in `e2e/images.spec.ts` is now a real, passing test.
-
-## Flow State
-
-- FLOW STEP: DONE
-- PLAN STATUS: APPROVED
