@@ -106,6 +106,17 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   rather than a few behavioural failures - so check BOTH: `ss -ltnp | grep :8080`
   for the stale server, and `nix develop -c npx tsc --noEmit` for a type error in
   a test file. 20260729-141414.
+- `a-new-devdependency-does-not-reach-the-main-checkout-until-you-install-it`
+  (x1): a sprout worktree symlinks the main checkout's `node_modules`, but
+  `npm install --save-dev` from inside the worktree updated only the WORKTREE's
+  package.json/lock plus its own resolved tree - the main checkout never gained
+  `jest-environment-jsdom`. The branch gate was green all cycle and the FIRST
+  run on the default branch after landing failed with "Test environment
+  jest-environment-jsdom cannot be found". Fixed by `npm install` in the main
+  checkout. Lesson: when a branch adds a dependency, the flow Finish gate run on
+  the default branch is what catches the un-installed checkout - do not skip it
+  because "the same suite was green five minutes ago on the branch".
+  20260729-092352.
 - `metajurassic-js-toolchain-lives-in-the-nix-devshell` (x1): `node`/`npm` are
   not on PATH in this environment; the JS toolchain comes from the `flake.nix`
   devShell (`pkgs.nodejs`). To run `npm run ci` without building the Python venv,
