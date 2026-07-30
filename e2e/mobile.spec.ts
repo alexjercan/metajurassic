@@ -20,6 +20,7 @@ import {
     playSeededPracticeToWin,
     playSeededPracticeToLoss,
 } from "./helpers";
+import { MAX_GUESSES } from "../src/constants";
 
 // Phone sizes the game-over modal must hold at. 393px is the Pixel 5 this
 // project runs (the width the reported overflow was measured on); 360px is the
@@ -35,6 +36,43 @@ const NARROW_VIEWPORTS = [
     { width: 360, height: 640 },
     { width: 320, height: 568 },
     { width: 393, height: 500 },
+];
+
+// Short viewports, where the constraint is HEIGHT rather than width: the phone
+// held sideways, and the Android split-screen and desktop-resize sizes below it.
+// Every entry above is tall enough that the modal fits, so on its own that sweep
+// cannot fail on the vertical axis at all (LESSONS.md:
+// turn-every-axis-word-in-a-plan-into-a-number-before-ticking-it).
+//
+// The numbers, measured on master before the fix (win and loss modal alike -
+// both render 331.2px tall, or 381.2px once the action row wraps):
+//
+//   568x320  iPhone SE landscape, the reported size. .modal [-5.6, 325.6]:
+//            the BOX is clipped 5.6px at top AND bottom, while every control
+//            still sits inside the viewport. This size does not fail on a
+//            control - it fails on the modal being cut off at both ends.
+//   480x320  the same, one width down: .modal [-5.6, 325.6].
+//   640x360  fits today, .modal [14.4, 345.6] with 14.4px to spare. The control
+//            size: the sweep must contain a height the old CSS satisfies, or
+//            "the sweep goes red" would not distinguish a height problem from a
+//            broken fixture.
+//   360x320  narrow AND short, so the row wraps to 92px and the modal is
+//            381.2px: #modal-share-btn bottom 321.6 against a 320px viewport -
+//            1.6px below the fold, a control genuinely off screen.
+//   360x300  the same shape with the margin no longer hairline: share button
+//            bottom 311.6 against 300px, 11.6px below the fold.
+//
+// In the four that do not fit, .modal-overlay reports overflowY: visible with
+// scrollHeight > clientHeight and the document does not scroll: the overflow
+// exists and nothing can reach it. (640x360 has no overflow to reach - measured
+// scrollHeight 360 against clientHeight 360 - which is what makes it the control
+// size.)
+const SHORT_VIEWPORTS = [
+    { width: 568, height: 320 },
+    { width: 480, height: 320 },
+    { width: 640, height: 360 },
+    { width: 360, height: 320 },
+    { width: 360, height: 300 },
 ];
 
 // Mobile viewport coverage (runs on the Pixel 5 project). The player must be
@@ -785,6 +823,56 @@ test.describe("mobile game-over modal", () => {
                 await expectModalFitsViewport(page);
             }
         });
+
+        // The other axis. NARROW_VIEWPORTS is a sweep of widths - every height
+        // in it clears the modal - so the vertical half of the assertion could
+        // not fail anywhere in it. These are the sizes where HEIGHT is the
+        // constraint: see SHORT_VIEWPORTS for the measured numbers.
+        //
+        // ONE TEST PER SIZE, deliberately, rather than a loop inside a single
+        // case. A loop stops at its first failing size, so the whole short sweep
+        // reported exactly one number - `.modal` clipped 5.6px at 568x320 - and
+        // said nothing about the other four. The Definition of Done asks which
+        // assertion fires at WHICH size, and the suite is the thing that has to
+        // answer that on the next regression too, not just in this task's notes.
+        //
+        // Both modal variants, because the loss message is the longer string and
+        // the win modal is what a finished round usually shows; they measure the
+        // same 331.2px today, and asserting only one would not notice if a later
+        // change made one of them taller.
+        for (const variant of ["win", "loss"] as const) {
+            for (const size of SHORT_VIEWPORTS) {
+                test(`every ${variant} action is reachable at ${size.width}x${size.height}`, async ({
+                    page,
+                }) => {
+                    const { speciesIds } = await loadContent(page);
+                    const target = speciesIds[0];
+                    const guesses =
+                        variant === "win"
+                            ? [target]
+                            : speciesIds.slice(1, 1 + MAX_GUESSES);
+                    if (variant === "loss") {
+                        expect(guesses).toHaveLength(MAX_GUESSES);
+                    }
+                    await seedFinishedDailyGame(page, {
+                        targetId: target,
+                        guesses,
+                        lastGuessId: guesses[guesses.length - 1],
+                    });
+                    // Before the reload, so the modal is laid out at the size
+                    // under test and never at the project's default: a modal
+                    // measured after a resize is a modal that has been through a
+                    // reflow the player never performs.
+                    await page.setViewportSize(size);
+                    await page.reload();
+                    await expect(page.locator("#modal-title")).toHaveText(
+                        variant === "win" ? "You found it!" : "Game Over"
+                    );
+
+                    await expectModalFitsViewport(page);
+                });
+            }
+        }
     });
 
     test.describe("practice", () => {

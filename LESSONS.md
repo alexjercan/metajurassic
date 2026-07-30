@@ -169,7 +169,7 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   from the files you happen to have opened. Same family as
   [[absence-proving-greps-must-be-run-when-written]]: both are proofs of a
   negative that were asserted rather than executed. 20260729-092435.
-- `a-measurement-licenses-a-claim-only-over-the-range-it-swept` (x1): the
+- `a-measurement-licenses-a-claim-only-over-the-range-it-swept` (x2): the
   difficulty simulation measured hints bought BEFORE the first guess and the
   write-up concluded "it is never correct to buy one" - but the hint reveals one
   level below the DEEPEST REVEALED clade, so a mid-round hint is a different
@@ -179,6 +179,13 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   usually to widen the sweep, not to soften the sentence - re-measuring here
   turned a narrow finding into a better one (a late hint for a weak player is
   near break-even and cuts the loss rate 5.8% -> 4.6%). 20260729-092435.
+  Second occurrence, the mirror image: a comment and a Definition of Done said
+  "in all five [swept viewports] the overlay has unreachable overflow" after
+  measuring most of them, and it was false at the ONE size chosen because it
+  fits - which cannot also have unreachable overflow - with the correct numbers
+  three lines above in the same table. A sentence quantified over a swept set is
+  itself an assertion; check it against every member or scope it to the ones
+  measured. 20260730-111003.
 
 - `anchor-programmatic-edits-on-code-not-prose-and-read-the-diff-back` (x1): a
   scripted insertion anchored on a comment string landed INSIDE another symbol's
@@ -233,7 +240,7 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   list before committing: the missing path was on screen. Sibling of
   [[an-edit-you-believe-you-made-is-a-hypothesis-until-the-artifact-shows-it]].
   20260729-122943.
-- `open-a-neighbouring-record-before-writing-a-new-one` (x1): the closeness task's
+- `open-a-neighbouring-record-before-writing-a-new-one` (x2): the closeness task's
   `DECISION.md` was authored from an idea of what a decision record contains, and
   reddened `tatr check` with `bad-decision-status` - the document-level `- STATUS:`
   line the linter parses lived only inside each fork section, while all 13
@@ -244,6 +251,14 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   format, and run the repo's OWN conformance gate (`tatr check`) as part of a
   task's verification - it is a different gate from `npm run ci`, and only the
   code one was being run. 20260729-182255.
+  Second occurrence: a plan step said to re-run a previous task's CSS fixes
+  "reverted one at a time" and expect each to redden the suite. That task's own
+  `REVIEW.md` says in plain words that its single reverts were all GREEN and only
+  its full parent CSS reddens - so the step was planned against a claim its
+  reference had already refuted. Its `TASK.md` and the comments it left in the
+  code had been read; its review had not. The findings are where a task's own
+  claims got corrected, so read the REVIEW.md of any task you cite as evidence.
+  20260730-111003.
 - `re-read-the-decision-record-while-implementing-the-function-that-implements-it`
   (x1): `DECISION.md` said in as many words "finished rounds are kept: they ARE
   the practice stats", and the function deciding keep-vs-delete
@@ -597,6 +612,30 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   red proves a warning fails, only the counterfactual proves the flag is why.
   Mutate in two directions: delete the protected thing, and swap it for a
   plausible near-miss. 20260729-092419.
+
+- `a-claim-that-a-test-cannot-cheat-must-be-run-not-written` (x1): a reachability
+  check scrolled a control into view and then asserted it was visible, with a
+  comment explaining why it could not manufacture its own pass ("where there is
+  no scroll container a `scrollTop` assignment is inert"). True of
+  `overflow: visible`, FALSE of `overflow: hidden`, which Chromium scrolls
+  programmatically while neither touch nor wheel can move it: the reviewer
+  changed one keyword and the whole modal suite went green on a modal whose
+  actions were clipped 15px below the card and unreachable by any real input. A
+  sentence claiming a mechanism cannot produce a false pass is a test plan, not
+  documentation - run that mutation in the same sitting, and assert the property
+  (here: the computed `overflow-y` permits a USER scroll) separately from
+  exercising it. Family of [[a-guard-no-test-can-fail-is-a-comment]] and
+  [[a-speculative-knob-beside-a-failing-test-is-a-suspect]], with the knob in the
+  test. 20260730-111003.
+- `replacing-an-assertion-means-enumerating-what-it-asserted` (x1): a modal
+  gaining an internal scroll made "every control is visible" unsatisfiable, so it
+  was replaced by "every control is reachable". But the old assertion was doing
+  TWO jobs - reachability AND containment inside the modal's own box - and only
+  one was replaced, so the state where the buttons are drawn straddling the
+  card's bottom border onto the backdrop passed at two of five swept sizes. The
+  horizontal axis had kept its containment check the whole time, which is what
+  made the asymmetry visible once someone looked. Before swapping an assertion,
+  list every property the old one happened to pin. 20260730-111003.
 
 ## Game design and measurement
 

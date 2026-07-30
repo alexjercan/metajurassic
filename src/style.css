@@ -1213,6 +1213,43 @@ footer a + a::before {
     box-sizing: border-box;
     max-width: 518px;
     width: 90%;
+    /* The vertical escape hatch. Without it a modal taller than the screen was
+       simply cut off at BOTH ends - the overlay is `position: fixed` with
+       `overflow: visible`, the document does not scroll, so the overflow existed
+       and nothing could reach it. Measured on a landscape phone before this:
+       568x320 clipped the box 5.6px top and bottom, and 360x320 (narrow AND
+       short, so the action row wraps to 92px and the modal is 381.2px) put the
+       Share button 1.6px below the fold - 11.6px at 360x300.
+
+       `calc(100% - 32px)`, NOT `100vh`. The percentage resolves against
+       `.modal-overlay`, which is `position: fixed; inset: 0` and therefore the
+       box actually on screen; `100vh` is the LARGE viewport on a mobile browser
+       with a dynamic toolbar, i.e. a height the player cannot see - the same
+       class of lie this rule exists to remove. And unlike the `max-width` above
+       it, a percentage cap does not read the padding, so it needs no restatement
+       in the 768px block (LESSONS.md:
+       converting-a-css-property-between-coordinate-systems-must-be-restated-per-media-block).
+
+       It does read `box-sizing`, though, and depends on the `border-box` set a
+       few lines above: that is what makes this an OUTER height, so the cap is the
+       box the assertions measure. Dropping `box-sizing` turns it back into a
+       CONTENT height and the box grows past the viewport again by the padding and
+       border - observed while re-running the 20260729-141428 revert, which takes
+       `box-sizing` out: `.modal` was clipped 5.6px at 320px tall with this cap
+       still in place. The two declarations are one mechanism; do not separate
+       them.
+
+       `overflow-y: auto` also computes `overflow-x` to `auto`, so this is a
+       scroll container on both axes. That does NOT weaken the horizontal
+       guarantees. The attack that 20260729-141428 fixed - its whole parent CSS,
+       which is the combination its own review found to be the discriminating one,
+       single reverts having all been green - was re-run with this rule in place
+       and is still rejected, and `expectModalFitsViewport` checks the horizontal
+       rects BEFORE anything that scrolls so it still reports the measured
+       overflow rather than a clipped control. See
+       tasks/20260730-111003/DECISION.md. */
+    max-height: calc(100% - 32px);
+    overflow-y: auto;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9);
     animation: modalIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }

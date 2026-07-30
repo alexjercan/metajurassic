@@ -893,10 +893,219 @@ type MeasuredBox = {
     bottom: number;
 };
 
-// Assert the game-over modal and EVERY control in its action row lie inside the
-// viewport.
+type ScrolledControl = {
+    before: number;
+    after: number;
+    top: number;
+    bottom: number;
+    clipTop: number;
+    clipBottom: number;
+};
+
+// Scroll `#modal` so the nth control in its action row is inside the container's
+// clip box, and report the offset it took together with where the control landed.
+// The clip box of an `overflow: auto` element is its PADDING box, so the borders
+// come off the border box and the padding stays in - a control level with the
+// padding is not clipped.
 //
-// TWO containers, and both are load-bearing:
+// The caller reads all six numbers: the offsets say whether the scroll was
+// load-bearing, and the post-scroll rect against the clip box is the vertical
+// containment assertion (see `expectActionsReachable`).
+async function scrollModalTo(
+    page: Page,
+    index: number
+): Promise<ScrolledControl> {
+    return page.evaluate((i) => {
+        const empty = {
+            before: 0,
+            after: 0,
+            top: 0,
+            bottom: 0,
+            clipTop: 0,
+            clipBottom: 0,
+        };
+        const modal = document.getElementById("modal");
+        const control = modal?.querySelector(".modal-actions")?.children[i];
+        if (!modal || !control) return empty;
+
+        const before = modal.scrollTop;
+        const box = modal.getBoundingClientRect();
+        const cs = getComputedStyle(modal);
+        const px = (v: string) => parseFloat(v || "0");
+        const clipTop = box.top + px(cs.borderTopWidth);
+        const clipBottom = box.bottom - px(cs.borderBottomWidth);
+
+        const r = control.getBoundingClientRect();
+        // Math.ceil, because Chromium snaps `scrollTop` to whole pixels while
+        // this layout is fractional: assigning the exact 15.188px the control
+        // needed landed on 15 and left 0.188px of it over the clip edge, at every
+        // control and every short size (intersectionRatio 0.9955). Rounding UP is
+        // rounding towards revealing more, and it is available - the offset used
+        // is 16 of an available 43. It cannot mask a real failure: where nothing
+        // scrolls, or the container is too short to hold the control, the offset
+        // is inert or clamped and the assertion that follows still fails.
+        if (r.bottom > clipBottom) {
+            modal.scrollTop += Math.ceil(r.bottom - clipBottom);
+        } else if (r.top < clipTop) {
+            modal.scrollTop -= Math.ceil(clipTop - r.top);
+        }
+
+        // Re-read after the scroll: this is where the control ACTUALLY ended up,
+        // which is the only position worth asserting about.
+        const moved = control.getBoundingClientRect();
+        return {
+            before,
+            after: modal.scrollTop,
+            top: moved.top,
+            bottom: moved.bottom,
+            clipTop,
+            clipBottom,
+        };
+    }, index);
+}
+
+// Every control in the action row can be brought WHOLLY on screen.
+//
+// This is the vertical half of `expectModalFitsViewport`'s promise, and it is a
+// reachability claim rather than a visibility one because `.modal` scrolls its
+// own content on a short viewport (see that helper's comment, and
+// tasks/20260730-111003/DECISION.md).
+//
+// Three things make it discriminating rather than decorative:
+//
+//  - the overflow must be one a PLAYER can scroll, asserted separately from the
+//    scrolling. This is the hole review round 1 found (R1.1): the pass writes
+//    `scrollTop` itself, and in Chromium an `overflow: hidden` box IS
+//    programmatically scrollable while being scrollable by neither touch nor
+//    wheel. Changing this rule's `overflow-y: auto` to `hidden` therefore left
+//    every action clipped 15px below the card at all five short viewports with
+//    the whole modal suite GREEN - the assertion's own scroll manufactured the
+//    pass. So wherever the modal has overflow at all, the computed `overflow-y`
+//    is checked to be a value that gives the player a scroll. That also fails on
+//    the pre-fix `visible`, for the same honest reason.
+//  - the control must land inside the container's CLIP box, not merely inside
+//    the viewport (R1.2). Reachability alone says nothing about containment, so
+//    with the cap kept and `overflow` back to `visible` the three pills were
+//    drawn straddling the card's bottom border, half on the backdrop, and
+//    568x320 and 480x320 stayed green. A scroll container promises its contents
+//    stay inside it; that is the vertical analogue of the horizontal
+//    inner-box assertions in `expectModalFitsViewport`.
+//  - `toBeInViewport({ ratio: 1 })` is an IntersectionObserver test, and the
+//    intersection rect is clipped by every ancestor clip box on the way up. A
+//    rect comparison is blind to an intermediate scroll container: a control
+//    scrolled out of `.modal` still reports a layout rect inside the viewport,
+//    which is the same trap `expectFullyVisibleWithin` documents for `#arena`.
+//    Without this the whole check would go green on a modal whose buttons are
+//    permanently below the fold.
+//
+// The scroll is computed from the geometry rather than delegated to
+// `scrollIntoViewIfNeeded`, and it rounds UP. That is not preference. Chromium
+// snaps `scrollTop` to whole pixels while this layout is fractional, so the
+// offset a control needs - 15.188px at 568x320 - is not a position the container
+// can hold: it lands on 15 and leaves 0.188px of the control over the clip edge
+// (intersectionRatio 0.9955, at every control and every short size). The
+// alternative was `ratio: 0.99`, i.e. a tolerance that would equally pass a
+// control clipped by a real bug (LESSONS.md:
+// never-add-a-tolerance-to-silence-an-undiagnosed-failure). Scrolling one whole
+// pixel further keeps the question exact: does a scroll position exist at which
+// the control is WHOLLY on screen? See `scrollModalTo`.
+async function expectActionsReachable(page: Page): Promise<void> {
+    const controls = page.locator(".modal-actions > *");
+    const count = await controls.count();
+    // A loop over nothing passes every assertion inside it, so the row's
+    // population is asserted before it is walked.
+    expect(count, "the modal action row rendered no controls").toBeGreaterThan(
+        0
+    );
+
+    const modal = page.locator("#modal");
+    const overflow = await modal.evaluate((el) => ({
+        entryScrollTop: el.scrollTop,
+        overflowing: el.scrollHeight > el.clientHeight,
+        hidden: el.scrollHeight - el.clientHeight,
+        overflowY: getComputedStyle(el).overflowY,
+    }));
+
+    // The escape hatch has to be a hatch. `hidden` and `clip` are scroll
+    // containers a script can scroll and a finger cannot, and `visible` (the
+    // pre-fix state) just spills the content somewhere unreachable.
+    if (overflow.overflowing) {
+        expect(
+            ["auto", "scroll", "overlay"],
+            `#modal has ${Math.round(overflow.hidden)}px of content past its own box but \`overflow-y: ${overflow.overflowY}\`, so a player cannot scroll to it - only this test can`
+        ).toContain(overflow.overflowY);
+    }
+
+    for (let i = 0; i < count; i++) {
+        const control = controls.nth(i);
+        const label =
+            ((await control.textContent()) ?? "").trim() || `child ${i + 1}`;
+        const scrolled = await scrollModalTo(page, i);
+
+        // One pixel of slack, as everywhere else here; the overflows under test
+        // are tens of pixels.
+        expect(
+            scrolled.bottom,
+            `the "${label}" action still hangs ${Math.round(scrolled.bottom - scrolled.clipBottom)}px below the modal's own box after scrolling it as far as it goes, so it is drawn outside the card`
+        ).toBeLessThanOrEqual(scrolled.clipBottom + 1);
+        expect(
+            scrolled.top,
+            `the "${label}" action still sits ${Math.round(scrolled.clipTop - scrolled.top)}px above the modal's own box after scrolling it as far as it goes, so it is drawn outside the card`
+        ).toBeGreaterThanOrEqual(scrolled.clipTop - 1);
+
+        await expect(
+            control,
+            `the "${label}" action cannot be brought wholly on screen: after scrolling the modal as far as it goes, part of it is still outside the viewport or clipped by an ancestor`
+        ).toBeInViewport({ ratio: 1 });
+    }
+
+    // Put the scroll back where it was found - the value read on entry, not a
+    // literal 0. The rect pass that follows and `expectActionsOnOneRow` both read
+    // positions, and a scroll left behind here would move them: a measurement of
+    // a state the player was never in.
+    await modal.evaluate((el, top) => {
+        el.scrollTop = top;
+    }, overflow.entryScrollTop);
+}
+
+// Assert the game-over modal fits the viewport and EVERY control in its action
+// row can be reached.
+//
+// The two axes make DIFFERENT promises, and the difference is deliberate:
+//
+//  - HORIZONTALLY nothing may overflow. The row wraps instead
+//    (`.modal-actions` has `flex-wrap`), so a control outside the box or the
+//    screen is always a bug. `overflow-y: auto` does compute `overflow-x` to
+//    `auto` as well, so the modal can technically scroll sideways, but that is a
+//    side effect of the vertical hatch and not a promise: nothing is allowed to
+//    need it, and these assertions are what say so.
+//  - VERTICALLY the promise is REACHABILITY, not visibility. Since
+//    20260730-111003 `.modal` is capped at `calc(100% - 32px)` and scrolls its
+//    own content, so on a landscape phone the action row legitimately starts
+//    below the fold of that scroll container. "Every control is on screen right
+//    now" is therefore unsatisfiable by design; "every control can be brought
+//    wholly on screen" is what the player actually needs and what is asserted.
+//
+// The three passes run in a deliberate order, because each one aborts the test
+// and the first to fire is the whole diagnosis the next reader gets:
+//
+//  1. the HORIZONTAL rects, which name the pixels and the container ("starts
+//     14px left of the 393px viewport"). A horizontal overflow is unconditional
+//     and always the most specific thing to say. It has to precede reachability:
+//     `overflow-y: auto` computes `overflow-x` to `auto` as well, so a row too
+//     wide for the modal is now clipped by the scroll container, and
+//     `toBeInViewport` catches it as "cannot be brought wholly on screen" - true
+//     but far less useful than the measured overflow. Verified by re-running the
+//     20260729-141428 attack with every part of that fix reverted and the cap in
+//     place: with this ordering it reports the 14px, not the vague message.
+//  2. REACHABILITY, the player-facing vertical claim.
+//  3. the `.modal` box's own vertical fit. Last, because at a size where a
+//     control is genuinely out of reach the clipped box is a symptom and the
+//     unreachable button is the bug: before this ordering all five short
+//     viewports reported the same `.modal` clipping and the share button hanging
+//     1.6px below the fold at 360x320 was never named.
+//
+// TWO containers for the horizontal pass, and both are load-bearing:
 //
 //  - the viewport, because the modal box itself was wider than the screen
 //    (`width: 90%` on a content-box with 48px of padding either side), which a
@@ -995,14 +1204,6 @@ export async function expectModalFitsViewport(page: Page): Promise<void> {
             box.right,
             `${box.name} extends ${Math.round(box.right - vw)}px past the right edge of the ${vw}px viewport`
         ).toBeLessThanOrEqual(vw + 1);
-        expect(
-            box.top,
-            `${box.name} starts ${Math.round(-box.top)}px above the ${vh}px viewport`
-        ).toBeGreaterThanOrEqual(-1);
-        expect(
-            box.bottom,
-            `${box.name} extends ${Math.round(box.bottom - vh)}px below the ${vh}px viewport`
-        ).toBeLessThanOrEqual(vh + 1);
     }
 
     expect(measured.inner, "#modal is absent").not.toBeNull();
@@ -1018,6 +1219,34 @@ export async function expectModalFitsViewport(page: Page): Promise<void> {
             `${control.name} extends ${Math.round(control.right - inner.right)}px past the right of the modal's own content box`
         ).toBeLessThanOrEqual(inner.right + 1);
     }
+
+    // Pass 2: the vertical promise for the CONTENTS - reachability, not
+    // visibility. After the horizontal rects, so a row too wide for the modal is
+    // reported as the overflow it is rather than as a control the scroll
+    // container clips.
+    await expectActionsReachable(page);
+
+    // Pass 3: vertically, the modal BOX. Its contents may sit outside it - that
+    // is what the scroll container is for, and the pass above is what holds them
+    // to being reachable. The box itself may not: capping it at
+    // `calc(100% - 32px)` is the whole mechanism, so this is the assertion that
+    // the cap is in force. Before the cap it read [-5.6, 325.6] against a 320px
+    // viewport - clipped at both ends, with no way to scroll to either.
+    //
+    // Measured before the reachability pass, and safe to assert after it:
+    // scrolling the modal's content does not move the modal's own box, and the
+    // pass restores `scrollTop` regardless.
+    const modalBox = measured.boxes.find((b) => b.name === ".modal");
+    expect(modalBox, "#modal is absent").toBeDefined();
+    if (!modalBox) return;
+    expect(
+        modalBox.top,
+        `.modal starts ${Math.round(-modalBox.top)}px above the ${vh}px viewport, so its top edge is cut off with nothing able to scroll to it`
+    ).toBeGreaterThanOrEqual(-1);
+    expect(
+        modalBox.bottom,
+        `.modal extends ${Math.round(modalBox.bottom - vh)}px below the ${vh}px viewport, so its bottom edge is cut off with nothing able to scroll to it`
+    ).toBeLessThanOrEqual(vh + 1);
 }
 
 // Assert the modal's actions are on a SINGLE row, with the margin stated.
