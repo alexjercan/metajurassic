@@ -34,3 +34,17 @@ As a player, I want species and clade cards to show valid icons and images, so t
 ## Notes
 
 - Depends on the validation work if possible, but can proceed manually if the broken references are already obvious.
+
+## Merged Into 20260729-092352 (2026-07-30)
+
+At that task's plan gate the user chose to fold this repair into the same cycle
+rather than ship a quarantined test pin, because the validation harness and the
+content fix are inseparable in practice: the harness's central assertion is the
+very invariant this task restores. Both tasks are delivered by one branch and
+close together; the REVIEW.md and RETRO.md for the combined cycle live in
+`tasks/20260729-092352/`.
+
+## Flow State
+
+- FLOW STEP: PLANNED
+- PLAN STATUS: APPROVED
