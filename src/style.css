@@ -514,6 +514,56 @@ main {
     border-color: #5b7199;
 }
 
+/* How close a guess landed, cold (0) to hot (4). These are the hues of the
+   share grid's cells - ⬛ 🟦 🟨 🟧 🟩 - on purpose: the board and the grid the
+   player pastes are meant to be one language, so a guess that reads orange
+   here pastes as 🟧. The tier index comes from `closenessTier`
+   (src/closeness.ts), which is also what picks the cell.
+
+   Ordering is load-bearing twice over, because all of these match at the same
+   specificity as `.node-species` and as each other. They come AFTER
+   `.node-species`, so they win its blue; and BEFORE `.node-mystery`,
+   `.node-winner` and `.node-revealed`, which must keep winning - those three
+   are the target's own encodings and must never read as temperatures. (The
+   renderer also never puts a tier on the target's node, so this is the second
+   of two locks, not the only one.) See LESSONS.md
+   `css-media-blocks-on-different-axes-are-resolved-by-file-order`.
+
+   Each tier is a solid border, a faint tint FILL, and lightened text. The fill
+   is what separates a guess from a clade: tier 3's orange sits close to
+   `--amber-glow`, and clade nodes keep the flat dark `--node-bg`, so kind
+   stays readable where hue alone stops saying it.
+   See tasks/20260729-182255/DECISION.md. */
+.node-close-0 {
+    color: #b6bcc6;
+    border-color: #6b7280;
+    background: rgba(107, 114, 128, 0.14);
+}
+
+.node-close-1 {
+    color: #a1bced;
+    border-color: #5b7199;
+    background: rgba(91, 113, 153, 0.14);
+}
+
+.node-close-2 {
+    color: #ebdd92;
+    border-color: #d8c04a;
+    background: rgba(216, 192, 74, 0.14);
+}
+
+.node-close-3 {
+    color: #f2b884;
+    border-color: #e08a3c;
+    background: rgba(224, 138, 60, 0.14);
+}
+
+.node-close-4 {
+    color: #8fdca8;
+    border-color: #4ca86a;
+    background: rgba(76, 168, 106, 0.14);
+}
+
 .node-mystery {
     border: 2px dashed var(--danger-red);
     color: var(--danger-red);

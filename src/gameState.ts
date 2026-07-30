@@ -1,3 +1,4 @@
+import { guessTier } from "./closeness";
 import { MAX_GUESSES, HINT_COST, MAX_HINTS } from "./constants";
 import { dateToSeed, GameData, seedToDate } from "./gameData";
 import { StorageProvider, defaultStorage } from "./storage";
@@ -316,44 +317,15 @@ export interface ShareStats {
 
 const SHARE_URL = "https://alexjercan.github.io/metajurassic";
 
-// How close a guess landed, as a fraction of the target's lineage: 1.0 means
-// the guess shares the target's own clade, ~1/depth means the two only meet at
-// the root. Spoiler-free - it reveals how deep the join was, never which clade.
-const CLOSENESS_TIERS: { below: number; cell: string }[] = [
-    { below: 0.2, cell: "⬛" },
-    { below: 0.4, cell: "🟦" },
-    { below: 0.6, cell: "🟨" },
-    { below: 0.8, cell: "🟧" },
-    { below: Infinity, cell: "🟩" },
-];
+// One cell per tier, cold first, INDEXED BY `closenessTier`. The tier
+// boundaries live in src/closeness.ts and only there; the board's node colours
+// (`.node-close-*`) index the same tier, which is what keeps the grid a player
+// pastes and the tree they read from drifting apart.
+const CLOSENESS_CELLS = ["⬛", "🟦", "🟨", "🟧", "🟩"];
 const CORRECT_CELL = "🦖";
 const HINT_CELL = "💡";
 
-export function guessCloseness(
-    gameData: GameData,
-    guessId: string,
-    targetId: string
-): number {
-    const target = gameData.findSpeciesById(targetId);
-    if (!target) return 0;
-
-    const lineage = gameData.lineage(target.clade);
-    if (lineage.length === 0) return 0;
-
-    const lca = gameData.computeLCA(guessId, targetId);
-    if (!lca) return 0;
-
-    // `lineage` runs target-clade-first, so index 0 is the deepest join.
-    const index = lineage.indexOf(lca);
-    if (index < 0) return 0;
-
-    return (lineage.length - index) / lineage.length;
-}
-
-function closenessCell(closeness: number): string {
-    const tier = CLOSENESS_TIERS.find((t) => closeness <= t.below);
-    return tier ? tier.cell : CLOSENESS_TIERS[CLOSENESS_TIERS.length - 1].cell;
-}
+export { CLOSENESS_CELLS };
 
 // The story of the round: one cell per guess in the order they were made,
 // hottest colour for the closest join, plus one bulb per hint bought. Hints
@@ -364,9 +336,9 @@ export function buildShareGrid(state: GameState): string {
     const cells = Array.from(state.guesses).map((guessId) =>
         guessId === state.targetId
             ? CORRECT_CELL
-            : closenessCell(
-                  guessCloseness(state.gameData, guessId, state.targetId)
-              )
+            : CLOSENESS_CELLS[
+                  guessTier(state.gameData, guessId, state.targetId)
+              ]
     );
 
     for (let i = 0; i < state.hintClades.size; i++) {

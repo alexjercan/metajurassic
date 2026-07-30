@@ -34,6 +34,11 @@ function renderNode(
         box.textContent = node.name;
     } else {
         box.classList.add("node-species");
+        // Warm/cold, on the same tier scale the share grid's cells index.
+        // `buildGuessTree` decides the tier and leaves it off the target's
+        // node; the renderer only paints what the data says.
+        if (node.closenessTier !== undefined)
+            box.classList.add(`node-close-${node.closenessTier}`);
         if (node.isTarget && node.isPlaceholder)
             box.classList.add("node-mystery");
         if (node.isTarget && !node.isPlaceholder && !node.isRevealed)

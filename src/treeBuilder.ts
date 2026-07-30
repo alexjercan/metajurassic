@@ -1,4 +1,5 @@
 import { GameData } from "./gameData";
+import { guessTier } from "./closeness";
 import { HINT_SPLIT_FRACTION } from "./constants";
 import { consistentCandidates, GameState } from "./gameState";
 import type { Species } from "./types";
@@ -23,6 +24,23 @@ export type SpeciesNode = NodeBase & {
     isTarget: boolean;
     isPlaceholder: boolean;
     isRevealed: boolean;
+    /**
+     * How warm this guess was, on the same 0..CLOSENESS_TIER_COUNT-1 scale the
+     * share grid's cells are indexed by, so the board and the pasted grid say
+     * the same thing about the same guess.
+     *
+     * Undefined on the TARGET's node in all three of its states - unsolved
+     * placeholder, winner, revealed-after-a-loss. The grid spends `🦖` there
+     * rather than a tier, and the gold and the red are their own encodings;
+     * giving them a temperature too would make them read as points on the
+     * warm/cold scale. See tasks/20260729-182255/DECISION.md.
+     *
+     * The tier lives on the DATA rather than being computed in `renderTree`
+     * because jest here runs `testEnvironment: "node"` with no jsdom and
+     * excludes `src/ui/**` from coverage - a tier computed in the renderer
+     * could not be pinned by a unit test at all.
+     */
+    closenessTier?: number;
     children: [];
 };
 
@@ -350,6 +368,11 @@ function buildCladeSubtree(
             isTarget,
             isPlaceholder: false,
             isRevealed: false,
+            // The target is the answer, not a temperature; see the field's doc
+            // comment on SpeciesNode.
+            closenessTier: isTarget
+                ? undefined
+                : guessTier(gameData, sp.id, targetSpecies.id),
             parentId: nodeId,
             children: [],
         });
