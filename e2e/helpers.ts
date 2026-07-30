@@ -22,33 +22,19 @@ async function guessesLeft(page: Page): Promise<number> {
     return match ? Number(match[1]) : NaN;
 }
 
-// Type a query and submit the first suggestion, the way a player guesses.
+// Type a query and submit the first suggestion, the way a player guesses:
+// keyboard all the way through.
 //
-// Two hazards shape this, both from `setupAutocomplete`'s blur handler, which
-// hides the suggestion box on a 100ms `setTimeout` whose handle is never
-// cleared (a real app defect, filed as task 20260729-130138). Clicking another
-// control (the panel toggle, the hint box) and typing again inside that window
-// lets the stale timer hide a list that is currently in use, and then:
+// This used to retry the whole type-and-submit and select by CLICKING, to work
+// around `setupAutocomplete` hiding the box on an uncancelled 100ms timer -
+// a stale timer could hide a live list, and the swallowed Enter then reached
+// `src/game.ts` and submitted the raw typed text. 20260729-130138 fixed both
+// halves, so the plain keyboard path is reliable again.
 //
-//  - the keydown handler computes `isOpen === false` and ignores ArrowDown and
-//    Enter, so keyboard selection silently does nothing; and
-//  - that Enter does NOT stop there - it bubbles to the input's own keydown
-//    handler (`src/game.ts`), which submits the RAW typed text. `saurus` is not
-//    an exact species name, so `makeGuess` throws and `updateUI` clears the
-//    input anyway.
-//
-// That raw-text rejection used to raise a browser `alert()`, which Playwright
-// auto-dismissed. 20260729-092327 replaced it with the inline `#input-error`
-// element, so there is no longer a dialog in this path - nothing here depends
-// on one being dismissed, and a test that wants to prove the dialog is gone
-// asserts on a `page.on("dialog")` listener instead (e2e/onboarding.spec.ts).
-// The rest of the hazard is unchanged: the swallowed Enter is still real.
-//
-// So "the input went empty" is NOT evidence a guess landed. Two consequences:
-// select by CLICKING the suggestion (its `mousedown` handler calls
-// `selectAndSubmit` directly, bypassing the `isOpen` gate entirely, and never
-// touches the raw-text path), and make the exit condition the counter actually
-// going down. Remove all of this once 20260729-130138 is fixed.
+// What survives from that episode is the exit assertion. "The input went empty"
+// was never evidence a guess landed, because the failure path empties it too,
+// so the counter is what gets asserted - and EXACTLY one, not merely fewer,
+// which is what would catch a double submit from both keydown listeners firing.
 export async function guessFirstSuggestion(
     page: Page,
     query: string
@@ -57,26 +43,13 @@ export async function guessFirstSuggestion(
     const box = page.locator("#autocomplete-box");
     const before = await guessesLeft(page);
 
-    await expect(async () => {
-        await input.click();
-        await input.fill("");
-        await input.fill(query);
-        // If the stale timer hid the box, this click waits for actionability,
-        // times out, and the whole block is retried with a fresh render.
-        await box
-            .locator(".autocomplete-item")
-            .first()
-            .click({ timeout: 1000 });
-        // Exactly one, not merely fewer: a guess always costs one, so this
-        // catches a double-submit here rather than leaving it to whichever
-        // caller happens to assert an exact count. Submission is synchronous
-        // inside that click handler; the poll only covers the render, and its
-        // own timeout keeps a genuinely lost guess from being retried (and thus
-        // double-submitted) on a mere slow frame.
-        await expect
-            .poll(() => guessesLeft(page), { timeout: 1000 })
-            .toBe(before - 1);
-    }).toPass({ timeout: 10_000 });
+    await input.click();
+    await input.fill("");
+    await input.fill(query);
+    await expect(box.locator(".autocomplete-item").first()).toBeVisible();
+    await input.press("Enter");
+
+    await expect.poll(() => guessesLeft(page)).toBe(before - 1);
 }
 
 // Assert two elements' rendered boxes do not intersect. Used to prove added
@@ -388,17 +361,16 @@ export async function guessNamedSpecies(
         .filter({ hasText: new RegExp(`^${name}$`) });
     const before = await guessesLeft(page);
 
-    await expect(async () => {
-        await input.click();
-        await input.fill("");
-        await input.fill(name);
-        // Click, not Enter: the blur-timer hazard documented on
-        // `guessFirstSuggestion` applies here identically.
-        await item.click({ timeout: 1000 });
-        await expect
-            .poll(() => guessesLeft(page), { timeout: 1000 })
-            .toBe(before - 1);
-    }).toPass({ timeout: 10_000 });
+    await input.click();
+    await input.fill("");
+    await input.fill(name);
+    // Click, not Enter: this helper's whole point is picking one UNAMBIGUOUS
+    // species, and only the click can target an item by its exact text. Enter
+    // takes whatever is highlighted, which is a ranking question, not an
+    // identity one. (The retry loop that used to wrap this was the
+    // 20260729-130138 blur-timer workaround, and is gone with the defect.)
+    await item.click();
+    await expect.poll(() => guessesLeft(page)).toBe(before - 1);
 
     // The tree draws every guessed species, so this proves the species that
     // landed is the one asked for and not a substring neighbour.

@@ -98,16 +98,39 @@ export function setupAutocomplete(options: AutocompleteOptions) {
         updateHighlight();
     };
 
+    // The blur handler hides the box on a short delay rather than immediately.
+    // The handle is kept so that RE-OPENING the box cancels the pending hide:
+    // without that, a player who taps another control and comes straight back
+    // inside the window gets the stale timer firing AFTER the re-render, which
+    // hides a list that is currently in use and makes the `keydown` handler
+    // below compute `isOpen === false` and ignore ArrowDown and Enter
+    // (20260729-130138).
+    let hideTimer: ReturnType<typeof setTimeout> | undefined;
+
+    const cancelPendingHide = () => {
+        if (hideTimer === undefined) return;
+        clearTimeout(hideTimer);
+        hideTimer = undefined;
+    };
+
     inputEl.addEventListener("input", () => {
+        cancelPendingHide();
         renderSuggestions(inputEl.value);
     });
 
     inputEl.addEventListener("focus", () => {
+        cancelPendingHide();
         renderSuggestions(inputEl.value);
     });
 
     inputEl.addEventListener("blur", () => {
-        setTimeout(() => {
+        // Belt and braces: a browser cannot blur twice without an intervening
+        // focus, which already cancels, so this cannot fire with a timer
+        // pending. It keeps the invariant "at most one armed hide" local to
+        // this handler rather than dependent on that reasoning.
+        cancelPendingHide();
+        hideTimer = setTimeout(() => {
+            hideTimer = undefined;
             autocompleteBox.style.display = "none";
             activeIndex = -1;
         }, 100);
@@ -132,6 +155,21 @@ export function setupAutocomplete(options: AutocompleteOptions) {
             updateHighlight();
         } else if (event.key === "Enter" && activeIndex >= 0) {
             event.preventDefault();
+            // `preventDefault()` is NOT enough here, and stopPropagation would
+            // not be either. `src/game.ts` registers its own keydown listener
+            // on this SAME input (after this one), which submits the raw typed
+            // text; sibling listeners on one element are only stopped by
+            // stopImmediatePropagation. Without it both handlers run for every
+            // Enter, and the selection survives only because submitting blanks
+            // the input before the second handler reads it - an accident, not a
+            // guard. Consuming the event here means a partial query like
+            // "tyrann" can never reach the exact-match lookup and be rejected
+            // as a species that does not exist (20260729-130138).
+            //
+            // Scoped to the highlighted case on purpose: with no list open this
+            // branch does not run, so a genuinely bogus guess still reaches
+            // `src/game.ts` and still gets its rejection message.
+            event.stopImmediatePropagation();
             selectAndSubmit(currentMatches[activeIndex]);
         }
     });

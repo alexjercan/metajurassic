@@ -380,7 +380,7 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   EACH and read them together before review - and vary the stats, since the
   zero-stats loss previewed here was the one case that hid the bug.
   20260729-101823.
-- `absence-proving-greps-must-be-run-when-written` (x2) -> plan skill: this
+- `absence-proving-greps-must-be-run-when-written` (x3, PENDING PROMOTION) -> plan skill: this
   task's DoD shipped `cmd: rg -n "5\.2" src`, which can never go clean - the
   content graph has a 5.2-metre Sauropelta and `share.svg` a 5.2 coordinate. An
   absence proof written at plan time must be EXECUTED then, and narrowed with its
@@ -390,7 +390,10 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   never run - and it was false, because `renderTree` scrolls the arena, so the
   viewport-relative gap could not tell the two layouts apart. Any claim that a
   check DISCRIMINATES must be produced by running it against the thing it is
-  supposed to reject.
+  supposed to reject. Third hit (20260729-130138): the class, not the item -
+  one of two absence greps four lines apart in the same DoD was run and
+  narrowed, the sibling was not. When a grep proves not-runnable, re-check every
+  other absence proof in that DoD in the same pass.
 - `side-effect-cleared-state-is-not-proof-of-success` (x1): an e2e helper retried
   a guess until the input went empty, calling that proof the guess landed - but
   the FAILURE path empties it too (a swallowed Enter falls through to
@@ -404,6 +407,23 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   reproduced the failure immediately. Run enough repeats to have seen the old
   failure several times over (here 240) before calling a flake dead.
   20260729-092315.
+- `a-whole-file-repeat-count-is-not-a-sample-of-one-test` (x1):
+  `playwright test panel.spec.ts --repeat-each=10` printed `60 passed`, which
+  was read as a 60-run sample of the flaky test and reported as "the flake does
+  not reproduce". 60 was 6 tests x 10 repeats, so the one test that mattered ran
+  ten times; `-g "resurrect" --repeat-each=40` fails 12-19 times out of 40. A
+  repeat total divides by the number of tests in the file - `-g` the one test
+  under investigation and count ITS repeats. Sibling of
+  [[measure-a-flake-fix-against-its-original-failure-rate]]: that one is too few
+  repeats, this one is a big number that is not the repeats. 20260729-130138.
+- `a-story-that-explains-a-null-result-is-a-hypothesis-not-a-finding` (x1):
+  after the underpowered run above said the reported flake was gone, a plausible
+  mechanism was reasoned out ("the spec has changed since it was reported") and
+  written into NOTES.md and the DoD as fact. One `git diff` falsified it - no
+  hunk touches the flaky test's body - and it was never run. "The reported bug
+  does not reproduce" is the least likely explanation and the most suspicious
+  result: before recording any story that makes a null result correct, run the
+  cheapest command that would falsify the story. 20260729-130138.
 - `test-must-cross-the-format-parse-seam-not-assert-each-side` (x1): unit tests
   that assert `parse` and `format` in isolation can encode the very bug they
   should catch. `parseGameStateKey` did not invert `gameStateKey` (an off-by-one
@@ -578,6 +598,17 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   "holds for the shipped data" claim, so a new content test has an obvious place
   to go rather than a rule to remember. User decides.
   20260729-092352, 20260729-101740.
+
+- `absence-proving-greps-must-be-run-when-written` (x3) -> plan skill. Three
+  times a DoD has shipped a `cmd:` absence proof that could never go clean, and
+  the third time (20260729-130138) one of TWO such greps in the same DoD was
+  narrowed while its sibling four lines away was not. Prose in the plan skill
+  already says "run it when you write it". Proposal: make the plan skill require
+  every `cmd:` proof in a Definition of Done to carry its plan-time output
+  inline (the count it returned and why that count is expected), so an unrun
+  proof is visibly incomplete rather than merely optimistic - and so the check
+  is per-DoD rather than per-item. User decides.
+  20260729-101823, 20260729-092327, 20260729-130138.
 
 - `close-a-task-with-its-review-and-retro-not-just-the-status` (x3) -> tatr CLI
   guard, not prose. Three sessions have flipped STATUS to CLOSED before the

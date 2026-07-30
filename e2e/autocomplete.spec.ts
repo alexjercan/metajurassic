@@ -107,6 +107,86 @@ test.describe("autocomplete stays usable deep in a round", () => {
         ).toEqual([]);
     });
 
+    // The regression for task 20260729-130138, played the way a player hits it:
+    // tap another control, go straight back to the input, and keep typing.
+    //
+    // `setupAutocomplete` hid the box on an uncancelled 100ms `setTimeout`, so
+    // the stale timer fired AFTER the re-render and hid a live list. The
+    // keydown handler then computed `isOpen === false` and ignored ArrowDown
+    // and Enter - and that Enter did not stop there, it reached `src/game.ts`'s
+    // own handler, which submitted the RAW typed text. "tyrann" is not a
+    // species, so the player got "not found in game data" for a perfectly good
+    // prefix and an emptied input that looked like a guess had been taken.
+    //
+    // The deterministic pin for the timer itself is `test/autocompleteBlur.test.ts`
+    // (fake timers step the 100ms exactly); this test is the player-altitude
+    // proof that the whole path holds in a real browser. It was run against the
+    // unfixed source and fails there - see tasks/20260729-130138/NOTES.md.
+    test("submits a guess typed straight after tapping another control", async ({
+        page,
+    }) => {
+        await page.goto(`/practice/?seed=${SEED}`);
+        await page.waitForSelector("#tree-container .node-box");
+
+        // The old failure raised a browser dialog before 20260729-092327 moved
+        // it to the inline `#input-error`. Playwright auto-dismisses dialogs,
+        // so without this listener the alert would come back unnoticed.
+        const dialogs: string[] = [];
+        page.on("dialog", (dialog) => {
+            dialogs.push(dialog.message());
+            void dialog.dismiss();
+        });
+
+        const input = page.locator("#player-input");
+        const items = page.locator("#autocomplete-box .autocomplete-item");
+
+        await input.click();
+        await input.fill("tyrann");
+        await expect(items.first()).toBeVisible();
+
+        // Tap another control. This blurs the input and arms the 100ms hide.
+        await page.locator("#open-panel").click();
+        // Tap straight back in. `focus` re-renders the list, so the box is open
+        // again - and the armed timer is still pending against it. Nothing may
+        // fire an `input` event after this point: re-typing would re-render and
+        // paper over the very defect under test (an earlier draft of this test
+        // did exactly that and passed against the unfixed source, 10/10).
+        await input.click();
+        await expect(items.first()).toBeVisible();
+
+        // Sit past the stale timer's deadline before touching the keyboard.
+        // This is not a tolerance hiding a race - it is the opposite, and it
+        // makes the test deterministic in BOTH directions: unfixed, the timer
+        // has certainly fired and hidden a live list, so the guess below
+        // certainly fails; fixed, the timer was cancelled on focus, so there is
+        // nothing left to fire and the wait changes nothing. A player pausing a
+        // beat before hitting Enter is the ordinary case, not a contrived one.
+        await page.waitForTimeout(150);
+
+        await input.press("ArrowDown");
+        await input.press("Enter");
+
+        // Exactly one guess spent. Not "the input went empty" - the FAILURE
+        // path empties it too (LESSONS.md:
+        // `side-effect-cleared-state-is-not-proof-of-success`, this defect's
+        // own lesson), and not "fewer than before", which would miss a double
+        // submit from both keydown listeners firing.
+        await expect(page.locator("#stat-box")).toContainText(
+            "Guesses Left: 24"
+        );
+        // The species that landed is the one the highlighted suggestion named,
+        // so this also proves the raw text was not what got submitted.
+        await expect(
+            page.locator("#tree-container .node-box").filter({
+                hasText: /^Tyrannosaurus$/,
+            })
+        ).toHaveCount(1);
+
+        // A valid prefix must never be rejected as a species.
+        await expect(page.locator("#input-error")).toBeHidden();
+        expect(dialogs, "a dialog was raised").toEqual([]);
+    });
+
     test("offers names starting with the query before names merely containing it", async ({
         page,
     }) => {
