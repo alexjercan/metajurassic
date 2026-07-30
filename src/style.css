@@ -157,6 +157,35 @@ main {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
 }
 
+/* The explicit "start another round" action on the practice page. It ships in
+   the shared template hidden, so the `[hidden]` rule is stated rather than left
+   to the UA sheet: .top-bar is a flex container, and any later rule giving this
+   button a `display` would otherwise resurrect it on the daily page. */
+.new-game-btn[hidden] {
+    display: none;
+}
+
+.new-game-btn {
+    pointer-events: auto;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--amber-glow);
+    cursor: pointer;
+    white-space: nowrap;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    transition: 0.2s;
+}
+
+.new-game-btn:hover {
+    filter: brightness(1.2);
+    transform: translateY(2px);
+}
+
 .hint-box {
     background: linear-gradient(180deg, #1c2028 0%, #0d0f14 100%);
     border: 2px solid #3a4150;
@@ -2014,6 +2043,48 @@ footer a + a::before {
         padding: 8px 12px;
         font-size: 0.9rem;
         flex: 0 0 auto;
+        white-space: nowrap;
+    }
+
+    /* Third item in a bar that is pinned to ONE row (see the .top-bar note
+       above), so every pixel it takes comes out of the hint chip's flex share -
+       and once the chip is squeezed far enough its sentence wraps to another
+       line and the BAR grows, which is the vertical space the tree can least
+       spare. Measured on /practice/ against / at the pinned widths:
+
+         label        393px      360px       320px
+         "New game"   68 -> 79   79 -> 107   79 -> 107
+         "New"        68 -> 79   79 ->  79   79 -> 107
+
+       So the label sheds " game" here (`.new-game-word`), which buys back the
+       whole 28px at 360px. At 320px the bar still grows a row's worth; that is
+       accepted rather than hidden.
+
+       Those heights are the MEASUREMENT that chose the label, not a guard:
+       e2e/mobile.spec.ts asserts the invariants (the bar stays one row, the
+       chip is wholly on screen and unclipped) at all three widths and now runs
+       them over /practice/ as well as /, so the crowded bar is exercised rather
+       than assumed - but a future change that put 393px back to 107px would
+       still pass. A height threshold was deliberately rejected for the one-row
+       check (see the .top-bar note above); it is not reintroduced here. */
+    .new-game-btn {
+        padding: 6px 8px;
+        font-size: 0.7rem;
+        flex: 0 0 auto;
+    }
+
+    /* Hidden from the eye, NOT from the accessibility tree: `display: none`
+       would drop " game" from the button's accessible name, leaving speech-input
+       users saying "click New game" with nothing to match (WCAG 2.5.3, Label in
+       Name). The name stays "New game" at every width, which is also why the
+       button carries no aria-label - one that did not contain the visible text
+       would reintroduce the same mismatch. */
+    .new-game-word {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip-path: inset(50%);
         white-space: nowrap;
     }
 

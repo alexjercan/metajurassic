@@ -26,6 +26,22 @@
                              HINT_COST rather than being typed in here. -->
                         <div class="hint-text" id="hint-text"></div>
                     </div>
+                    <!-- Practice-only, and hidden by default. This template is
+                         registered TWICE in webpack.config.js - once as the
+                         daily page, once as /practice/ - so a practice-only
+                         control has to ship inert on the daily page rather than
+                         be absent from it. src/practice.ts unhides and wires
+                         this; src/index.ts never touches it, which is what
+                         keeps the daily puzzle one-a-day.
+                         See tasks/20260729-101754/DECISION.md, fork 1. -->
+                    <button
+                        type="button"
+                        class="new-game-btn"
+                        id="new-game-btn"
+                        hidden
+                    >
+                        New<span class="new-game-word"> game</span>
+                    </button>
                 </div>
                 <div class="game-area">
                     <!-- AdSense ad unit

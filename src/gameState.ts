@@ -8,7 +8,7 @@ const PADDING_LENGTH = 5;
 // Puzzle numbers wrap at this modulus so a key is always PADDING_LENGTH digits.
 // `formatPuzzleId` and `parseGameStateKey` are exact inverses over the residue
 // ring [0, PUZZLE_ID_MODULUS): parse recovers `seed mod PUZZLE_ID_MODULUS`.
-const PUZZLE_ID_MODULUS = Math.pow(10, PADDING_LENGTH);
+export const PUZZLE_ID_MODULUS = Math.pow(10, PADDING_LENGTH);
 
 // Least non-negative residue of `value` modulo `PUZZLE_ID_MODULUS`. JS `%`
 // keeps the sign of the dividend, so negative practice seeds (from `?seed=-N`)
@@ -96,6 +96,34 @@ export function parseGameStateKey(
     return { puzzleId, seed, gameMode };
 }
 
+// The JSON shape a round is persisted as. `loadGameState`, `loadAllGames` and
+// `practiceSession` all parse this, so it is named once, here.
+export interface SavedGameState {
+    createdAt?: string;
+    seed?: number;
+    targetId: string;
+    guesses: string[];
+    lastGuessId?: string;
+    hintClades?: string[];
+}
+
+// Whether a round is finished, answerable from the SAVED shape alone - no
+// GameData, no graph. `GameState.isGameOver` delegates here so that
+// `practiceSession` can ask the question about a round sitting in localStorage
+// without rebuilding the species graph, and so the two answers cannot drift
+// into a hand-copied mirror of each other.
+export function isRoundOver(
+    targetId: string,
+    guesses: Iterable<string>,
+    hintCount: number
+): boolean {
+    const guessed = guesses instanceof Set ? guesses : new Set(guesses);
+    return (
+        guessed.has(targetId) ||
+        guessed.size + hintCount * HINT_COST >= MAX_GUESSES
+    );
+}
+
 export function createNewGameState(
     gameData: GameData,
     seed: number = getTodaySeed()
@@ -115,14 +143,7 @@ export function loadGameState(
 
     if (savedState) {
         try {
-            const parsed = JSON.parse(savedState) as {
-                createdAt?: string;
-                seed?: number;
-                targetId: string;
-                guesses: string[];
-                lastGuessId?: string;
-                hintClades?: string[];
-            };
+            const parsed = JSON.parse(savedState) as SavedGameState;
             const createdAtRaw = parsed.createdAt
                 ? new Date(parsed.createdAt)
                 : new Date();
@@ -182,10 +203,7 @@ export class GameState {
     ) {}
 
     isGameOver(): boolean {
-        return (
-            this.guesses.has(this.targetId) ||
-            this.numberOfGuesses() >= MAX_GUESSES
-        );
+        return isRoundOver(this.targetId, this.guesses, this.hintClades.size);
     }
 
     isWin(): boolean {

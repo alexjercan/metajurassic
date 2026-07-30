@@ -238,6 +238,33 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   format, and run the repo's OWN conformance gate (`tatr check`) as part of a
   task's verification - it is a different gate from `npm run ci`, and only the
   code one was being run. 20260729-182255.
+- `re-read-the-decision-record-while-implementing-the-function-that-implements-it`
+  (x1): `DECISION.md` said in as many words "finished rounds are kept: they ARE
+  the practice stats", and the function deciding keep-vs-delete
+  (`abandonPracticeRound`) deleted unconditionally - so "I won -> New game", the
+  way EVERY round ends, erased the player's own record. Written by the same
+  session, hours apart, and never re-read while coding. Caught by the
+  out-of-context reviewer. When a function IS the implementation of a recorded
+  fork, open the record next to it; writing a decision down is not the same as
+  consulting it. 20260729-101754.
+- `a-fix-that-makes-a-latent-defect-observable-owns-the-whole-defect` (x1): the
+  practice storage key is `seed mod 10^5` but the target is `seed mod 150`, so
+  colliding seeds were always a quiet overwrite-on-save. Making rounds RESUME
+  turned that into "load `?seed=100042`, get seed 42's board" - the untouched
+  half got WORSE - while the DoD claimed the finding was closed because the
+  drawn-seed path had been narrowed. When a change alters WHEN a known defect
+  surfaces, re-scope the whole finding instead of fixing the path you happened
+  to be editing. Sibling of
+  [[enumerate-every-writer-before-guarding-an-invariant]]. 20260729-101754.
+- `a-stale-comment-is-a-load-bearing-assumption-that-moved` (x1): a test helper
+  said "nothing is worth keeping, so pressing New game costs nothing" - true
+  when written, false two commits later once finished rounds began surviving New
+  game, and it described exactly the invariant the other fix in the same review
+  round had inverted. The two fixes collided and the retry started failing ~6%
+  of runs, worse than the flake it replaced. When a change makes a nearby
+  comment untrue, that is the signal to check what else depended on it - and
+  when one review round produces several fixes, read them against each other
+  before sending it back. 20260729-101754.
 
 ## Testing
 
@@ -530,6 +557,19 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   samples suspect a transition before suspecting a stale bundle. Sibling of
   [[poll-dot-not-resolves-on-the-first-sample-so-it-cannot-watch-a-transition]].
   20260729-141428.
+- `a-mutation-must-reach-the-branch-it-claims-to-test` (x1): three checks on one
+  branch went green or red for reasons unrelated to the thing under test.
+  `toBeHidden` PASSES for an element that does not exist, so the "button hidden
+  on the daily page" assertion was green against a template that never gained
+  the button. An assertion made straight after a click that NAVIGATES can match
+  the document being navigated away from - `Guesses Left: 25` passed with the
+  fix removed because the old page showed 25 too. And a forced retry branch
+  reported as proof of a delete never entered the finished-round path the delete
+  exists for; the reviewer re-ran it and got 9/9 green. Read the FAILURE text,
+  not the pass/fail count, and confirm the mutated line is on the path the test
+  drives. Sibling of
+  [[an-environment-dependent-test-must-assert-its-environment]] and
+  [[side-effect-cleared-state-is-not-proof-of-success]]. 20260729-101754.
 
 ## Game design and measurement
 

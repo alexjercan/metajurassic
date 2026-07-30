@@ -28,6 +28,12 @@ Dinosaur ...", so they never touch or masquerade as the daily puzzle. The daily
 page ignores the param on purpose - the daily target stays clock-derived and
 uncheatable. `e2e/seed.spec.ts` is a runnable walkthrough of a fixed round.
 
+Practice rounds RESUME, seeded ones included: revisiting a seed you have already
+played brings that saved round back rather than dealing a fresh one. To replay a
+seed from scratch, press **New game** (which starts an unseeded round) or clear
+the page's local storage. Seeds are folded into `seed mod 100000`, so
+`?seed=100042` means `?seed=42`.
+
 ### Testing
 
 ```console

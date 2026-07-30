@@ -48,13 +48,32 @@ test.describe("seeded practice round", () => {
         const first = await readTarget(page);
         expect(first).not.toBe("");
 
-        // A fresh load of the same seed reconstructs the same target from the
-        // seed alone (practice never restores saved state), proving repro.
+        // Storage is wiped between the loads ON PURPOSE. Practice rounds now
+        // RESUME (tasks/20260729-101754), so a second load with saved state
+        // would prove only that the save came back - the claim under test is
+        // that the seed alone reconstructs the target, which needs the saved
+        // round out of the way.
+        await page.evaluate(() => localStorage.clear());
         await page.goto(`/practice/?seed=${SEED}`);
         await playOneGuess(page);
         const second = await readTarget(page);
 
         expect(second).toBe(first);
+    });
+
+    test("a seeded round is resumed on reload, like any other practice round", async ({
+        page,
+    }) => {
+        await page.goto(`/practice/?seed=${SEED}`);
+        await playOneGuess(page);
+
+        await page.reload();
+
+        // The guess survives, so the reload restored the round rather than
+        // rebuilding a fresh one that merely happens to share a target.
+        await expect(page.locator("#stat-box")).toContainText(
+            "Guesses Left: 24"
+        );
     });
 
     test("a seeded round leaves the daily state untouched", async ({

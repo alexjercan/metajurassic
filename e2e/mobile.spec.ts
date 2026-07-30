@@ -362,46 +362,62 @@ test.describe("mobile game layout", () => {
     // threshold conflated the two and was wrong in both directions: it passed
     // at 393px while the chip escaped sideways off the screen, and it failed at
     // 360px on a chip that had merely wrapped inside a still-single row.
-    for (const size of [
-        { width: 393, height: 727 },
-        { width: 360, height: 740 },
-        { width: 320, height: 568 },
-    ]) {
-        test(`the top bar stays one row at ${size.width}px`, async ({
-            page,
-        }) => {
-            await page.setViewportSize(size);
-            await page.goto("/");
+    //
+    // Run over BOTH pages. The practice page renders the same template plus the
+    // New game button (tasks/20260729-101754), so it is the crowded version of
+    // this bar - and every case here used to load `/` only, where that button
+    // is hidden, leaving the bar that actually has three items in it unmeasured
+    // (LESSONS.md `a-layout-assertion-at-one-viewport-is-a-sample-of-one`).
+    for (const path of ["/", "/practice/"]) {
+        for (const size of [
+            { width: 393, height: 727 },
+            { width: 360, height: 740 },
+            { width: 320, height: 568 },
+        ]) {
+            test(`the top bar stays one row at ${size.width}px on ${path}`, async ({
+                page,
+            }) => {
+                await page.setViewportSize(size);
+                await page.goto(path);
+                // The whole point of the /practice/ pass is the CROWDED bar. If
+                // the button ever stopped being revealed, these cases would
+                // silently become duplicates of the "/" cases and stay green.
+                if (path === "/practice/") {
+                    await expect(page.locator("#new-game-btn")).toBeVisible();
+                }
 
-            const rows = await page.evaluate(() => {
-                const stat = document
-                    .getElementById("stat-box")
-                    ?.getBoundingClientRect();
-                const hint = document
-                    .getElementById("hint-box")
-                    ?.getBoundingClientRect();
-                return {
-                    statMid: stat ? stat.y + stat.height / 2 : 0,
-                    hintMid: hint ? hint.y + hint.height / 2 : 9999,
-                };
+                const rows = await page.evaluate(() => {
+                    const stat = document
+                        .getElementById("stat-box")
+                        ?.getBoundingClientRect();
+                    const hint = document
+                        .getElementById("hint-box")
+                        ?.getBoundingClientRect();
+                    return {
+                        statMid: stat ? stat.y + stat.height / 2 : 0,
+                        hintMid: hint ? hint.y + hint.height / 2 : 9999,
+                    };
+                });
+                // Compared on CENTRES, not top edges. `.top-bar` is
+                // `align-items: center`, so once the chip's sentence wraps it is
+                // taller than the counter and their TOPS differ by ~14px while they
+                // still share a row - which is not the thing being guarded against.
+                // Wrapping puts the chip on its own line below, moving the centres
+                // apart by a whole row.
+                expect(
+                    Math.abs(rows.statMid - rows.hintMid),
+                    "the counter and the hint chip are on different rows, so .top-bar has wrapped"
+                ).toBeLessThan(10);
+
+                // And the chip still says both things it must say, in full.
+                await expect(page.locator("#hint-box")).toContainText(
+                    /stuck\?/i
+                );
+                await expect(page.locator("#hint-box")).toContainText(
+                    /spend 3 guesses to reveal a clade/i
+                );
             });
-            // Compared on CENTRES, not top edges. `.top-bar` is
-            // `align-items: center`, so once the chip's sentence wraps it is
-            // taller than the counter and their TOPS differ by ~14px while they
-            // still share a row - which is not the thing being guarded against.
-            // Wrapping puts the chip on its own line below, moving the centres
-            // apart by a whole row.
-            expect(
-                Math.abs(rows.statMid - rows.hintMid),
-                "the counter and the hint chip are on different rows, so .top-bar has wrapped"
-            ).toBeLessThan(10);
-
-            // And the chip still says both things it must say, in full.
-            await expect(page.locator("#hint-box")).toContainText(/stuck\?/i);
-            await expect(page.locator("#hint-box")).toContainText(
-                /spend 3 guesses to reveal a clade/i
-            );
-        });
+        }
     }
 
     // The inline error had NO phone coverage at all: playwright.config.ts binds
@@ -466,43 +482,54 @@ test.describe("mobile game layout", () => {
     // (`.top-bar` was `width: 100%` plus padding, so 24px wider than the
     // viewport). Assert the readable thing directly, at the narrow widths where
     // there is least room for it.
-    for (const size of [
-        { width: 393, height: 727 },
-        { width: 360, height: 740 },
-        { width: 320, height: 568 },
-    ]) {
-        test(`the whole hint chip is on screen at ${size.width}px`, async ({
-            page,
-        }) => {
-            await page.setViewportSize(size);
-            await page.goto("/");
+    // Also run over both pages: the New game button takes its width out of the
+    // chip's flex share, so the practice page is where the chip is squeezed
+    // hardest and where it would be clipped first.
+    for (const path of ["/", "/practice/"]) {
+        for (const size of [
+            { width: 393, height: 727 },
+            { width: 360, height: 740 },
+            { width: 320, height: 568 },
+        ]) {
+            test(`the whole hint chip is on screen at ${size.width}px on ${path}`, async ({
+                page,
+            }) => {
+                await page.setViewportSize(size);
+                await page.goto(path);
+                // The whole point of the /practice/ pass is the CROWDED bar. If
+                // the button ever stopped being revealed, these cases would
+                // silently become duplicates of the "/" cases and stay green.
+                if (path === "/practice/") {
+                    await expect(page.locator("#new-game-btn")).toBeVisible();
+                }
 
-            const chip = await page.locator("#hint-box").boundingBox();
-            const stat = await page.locator("#stat-box").boundingBox();
-            expect(chip).not.toBeNull();
-            expect(stat).not.toBeNull();
-            if (!chip || !stat) return;
+                const chip = await page.locator("#hint-box").boundingBox();
+                const stat = await page.locator("#stat-box").boundingBox();
+                expect(chip).not.toBeNull();
+                expect(stat).not.toBeNull();
+                if (!chip || !stat) return;
 
-            expect(stat.x).toBeGreaterThanOrEqual(-1);
-            expect(
-                chip.x + chip.width,
-                `hint chip runs ${Math.round(chip.x + chip.width - size.width)}px past the right edge`
-            ).toBeLessThanOrEqual(size.width + 1);
+                expect(stat.x).toBeGreaterThanOrEqual(-1);
+                expect(
+                    chip.x + chip.width,
+                    `hint chip runs ${Math.round(chip.x + chip.width - size.width)}px past the right edge`
+                ).toBeLessThanOrEqual(size.width + 1);
 
-            // Clipping is not the only way to lose the text: the chip could
-            // also be squeezed until the sentence is truncated inside it.
-            const overflows = await page.evaluate(() => {
-                const el = document.getElementById("hint-text");
-                if (!el) return true;
-                return (
-                    el.scrollWidth > el.clientWidth + 1 ||
-                    el.scrollHeight > el.clientHeight + 1
+                // Clipping is not the only way to lose the text: the chip could
+                // also be squeezed until the sentence is truncated inside it.
+                const overflows = await page.evaluate(() => {
+                    const el = document.getElementById("hint-text");
+                    if (!el) return true;
+                    return (
+                        el.scrollWidth > el.clientWidth + 1 ||
+                        el.scrollHeight > el.clientHeight + 1
+                    );
+                });
+                expect(overflows, "#hint-text is clipped inside the chip").toBe(
+                    false
                 );
             });
-            expect(overflows, "#hint-text is clipped inside the chip").toBe(
-                false
-            );
-        });
+        }
     }
 });
 

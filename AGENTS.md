@@ -91,6 +91,36 @@ daily. The daily page (`src/index.ts`) deliberately ignores the param - the
 daily target stays clock-derived (see `tasks/20260729-101819/DECISION.md`).
 `e2e/seed.spec.ts` is the runnable "play a fixed round" walkthrough.
 
+**A seeded round RESUMES, so a fixture that revisits a seed does not get a fresh
+board.** Since `20260729-101754` practice rounds are restored from storage, and
+`?seed=N` is no exception: the second visit to a seed you have played brings the
+saved round back, guesses and all. A fixture that wants a clean round must clear
+storage between loads (`page.evaluate(() => localStorage.clear())`, as
+`e2e/seed.spec.ts` now does) - a fresh Playwright context already does this, so
+only repeated `goto`s WITHIN one test are affected. Seeds are also folded into
+`seed mod PUZZLE_ID_MODULUS` (`normalizePracticeSeed`), so `?seed=100042` is
+`?seed=42`; before the fold those two named different targets while sharing one
+storage key.
+
+### Practice round lifecycle
+
+`src/practiceSession.ts` owns which practice round is being played. It is
+storage-only (no DOM, no `GameData`), takes a `StorageProvider` and an rng, and
+is unit-tested in `test/practiceSession.test.ts`; `src/practice.ts` is thin
+wiring over it. The rules, with the reasoning in
+`tasks/20260729-101754/DECISION.md`:
+
+- `practice-current` holds the seed of the active round. A load resumes it
+  until the round FINISHES, at which point the pointer is dropped and the next
+  load deals a new round. `?seed=N` wins over the pointer and is never stored.
+- **New game** (`#new-game-btn`, hidden in the shared `src/index.html` and
+  revealed only by `src/practice.ts`) abandons the current round explicitly. An
+  UNFINISHED round is deleted; a FINISHED one is KEPT, because finished rounds
+  are the practice stats the profile page reads.
+- `gameState-practice-*` entries are capped at `MAX_PRACTICE_ENTRIES` (50),
+  pruned oldest-first when a new round starts. Lifetime practice counters on the
+  profile page therefore only reflect the newest 50 rounds.
+
 ### Playtest harness (outside the gate)
 
 Three standalone TypeScript scripts under `scripts/playtest/` measure the game as
