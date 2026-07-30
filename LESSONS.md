@@ -32,7 +32,13 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   not a guard. When a change adds enforcement in a language or layer the suite
   does not reach, the same change adds the test that reaches it: ask "if I
   delete this guard, what turns red?". Caught by the out-of-context reviewer,
-  not the implementer. 20260729-092352.
+  not the implementer. 20260729-092352. Second hit (20260729-092419), in a new
+  layer - the BUILD CONFIGURATION: making the lint gate strict is a line in
+  `package.json`, invisible to a suite that runs INSIDE the gate, so deleting
+  `--max-warnings=0` would have left all 322 tests green. The plan had proposed
+  only a hand-run falsification; reading this entry at the start of the work
+  phase is what turned it into `test/lintGate.test.ts`. Policy in npm scripts and
+  CI workflow files needs a test that reads the config as DATA.
 - `enumerate-every-writer-before-guarding-an-invariant` (x1): the same guard
   landed on two of the THREE scripts that write `index.json` - `csv_to_json.py`
   was read during planning, then not revisited when the guard was designed - and
@@ -570,6 +576,27 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   drives. Sibling of
   [[an-environment-dependent-test-must-assert-its-environment]] and
   [[side-effect-cleared-state-is-not-proof-of-success]]. 20260729-101754.
+- `substring-assertions-break-when-a-longer-sibling-name-exists` (x1): a spec
+  pinning that `ci` calls the strict lint script used
+  `toContain("npm run lint")` - which is also a substring of `npm run lint:fix`,
+  the ONE script the same change deliberately left non-strict. The reviewer
+  rewired `ci` to `lint:fix` and all 9 specs stayed green while
+  `--max-warnings=0` had stopped running entirely; the spec's own comment
+  claimed to prevent exactly that. Pin command and script names with a word
+  boundary (`new RegExp(\`npm run ${step}(?![:\\w-])\`)`), never `toContain` -
+  `lint`/`lint:fix`, `test`/`test:e2e`, `build`/`build:prod` all collide. The
+  hole is invisible in the passing direction, which is the argument for
+  [[verify-a-guard-fix-with-the-attack-that-defeated-it]]. 20260729-092419.
+- `verify-a-guard-fix-with-the-attack-that-defeated-it` (x1): after fixing the
+  substring hole above, re-running the suite clean proved nothing about it - the
+  suite had ALREADY been green with the hole. What proved the fix was re-running
+  the reviewer's exact mutations: `ci` pointing at `lint:fix` went 9-passed ->
+  2-failed, and blanking the workflow's `npm run lint` step went nothing-red ->
+  1-failed. Also the reason the flag itself was falsified as a PAIR (planted
+  warning: exit 1 with the flag, exit 0 without) rather than one run - a single
+  red proves a warning fails, only the counterfactual proves the flag is why.
+  Mutate in two directions: delete the protected thing, and swap it for a
+  plausible near-miss. 20260729-092419.
 
 ## Game design and measurement
 

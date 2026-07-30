@@ -51,7 +51,8 @@ npm run test:coverage       # Jest with coverage (writes coverage/ + test-result
 npm run test:pipeline       # content-pipeline tests (python3, stdlib unittest)
 npm run test:e2e            # Playwright browser E2E suite (e2e/, Chromium)
 E2E_PORT=8181 npm run test:e2e   # ...on another port; see below
-npm run lint                # eslint over src/ and test/
+npm run lint                # eslint over src/, test/, e2e/, scripts/, playwright.config.ts - STRICT: zero warnings
+npm run lint:fix            # ...the same, with --fix and no strictness (the iterate loop)
 npm run format              # prettier --write; format:check to verify only
 npm run ci                  # THE GATE: format:check + lint + test:pipeline + test:coverage + test:e2e
 ```
@@ -232,6 +233,24 @@ every push to `master`.
   arguments.
 - TypeScript style is enforced by prettier and eslint; keep `npm run ci` clean
   rather than disabling rules inline.
+- **Lint runs at zero warnings.** The `lint` script ends in `--max-warnings=0`,
+  so a WARNING fails the gate exactly like an error - including the warn-level
+  rules `eslint.config.mjs` sets itself (`no-unused-vars`, `no-explicit-any`,
+  `no-console`) and the ones inherited from
+  `tseslint.configs.recommendedTypeChecked`. Those three are not in force
+  everywhere, though: `no-explicit-any` is `off` under `test/`, `e2e/` and any
+  `*.test.ts`/`*.spec.ts`, and `no-console` is `off` under `scripts/` (a
+  playtest script's printed report IS its product), so a `console.log` there
+  does not redden the gate. `test/lintGate.test.ts` pins the flag - plus the
+  `&&`-chained, unpiped shape of `ci` and the fact that both `ci` and
+  `.github/workflows/ci.yml` call `npm run lint` and not `lint:fix` - so
+  removing any of it turns a test red instead of quietly weakening the signal.
+  Consequence to expect: a dependency bump that adds a new warn-level rule
+  reddens the gate. Resolve it by satisfying the rule, or by turning it off
+  DELIBERATELY in `eslint.config.mjs` with a comment saying why - never by
+  dropping the flag or leaving a warning to accumulate, which is the drift
+  `20260729-092419` closed. `lint:fix` is deliberately NOT strict; it is the
+  autofix iterate loop.
 - Content changes go through the markdown source, then regenerate `index.json` -
   never hand-edit the generated JSON.
 - Tests that guard content integrity should run over the REAL payload

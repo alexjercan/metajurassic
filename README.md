@@ -39,7 +39,7 @@ the page's local storage. Seeds are folded into `seed mod 100000`, so
 ```console
 npm test              # Jest unit/integration suite
 npm run test:e2e      # Playwright browser E2E suite
-npm run ci            # the full gate: format:check + lint + test:coverage + test:e2e
+npm run ci            # the full gate: format:check + lint + test:pipeline + test:coverage + test:e2e
 ```
 
 The browser E2E suite (`e2e/`, driven by `playwright.config.ts`) exercises the
