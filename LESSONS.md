@@ -187,6 +187,18 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   itself an assertion; check it against every member or scope it to the ones
   measured. 20260730-111003.
 
+- `a-string-replace-that-matches-nothing-is-a-silent-no-op` (x1): the plan for
+  this task was written into `TASK.md` in the MAIN checkout, before the sprout was
+  cut - so the branch never had it, and the scripted
+  `- FLOW STEP: PLANNED` -> `WORKING` edit inside the worktree matched nothing and
+  reported success. `head -12` showed the STATUS line it DID change, so the
+  missing `## Flow State` section went unnoticed until a later read hit a 38-line
+  file. Sprout before planning, or diff the worktree's task file against the main
+  checkout right after sprouting; and make scripted replaces assert their match
+  count (the mutation script in this same task did, and caught a two-occurrence
+  string on the first try). Instance of
+  [[an-edit-you-believe-you-made-is-a-hypothesis-until-the-artifact-shows-it]]
+  where the artifact was never even written. 20260729-092504.
 - `anchor-programmatic-edits-on-code-not-prose-and-read-the-diff-back` (x1): a
   scripted insertion anchored on a comment string landed INSIDE another symbol's
   doc block, splitting `ShareStats`'s documentation in half and re-attributing
@@ -472,6 +484,30 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   does not reproduce" is the least likely explanation and the most suspicious
   result: before recording any story that makes a null result correct, run the
   cheapest command that would falsify the story. 20260729-130138.
+- `enumerate-assertions-not-hunches-when-mutating` (x1): nine mutations were run
+  on a test-only branch before review, each recorded verbatim - and the ONE
+  assertion that could not fail shipped anyway. It was
+  `expect("#autocomplete-box").toBeHidden()`, written on autopilot as the third
+  of a three-assertion group whose other two both reddened under mutation, so the
+  group read as verified. The pass had been driven by what the author found
+  interesting rather than by the list of what the change asserts. Enumerate every
+  assertion a change adds and pair each with the mutation that reddens it; any
+  left over is either unpinned (say so in the record) or unfalsifiable (delete
+  it). The reviewer found it by mutating the line nobody had wondered about.
+  Sibling of [[a-guard-no-test-can-fail-is-a-comment]] - that one is a guard with
+  no test, this one is a test with no guard behind it. 20260729-092504.
+- `re-run-the-reviewers-mutation-against-your-own-fix` (x1): told that an
+  assertion could not fail, the fix was a new test that plays the round's last
+  guess in-page with the suggestion list OPEN - which looks exactly like
+  "reaching the branch" and passed under the SAME mutation. `selectAndSubmit`
+  hides the box before `onSelect` hands the guess to the game
+  (`src/ui/autocomplete.ts:67`), and the blur handler covers the click-away path
+  (it fires even under `page.clock.install`), so `disableInput`'s hide is
+  redundant on every reachable path - unfalsifiable in principle, not merely
+  untested. Right answer: delete the coverage claim and record WHY, keeping the
+  test for the live-round path it does pin. A fix for "this test cannot fail" is
+  itself a verification claim; the only proof is the original mutation against
+  the new test. 20260729-092504.
 - `test-must-cross-the-format-parse-seam-not-assert-each-side` (x1): unit tests
   that assert `parse` and `format` in isolation can encode the very bug they
   should catch. `parseGameStateKey` did not invert `gameStateKey` (an off-by-one

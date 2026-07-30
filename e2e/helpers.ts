@@ -1383,3 +1383,27 @@ export async function playSeededPracticeToLoss(page: Page): Promise<void> {
     await expect(page.locator("#stat-box")).toContainText("Guesses Left: 0");
     await expect(page.locator("#modal-title")).toHaveText("Game Over");
 }
+
+// MAX_GUESSES species ids from the served payload, none of them the target:
+// exactly enough wrong guesses to spend a whole round. Read at run time and
+// filtered against the target, so no hand-kept list can rot into an accidental
+// win. Shared by e2e/postgame.spec.ts and e2e/share.spec.ts rather than copied
+// into both, per LESSONS.md
+// `hand-copied-logic-mirrors-rot-update-them-in-the-same-change`.
+//
+// Needs a page already on an app route, since `loadContent` fetches the payload
+// through the page.
+export async function wrongGuessIds(
+    page: Page,
+    targetId: string
+): Promise<string[]> {
+    const { speciesIds } = await loadContent(page);
+    const wrong = speciesIds
+        .filter((id) => id !== targetId)
+        .slice(0, MAX_GUESSES);
+    expect(
+        wrong,
+        `the payload has too few species to spend ${MAX_GUESSES} guesses`
+    ).toHaveLength(MAX_GUESSES);
+    return wrong;
+}
