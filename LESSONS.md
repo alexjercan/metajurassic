@@ -24,7 +24,7 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   changing. Sibling of
   [[read-the-helper-body-not-its-name-before-reusing-it]] pointed the other way up
   the call graph. 20260729-141414.
-- `a-guard-no-test-can-fail-is-a-comment` (x1): the content pipeline gained a
+- `a-guard-no-test-can-fail-is-a-comment` (x2): the content pipeline gained a
   Python `validate_attributes` that refuses a malformed frontmatter value, and
   nothing in `npm run ci` exercised it - deleting the call from both sites left
   the whole gate green, because every test asserts over the committed content,
