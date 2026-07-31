@@ -4,7 +4,7 @@ import { loadGameData } from "../jsonLoader";
 import { getTodaySeed } from "../puzzleKey";
 import { ShareContext } from "../shareText";
 import { buildGuessTree } from "../treeBuilder";
-import { setupAutocomplete } from "../ui";
+import { setupAutocomplete } from "../ui/autocomplete";
 import { showLossModal, showWinModal } from "../ui/modal";
 import {
     closePanelManually,

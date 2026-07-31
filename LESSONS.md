@@ -390,13 +390,43 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   verbatim - and the literal `grep -rn isResumable tasks/`, one hit, was never
   run. A negative claim needs its own evidence: grep the literal SYMBOL NAME as
   a second pass, and read every record KIND in the folder, not just DECISION.
-- `inherited-figures-do-not-satisfy-a-sentence-that-says-measured` (x1): a
+- `inherited-figures-do-not-satisfy-a-sentence-that-says-measured` (x2): a
   DECISION.md paragraph opened "Confirmed against the file rather than inherited
   from the plan" and then quoted the plan's "about 60 lines" for the seam it was
   rejecting; the seam is about 80. The claim of independent measurement is
   itself a claim, and copying the figure from the task record is exactly what it
   denies. Re-measure every number that sits inside a sentence asserting it was
-  measured, in the pass that asserts it. 20260731-212613.
+  measured, in the pass that asserts it. 20260731-212613. Second hit
+  (20260731-212614): `NOTES.md` said a hint-cost figure was "checked against the
+  SPIKE rather than carried from the comment", and the check had matched the
+  DIGITS at the right row of a TWO-COLUMN table - `+2.2` is the expert column,
+  and the comment was about a tree-reader, who pays `+0.5 to +1.3`. The
+  verification really did open the record and really did find the number; what
+  it never compared is the axis the claim is indexed on. A figure in a table
+  with more than one column is not addressable by its value: cite the row AND
+  the column, or quote the table.
+- `build-a-what-happened-table-from-the-diff-not-from-the-working-notes` (x1):
+  a `NOTES.md` inventory gave one row per comment with a verdict - keep,
+  compact, delete - and four rows said `keep` for comments `git diff` shows
+  were rewritten, one of them beside the words "already in the target form".
+  The same gap made the close-out's compaction counts wrong in both directions
+  (17 of 31 survivors rewritten, not 11; 9 of 13 compactions carry a pointer,
+  not all of them). The labels were the INTENTIONS formed while reading each
+  file, and they were mostly right, which is why nothing re-derived them once
+  the edits existed. A table describing what a change did to each item is a
+  claim about the diff: extract before and after, compare, then label. Sibling
+  of [[quote-the-mutation-not-the-memory-of-it]] and
+  [[derive-every-number-in-a-table-from-the-same-rig]], one layer up - those
+  two are about numbers, this is about the per-item verdicts the numbers are
+  summed from. 20260731-212614.
+- `a-set-property-must-be-re-checked-per-member-before-it-is-claimed-of-one`
+  (x1): three files travelled together as a landed sibling's cluster and the
+  record said all three "carry the directory's highest comment ratios". Two do,
+  by a wide margin; the third is 7%, second-lowest of ten. The cluster's
+  headline property got borrowed by each member, and the same record's
+  `DECISION.md` said "the two highest" correctly four sections away. A
+  superlative is measured over a set - restate it per member, or say "two of
+  them" and name which. 20260731-212614.
 - `a-record-pointer-can-outlive-what-the-record-says` (x1): `focusRect` framed
   the target AND the newest guess and cited "tasks/20260729-092339/DECISION.md
   fork 2" as its backing. Fork 2 chose to centre the target and explicitly

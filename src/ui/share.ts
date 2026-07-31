@@ -1,6 +1,5 @@
-// How a finished round leaves the page. On a phone the expected affordance is
-// the OS share sheet (`navigator.share`), which can hand the text to any app;
-// on a desktop browser without one, the clipboard is the fallback. Kept
+// How a finished round leaves the page: the OS share sheet where there is one,
+// the clipboard where there is not (tasks/20260729-101823/DECISION.md). Kept
 // DOM-free and dependency-injected so both paths are unit-testable without a
 // browser.
 

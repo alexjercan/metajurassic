@@ -66,7 +66,6 @@ export function createSpeciesCard(
     const card = document.createElement("div");
     card.className = `museum-card${extraClasses ? ` ${extraClasses}` : ""}`;
 
-    // Add rarity class if specified
     if (rarity) {
         card.classList.add(`card-rarity-${rarity}`);
     }
@@ -83,7 +82,6 @@ export function createSpeciesCard(
             : "[ Hologram Render ]";
     }
 
-    // Create rarity star HTML
     const rarityStarHtml =
         rarity === "rare" ? '<span class="card-rarity-star">★</span>' : "";
 

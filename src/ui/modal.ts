@@ -18,15 +18,12 @@ function hideModal() {
     overlay?.classList.remove("active");
 }
 
-// Close when clicking the backdrop (but not the modal itself)
 overlay?.addEventListener("click", (e) => {
     if (e.target === overlay) hideModal();
 });
 
-// Close via the OK button
 modalCloseBtn?.addEventListener("click", () => hideModal());
 
-// Add the share SVG to the share button in the modal
 const modalShareBtn = document.getElementById("modal-share-btn");
 const shareBtnIcon = modalShareBtn?.querySelector("img");
 if (shareBtnIcon) {
@@ -100,7 +97,6 @@ function fireConfetti() {
         }
     };
 
-    // Initial burst
     confetti({
         particleCount: 100,
         spread: 70,

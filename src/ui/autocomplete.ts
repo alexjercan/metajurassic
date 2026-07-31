@@ -98,13 +98,11 @@ export function setupAutocomplete(options: AutocompleteOptions) {
         updateHighlight();
     };
 
-    // The blur handler hides the box on a short delay rather than immediately.
-    // The handle is kept so that RE-OPENING the box cancels the pending hide:
-    // without that, a player who taps another control and comes straight back
-    // inside the window gets the stale timer firing AFTER the re-render, which
-    // hides a list that is currently in use and makes the `keydown` handler
-    // below compute `isOpen === false` and ignore ArrowDown and Enter
-    // (20260729-130138).
+    // The blur hide is delayed, and the handle is kept so that RE-OPENING the
+    // box cancels a pending hide. Without the cancel, a stale timer fires
+    // after the re-render, hides a list that is in use, and leaves the
+    // `keydown` handler below computing `isOpen === false` - so ArrowDown and
+    // Enter are ignored. See tasks/20260729-130138/DECISION.md.
     let hideTimer: ReturnType<typeof setTimeout> | undefined;
 
     const cancelPendingHide = () => {
@@ -125,10 +123,13 @@ export function setupAutocomplete(options: AutocompleteOptions) {
 
     inputEl.addEventListener("blur", () => {
         // Belt and braces: a browser cannot blur twice without an intervening
-        // focus, which already cancels, so this cannot fire with a timer
-        // pending. It keeps the invariant "at most one armed hide" local to
-        // this handler rather than dependent on that reasoning.
+        // focus, which already cancels. Keeps "at most one armed hide" local
+        // to this handler rather than dependent on that reasoning.
         cancelPendingHide();
+        // The delay looks like dead weight - items `preventDefault()` on
+        // `mousedown`, so clicking one does not blur the input - but no suite
+        // covers every touch browser's blur-versus-tap ordering. Removing it
+        // is its own change. See tasks/20260729-130138/DECISION.md.
         hideTimer = setTimeout(() => {
             hideTimer = undefined;
             autocompleteBox.style.display = "none";
@@ -155,20 +156,16 @@ export function setupAutocomplete(options: AutocompleteOptions) {
             updateHighlight();
         } else if (event.key === "Enter" && activeIndex >= 0) {
             event.preventDefault();
-            // `preventDefault()` is NOT enough here, and stopPropagation would
-            // not be either. `src/game.ts` registers its own keydown listener
-            // on this SAME input (after this one), which submits the raw typed
-            // text; sibling listeners on one element are only stopped by
-            // stopImmediatePropagation. Without it both handlers run for every
-            // Enter, and the selection survives only because submitting blanks
-            // the input before the second handler reads it - an accident, not a
-            // guard. Consuming the event here means a partial query like
-            // "tyrann" can never reach the exact-match lookup and be rejected
-            // as a species that does not exist (20260729-130138).
-            //
-            // Scoped to the highlighted case on purpose: with no list open this
-            // branch does not run, so a genuinely bogus guess still reaches
-            // `src/game.ts` and still gets its rejection message.
+            // `stopImmediatePropagation`, not `preventDefault` or
+            // `stopPropagation`: `src/game/index.ts` registers a second
+            // keydown listener on this SAME input, after this one, and sibling
+            // listeners on one element are stopped only by the immediate form.
+            // Without it the raw typed text - a partial query like "tyrann" -
+            // reaches the exact-match lookup and is rejected as a species that
+            // does not exist. Scoped to the highlighted case on purpose: with
+            // no list open this branch does not run, so a genuinely bogus
+            // guess still gets its rejection message.
+            // See tasks/20260729-130138/DECISION.md.
             event.stopImmediatePropagation();
             selectAndSubmit(currentMatches[activeIndex]);
         }

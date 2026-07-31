@@ -20,22 +20,20 @@ let unseenCardTitle: string | null = null;
 const DEFAULT_PULL_LABEL = "Info";
 
 // MIRRORS the `@media (max-width: 768px)` block in src/style.css, where
-// `.info-panel` becomes `width: 100%` and stops sitting BESIDE the arena,
-// overlaying it instead. Keep the two numbers in step: if the stylesheet
-// breakpoint moves and this does not, the panel will auto-open onto viewports
-// where it covers the tree, which is the bug this constant exists to prevent.
-// e2e/mobile.spec.ts (Pixel 5) and e2e/panel.spec.ts (Desktop Chrome) pin the
-// behaviour on either side of it.
+// `.info-panel` becomes `width: 100%` and overlays the arena instead of
+// sitting beside it. Do not move one number without the other: a stale query
+// auto-opens the panel over the tree. e2e/mobile.spec.ts (Pixel 5) and
+// e2e/panel.spec.ts (Desktop Chrome) pin either side.
+// See tasks/20260729-141414/DECISION.md.
 const NARROW_VIEWPORT_QUERY = "(max-width: 768px)";
 
 // Queried per call, not cached at module load, so a desktop window narrowed
-// mid-game gets the phone behaviour on its next render.
+// mid-game gets the phone behaviour on its next render. Nothing listens for
+// the resize event (tasks/20260729-141414/DECISION.md).
 export function isNarrowViewport() {
     return window.matchMedia(NARROW_VIEWPORT_QUERY).matches;
 }
 
-// Keep the pull tab describing its own current job: close the panel, open an
-// unseen card (named), or open the panel generally.
 function syncPullTab() {
     if (!pullTab) return;
     const open = isPanelOpen();
@@ -58,9 +56,8 @@ function syncPullTab() {
     );
 }
 
-// Called after a card is mounted. A card rendered while the panel is open is
-// already in front of the player; one rendered while it is closed is the thing
-// the tab has to advertise.
+// Only a card rendered into a CLOSED panel is unseen; one rendered into an
+// open panel is already in front of the player.
 function noteCardRendered(title: string) {
     if (isPanelOpen()) return;
     unseenCardTitle = title;
@@ -100,12 +97,9 @@ export function renderLastGuess(
     roots: CladeNode[]
 ) {
     if (!state.lastGuessId) {
-        // Before the first guess, render the root-clade hint into the panel but
-        // leave the panel CLOSED: the first screen belongs to the tree and the
-        // input, not to a card the player has not asked for. On a phone the
-        // panel is full-width and overlays the arena exactly, which hid the game
-        // itself on first load. The card sits ready behind the always-visible
-        // #open-panel pull tab, so the hint is one tap away.
+        // Before the first guess the card is rendered but the panel stays
+        // CLOSED, on every viewport. The #open-panel pull tab is the
+        // affordance; nothing here may open the panel.
         // See tasks/20260729-092315/DECISION.md.
         const bestCladeId = findBestHintCladeId(roots);
         if (!bestCladeId) return;
@@ -121,28 +115,23 @@ export function renderLastGuess(
     }
 
     if (state.isWin()) {
-        // Correct guess: show the target species
         const species = data.findSpeciesById(state.targetId);
         if (!species) return;
         const clade = data.findCladeById(species.clade);
         renderSpeciesCard(species, clade || undefined);
     } else {
-        // Incorrect guess: show the best hint clade (direct parent of "?")
         const bestCladeId = findBestHintCladeId(roots);
         if (!bestCladeId) return;
         const clade = data.findCladeById(bestCladeId);
         if (!clade) return;
         renderCladeCard(clade);
     }
-    // On a narrow viewport `.info-panel` is `width: 100%` and painted over the
-    // arena, so auto-opening here would replace the tree - the feedback the
-    // player just spent a guess on - with a museum card (playtest finding F3.5).
-    // The card is still rendered above; the pull tab now names it and is one tap
-    // away. Desktop keeps the auto-open: there the panel sits BESIDE the tree.
-    // See tasks/20260729-141414/DECISION.md.
+    // A guess auto-opens the panel on desktop only. On a narrow viewport the
+    // panel covers the arena, so opening here would replace the feedback the
+    // player just spent a guess on. See tasks/20260729-141414/DECISION.md.
     //
-    // Note this branch deliberately does NOT route through openPanel() on the
-    // narrow path: that helper also clears `manuallyClosedPanel`
+    // Do not rewrite this condition as an early `openPanel()` call: that
+    // helper also clears `manuallyClosedPanel`
     // (LESSONS.md read-the-helper-body-not-its-name-before-reusing-it).
     if (!manuallyClosedPanel && !isNarrowViewport()) {
         openPanel();
@@ -159,9 +148,9 @@ export function renderSpeciesCard(
     noteCardRendered(species.species);
 }
 
-// The deeper onboarding reference. It is a card like any other, so it reuses
-// the panel the pull tab already advertises rather than introducing a second
-// "there is something to read" surface (tasks/20260729-141414/DECISION.md).
+// The deeper onboarding reference mounts in this panel rather than in a
+// surface of its own: no second "there is something to read" control.
+// See tasks/20260729-092327/DECISION.md.
 export function renderHowToPlayCard() {
     if (!cardContainer) return;
     mountCard(cardContainer, buildHowToPlayCard());

@@ -4,51 +4,37 @@ import { MAX_GUESSES, HINT_COST } from "../constants";
  * In-board onboarding copy: the pre-guess brief, the deeper how-to-play card,
  * and the hint chip string.
  *
- * The playable screen used to state none of the rules (playtest F3.1): a
- * guesses-left chip, a hint chip that named only its price, a `?` node, and an
- * input placeholder. The rules existed only behind a small grey footer link to
- * the FAQ - the one place the reference game deliberately does not keep them.
- *
- * WHY THE BRIEF LIVES IN THE ARENA, and not on an interstitial or in the top
- * bar, is a user-confirmed fork recorded in tasks/20260729-092327/DECISION.md.
- * The short version: the brief fills the band 20260729-141414 left empty below
- * the pre-guess tree, which costs the board nothing once play starts, and the
- * deeper reference routes through the EXISTING #open-panel affordance rather
- * than a competing one.
- *
- * The brief is deliberately gated on "no guesses yet" rather than on a stored
- * first-visit flag, so it fills that band at the top of every round instead of
- * only a player's first. A returning player dismisses it by guessing.
+ * The brief is gated on "no guesses yet", not on a stored first-visit flag, so
+ * it fills the band above the input at the top of EVERY round and needs no
+ * storage key. A returning player dismisses it by guessing. Why it lives in
+ * the arena rather than the top bar or an interstitial is a user-confirmed
+ * fork: tasks/20260729-092327/DECISION.md.
  */
 
-// Copy is built here rather than typed into src/index.html so the two numbers
-// in it come from the constants that define them. The old markup hardcoded
-// "Cost 3 Guesses", a copy of HINT_COST that a reprice would have rotted
-// silently (LESSONS.md: hand-copied-logic-mirrors-rot-update-them-in-the-same-change).
+// Copy is built here rather than typed into src/index.html so its numbers come
+// from the constants that define them. The old markup hardcoded "Cost 3
+// Guesses", a copy of HINT_COST a reprice would have rotted silently
+// (LESSONS.md: hand-copied-logic-mirrors-rot-update-them-in-the-same-change).
 export function hintChipCopy(): { label: string; detail: string } {
     return {
-        // "Stuck?" rather than "Hint": the hint is a rescue, not an edge. It
-        // costs a player who can read the tree +2.2 guesses
-        // (tasks/20260729-160500/SPIKE.md), so copy that sells it as an
-        // advantage would be selling a trap.
+        // "Stuck?" rather than "Hint": at cost 3 a hint is a net LOSS for
+        // anyone who can play - +0.5 to +1.3 guesses for a tree-reader, +2.2
+        // to +2.4 for an expert - so copy selling it as an advantage would be
+        // selling a trap (tasks/20260729-160500/SPIKE.md).
         label: "Stuck?",
-        // Names the product and the price and stops there. It must NOT promise
-        // to halve the field: the rule falls back to a smaller cut on ~19% of
-        // presses, so that promise would be false about one press in five.
+        // Must NOT promise to halve the field: the rule falls back to a
+        // smaller cut on ~19% of presses (same record).
         detail: `Spend ${HINT_COST} guesses to reveal a clade`,
     };
 }
 
 /**
- * The four facts a first-timer is missing (playtest F3.1), as plain strings.
+ * The four facts a first-timer is missing, as plain strings.
  *
  * Kept separate from the DOM building below so the copy - and the MAX_GUESSES
- * wiring inside it - is unit-testable. The constraint that still binds is
- * coverage: `src/ui/**` is excluded from it as DOM-heavy by design
- * (jest.config.js). A jsdom environment IS available since 20260729-092352,
- * but opt-in per file (`@jest-environment jsdom`, see
- * test/cardRendering.test.ts) rather than the default. The seam is still worth
- * keeping: "copy is pure, mounting is end-to-end".
+ * wiring inside it - is unit-testable without a DOM: `src/ui/**` is excluded
+ * from coverage as DOM-heavy by design (jest.config.js). Copy is pure,
+ * mounting is end-to-end.
  */
 export function briefCopy(): {
     objective: string;
@@ -73,8 +59,8 @@ export function briefCopy(): {
 
 /**
  * The pre-guess brief: the four facts above, plus one control leading to the
- * fuller card. Four short lines - the board should still read as a game screen,
- * not as documentation.
+ * fuller card. Kept to four short lines so the board still reads as a game
+ * screen, not as documentation.
  */
 export function buildOnboardingBrief(): HTMLElement {
     const copy = briefCopy();
