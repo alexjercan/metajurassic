@@ -252,7 +252,8 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   list before committing: the missing path was on screen. Sibling of
   [[an-edit-you-believe-you-made-is-a-hypothesis-until-the-artifact-shows-it]].
   20260729-122943.
-- `open-a-neighbouring-record-before-writing-a-new-one` (x2): the closeness task's
+- `open-a-neighbouring-record-before-writing-a-new-one` (x3, PENDING PROMOTION):
+  the closeness task's
   `DECISION.md` was authored from an idea of what a decision record contains, and
   reddened `tatr check` with `bad-decision-status` - the document-level `- STATUS:`
   line the linter parses lived only inside each fork section, while all 13
@@ -271,6 +272,42 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   code had been read; its review had not. The findings are where a task's own
   claims got corrected, so read the REVIEW.md of any task you cite as evidence.
   20260730-111003.
+  Third occurrence: this task's `DECISION.md` DID open a neighbour
+  (`tasks/20260729-141424/DECISION.md`) and still reddened `tatr check` with six
+  `bad-record-schema` errors - the neighbour predates the v2 schema migration
+  (053fe72), so it is grandfathered, not canonical. A committed sibling cannot
+  tell you which of its properties the linter currently requires; `tatr scaffold`
+  can, and prints the template. 20260731-212557.
+- `a-regex-over-source-is-not-a-parse` (x1): the comment inventory's first pass
+  used `ts.createScanner`, which resolves `/` without parser context and read the
+  regex `/\.md$/` in `src/markdownLoader.ts:29` as the start of a comment,
+  swallowing the rest of the file - reporting 115 comments in `src/` where there
+  are 223. The plan's own baseline had the matching error one level down: a grep
+  for `^\s*//` counts comment LINES, and a run of `//` lines is one comment, so
+  it makes a well-commented file look badly commented. Both outputs were
+  plausible, which is why neither was questioned until an extracted comment ended
+  mid-sentence in `/**` garbage. Count source constructs with the language's
+  PARSER, and check the result against a number produced outside the session
+  before building on it. Sibling of
+  [[absence-claims-need-a-listing-not-a-recollection]]. 20260731-212557.
+- `tick-a-step-against-its-clauses-not-in-one-bulk-edit` (x1): the seven Steps
+  were ticked with a single `- [ ]` -> `- [x]` replace across `TASK.md`. Step 1
+  asked for two tables and the record had one; the bulk edit is precisely what
+  removed the moment at which any step would have been re-read against what was
+  written, and review caught it as a MAJOR. The `work` skill already says to tick
+  only after re-reading every clause - a global replace is the shape that skips
+  that rule invisibly. Tick one box at a time. Sibling of
+  [[anchor-programmatic-edits-on-code-not-prose-and-read-the-diff-back]].
+  20260731-212557.
+- `derive-every-number-in-a-table-from-the-same-rig` (x1): `NOTES.md` recorded
+  837 comments bucketed 620/73/144 across four directories, every figure from the
+  extraction rig - except one prose breakdown, "3 in `test/lintGate.test.ts`, 9
+  across `e2e/`", recalled from the reading. Measured, it was 6 in `e2e/` plus 3
+  in files the sentence never mentioned, and the sibling `DECISION.md` carried
+  the correct total in the same commit, so the two records shipped contradicting
+  each other. A hand-counted figure sitting among measured ones inherits their
+  authority without earning it. Sibling of
+  [[quote-the-mutation-not-the-memory-of-it]]. 20260731-212557.
 - `re-read-the-decision-record-while-implementing-the-function-that-implements-it`
   (x1): `DECISION.md` said in as many words "finished rounds are kept: they ARE
   the practice stats", and the function deciding keep-vs-delete
@@ -749,6 +786,16 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   proof is visibly incomplete rather than merely optimistic - and so the check
   is per-DoD rather than per-item. User decides.
   20260729-101823, 20260729-092327, 20260729-130138.
+
+- `open-a-neighbouring-record-before-writing-a-new-one` (x3) -> tatr CLI, not
+  prose. The rule itself was FOLLOWED the third time and still failed: the
+  neighbour that was opened predates the v2 schema migration, so it taught a
+  grandfathered shape. Prose cannot distinguish a canonical sibling from a
+  legacy one. Proposal: make `tatr scaffold <id> <KIND>` the documented and
+  only way a record is created - it already prints the current template - and
+  have `tatr check` run as a pre-commit hook on `tasks/`, so a schema drift is
+  refused at write time instead of found after the first commit. User decides.
+  20260729-182255, 20260730-111003, 20260731-212557.
 
 - `close-a-task-with-its-review-and-retro-not-just-the-status` (x3) -> tatr CLI
   guard, not prose. Three sessions have flipped STATUS to CLOSED before the

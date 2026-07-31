@@ -67,6 +67,12 @@ comment-heaviest:
 37 comments across the tree name a task ID inline. Each is a decision one way
 or the other, not a blanket delete.
 
+Superseded by measurement. `tasks/20260731-212557/NOTES.md` re-counts the
+population with the TypeScript parser rather than a line grep: 837 comments
+over 3103 lines, bucketed 620 keep / 73 compact / 144 discard, and 75 comments
+naming a task ID across 38 files (not 37). The table above stays as the
+starting picture; the NOTES figures are what the children measure against.
+
 ## Done Means
 
 - Every child task is CLOSED and landed. (cmd: `tatr frontier <epic-id>`)
@@ -124,7 +130,7 @@ all apply.
 
 | ID | Pri | Repo | Title | Landed |
 |----|-----|------|-------|--------|
-| 20260731-212557 | 71 | metajurassic | Write the comment and file-size policy into AGENTS.md | |
+| 20260731-212557 | 71 | metajurassic | Write the comment and file-size policy into AGENTS.md | landed |
 | 20260731-212610 | 70 | metajurassic | KISS pass: core game loop (game.ts, gameState.ts, share text) | |
 | 20260731-212611 | 68 | metajurassic | KISS pass: tree pipeline (treeBuilder, treeVisualizer, treeLayout) | |
 | 20260731-212612 | 66 | metajurassic | KISS pass: profile page and stats maths | |

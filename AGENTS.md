@@ -124,9 +124,70 @@ Outside `npm run ci`.
 
 Environment-specific failure: check Node-version drift first.
 
+## Comments
+
+Keep a comment for what a reader cannot recover without it. Not for what it
+took to learn, and not for who learned it.
+
+| Keep | Form |
+|------|------|
+| Public API contract | docstring above the exported symbol |
+| Non-obvious constraint or guard: "do not change this", a browser quirk, an ordering or specificity dependency | one compact line or short block at the site |
+| Why an assertion has its particular form: exact values not a property, this viewport, both branches, here and not there | at the assertion, at whatever length it needs |
+| A defect shape, value, or invariant the code still defends | at the site |
+| Record pointer | one line, after the constraint it explains |
+| Live tracker marker | `NOTE:` / `FIXME:` / `TODO:` / `BUG:` plus the tatr ID |
+
+| Discard | Why |
+|---------|-----|
+| Narration of what the code plainly does | the code says it |
+| "task `<id>` wanted me to...", "found in review R1.4", "was `test.fixme` while..." | archaeology; the record holds it |
+| Rationale reproducing a `DECISION.md` | compact to one line plus the pointer |
+| Every clause describes behaviour that no longer ships | actively misleading; delete outright |
+
+Compaction, not deletion, when a comment is partly load-bearing: split it at
+the constraint, keep the constraint, drop the story.
+
+Three rules decide the cases the tables do not:
+
+- **Compact only towards an existing record.** If the rationale has no
+  `DECISION.md`, `SPIKE.md` or `NOTES.md` behind it, the comment is its only
+  copy: keep it in full, or write the record first and then compact. Length is
+  never itself a reason to cut.
+- **A pointer needs a constraint.** `See tasks/X/DECISION.md` alone tells a
+  reader nothing they can act on. State what is constrained, then point.
+- **A live marker is a marker.** `NOTE:` / `FIXME:` / `TODO:` / `BUG:` with a
+  tatr ID means work that is still open. A task ID in any other shape is
+  history and belongs in the record, not the code.
+
+`test/` and `e2e/` are held to the same rules and to no extra brevity rule.
+Their comment density is a feature: most of it is the why-this-assertion case
+above.
+
+Worked examples of the four hard cases: `tasks/20260731-212557/DECISION.md`.
+Repository-wide inventory: `tasks/20260731-212557/NOTES.md`.
+
+## File size
+
+A file splits when it holds several unrelated jobs, because the seams are what
+a reader needs and the size is what makes them expensive to find. Section
+banners (`// ---- Policies ----`, `// ==== EDGE CASES ====`) are the reliable
+signal: a banner is a file boundary that has not happened yet.
+
+A file does NOT split for:
+
+- Length alone. A long file doing one job is fine.
+- A single caller wanting an abstraction. One caller is not an abstraction
+  (KISS, YAGNI).
+
+A split MOVES code. It does not generalize it, rename exported symbols, or
+introduce a parameter, hook, or config knob on the way. If a split cannot be
+done without changing behaviour, it is a different task.
+
 ## Conventions
 
 - Global `~/AGENTS.md` applies.
+- Code comments and file size: see `## Comments` and `## File size` above.
 - ASCII punctuation only. No AI attribution in commits.
 - Optimize for correctness, maintainability, and design quality.
 - Lint: zero warnings. Fix new warnings or disable a rule deliberately in
