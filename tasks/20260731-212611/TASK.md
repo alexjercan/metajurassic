@@ -2,9 +2,9 @@
 
 - STATUS: OPEN
 - PRIORITY: 68
-- TAGS: refactor,ui
+- TAGS: refactor, ui
 - KIND: STORY
-- FLOW STEP: BACKLOG
+- FLOW STEP: PLANNING
 - PLAN STATUS: DRAFT
 - PARENT: 20260731-212345
 - DEPENDS ON: 20260731-212557
@@ -30,30 +30,87 @@ behaviour that is worth keeping in compacted form.
 
 ## Steps
 
-- [ ] Follow the rules from the policy task.
-- [ ] Split the hint rules out of `treeBuilder.ts`. They are consumed by
-      `game.ts` and reproduced by `scripts/playtest/hint.ts`; the guess-tree
-      construction is consumed by the renderer. Different readers, different
-      files.
-- [ ] Split `treeVisualizer.ts` along the render / measure-and-scroll seam:
-      `renderNode` and `renderTree` on one side, `pickScrollAnchor`,
-      `contentRect`, `focusRect`, `layoutTree`, `scheduleRelayout`,
-      `listenForViewportChanges` on the other. Record whether `treeLayout.ts`
-      absorbs the geometry half or stays as it is.
-- [ ] Compact the comments across the cluster. Browser-quirk notes and the
-      scaling constraint from `20260331-154614` are keeps - state the
-      constraint, drop the incident narrative.
-- [ ] Prove no behaviour moved: `test/treeBuilder.test.ts`,
-      `test/treeLayout.test.ts`, `test/hintRule.test.ts`, `test/hintCap.test.ts`,
-      `test/closeness.test.ts` and `e2e/tree.spec.ts` are untouched and green.
+Rules come from `AGENTS.md` `## Comments` and `## File size`; worked examples
+from `tasks/20260731-212557/DECISION.md`. Do not re-derive them. Sibling
+20260731-212610 is landed; its `NOTES.md` carries three method warnings this
+task honours: grep as widely as possible and filter the OUTPUT by reading it,
+search `tasks/` whole before declaring a rationale unrecorded, and expect a
+split to RAISE the line total.
+
+- [ ] Record the baseline with the parser rig (method:
+      `tasks/20260731-212557/NOTES.md` `## How the population was counted`).
+      Measured already, to be re-confirmed on the branch: `treeBuilder.ts`
+      443/29/102, `treeVisualizer.ts` 358/16/101, `treeLayout.ts` 106/5/47,
+      `closeness.ts` 66/5/28 (lines/comments/comment lines).
+- [ ] Write `DECISION.md` before moving code, settling three choices:
+      (1) both hint rules move, including `findBestHintCladeId`, which is a
+      tree walk by mechanism but a hint rule by job; (2) `treeLayout.ts` does
+      NOT absorb the DOM geometry - see the next step for the evidence;
+      (3) how `renderTree`'s tail hands off to the scroll module without
+      exporting mutable state.
+- [ ] Split `src/hintRule.ts` out of `treeBuilder.ts`: `findNextHintCladeId`
+      and `findBestHintCladeId`. `treeBuilder.ts` keeps the node types, the
+      type guards, `buildGuessTree`, `buildCladeSubtree`,
+      `getNearestRevealedAncestor`, `getNearestRevealedClade`. `hintRule.ts`
+      imports the node types from `treeBuilder.ts`; confirm no cycle
+      (`treeBuilder.ts` must not import `hintRule.ts`).
+- [ ] Split `src/ui/treeScroll.ts` out of `treeVisualizer.ts`:
+      `pickScrollAnchor`, `contentRect`, `focusRect`, `layoutTree`,
+      `scheduleRelayout`, `listenForViewportChanges` and the four module-level
+      mutables (`lastLayout`, `laidOutContainer`, `pendingRelayout`,
+      `listeningForViewportChanges`). `treeVisualizer.ts` keeps `el`,
+      `renderNode`, `renderTree` and the option types.
+      `treeLayout.ts` stays as it is: its own header comment states it is kept
+      DOM-free so the arithmetic can be unit-tested, `test/treeLayout.test.ts`
+      runs it in the node environment, and the half being moved is entirely
+      DOM (`offsetParent` walks, `ResizeObserver`, `scrollTo`). Absorbing it
+      would put DOM into a file whose purity is a recorded decision
+      (`tasks/20260729-092339/DECISION.md`).
+- [ ] Move `renderTree`'s last four lines - the `laidOutContainer` assignment,
+      the `listenForViewportChanges` call and the `requestAnimationFrame`
+      layout - into one exported function in `treeScroll.ts`, so the mutable
+      stays private to the module that owns it. It is a move seam with one
+      caller, not an abstraction; record it as such.
+- [ ] Update importers. `src/game/hintChip.ts` and `src/ui/panel.ts` are
+      import-line edits; `scripts/playtest/hint.ts` and
+      `scripts/playtest/difficulty.ts` are sibling 20260731-212616's files and
+      get import-line edits only; `test/hintRule.test.ts` likewise. Enumerate
+      with an UNFILTERED grep (`from ".*treeBuilder"`) and read every hit -
+      the filtered kind is what cost sibling 20260731-212610 a broken build.
+- [ ] Compact the comments across the cluster. `treeBuilder.ts` carries 15
+      narration discards per the child-1 inventory (`// Recurse into child
+      clades`, `// Add hint-revealed clades`, `// Find the root clade`).
+      KEEPS, in compacted form where they carry story: the browser-quirk notes
+      in `treeVisualizer.ts` (the `popIn` mid-animation rect, the Android URL
+      bar, the ResizeObserver-vs-resize media query, the instant-not-smooth
+      scroll), the `SpeciesNode.closenessTier` docstring, and the scaling
+      floors in `treeLayout.ts`. Before compacting any of them, check whether a
+      record actually holds the rationale - grep `tasks/` whole, not just the
+      `DECISION.md` a comment names.
+- [ ] Re-run the rig, fill the before/after tables, then `npm run ci`,
+      `npm run build` and `npm run playtest:hint` inside `nix develop`.
 
 ## Definition of Done
 
-- Before/after `wc -l` recorded for every file in the cluster.
-  (cmd: `wc -l` table in the task record)
-- No assertion changed in the listed suites. (cmd: `git diff test e2e`)
-- `scripts/playtest/hint.ts` still imports the shipped rule and its cross-check
-  still passes. (cmd: `npm run playtest:hint`)
-- Every surviving inline task reference in the cluster is a pointer or a live
-  marker. (cmd: the cluster grep)
-- `npm run ci` and `npm run build` pass. (cmd: both)
+- Before/after `wc -l` and comment counts recorded for every file in the
+  cluster.
+  (cmd: rig table in `tasks/20260731-212611/NOTES.md`; red on base, where
+  `treeBuilder.ts` is 443 and `treeVisualizer.ts` 358 and neither
+  `src/hintRule.ts` nor `src/ui/treeScroll.ts` exists)
+- The two new modules hold the split, and nothing re-exports across the seam.
+  (cmd: `grep -nE 'findNextHintCladeId|findBestHintCladeId|export \*' src/treeBuilder.ts`
+  and `grep -nE 'layoutTree|focusRect|contentRect|pickScrollAnchor|export \*' src/ui/treeVisualizer.ts`
+  return only calls into the new modules, no declarations and no re-exports)
+- `treeLayout.ts` is still DOM-free. (cmd: `grep -nE
+  'document|window|HTMLElement|ResizeObserver|getBoundingClientRect|offset'
+  src/ui/treeLayout.ts` is empty)
+- No assertion changed in `test/` or `e2e/`. (cmd: `git diff master -- test
+  e2e` shows import-path lines only, each listed; `e2e/` expected empty)
+- `scripts/playtest/hint.ts` still imports the shipped rule and its
+  cross-check passes. (cmd: `npm run playtest:hint`)
+- Every surviving inline task reference in the cluster is a one-line record
+  pointer or a live tracker marker.
+  (cmd: `grep -rnE '(//|\*).*(2026[0-9]{4}-[0-9]{6}|tasks/)' src/treeBuilder.ts
+  src/hintRule.ts src/ui/treeVisualizer.ts src/ui/treeScroll.ts
+  src/ui/treeLayout.ts src/closeness.ts`, each hit justified)
+- `npm run ci` and `npm run build` pass inside `nix develop`. (cmd: both)
