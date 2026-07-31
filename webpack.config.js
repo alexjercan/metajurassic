@@ -13,7 +13,7 @@ const config = {
         faq: "./src/faq.ts",
         species: "./src/species.ts",
         clades: "./src/clades.ts",
-        profile: "./src/profile.ts",
+        profile: "./src/profile/index.ts",
     },
     output: {
         path: path.resolve(__dirname, "dist"),

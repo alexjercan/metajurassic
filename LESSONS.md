@@ -234,12 +234,17 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   written from a task's title and outcome instead of the code it describes. A
   task record says what was DECIDED; only the function says what SHIPPED.
   20260729-092452.
-- `a-correction-is-a-new-claim-re-derive-it` (x1): the fix for a wrong colour-scale
+- `a-correction-is-a-new-claim-re-derive-it` (x2): the fix for a wrong colour-scale
   warning introduced a second wrong claim ("the INVERSE direction of Metazooa's
   green-to-red") by reasoning from the palette's written order rather than from
   what the scale is keyed on - `level` is distance from the answer, so green is
   the close end in both games. Re-derive a corrected fact from its source; a
   correction gets the same standard as the claim it replaces. 20260729-092452.
+  Second hit (20260731-212612): a MAJOR finding faulted the METHOD behind a
+  record-tree grep and cited two of the eight comments it had mis-cleared. The
+  fix re-ran the method for those two and left the other six on the discredited
+  pass, so round 2 raised two more findings on the same defect. When a finding
+  faults a method, its scope is the method, not the instances it names.
 
 - `check-what-lives-at-a-path-a-task-names-as-a-reference` (x1): this task's step
   1 said to compare the game against "the local `~/personal/metazooa` helper
@@ -303,7 +308,8 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   that rule invisibly. Tick one box at a time. Sibling of
   [[anchor-programmatic-edits-on-code-not-prose-and-read-the-diff-back]].
   20260731-212557.
-- `derive-every-number-in-a-table-from-the-same-rig` (x2): `NOTES.md` recorded
+- `derive-every-number-in-a-table-from-the-same-rig` (x3, PENDING PROMOTION):
+  `NOTES.md` recorded
   837 comments bucketed 620/73/144 across four directories, every figure from the
   extraction rig - except one prose breakdown, "3 in `test/lintGate.test.ts`, 9
   across `e2e/`", recalled from the reading. Measured, it was 6 in `e2e/` plus 3
@@ -317,7 +323,13 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   BEFORE the split moved 3 of the 15 into `hintRule.ts`, so only 12 remained
   where the record said 15. A figure measured under a different SCOPE is the
   same defect as a hand-counted one: agreement with a pre-split baseline is
-  evidence the count is right, never evidence the file attribution is.
+  evidence the count is right, never evidence the file attribution is. Third hit
+  (20260731-212612): `NOTES.md` and `TASK.md` both said "nine keeps" while the
+  rig-derived figure sat four lines away in the same file - 47 discarded, 2
+  compacted, 8 kept in full, 10 surviving. Nine was the ROW COUNT of the table
+  above, one row of which is a compaction and one of which covers two comments.
+  Reading a figure off the shape of a table is the same defect as recalling it:
+  the table is a rendering of the measurement, not the measurement.
 - `re-read-the-decision-record-while-implementing-the-function-that-implements-it`
   (x1): `DECISION.md` said in as many words "finished rounds are kept: they ARE
   the practice stats", and the function deciding keep-vs-delete
@@ -355,7 +367,7 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   that merely contains it. Grep as widely as possible and filter the output by
   reading it. Sibling of [[absence-proving-greps-must-be-run-when-written]].
   20260731-212610.
-- `search-the-whole-record-tree-before-declaring-a-rationale-unrecorded` (x1):
+- `search-the-whole-record-tree-before-declaring-a-rationale-unrecorded` (x2):
   the comment policy allows compacting a comment only towards an existing
   record, so "is this recorded" decides whether a long comment is cut or kept.
   Asking it became a grep of the two `DECISION.md` files the comment itself
@@ -364,7 +376,13 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   does ANY record hold this (grep `tasks/` whole), and separately, is that
   record a kind the policy accepts as a compaction target. A comment naming its
   own records tells you where its author looked, not where the fact lives.
-  20260731-212610.
+  20260731-212610. Second hit (20260731-212612): the grep WAS run over the whole
+  tree this time, with terms harvested from the comments' wording - and came
+  back empty because a record names the DEFECT while a comment names the GUARD,
+  so they share almost no words. Not one of the eight terms could reach a
+  `gameStats.ts` keep about streak arithmetic; `tasks/20260729-122943/
+  DECISION.md:46` held the spring-forward defect all along. Pick terms from what
+  the comment is ABOUT, not from what it says.
 - `a-record-pointer-can-outlive-what-the-record-says` (x1): `focusRect` framed
   the target AND the newest guess and cited "tasks/20260729-092339/DECISION.md
   fork 2" as its backing. Fork 2 chose to centre the target and explicitly
@@ -856,6 +874,19 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   have `tatr check` run as a pre-commit hook on `tasks/`, so a schema drift is
   refused at write time instead of found after the first commit. User decides.
   20260729-182255, 20260730-111003, 20260731-212557.
+
+- `derive-every-number-in-a-table-from-the-same-rig` (x3) -> tooling, not prose.
+  All three hits are the same shape: a measured table sits in the record and a
+  figure in the prose beside it disagrees with the table - hand-counted the
+  first time, measured under a pre-split scope the second, read off the table's
+  ROW COUNT the third. Each time the correct number was already in the same
+  file, four to ten lines away. Prose telling the author to use the rig cannot
+  catch this, because the author believes they did. Proposal: have `tatr check`
+  flag a record where the same quantity word appears with two different numbers
+  ("N keeps", "N discarded", "N comments") - a cheap textual cross-check inside
+  one file, which is where all three defects lived and where all three had their
+  own correction sitting in plain sight. User decides.
+  20260731-212557, 20260731-212611, 20260731-212612.
 
 - `close-a-task-with-its-review-and-retro-not-just-the-status` (x3) -> tatr CLI
   guard, not prose. Three sessions have flipped STATUS to CLOSED before the

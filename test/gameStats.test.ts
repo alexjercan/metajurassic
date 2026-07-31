@@ -1,10 +1,7 @@
 import { GameData, dateToSeed, seedToDate } from "../src/gameData";
 import { expectPinnedZone } from "./timeZone";
-import {
-    computeGameStats,
-    calculateRollingAverage,
-    loadAllGames,
-} from "../src/gameStats";
+import { computeGameStats, loadAllGames } from "../src/gameStats";
+import { calculateRollingAverage } from "../src/rollingAverage";
 import { GameState, saveGameState } from "../src/gameState";
 import { gameStateKey } from "../src/puzzleKey";
 import { StorageProvider } from "../src/storage";
