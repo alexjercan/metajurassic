@@ -1,6 +1,7 @@
 import { calendarDaysBetween, GameData, seedToDate } from "./gameData";
 import { StorageProvider, defaultStorage } from "./storage";
-import { GameState, parseGameStateKey } from "./gameState";
+import { GameState } from "./gameState";
+import { parseGameStateKey } from "./puzzleKey";
 
 export interface GameStats {
     gamesPlayed: number;

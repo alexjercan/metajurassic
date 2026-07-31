@@ -1,5 +1,5 @@
 import { dailyKeyForNow } from "../e2e/dailyKeyMirror";
-import { gameStateKey, getTodaySeed } from "../src/gameState";
+import { gameStateKey, getTodaySeed } from "../src/puzzleKey";
 import { expectPinnedZone } from "./timeZone";
 
 // `e2e/dailyKeyMirror.ts` hand-copies the daily key formula because it is

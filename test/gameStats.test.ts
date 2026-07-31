@@ -5,7 +5,8 @@ import {
     calculateRollingAverage,
     loadAllGames,
 } from "../src/gameStats";
-import { GameState, gameStateKey, saveGameState } from "../src/gameState";
+import { GameState, saveGameState } from "../src/gameState";
+import { gameStateKey } from "../src/puzzleKey";
 import { StorageProvider } from "../src/storage";
 import { Clade, Species } from "../src/types";
 

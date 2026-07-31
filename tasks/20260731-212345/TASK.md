@@ -131,7 +131,7 @@ all apply.
 | ID | Pri | Repo | Title | Landed |
 |----|-----|------|-------|--------|
 | 20260731-212557 | 71 | metajurassic | Write the comment and file-size policy into AGENTS.md | landed |
-| 20260731-212610 | 70 | metajurassic | KISS pass: core game loop (game.ts, gameState.ts, share text) | |
+| 20260731-212610 | 70 | metajurassic | KISS pass: core game loop (game.ts, gameState.ts, share text) | landed |
 | 20260731-212611 | 68 | metajurassic | KISS pass: tree pipeline (treeBuilder, treeVisualizer, treeLayout) | |
 | 20260731-212612 | 66 | metajurassic | KISS pass: profile page and stats maths | |
 | 20260731-212613 | 64 | metajurassic | KISS pass: practice session, storage, and content loaders | |

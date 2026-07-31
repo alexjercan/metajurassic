@@ -1,4 +1,5 @@
-import { GameState, formatGameStateForSharing } from "../src/gameState";
+import { GameState } from "../src/gameState";
+import { formatGameStateForSharing } from "../src/shareText";
 import { buildGameData } from "../src/jsonLoader";
 import { shareResult } from "../src/ui/share";
 import { MAX_GUESSES } from "../src/constants";

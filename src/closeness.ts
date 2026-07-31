@@ -34,7 +34,7 @@ function guessCloseness(
 /**
  * The upper bound of each tier, cold first. THIS ARRAY IS THE SCALE - it is the
  * only place the boundaries are written down, so the share grid's cells
- * (`CLOSENESS_CELLS` in gameState.ts) and the board's colours (`.node-close-*`
+ * (`CLOSENESS_CELLS` in shareText.ts) and the board's colours (`.node-close-*`
  * in style.css) cannot drift apart: both index what `closenessTier` returns.
  * Adding a tier here without a cell or a CSS rule fails test/closeness.test.ts.
  */

@@ -3,12 +3,14 @@ import {
     GameState,
     saveGameState,
     loadGameState,
-    formatGameStateForSharing,
+    createNewGameState,
+} from "../src/gameState";
+import {
     parseGameStateKey,
     gameStateKey,
     getTodaySeed,
-    createNewGameState,
-} from "../src/gameState";
+} from "../src/puzzleKey";
+import { formatGameStateForSharing } from "../src/shareText";
 import { Clade, Species } from "../src/types";
 import { HINT_COST, MAX_GUESSES } from "../src/constants";
 import { StorageProvider } from "../src/storage";

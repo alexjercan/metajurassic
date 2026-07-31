@@ -2,11 +2,11 @@ import { GameData } from "../src/gameData";
 import { Species } from "../src/types";
 import {
     createNewGameState,
-    formatGameStateForSharing,
-    parseSeedParam,
     saveGameState,
     GameState,
 } from "../src/gameState";
+import { parseSeedParam } from "../src/puzzleKey";
+import { formatGameStateForSharing } from "../src/shareText";
 import { StorageProvider } from "../src/storage";
 import rawGameData from "../src/jurassic/index.json";
 

@@ -1,5 +1,6 @@
 import "./style.css";
-import { getTodaySeed, loadGameState, saveGameState } from "./gameState";
+import { loadGameState, saveGameState } from "./gameState";
+import { getTodaySeed } from "./puzzleKey";
 import { loadData, initGame } from "./game";
 import { defaultStorage } from "./storage";
 

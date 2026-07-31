@@ -23,7 +23,11 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   caught it. Read the CALLERS' stated assumptions, not just the function you are
   changing. Sibling of
   [[read-the-helper-body-not-its-name-before-reusing-it]] pointed the other way up
-  the call graph. 20260729-141414.
+  the call graph. 20260729-141414. Second hit (20260731-212610): splitting
+  `src/game.ts` into `src/game/` left `AGENTS.md`'s repository map naming the
+  deleted path. The doc sweep grepped for the files that GAINED code and found
+  nothing to fix; nothing grepped the path that ceased to exist. After a delete
+  or a rename, grep the OLD name across docs and records too.
 - `a-guard-no-test-can-fail-is-a-comment` (x2): the content pipeline gained a
   Python `validate_attributes` that refuses a malformed frontmatter value, and
   nothing in `npm run ci` exercised it - deleting the call from both sites left
@@ -335,6 +339,33 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   comment untrue, that is the signal to check what else depended on it - and
   when one review round produces several fixes, read them against each other
   before sending it back. 20260729-101754.
+- `filter-the-grep-output-by-reading-not-the-pattern-by-guessing` (x1): to
+  enumerate every importer of `src/gameState.ts` before splitting it, the grep
+  excluded lines matching the symbols that were STAYING - including
+  `gameStateKey`, chosen to suppress `SavedGameState` noise. But
+  `test/gameStats.test.ts` imports `gameStateKey`, which was MOVING, so the
+  filter hid a real call site and the build broke. An exclusion pattern written
+  from the stay-behind list cannot tell a symbol that is staying from a string
+  that merely contains it. Grep as widely as possible and filter the output by
+  reading it. Sibling of [[absence-proving-greps-must-be-run-when-written]].
+  20260731-212610.
+- `search-the-whole-record-tree-before-declaring-a-rationale-unrecorded` (x1):
+  the comment policy allows compacting a comment only towards an existing
+  record, so "is this recorded" decides whether a long comment is cut or kept.
+  Asking it became a grep of the two `DECISION.md` files the comment itself
+  named; the rationale was recorded all along, in a TASK.md close-out
+  (`tasks/20260729-092327/TASK.md:110-117`). The right shape is two questions:
+  does ANY record hold this (grep `tasks/` whole), and separately, is that
+  record a kind the policy accepts as a compaction target. A comment naming its
+  own records tells you where its author looked, not where the fact lives.
+  20260731-212610.
+- `a-split-buys-seams-not-lines` (x1): splitting `game.ts` and `gameState.ts`
+  into five files raised the cluster's line total by 17, because every new file
+  pays for its own import block. What moved is the largest file a reader must
+  hold: 440 lines to 230. Refactors scoped as "make it smaller" should state
+  WHICH number they intend to move before starting, and a net line INCREASE
+  from a pure split is the expected result, not a warning sign.
+  20260731-212610.
 
 ## Testing
 

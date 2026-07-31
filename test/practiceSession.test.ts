@@ -7,7 +7,7 @@ import {
     resolvePracticeSeed,
     startNewPracticeRound,
 } from "../src/practiceSession";
-import { gameStateKey, PUZZLE_ID_MODULUS } from "../src/gameState";
+import { gameStateKey, PUZZLE_ID_MODULUS } from "../src/puzzleKey";
 import { MAX_GUESSES } from "../src/constants";
 import { StorageProvider } from "../src/storage";
 

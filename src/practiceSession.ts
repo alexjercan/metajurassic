@@ -1,11 +1,10 @@
+import { isRoundOver, SavedGameState } from "./gameState";
 import {
     gameStateKey,
-    isRoundOver,
     parseGameStateKey,
     parseSeedParam,
     PUZZLE_ID_MODULUS,
-    SavedGameState,
-} from "./gameState";
+} from "./puzzleKey";
 import { StorageProvider, defaultStorage } from "./storage";
 
 // The practice-round lifecycle: which round the practice page is playing, when

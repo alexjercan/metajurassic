@@ -1,8 +1,8 @@
+import { GameState } from "../src/gameState";
 import {
     CLOSENESS_CELLS,
-    GameState,
     formatGameStateForSharing,
-} from "../src/gameState";
+} from "../src/shareText";
 import { CLOSENESS_TIER_COUNT, closenessTier } from "../src/closeness";
 import {
     buildGuessTree,
