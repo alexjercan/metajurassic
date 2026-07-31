@@ -1,10 +1,10 @@
 # KISS pass: core game loop (game.ts, gameState.ts, share text)
 
-- STATUS: IN_PROGRESS
+- STATUS: CLOSED
 - PRIORITY: 70
 - TAGS: refactor, gameplay
 - KIND: STORY
-- FLOW STEP: WORKING
+- FLOW STEP: DONE
 - PLAN STATUS: APPROVED
 - PARENT: 20260731-212345
 - DEPENDS ON: 20260731-212557
