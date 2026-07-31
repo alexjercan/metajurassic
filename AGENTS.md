@@ -18,7 +18,7 @@ work area.
 
 | Path | Purpose |
 |------|---------|
-| `src/` | App source. Core: `game/` (DOM wiring and the round's units), `gameState.ts`, `gameData.ts`, `treeBuilder.ts`, `puzzleKey.ts`, `shareText.ts`. UI widgets: `src/ui/`. |
+| `src/` | App source. Core: `game/` (DOM wiring and the round's units), `gameState.ts`, `gameData.ts`, `treeBuilder.ts`, `hintRule.ts`, `puzzleKey.ts`, `shareText.ts`. UI widgets: `src/ui/`. |
 | `src/*.html`, `src/style.css` | Page templates and Tailwind styles. `webpack-partials.js` adds shared header/footer. |
 | `src/jurassic/species/*.md`, `src/jurassic/clades/*.md` | Canonical content. |
 | `src/jurassic/index.json` | Generated runtime graph. Never hand-edit. |

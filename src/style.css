@@ -383,7 +383,7 @@ main {
 }
 
 /* The tree is drawn as a sizing box (.tree) wrapping a canvas (.tree-canvas)
-   that carries the scale transform. `layoutTree` in src/ui/treeVisualizer.ts
+   that carries the scale transform. `layoutTree` in src/ui/treeScroll.ts
    sets .tree's width and height inline to the SCALED size of the canvas.
 
    The two-element split is what makes #arena's scroll range honest. A transform

@@ -3,11 +3,10 @@ import { GameState } from "../src/gameState";
 import { Clade, Species } from "../src/types";
 import {
     buildGuessTree,
-    findNextHintCladeId,
-    findBestHintCladeId,
     isCladeNode,
     isSpeciesNode,
 } from "../src/treeBuilder";
+import { findNextHintCladeId, findBestHintCladeId } from "../src/hintRule";
 
 // Tree structure from the comment:
 //

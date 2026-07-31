@@ -1,7 +1,7 @@
 import { GameData } from "../gameData";
 import { GameState } from "../gameState";
 import type { CladeNode } from "../treeBuilder";
-import { findBestHintCladeId } from "../treeBuilder";
+import { findBestHintCladeId } from "../hintRule";
 import { createSpeciesCard, createCladeCard, mountCard } from "./card";
 import { buildHowToPlayCard } from "./onboarding";
 

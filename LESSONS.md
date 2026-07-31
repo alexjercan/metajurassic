@@ -303,7 +303,7 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   that rule invisibly. Tick one box at a time. Sibling of
   [[anchor-programmatic-edits-on-code-not-prose-and-read-the-diff-back]].
   20260731-212557.
-- `derive-every-number-in-a-table-from-the-same-rig` (x1): `NOTES.md` recorded
+- `derive-every-number-in-a-table-from-the-same-rig` (x2): `NOTES.md` recorded
   837 comments bucketed 620/73/144 across four directories, every figure from the
   extraction rig - except one prose breakdown, "3 in `test/lintGate.test.ts`, 9
   across `e2e/`", recalled from the reading. Measured, it was 6 in `e2e/` plus 3
@@ -311,7 +311,13 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   the correct total in the same commit, so the two records shipped contradicting
   each other. A hand-counted figure sitting among measured ones inherits their
   authority without earning it. Sibling of
-  [[quote-the-mutation-not-the-memory-of-it]]. 20260731-212557.
+  [[quote-the-mutation-not-the-memory-of-it]]. 20260731-212557. Second hit
+  (20260731-212611): "15 narration discards in `treeBuilder.ts`" was measured,
+  and agreed with the child-1 inventory - but the inventory counted that file
+  BEFORE the split moved 3 of the 15 into `hintRule.ts`, so only 12 remained
+  where the record said 15. A figure measured under a different SCOPE is the
+  same defect as a hand-counted one: agreement with a pre-split baseline is
+  evidence the count is right, never evidence the file attribution is.
 - `re-read-the-decision-record-while-implementing-the-function-that-implements-it`
   (x1): `DECISION.md` said in as many words "finished rounds are kept: they ARE
   the practice stats", and the function deciding keep-vs-delete
@@ -359,13 +365,36 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   record a kind the policy accepts as a compaction target. A comment naming its
   own records tells you where its author looked, not where the fact lives.
   20260731-212610.
+- `a-record-pointer-can-outlive-what-the-record-says` (x1): `focusRect` framed
+  the target AND the newest guess and cited "tasks/20260729-092339/DECISION.md
+  fork 2" as its backing. Fork 2 chose to centre the target and explicitly
+  REJECTED the union, noting it could be adopted later; it was, at review inside
+  that same task, and the DECISION was never amended. So the pointer sent a
+  reader to a record documenting the opposite of the code. Verifying a record
+  EXISTS is a grep; verifying it still says what the comment claims is a read.
+  [[search-the-whole-record-tree-before-declaring-a-rationale-unrecorded]]
+  answers the first question only. Sibling of
+  [[re-read-the-decision-record-while-implementing-the-function-that-implements-it]],
+  which is the same disagreement found from the other end. 20260731-212611.
+- `a-doc-sweep-for-stale-references-cannot-find-an-incomplete-enumeration`
+  (x1): `AGENTS.md`'s repository map lists `src/`'s core modules by name, and
+  the sweep after adding `src/hintRule.ts` looked for references that had gone
+  STALE - paths that moved or died. It found the two it was looking for and
+  missed the map, because a list that is merely missing a member does not match
+  a grep for anything. Sweeps need both polarities: what did this task move or
+  delete, and what does this task ADD a member to that some doc enumerates.
+  Mirror image of the second hit on
+  [[when-a-fix-changes-an-invariant-grep-its-callers-for-documented-dependencies]],
+  where the miss was a path that ceased to exist. 20260731-212611.
 - `a-split-buys-seams-not-lines` (x1): splitting `game.ts` and `gameState.ts`
   into five files raised the cluster's line total by 17, because every new file
   pays for its own import block. What moved is the largest file a reader must
   hold: 440 lines to 230. Refactors scoped as "make it smaller" should state
   WHICH number they intend to move before starting, and a net line INCREASE
   from a pure split is the expected result, not a warning sign.
-  20260731-212610.
+  20260731-212610. Confirmed, not a second hit, by 20260731-212611: the tree
+  cluster went 973 -> 974 lines (+1) while its largest file went 443 -> 291.
+  The count stays at one because the rule was stated up front and held.
 
 ## Testing
 

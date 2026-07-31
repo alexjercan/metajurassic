@@ -8,7 +8,7 @@
 
 import { buildGameData } from "../src/jsonLoader";
 import { GameState, consistentCandidates } from "../src/gameState";
-import { findNextHintCladeId } from "../src/treeBuilder";
+import { findNextHintCladeId } from "../src/hintRule";
 import { HINT_SPLIT_FRACTION } from "../src/constants";
 import rawGameData from "../src/jurassic/index.json";
 import type { Species } from "../src/types";

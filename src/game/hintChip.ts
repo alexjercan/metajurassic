@@ -1,5 +1,5 @@
 import { GameState } from "../gameState";
-import { findNextHintCladeId } from "../treeBuilder";
+import { findNextHintCladeId } from "../hintRule";
 import { hintChipCopy } from "../ui/onboarding";
 import { isNarrowViewport, openPanel } from "../ui/panel";
 

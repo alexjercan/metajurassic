@@ -2,7 +2,7 @@
 // arena scrolled once it has been drawn.
 //
 // Kept as pure functions with no DOM so the arithmetic can be tested directly;
-// `treeVisualizer.ts` measures the real elements, calls these, and writes the
+// `treeScroll.ts` measures the real elements, calls these, and writes the
 // answers back. See tasks/20260729-092339/DECISION.md.
 
 /**

@@ -24,7 +24,7 @@ import * as path from "path";
 import { buildGameData, RawGameData } from "../../src/jsonLoader";
 import { GameData } from "../../src/gameData";
 import { GameState } from "../../src/gameState";
-import { findNextHintCladeId } from "../../src/treeBuilder";
+import { findNextHintCladeId } from "../../src/hintRule";
 import { MAX_GUESSES, HINT_COST } from "../../src/constants";
 import type { Species } from "../../src/types";
 
