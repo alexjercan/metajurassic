@@ -1,10 +1,15 @@
 // Frontmatter parsing for the authored content under `src/jurassic/`.
 //
-// This lives in its own module so there is ONE parser: `markdownLoader.ts`
-// reads it in the browser, and `test/contentSource.test.ts` reads the same
-// function off disk to prove the committed `index.json` still matches the
-// markdown it was generated from. A copy in the test would be a second seam
-// that rots (LESSONS.md `hand-copied-logic-mirrors-rot-update-them-in-the-same-change`).
+// This lives in its own module so there is ONE parser. `parseFrontMatter` is
+// read by `test/contentSource.test.ts`, which parses the markdown off disk to
+// prove the committed `index.json` still matches it; `isSerializedCollection`
+// by that test and `test/dataIntegrity.test.ts`. A copy in the test would be a
+// second seam that rots (LESSONS.md
+// `hand-copied-logic-mirrors-rot-update-them-in-the-same-change`).
+//
+// NOTE: 20260730-120401 - `src/markdownLoader.ts` is the only other importer
+// and nothing imports IT, so no shipped browser path parses frontmatter. That
+// task decides whether the loader is deleted or wired up.
 //
 // It is a deliberate re-expression of `scripts/markdown_to_json.py`'s parser,
 // not an independent format: same regex, same split-on-first-colon, same

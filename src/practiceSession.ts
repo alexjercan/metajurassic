@@ -10,20 +10,22 @@ import { StorageProvider, defaultStorage } from "./storage";
 // The practice-round lifecycle: which round the practice page is playing, when
 // a new one starts, and what happens to the old ones.
 //
-// It is storage-only on purpose - no DOM, no GameData - so the whole lifecycle
-// is unit-testable with a fake StorageProvider and a fake rng, the same way
-// gameState.ts takes its storage as a parameter. `src/practice.ts` is left as
-// thin page wiring over this.
+// Storage-only on purpose - no DOM, no GameData - so the whole lifecycle is
+// unit-testable with a fake StorageProvider and a fake rng. `src/practice.ts`
+// is the page wiring over this.
 //
-// Decisions recorded in tasks/20260729-101754/DECISION.md.
+// The lifecycle rules below - pointer semantics, retention on abandon, the
+// entry cap, the seed range - are fixed by
+// tasks/20260729-101754/DECISION.md; changing one changes that decision.
 
 // Points at the seed of the round currently being played. Its presence is what
 // makes a reload resume instead of re-roll; clearing it is what makes the next
 // load start something new.
 export const CURRENT_SEED_KEY = "practice-current";
 
-// How many `gameState-practice-*` entries are kept. Finished rounds are the
-// practice stats the profile page reads, so they are kept - but not forever.
+// How many `gameState-practice-*` entries survive pruning. Finished rounds are
+// the practice stats the profile page reads, so they are kept but not forever
+// (tasks/20260729-101754/DECISION.md section 3).
 export const MAX_PRACTICE_ENTRIES = 50;
 
 // Bounded re-draws when a random seed lands on a key that is already taken.
@@ -36,11 +38,9 @@ const MAX_SEED_DRAWS = 20;
 // and pruning paths can be driven deterministically from a test.
 export type Rng = () => number;
 
-// A practice seed is drawn from [0, PUZZLE_ID_MODULUS) rather than the old
-// [0, 1_000_000). `gameStateKey` folds a seed through `seed mod 10^5`, so the
-// wider range was a 10:1 fold in which ten distinct seeds shared one storage
-// key - the "seeds collide modulo the key format" defect. Drawing from the
-// modulus makes seed <-> key a bijection, so the fold disappears entirely.
+// Seeds are drawn from [0, PUZZLE_ID_MODULUS) so that seed <-> storage key is a
+// bijection; a wider range folds distinct seeds onto one key
+// (tasks/20260729-101754/DECISION.md section 4).
 function drawSeed(rng: Rng): number {
     // The fold also guards a misbehaving rng returning exactly 1, which would
     // otherwise land one past the end of the range.
@@ -101,12 +101,10 @@ function practiceRounds(storage: StorageProvider): StoredRound[] {
 // Keep at most `keep` practice entries, dropping the oldest first. Returns the
 // keys actually removed, so a caller (or a test) can see what was reaped.
 //
-// There is deliberately no "protect the active round" parameter. Pruning runs
-// at exactly one moment - `startNewPracticeRound`, as the round being replaced
-// is handed over - and it always takes the OLDEST entries, so the round that
-// was just being played is the newest and cannot be a victim. A guard for a
-// case no caller can reach would be a comment pretending to be code
-// (LESSONS.md `a-guard-no-test-can-fail-is-a-comment`).
+// There is deliberately no "protect the active round" parameter: pruning runs
+// only from `startNewPracticeRound` and always takes the OLDEST entries, so the
+// round just played cannot be a victim
+// (tasks/20260729-101754/DECISION.md section 3).
 export function prunePracticeEntries(
     storage: StorageProvider = defaultStorage(),
     keep: number = MAX_PRACTICE_ENTRIES
@@ -148,18 +146,18 @@ export function startNewPracticeRound(
         seed = drawSeed(rng);
     }
 
-    // Either the key was free (a no-op) or every draw collided and this one is
-    // being claimed deliberately. Removing it unconditionally is what stops a
-    // new round from silently inheriting an unrelated round's guesses.
+    // Either the key was free (a no-op) or every draw collided; removing it
+    // unconditionally is what stops a new round from silently inheriting an
+    // unrelated round's guesses (tasks/20260729-101754/DECISION.md section 4).
     storage.removeItem(gameStateKey(seed, "practice"));
     storage.setItem(CURRENT_SEED_KEY, String(seed));
 
     return seed;
 }
 
-// Only clears the pointer when it actually names `seed`. A round played from
-// `?seed=N` never owns the pointer, so finishing one must not evict the
-// unseeded round the player has in progress underneath it.
+// Only clears the pointer when it actually names `seed`. A `?seed=N` round
+// never owns the pointer, so finishing one must not evict the unseeded round in
+// progress underneath it (tasks/20260729-101754/DECISION.md section 4).
 export function clearCurrentPracticeRound(
     seed: number,
     storage: StorageProvider = defaultStorage()
@@ -171,16 +169,10 @@ export function clearCurrentPracticeRound(
 
 // Stop playing a round on purpose, and stop resuming it.
 //
-// An UNFINISHED round is deleted: `loadAllGames` already skips games where
-// `!isGameOver()`, so it contributes nothing to the stats either way, and
-// deleting it bounds storage at the source instead of leaning on the cap.
-//
-// A FINISHED round is KEPT, and only the pointer is dropped. Finished rounds
-// ARE the practice stats the profile page reads (games played, wins, average,
-// distribution, discovered dinosaurs), and "I won -> New game" is the normal
-// end of every round - deleting there would quietly erase the player's record
-// as they played it. Both halves are DECISION.md fork 2; the delete-everything
-// version of this function got that fork exactly backwards.
+// An UNFINISHED round is DELETED; a FINISHED round is KEPT and only the pointer
+// is dropped, because finished rounds ARE the practice stats the profile page
+// reads and "I won -> New game" is the normal end of every round. Both halves
+// are load-bearing: tasks/20260729-101754/DECISION.md section 2.
 export function abandonPracticeRound(
     seed: number,
     storage: StorageProvider = defaultStorage()
@@ -208,18 +200,13 @@ export function abandonPracticeRound(
 
 // Fold a requested seed into the residue its storage key already represents.
 //
-// `gameStateKey` folds a seed through `seed mod PUZZLE_ID_MODULUS`, but the
-// TARGET is `seed mod species.length` - two different moduli. So `?seed=42` and
-// `?seed=100042` share one storage key (`dinosaur-#00043`) while naming
-// DIFFERENT dinosaurs: the two rounds fight over one entry, and a load of
-// either resumes whichever wrote last. That is finding 3 of the task, on the
-// seed-param side.
-//
-// Folding at the boundary makes `?seed=100042` mean `?seed=42` outright: one
-// seed, one key, one target, and the puzzle id in the share text finally names
-// the round actually being played. In-range seeds - every seed in the docs,
-// the E2E fixtures and the playtests - are unaffected, because the fold is the
-// identity on [0, PUZZLE_ID_MODULUS).
+// `gameStateKey` folds a seed through `seed mod PUZZLE_ID_MODULUS` but the
+// TARGET is `seed mod species.length` - two moduli, so `?seed=42` and
+// `?seed=100042` share one storage key while naming DIFFERENT dinosaurs.
+// Folding at the boundary makes seed, key and target agree, and it is the
+// IDENTITY on [0, PUZZLE_ID_MODULUS), so every seed in the docs, the E2E
+// fixtures and the playtests is unaffected
+// (tasks/20260729-101754/DECISION.md section 4).
 export function normalizePracticeSeed(seed: number): number {
     return ((seed % PUZZLE_ID_MODULUS) + PUZZLE_ID_MODULUS) % PUZZLE_ID_MODULUS;
 }
@@ -251,15 +238,14 @@ function parseStoredSeed(raw: string | null): number | null {
 
 // Which round the practice page should play on this load.
 //
-//   1. `?seed=N` always wins, and is NOT persisted - the URL already carries
-//      the round, and storing it would make a one-off repro sticky after the
-//      param is dropped. It IS folded into the puzzle-id residue first: see
-//      `normalizePracticeSeed`.
-//   2. Otherwise resume the round `practice-current` names, unless it has
-//      already finished. A pointer with no saved entry behind it IS resumed:
-//      that is a round started but not yet guessed in, and re-rolling it would
-//      make a reload-before-the-first-guess lose the round all over again.
+//   1. `?seed=N`, folded through `normalizePracticeSeed`, and never persisted.
+//   2. Otherwise the round `practice-current` names, unless it has already
+//      finished. A pointer with NO saved entry behind it IS resumed: that is a
+//      round started but not yet guessed in, and re-rolling it would make a
+//      reload-before-the-first-guess lose the round all over again.
 //   3. Otherwise start a new one.
+//
+// Rule 1 is tasks/20260729-101754/DECISION.md section 4.
 export function resolvePracticeSeed(
     search: string,
     storage: StorageProvider = defaultStorage(),

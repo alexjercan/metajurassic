@@ -134,7 +134,7 @@ all apply.
 | 20260731-212610 | 70 | metajurassic | KISS pass: core game loop (game.ts, gameState.ts, share text) | landed |
 | 20260731-212611 | 68 | metajurassic | KISS pass: tree pipeline (treeBuilder, treeVisualizer, treeLayout) | landed |
 | 20260731-212612 | 66 | metajurassic | KISS pass: profile page and stats maths | landed |
-| 20260731-212613 | 64 | metajurassic | KISS pass: practice session, storage, and content loaders | |
+| 20260731-212613 | 64 | metajurassic | KISS pass: practice session, storage, and content loaders | landed |
 | 20260731-212614 | 62 | metajurassic | KISS pass: src/ui widget family | |
 | 20260731-212615 | 60 | metajurassic | Split e2e/helpers.ts into focused helper modules | |
 | 20260731-212616 | 58 | metajurassic | KISS pass: Jest suites and playtest rigs | |

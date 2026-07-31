@@ -367,7 +367,8 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   that merely contains it. Grep as widely as possible and filter the output by
   reading it. Sibling of [[absence-proving-greps-must-be-run-when-written]].
   20260731-212610.
-- `search-the-whole-record-tree-before-declaring-a-rationale-unrecorded` (x2):
+- `search-the-whole-record-tree-before-declaring-a-rationale-unrecorded` (x3,
+  PENDING PROMOTION):
   the comment policy allows compacting a comment only towards an existing
   record, so "is this recorded" decides whether a long comment is cut or kept.
   Asking it became a grep of the two `DECISION.md` files the comment itself
@@ -382,7 +383,20 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   so they share almost no words. Not one of the eight terms could reach a
   `gameStats.ts` keep about streak arithmetic; `tasks/20260729-122943/
   DECISION.md:46` held the spring-forward defect all along. Pick terms from what
-  the comment is ABOUT, not from what it says.
+  the comment is ABOUT, not from what it says. Third hit (20260731-212613): the
+  subject grep was right and its OUTPUT was under-read. `targetId` returned nine
+  files; the read stopped at the `DECISION.md` files and skimmed past
+  `20260729-101754/REVIEW.md`, which held `isResumable`'s rationale almost
+  verbatim - and the literal `grep -rn isResumable tasks/`, one hit, was never
+  run. A negative claim needs its own evidence: grep the literal SYMBOL NAME as
+  a second pass, and read every record KIND in the folder, not just DECISION.
+- `inherited-figures-do-not-satisfy-a-sentence-that-says-measured` (x1): a
+  DECISION.md paragraph opened "Confirmed against the file rather than inherited
+  from the plan" and then quoted the plan's "about 60 lines" for the seam it was
+  rejecting; the seam is about 80. The claim of independent measurement is
+  itself a claim, and copying the figure from the task record is exactly what it
+  denies. Re-measure every number that sits inside a sentence asserting it was
+  measured, in the pass that asserts it. 20260731-212613.
 - `a-record-pointer-can-outlive-what-the-record-says` (x1): `focusRect` framed
   the target AND the newest guess and cited "tasks/20260729-092339/DECISION.md
   fork 2" as its backing. Fork 2 chose to centre the target and explicitly
@@ -887,6 +901,23 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   one file, which is where all three defects lived and where all three had their
   own correction sitting in plain sight. User decides.
   20260731-212557, 20260731-212611, 20260731-212612.
+
+- `search-the-whole-record-tree-before-declaring-a-rationale-unrecorded` (x3)
+  -> tooling, not prose. Three times a comment has been judged "unrecorded" and
+  been recorded all along, each time for a DIFFERENT reason: the grep was scoped
+  to the records the comment named (20260731-212610); the terms came from the
+  comment's wording rather than its subject (20260731-212612); the terms were
+  right and the OUTPUT was under-read, stopping at the `DECISION.md` files while
+  the answer sat in the same task's `REVIEW.md` (20260731-212613). Prose has now
+  been rewritten twice and failed a third time, because each fix addressed the
+  previous instance's reason. The invariant underneath is that "no record holds
+  this" is a NEGATIVE claim shipped with no evidence of its own. Proposal: a
+  `tatr` subcommand that takes a symbol or phrase and greps `tasks/` whole,
+  printing every hit WITH its record KIND, so the author reads a labelled
+  listing instead of deciding when to stop scrolling - and so the KIND question
+  (is this record a compaction target?) is answered by the tool rather than
+  remembered. User decides.
+  20260731-212610, 20260731-212612, 20260731-212613.
 
 - `close-a-task-with-its-review-and-retro-not-just-the-status` (x3) -> tatr CLI
   guard, not prose. Three sessions have flipped STATUS to CLOSED before the

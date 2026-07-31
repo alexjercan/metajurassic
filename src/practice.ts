@@ -11,11 +11,10 @@ import { defaultStorage, StorageProvider } from "./storage";
 
 // Stop playing this round and load a fresh one.
 //
-// The new round is CLAIMED here rather than left to the next load's fallback.
-// Relying on the fallback broke the seeded case: abandoning a `?seed=N` round
-// leaves any older `practice-current` pointer standing (it names a different
-// seed), so the reload would resume that half-played round and a button saying
-// "New game" would hand back an old game.
+// The new round is CLAIMED here rather than left to the next load's fallback:
+// abandoning a `?seed=N` round leaves any older `practice-current` pointer
+// standing, so the fallback would hand back that half-played round
+// (tasks/20260729-101754/DECISION.md section 4).
 //
 // The pathname is navigated to rather than the page merely reloaded so the
 // `?seed=N` param is dropped on the way out - otherwise the param would win
@@ -40,11 +39,11 @@ function wireNewGame(seed: number, storage: StorageProvider) {
         );
     }
 
-    // The game-over modal's "Practice" link used to start a new round purely
-    // because loading /practice/ re-randomized. Now that a load RESUMES, the
-    // link would hand a finished round back unchanged, so on this page it
-    // becomes the same explicit new-game action. On the daily page it is
-    // untouched and still navigates to practice.
+    // Now that a load RESUMES, the game-over modal's "Practice" link would hand
+    // the finished round straight back, so on this page it becomes the same
+    // explicit new-game action. The daily page renders the same template and
+    // leaves the link navigating to practice.
+    // See tasks/20260729-101754/DECISION.md section 1.
     const practiceLink = document.querySelector<HTMLAnchorElement>(
         ".modal-btn-practice"
     );
@@ -61,10 +60,6 @@ async function main() {
     const data = await loadData();
     const storage = defaultStorage();
 
-    // Which round to play: `?seed=N` if given, else the one already in progress,
-    // else a fresh one. Resolving this instead of always rolling a random seed
-    // is the fix for tasks/20260729-101754 - the round was always being SAVED,
-    // it was just never read back, so a reload silently abandoned it.
     const seed = resolvePracticeSeed(window.location.search, storage);
     const state = loadGameState(data, seed, storage, "practice");
 
