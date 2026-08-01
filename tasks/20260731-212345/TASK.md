@@ -95,14 +95,18 @@ starting picture; the NOTES figures are what the children measure against.
 
 - Comment policy and file-size conventions: child 1's `DECISION.md`.
 - Per-cluster split boundaries: each child's `DECISION.md`.
+- `src/style.css` splits, proven by whitespace-normalised compiled CSS rather
+  than byte-identity: `20260731-212617/DECISION.md`, from spike
+  `20260801-113802`.
 
 ## Fog
 
-- Whether `src/style.css` (2403 lines) should be split into imported partials
-  at all, given webpack and Tailwind already process it and CSS order is
-  load-bearing (`LESSONS.md`:
-  `css-media-blocks-on-different-axes-are-resolved-by-file-order`). The child
-  is scoped low and last for that reason, and may close as "not worth it".
+- ~~Whether `src/style.css` (2403 lines) should be split into imported partials
+  at all.~~ Settled by spike `20260801-113802`: `@import` partials preserve
+  cascade order exactly; `@tailwindcss/postcss` only reserializes whitespace.
+  What remains open is whether the surfaces are contiguous enough in file order
+  to move as whole blocks - answered inside `20260731-212617`, which may still
+  close as "not worth it".
 - Whether `test/` and `e2e/` comment density is a problem or a feature: those
   comments often record why an assertion is the assertion, which is exactly the
   keep case. Expect a much lighter touch there than in `src/`.

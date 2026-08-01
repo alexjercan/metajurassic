@@ -2,9 +2,9 @@
 
 - STATUS: OPEN
 - PRIORITY: 50
-- TAGS: refactor,ui,css
+- TAGS: refactor, ui, css
 - KIND: STORY
-- FLOW STEP: BACKLOG
+- FLOW STEP: UNDERSTANDING
 - PLAN STATUS: DRAFT
 - PARENT: 20260731-212345
 - DEPENDS ON: 20260731-212557
@@ -29,26 +29,30 @@ A split that reorders declarations changes rendering, which this epic forbids.
 
 ## Steps
 
-- [ ] Decide first, split second. Establish whether an import-partial split can
-      preserve byte-for-byte cascade order under the current webpack and
-      Tailwind setup. If it cannot, close the task with that finding recorded -
-      that is a successful outcome, not a failure.
-- [ ] If it can: capture the compiled CSS from `npm run build` on master as the
-      baseline artifact BEFORE any edit.
+- [x] Decide first, split second. Done by spike `20260801-113802`: cascade
+      order is preserved exactly, byte-identity is not (Tailwind reserializes
+      imported rules' whitespace). Proceed, with the relaxed proof in
+      `DECISION.md`.
+- [ ] Capture the baseline compiled CSS on master BEFORE any edit, using
+      `tasks/20260801-113802/prototype/compile.js`. There is no emitted `.css`
+      asset - `style-loader` inlines CSS into `dist/*.js`.
 - [ ] Split by surface, moving whole blocks in file order and importing the
       partials in exactly that order. Do not merge, dedupe, or reorder
       declarations - that is a separate task if it is ever wanted.
-- [ ] Prove the compiled output is unchanged: diff the built CSS against the
-      baseline. A non-empty diff means the split changed the cascade; either
-      fix the order or abandon the split.
+- [ ] Prove the compiled output is unchanged: diff against the baseline and
+      confirm every hunk is whitespace, then confirm the whitespace-normalised
+      pair is byte-identical. Any non-whitespace hunk means the split changed
+      the cascade; either fix the order or abandon the split.
 - [ ] Re-render and look at every surface at desktop, narrow, and short
       viewports - a byte-identical bundle still deserves eyes
       (`LESSONS.md`: `re-render-and-look-after-every-layout-change-not-once-per-task`).
 
 ## Definition of Done
 
-- Either: the compiled CSS from `npm run build` is byte-identical to the
-  pre-split baseline. (cmd: `diff` of the two built files, recorded)
+- Either: the compiled CSS is identical to the pre-split baseline once
+  whitespace is normalised - byte-identity is unreachable, see `DECISION.md`
+  and spike `20260801-113802`. (cmd: `compile.js` before and after, normalised
+  `cmp`, recorded)
 - Or: the task closes with a recorded finding that the split cannot preserve
   cascade order, naming the mechanism that prevents it. (test: `DECISION.md`)
 - Every E2E layout suite passes unchanged. (cmd: `npm run test:e2e`)
