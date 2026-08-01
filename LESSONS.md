@@ -234,7 +234,7 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   written from a task's title and outcome instead of the code it describes. A
   task record says what was DECIDED; only the function says what SHIPPED.
   20260729-092452.
-- `a-correction-is-a-new-claim-re-derive-it` (x4, PENDING PROMOTION): the fix
+- `a-correction-is-a-new-claim-re-derive-it` (x5, PENDING PROMOTION): the fix
   warning introduced a second wrong claim ("the INVERSE direction of Metazooa's
   green-to-red") by reasoning from the palette's written order rather than from
   what the scale is keyed on - `level` is distance from the answer, so green is
@@ -257,6 +257,13 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   deletion got all the attention; the replacement prose was treated as a summary
   of code already read rather than as a claim of its own. Running the rig both
   ways - a minute - is what review did to catch it.
+  Fifth hit (20260730-094852): a MAJOR put five wrongly-composited luminances
+  onto the right basis, and the same edit's replacement prose said tiers 0 and
+  1 "land within a couple of percent of a clade node's luminance" - true of
+  tier 1 at a 1.01 contrast ratio, not of tier 0 at 1.06 and 34% below in raw
+  luminance. The corrected FIGURES were re-derived; the sentence summarising
+  them was not. Prose that generalises over a set of numbers is a claim about
+  every member, and a correction is exactly when it gets written fastest.
 
 - `check-what-lives-at-a-path-a-task-names-as-a-reference` (x1): this task's step
   1 said to compare the game against "the local `~/personal/metazooa` helper
@@ -1029,7 +1036,7 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   cannot chase only the first. User decides.
   20260731-212610, 20260731-212612, 20260731-212613, 20260731-212615.
 
-- `a-correction-is-a-new-claim-re-derive-it` (x4, DEFER 2026-08-01 at x4: The x4 hit (20260731-212616) was prose, not a figure: a rewritten comment contradicting a flag documented ten lines below it. The proposed figure cross-check (20260801-113157) would not have caught it, so the lesson stays pending until the prose half has a mechanism.) -> tooling, not prose. Four
+- `a-correction-is-a-new-claim-re-derive-it` (x5, DEFER 2026-08-01 at x5: Deferred again at x5. Hits x4 and x5 were both PROSE summarising figures that were themselves correct, so the proposed regenerate-the-table cross-check (20260801-113157) sits beside a wrong sentence without contradicting it. The figure half has a mechanism; the prose half still has none, and promoting now would buy a spike rather than a fix.) -> tooling, not prose. Five
   hits, each one a FIX that shipped a fresh wrong claim: a corrected colour-scale
   fact reasoned from the palette's order (20260729-092452); a method-level
   finding fixed only at the two instances it named (20260731-212612); and a
@@ -1037,15 +1044,20 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   unchanged line count rather than re-measured, which took two further review
   rounds to unwind (20260731-212615); and a comment rewritten for honesty that
   contradicted a flag documented ten lines below it (20260731-212616), which the
-  figure-oriented proposal below would NOT have caught. Prose cannot catch this because in each
+  figure-oriented proposal below would NOT have caught; and a MAJOR's corrected
+  luminances landing beside a fresh summary sentence that generalised over them
+  wrongly (20260730-094852). Prose cannot catch this because in each
   case the author had just done careful work and the correction felt like the
   end of the task, not a new claim. Proposal: fold it into the same `tatr check`
   cross-check proposed for
   [[derive-every-number-in-a-table-from-the-same-rig]] - a record whose diff
   changes any figure should have to re-print the block that figure came from, so
-  "nothing else moved" is a regenerated table rather than a sentence. User
-  decides.
-  20260729-092452, 20260731-212612, 20260731-212615, 20260731-212616.
+  "nothing else moved" is a regenerated table rather than a sentence. The x4 and
+  x5 hits say that is only half a mechanism: both were PROSE that summarised
+  correct figures, so a regenerated table sits next to them without contradicting
+  them. User decides.
+  20260729-092452, 20260731-212612, 20260731-212615, 20260731-212616,
+  20260730-094852.
 
 - `close-a-task-with-its-review-and-retro-not-just-the-status` (x3, PROMOTE 2026-08-01 -> 20260801-113117) -> tatr CLI
   guard, not prose. Three sessions have flipped STATUS to CLOSED before the
