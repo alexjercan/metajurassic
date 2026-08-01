@@ -811,6 +811,24 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   band silently gained 48px while the comment claimed nothing had changed. When a
   declaration changes coordinate system, grep that property inside EVERY media
   block before writing what changed. 20260729-141428.
+- `an-alpha-fill-composites-over-what-the-cascade-left-not-the-declaration-you-read`
+  (x1): the closeness tiers' `rgba(...)` tints were sized by computing their
+  luminance over `--node-bg` `#151820`, because `.node-box` sets
+  `background: var(--node-bg)` and the block comment says clade nodes keep it.
+  But `.node-close-*` sets the `background` SHORTHAND, which REPLACES that
+  declaration at equal specificity rather than layering over it, so the browser
+  composites over the page `--bg-dark` `#0a0c10`. Every recorded figure was off
+  - 0.013/0.016/0.032/0.035/0.047 where the truth is
+  0.0061/0.0085/0.0216/0.0244/0.0355 - and the numbers sat next to a comment
+  telling the next maintainer to retune against them. The conclusions survived;
+  the basis did not. An alpha value is the one case where "which declaration
+  won" stops being pedantry and becomes a number: before computing over a
+  background, resolve which background the element actually has, and WRITE THE
+  BASIS DOWN next to the figure - a cold reader handed a luminance cannot tell
+  what it was composited over. Sibling of
+  [[css-media-blocks-on-different-axes-are-resolved-by-file-order]]: both are
+  equal-specificity resolution decided by something other than the rule you are
+  looking at. 20260730-094852.
 - `a-bare-transition-duration-animates-layout-properties-too` (x1): `.modal-btn`
   carried `transition: 0.2s`, which is `all`, so crossing a breakpoint spent 0.2s
   animating PADDING - three successive samples of one layout read 31.0px, 28.9px

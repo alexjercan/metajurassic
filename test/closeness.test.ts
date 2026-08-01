@@ -1,8 +1,5 @@
 import { GameState } from "../src/gameState";
-import {
-    CLOSENESS_CELLS,
-    formatGameStateForSharing,
-} from "../src/shareText";
+import { CLOSENESS_CELLS, formatGameStateForSharing } from "../src/shareText";
 import { CLOSENESS_TIER_COUNT, closenessTier } from "../src/closeness";
 import {
     buildGuessTree,
@@ -186,4 +183,104 @@ describe("the stylesheet covers the scale", () => {
             expect(css).toMatch(new RegExp(`\\.node-close-${tier}\\b`));
         }
     );
+});
+
+describe("the scale is legible without hue", () => {
+    // Three of the five hues - yellow, orange, green - are the deuteranope
+    // confusion set, and they are the hot end, where the player is closing in.
+    // So the tier must survive having its saturation stripped, which means
+    // lightness has to climb monotonically alongside the hue.
+    // See tasks/20260730-094852/DECISION.md.
+    const srcDir = join(__dirname, "..", "src");
+    const entry = readFileSync(join(srcDir, "style.css"), "utf8");
+    const css = Array.from(entry.matchAll(/@import\s+"(.+?)";/g))
+        .map((m) => readFileSync(join(srcDir, m[1]), "utf8"))
+        .join("\n");
+
+    // The hues accepted in tasks/20260729-182255/DECISION.md fork 1: the share
+    // grid's ⬛🟦🟨🟧🟩. This task adds a channel, it does not repick the
+    // palette, so a change here is a supersede that has to be written down on
+    // both records rather than slipped through as a tweak.
+    const ACCEPTED_BORDERS = [
+        "#6b7280",
+        "#5b7199",
+        "#d8c04a",
+        "#e08a3c",
+        "#4ca86a",
+    ];
+
+    // The smallest adjacent step the ramp is allowed to shrink to. Sits under
+    // the ~1.22 the intended ramp produces, so ordinary retuning does not trip
+    // it while a flat or inverted ramp still does.
+    const MIN_STEP_RATIO = 1.15;
+
+    function ruleFor(tier: number): string {
+        const match = css.match(
+            new RegExp(`\\.node-close-${tier}\\s*\\{([^}]*)\\}`)
+        );
+        if (!match) throw new Error(`no .node-close-${tier} rule`);
+        return match[1];
+    }
+
+    function declaration(tier: number, property: string): string {
+        const match = ruleFor(tier).match(
+            new RegExp(`\\b${property}\\s*:\\s*([^;]+);`)
+        );
+        if (!match) throw new Error(`.node-close-${tier} has no ${property}`);
+        return match[1].trim();
+    }
+
+    // WCAG relative luminance - the greyscale value a display collapses the
+    // colour to, which is exactly the channel a hue-blind player is left with.
+    function luminance([r, g, b]: number[]): number {
+        const [rl, gl, bl] = [r, g, b].map((raw) => {
+            const c = raw / 255;
+            return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+        });
+        return 0.2126 * rl + 0.7152 * gl + 0.0722 * bl;
+    }
+
+    function contrastRatio(a: number, b: number): number {
+        return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
+    }
+
+    function parseHex(hex: string): number[] {
+        const digits = hex.replace("#", "");
+        return [0, 2, 4].map((i) => parseInt(digits.slice(i, i + 2), 16));
+    }
+
+    const tiers = Array.from(
+        { length: CLOSENESS_TIER_COUNT },
+        (_, tier) => tier
+    );
+
+    test.each(tiers)("tier %i keeps its accepted border hue", (tier) => {
+        expect(declaration(tier, "border-color")).toBe(ACCEPTED_BORDERS[tier]);
+    });
+
+    test("the tint fill lightens monotonically", () => {
+        const alphas = tiers.map((tier) => {
+            const fill = declaration(tier, "background");
+            const match = fill.match(/rgba\([^)]*,\s*([\d.]+)\s*\)/);
+            if (!match)
+                throw new Error(`tier ${tier} fill is not rgba: ${fill}`);
+            return Number(match[1]);
+        });
+        expect(alphas).toEqual([...alphas].sort((a, b) => a - b));
+        expect(new Set(alphas).size).toBe(alphas.length);
+    });
+
+    test("the text lightens monotonically, by a visible step each time", () => {
+        const luminances = tiers.map((tier) =>
+            luminance(parseHex(declaration(tier, "color")))
+        );
+        const steps = luminances.slice(1).map((L, i) => ({
+            step: `tier ${i} -> ${i + 1}`,
+            brighter: L > luminances[i],
+            ratio: contrastRatio(L, luminances[i]) >= MIN_STEP_RATIO,
+        }));
+        expect(steps).toEqual(
+            steps.map(({ step }) => ({ step, brighter: true, ratio: true }))
+        );
+    });
 });

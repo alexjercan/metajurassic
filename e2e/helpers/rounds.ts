@@ -15,6 +15,27 @@ import { waitForTreeToSettle } from "./tree";
 // `playWideTree` asserts exactly that rather than trusting it.
 export const WIDE_TREE_SEED = 42;
 
+// The same seed 42 round, guessed so that all five closeness tiers land on the
+// board at once: seed 42 resolves to Struthiomimus, whose 11-clade lineage has
+// real species at every rung. Coldest to hottest; derived from the shipped
+// src/jurassic/index.json by running `guessTier` over every species against
+// that target, so a content change that moves one of them fails in
+// e2e/closeness.spec.ts and says which rung it was.
+//
+// Shared rather than written twice because two callers need the SAME board:
+// e2e/closeness.spec.ts asserts the tiers paint apart, and
+// scripts/playtest/walkthrough.ts photographs that board in greyscale as the
+// evidence that they stay apart without hue (task 20260730-094852). A drifted
+// copy would photograph a different board than the one under test
+// (LESSONS.md: hand-copied-logic-mirrors-rot).
+export const CLOSENESS_LADDER = [
+    { name: "Stegosaurus", tier: 0 }, // meets the target only at dinosauria
+    { name: "Apatosaurus", tier: 1 },
+    { name: "Ceratosaurus", tier: 2 },
+    { name: "Yutyrannus", tier: 3 },
+    { name: "Gallimimus", tier: 4 }, // an ornithomimid, like the target
+];
+
 // Twelve species covering all four branches under the root clade
 // (eusaurischia, genasauria, herrerasauridae, ornithischia) at a spread of
 // lineage depths, chosen to make the tree WIDE rather than deep. Derived from

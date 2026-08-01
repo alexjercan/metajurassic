@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { guessNamedSpecies } from "./helpers/guessing";
 import { treeNode } from "./helpers/tree";
-import { WIDE_TREE_SEED } from "./helpers/rounds";
+import { CLOSENESS_LADDER as LADDER, WIDE_TREE_SEED } from "./helpers/rounds";
 
 // The board says warmer/colder (task 20260729-182255). Jest pins the TIER a
 // guess earns, over the real content graph; what only a browser can prove is
@@ -9,19 +9,9 @@ import { WIDE_TREE_SEED } from "./helpers/rounds";
 // the node - `.node-close-*` and `.node-species` match at the same specificity,
 // so the whole feature hangs on stylesheet ORDER, which no unit test sees.
 
-// Seed 42 (the practice seed the wide-tree specs already use) resolves to
-// Struthiomimus, whose 11-clade lineage has real species in all five tiers.
-// This ladder runs coldest to hottest; derived from the shipped
-// src/jurassic/index.json by running `guessTier` over every species against
-// that target, so a content change that moves one of them fails here and says
-// which rung it was.
-const LADDER = [
-    { name: "Stegosaurus", tier: 0 }, // meets the target only at dinosauria
-    { name: "Apatosaurus", tier: 1 },
-    { name: "Ceratosaurus", tier: 2 },
-    { name: "Yutyrannus", tier: 3 },
-    { name: "Gallimimus", tier: 4 }, // an ornithomimid, like the target
-];
+// The five-tier board lives in e2e/helpers/rounds.ts, shared with
+// scripts/playtest/walkthrough.ts so the greyscale evidence photographs the
+// same round these assertions measure.
 
 // The classes on a node box, as the browser has them.
 async function classesOf(

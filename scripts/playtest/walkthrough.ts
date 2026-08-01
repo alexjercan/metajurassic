@@ -16,9 +16,10 @@
 
 import * as fs from "fs";
 import * as path from "path";
-import { chromium, devices, Browser, Page } from "@playwright/test";
+import { chromium, devices, Browser, Locator, Page } from "@playwright/test";
 
 import { MAX_GUESSES } from "../../src/constants";
+import { CLOSENESS_LADDER, WIDE_TREE_SEED } from "../../e2e/helpers/rounds";
 
 const BASE_URL = process.env.BASE_URL ?? "http://localhost:8080";
 const OUT_DIR = path.resolve(__dirname, "..", "..", "playtest-shots");
@@ -37,6 +38,14 @@ const VIEWPORTS = [
 async function shoot(page: Page, name: string): Promise<void> {
     const file = path.join(OUT_DIR, `${name}.png`);
     await page.screenshot({ path: file, fullPage: false });
+    console.log(`  shot: ${path.basename(file)}`);
+}
+
+// One element rather than the viewport, for shots whose subject is a widget
+// that the layout crops or overlays.
+async function shootElement(locator: Locator, name: string): Promise<void> {
+    const file = path.join(OUT_DIR, `${name}.png`);
+    await locator.screenshot({ path: file });
     console.log(`  shot: ${path.basename(file)}`);
 }
 
@@ -81,6 +90,15 @@ async function readSavedTarget(page: Page): Promise<string> {
 // An opening guess used across scenarios: it forces a save (so the target can
 // be read back from storage) and gives the tree its first join to draw.
 const PROBE = "Triceratops";
+
+// The phone entry, by NAME. A scenario that wants only the phone must not
+// index into VIEWPORTS positionally, or reordering the list silently
+// photographs a different device.
+function mobileViewport(): (typeof VIEWPORTS)[number] {
+    const mobile = VIEWPORTS.find((v) => v.name === "mobile");
+    if (!mobile) throw new Error("VIEWPORTS has no phone entry");
+    return mobile;
+}
 
 async function fresh(browser: Browser, viewport: (typeof VIEWPORTS)[number]) {
     const context = await browser.newContext(viewport.options);
@@ -345,6 +363,93 @@ async function autocompleteEndurance(
 }
 
 // --------------------------------------------------------------------------
+// Scenario 6: the five-tier board, in colour and with the hue taken away
+// --------------------------------------------------------------------------
+//
+// The closeness scale used to live in hue alone, and three of its five hues -
+// yellow, orange, green - are the deuteranope confusion set at the hot end of
+// the scale, where the player is closing in. The fix is a lightness ramp
+// (task 20260730-094852). `test/closeness.test.ts` pins the arithmetic of that
+// ramp; what it cannot tell anyone is whether five steps are actually five
+// steps to an eye. So this plays the ladder and shoots the SAME board twice,
+// once as shipped and once with `filter: grayscale(1)` over the page. Read the
+// greyscale one: five tiers must still be five.
+
+async function closenessGreyscale(browser: Browser): Promise<void> {
+    // A wider-than-life desktop, unlike every other scenario here. This one is
+    // not photographing the LAYOUT, it is photographing five nodes that have to
+    // be compared against each other, and at 1280 the arena scrolls two of the
+    // five rungs off the side. The phone viewport stays honest because the
+    // ramp has to survive a real phone too.
+    const shots = [
+        {
+            name: "desktop",
+            options: { viewport: { width: 1920, height: 1000 } },
+        },
+        mobileViewport(),
+    ];
+    for (const viewport of shots) {
+        console.log(
+            `\n[closeness/${viewport.name}] seed=${WIDE_TREE_SEED}, all five tiers`
+        );
+        const { context, page } = await fresh(browser, viewport);
+
+        await page.goto(`${BASE_URL}/practice/?seed=${WIDE_TREE_SEED}`);
+        await page.waitForSelector("#tree-container .node-box");
+
+        for (const { name, tier } of CLOSENESS_LADDER) {
+            const landed = await guess(page, name);
+            console.log(`  guess "${name}" (tier ${tier}) landed: ${landed}`);
+        }
+        await page.waitForTimeout(600);
+
+        // A board with no mystery node is a FINISHED board, which renders the
+        // target's own encodings instead of the scale - the wrong photograph.
+        const running = await page
+            .locator("#tree-container .node-mystery")
+            .count();
+        if (running !== 1) {
+            console.log(
+                `  INVALID RUN: ${running} mystery nodes, so the round ended - the shots below are not the five-tier board`
+            );
+        }
+
+        // Report what actually painted, so a shot that is missing a rung says
+        // so here rather than being squinted at.
+        for (const { name, tier } of CLOSENESS_LADDER) {
+            const classes = await page
+                .locator(`#tree-container .node-box`, { hasText: name })
+                .first()
+                .getAttribute("class");
+            console.log(
+                `  ${name}: expected tier ${tier}, painted "${classes}"`
+            );
+        }
+
+        // Shoot the TREE, not the viewport, and get the info panel out of the
+        // way first: it covers a third of the board, and a five-step ramp
+        // cannot be judged three steps at a time.
+        const panelOpen = await page
+            .locator("#info-panel")
+            .evaluate((el) => el.classList.contains("active"));
+        if (panelOpen) {
+            await page.locator("#open-panel").click();
+            await page.waitForTimeout(500);
+        }
+        const tree = page.locator("#tree-container");
+        await shootElement(tree, `09-closeness-colour-${viewport.name}`);
+
+        await page.addStyleTag({
+            content: "html { filter: grayscale(1) !important; }",
+        });
+        await page.waitForTimeout(200);
+        await shootElement(tree, `10-closeness-greyscale-${viewport.name}`);
+
+        await context.close();
+    }
+}
+
+// --------------------------------------------------------------------------
 
 let ALL_NAMES: string[] = [];
 
@@ -381,6 +486,7 @@ async function main(): Promise<void> {
         await seededLoss(browser, SEEDS[0]);
         await returningDaily(browser);
         await autocompleteEndurance(browser, "saur");
+        await closenessGreyscale(browser);
     } finally {
         await browser.close();
     }

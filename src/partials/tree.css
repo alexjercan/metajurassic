@@ -174,39 +174,59 @@
    of two locks, not the only one.) See LESSONS.md
    `css-media-blocks-on-different-axes-are-resolved-by-file-order`.
 
-   Each tier is a solid border, a faint tint FILL, and lightened text. The fill
-   is what separates a guess from a clade: tier 3's orange sits close to
-   `--amber-glow`, and clade nodes keep the flat dark `--node-bg`, so kind
-   stays readable where hue alone stops saying it.
-   See tasks/20260729-182255/DECISION.md. */
+   Each tier is a solid border, a tint FILL, and lightened text. The fill has
+   two jobs. At the WARM tiers it separates a guess from a clade, which is
+   where that job is needed: tier 3's orange sits close to `--amber-glow`, and
+   clade nodes keep the flat dark `--node-bg`, so kind stays readable where hue
+   alone stops saying it. It does NOT do that job at the cold end and never
+   did - against a clade node, tier 0 sits at a contrast ratio of 1.06 and
+   tier 1 at 1.01, and the flat 0.14 scale before this one was no better at
+   1.02 and 1.02 - because grey and blue never collided with amber in the
+   first place. See tasks/20260729-182255/DECISION.md.
+
+   Its second job, and the text colour's, is to carry the tier when hue cannot.
+   Yellow, orange and green are the deuteranope confusion set and they are the
+   HOT end, so the fill alpha and the text lightness both climb monotonically
+   cold -> hot; the scale survives having its saturation stripped. The hues
+   themselves are untouched, so the board and the pasted grid stay one
+   language. Two consequences look wrong and are not: tier 2's yellow is
+   DARKER than it used to be, and tier 4's green is nearly a mint, because the
+   ordering is what the ramp is for. The text luminances are roughly 0.30 /
+   0.40 / 0.52 / 0.66 / 0.82, each step a contrast ratio of about 1.23 or more
+   over the one below; `test/closeness.test.ts` holds the floor at 1.15. Retune
+   these values only against that test - and when reasoning about the fill,
+   note that `background` here is the SHORTHAND, so it REPLACES `.node-box`'s
+   `background: var(--node-bg)` rather than layering over it. These alphas
+   composite over the page `--bg-dark` `#0a0c10`, not over `--node-bg`.
+   See tasks/20260730-094852/DECISION.md. */
 .node-close-0 {
-    color: #b6bcc6;
+    color: #8f95a1;
     border-color: #6b7280;
-    background: rgba(107, 114, 128, 0.14);
+    background: rgba(107, 114, 128, 0.06);
 }
 
 .node-close-1 {
-    color: #a1bced;
+    color: #9caac4;
     border-color: #5b7199;
-    background: rgba(91, 113, 153, 0.14);
+    background: rgba(91, 113, 153, 0.11);
 }
 
 .node-close-2 {
-    color: #ebdd92;
+    color: #d7bf46;
     border-color: #d8c04a;
-    background: rgba(216, 192, 74, 0.14);
+    background: rgba(216, 192, 74, 0.16);
 }
 
 .node-close-3 {
-    color: #f2b884;
+    color: #ffca9b;
     border-color: #e08a3c;
-    background: rgba(224, 138, 60, 0.14);
+    background: rgba(224, 138, 60, 0.22);
 }
 
 .node-close-4 {
-    color: #8fdca8;
+    color: #9affbb;
     border-color: #4ca86a;
-    background: rgba(76, 168, 106, 0.14);
+    background: rgba(76, 168, 106, 0.3);
 }
 
 .node-mystery {
