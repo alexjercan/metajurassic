@@ -1,0 +1,276 @@
+@property --card-glow-angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+
+.museum-card {
+    position: relative;
+    border-radius: 12px;
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.8),
+        0 0 40px rgba(230, 168, 97, 0.08);
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.museum-card::before {
+    content: "";
+    position: absolute;
+    inset: -100%;
+    background: conic-gradient(
+        from var(--card-glow-angle),
+        transparent 0%,
+        var(--amber-glow) 8%,
+        transparent 16%,
+        transparent 100%
+    );
+    z-index: 0;
+    animation: card-glow-spin 6s linear infinite;
+}
+
+.museum-card::after {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    background: var(--bg-dark);
+    border-radius: 10px;
+    z-index: 1;
+}
+
+.museum-card-inner {
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Rarity star styles */
+
+.card-rarity-star {
+    color: var(--victory-gold);
+    font-size: 1.5rem;
+    margin-left: 8px;
+    animation: sparkle-rotate 3s ease-in-out infinite;
+    display: inline-block;
+    filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6));
+}
+
+@keyframes sparkle-rotate {
+    0% {
+        transform: rotate(0deg) scale(1);
+    }
+    25% {
+        transform: rotate(-15deg) scale(1.1);
+    }
+    50% {
+        transform: rotate(0deg) scale(1);
+    }
+    75% {
+        transform: rotate(15deg) scale(1.1);
+    }
+    100% {
+        transform: rotate(0deg) scale(1);
+    }
+}
+
+/* Enhanced border glow for rare cards */
+
+.card-rarity-rare::before {
+    background: conic-gradient(
+        from var(--card-glow-angle),
+        transparent 0%,
+        var(--victory-gold) 8%,
+        transparent 16%,
+        transparent 100%
+    );
+}
+
+.card-rarity-rare {
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.8),
+        0 0 40px rgba(255, 215, 0, 0.2);
+}
+
+/* Locked card styles */
+
+.card-locked {
+    opacity: 0.85;
+}
+
+.card-locked-title {
+    color: #666;
+    font-style: italic;
+}
+
+.card-locked-badge {
+    font-size: 1.2rem;
+    margin-left: 8px;
+    opacity: 0.7;
+}
+
+.card-locked-icon {
+    filter: brightness(0.5) grayscale(1);
+}
+
+.card-locked-image-area {
+    background: #0d0f14;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-locked-image {
+    filter: blur(15px) brightness(0.3) grayscale(1);
+    transform: scale(1.1);
+}
+
+.card-locked-image-area::after {
+    content: "🔒";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    opacity: 0.5;
+    z-index: 1;
+}
+
+.card-locked .card-stats span,
+.card-locked .card-fact span {
+    color: #555;
+    font-style: italic;
+}
+
+@keyframes card-glow-spin {
+    to {
+        --card-glow-angle: 360deg;
+    }
+}
+
+.card-header {
+    padding: clamp(12px, 2vh, 20px) 24px clamp(8px, 1.5vh, 12px);
+    text-align: center;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.card-icon {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+}
+
+.card-image-area {
+    height: clamp(150px, 20vh, 250px);
+    min-height: clamp(150px, 20vh, 250px);
+    flex-shrink: 0;
+    background: #1a1f29;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    color: var(--amber-glow);
+    overflow: hidden;
+    padding: 10px;
+    margin: 0 20px;
+}
+
+.card-image-area:has(img) {
+    padding: 0;
+}
+
+.card-image-area img {
+    width: 90%;
+    height: 90%;
+    object-fit: contain;
+}
+
+.card-image-area img.svg-img {
+    filter: brightness(0) invert(1);
+}
+
+/* This has always scrolled, but on a phone the thin scrollbar is an invisible
+   overlay, so a long clade description just looked cut off mid-sentence with no
+   hint that there was more (playtest F3.7). The four layered gradients are the
+   classic scroll-shadow: the two `local` covers ride with the content and mask
+   the two `scroll` shadows whenever that edge is already at the end, so an amber
+   shadow appears at exactly the edges that still have text behind them. */
+.card-content {
+    padding: clamp(12px, 2vh, 20px) 24px;
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--glass-border) transparent;
+    background:
+        linear-gradient(var(--bg-dark) 30%, var(--bg-dark-fade)) top / 100% 28px
+            no-repeat local,
+        linear-gradient(var(--bg-dark-fade), var(--bg-dark) 70%) bottom / 100%
+            28px no-repeat local,
+        radial-gradient(
+                farthest-side at 50% 0,
+                rgba(230, 168, 97, 0.45),
+                rgba(230, 168, 97, 0)
+            )
+            top / 100% 14px no-repeat scroll,
+        radial-gradient(
+                farthest-side at 50% 100%,
+                rgba(230, 168, 97, 0.45),
+                rgba(230, 168, 97, 0)
+            )
+            bottom / 100% 14px no-repeat scroll;
+}
+
+.card-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.card-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.card-content::-webkit-scrollbar-thumb {
+    background: var(--glass-border);
+    border-radius: 3px;
+}
+
+.card-content::-webkit-scrollbar-thumb:hover {
+    background: var(--amber-glow);
+}
+
+.card-title {
+    font-size: 1.8rem;
+    color: var(--amber-glow);
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    min-width: 0;
+}
+
+.card-stats {
+    font-size: 0.9rem;
+    color: #aaa;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.card-fact {
+    font-size: 0.95rem;
+    color: #ddd;
+    margin-top: 10px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}

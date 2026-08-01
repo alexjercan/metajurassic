@@ -1,0 +1,39 @@
+footer {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    padding: 14px 20px;
+    background: #080a0d;
+    border-top: 1px solid #222;
+    z-index: 20;
+}
+
+footer a {
+    color: #8a93a5;
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    transition: color 0.2s;
+}
+
+footer a:hover {
+    color: var(--amber-glow);
+}
+
+footer a + a {
+    position: relative;
+    padding-left: 24px;
+}
+
+footer a + a::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 14px;
+    background: #333;
+}

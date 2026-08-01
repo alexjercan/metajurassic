@@ -1,0 +1,19 @@
+:root {
+    --bg-dark: #0a0c10;
+    /* Fully transparent --bg-dark. Gradients need the same hue at zero alpha at
+       one end, and naming it keeps the two from drifting apart when the palette
+       changes. */
+    --bg-dark-fade: rgba(10, 12, 16, 0);
+    --amber-glow: #e6a861;
+    --amber-dim: rgba(230, 168, 97, 0.2);
+    --amber-outline: rgba(230, 168, 97, 0.35);
+    --amber-glow-soft: rgba(230, 168, 97, 0.15);
+    --amber-glow-faint: rgba(230, 168, 97, 0.05);
+    --glass-bg: rgba(20, 24, 32, 0.85);
+    --glass-border: rgba(230, 168, 97, 0.4);
+    --text-main: #e0e0e0;
+    --victory-gold: #ffd700;
+    --danger-red: #ff4a4a;
+    --node-bg: #151820;
+    --line-color: #555;
+}

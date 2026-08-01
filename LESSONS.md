@@ -13,21 +13,6 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
 
 ## Process / flow
 
-- `when-a-fix-changes-an-invariant-grep-its-callers-for-documented-dependencies` (x1):
-  dropping the phone auto-open in `renderLastGuess` was reasoned about carefully in
-  that function, while `src/game.ts`'s hint handler opened the panel by hand only
-  before the first guess - justified by a comment stating that `updateUI()` had
-  already opened it otherwise. That comment named the invariant being removed, in
-  plain English, and a grep for `openPanel` would have found it; instead a
-  mid-game hint on a phone spent three guesses for nothing visible, and review
-  caught it. Read the CALLERS' stated assumptions, not just the function you are
-  changing. Sibling of
-  [[read-the-helper-body-not-its-name-before-reusing-it]] pointed the other way up
-  the call graph. 20260729-141414. Second hit (20260731-212610): splitting
-  `src/game.ts` into `src/game/` left `AGENTS.md`'s repository map naming the
-  deleted path. The doc sweep grepped for the files that GAINED code and found
-  nothing to fix; nothing grepped the path that ceased to exist. After a delete
-  or a rename, grep the OLD name across docs and records too.
 - `a-guard-no-test-can-fail-is-a-comment` (x2): the content pipeline gained a
   Python `validate_attributes` that refuses a malformed frontmatter value, and
   nothing in `npm run ci` exercised it - deleting the call from both sites left
@@ -522,6 +507,17 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
 
 ## Testing
 
+- `a-test-that-reads-a-source-file-breaks-when-that-file-stops-being-the-artifact` (x1):
+  `test/closeness.test.ts` guards that every closeness tier has a
+  `.node-close-N` rule by reading `src/style.css` as text. Splitting the
+  stylesheet into `src/partials/` turned that file into 18 lines of `@import`,
+  so the guard went red without a single rule changing - it was asserting over
+  the source layout, not the shipped CSS. The fix follows the `@import` list
+  rather than globbing `src/partials/*.css`, because a glob passes for a
+  partial nobody imports. A check whose input is a source path inherits every
+  future decision about where that source lives; prefer the built artifact, and
+  where that is impractical, follow the same links the build follows.
+  20260731-212617.
 - `an-environment-dependent-test-must-assert-its-environment` (x1): the DST
   round-trip specs are meaningless outside a zone that shifts, and CI runs in UTC
   - so they would have gone vacuously green exactly where the gate is. jest also
@@ -1041,3 +1037,20 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   latest round (`--force` for the deliberate exception), so the mistake becomes
   impossible rather than merely detectable. 20260729-092239, 20260729-092339,
   20260729-141427.
+
+- `when-a-fix-changes-an-invariant-grep-its-callers-for-documented-dependencies` (x3)
+  -> tooling, not prose. Three hits, each a stated dependency left behind by a
+  change that was itself careful: a comment in `src/game.ts` naming the
+  auto-open invariant a fix was removing (20260729-141414); `AGENTS.md`'s
+  repository map naming the path `src/game.ts` after it became `src/game/`
+  (20260731-212610); and three comments naming `src/style.css` as the home of
+  rules that had moved into `src/partials/` (20260731-212617), one of them the
+  drift guard for `NARROW_VIEWPORT_QUERY`. The third hit is why prose will not
+  hold it: the rule as written says to grep a DELETED name, and `style.css` was
+  never deleted - it kept its path and lost its contents, so nobody thought to
+  grep it. A pointer names a file for what is inside it. Proposal: a `tatr`
+  subcommand (or a `work` verification step backed by one) that takes the paths
+  a diff moved code OUT of and greps the tree for comments and docs naming
+  them, printing each hit for a keep/repoint decision - the input is already in
+  the diff, which is what makes it a tool rather than a thing to remember.
+  User decides. 20260729-141414, 20260731-212610, 20260731-212617.

@@ -1,0 +1,345 @@
+/* ── Mobile responsive ── */
+
+@media (max-width: 768px) {
+    /* nowrap, not wrap: naming the hint's product makes the chip string far
+       longer than the old "Cost 3 Guesses", and a wrapping top bar would answer
+       that by taking a second row of the viewport where the tree has least
+       vertical space - which is the always-on top-bar line the user explicitly
+       rejected (tasks/20260729-092327/DECISION.md, fork 1). Instead the bar
+       stays one row and the chip's own text wraps inside it, absorbed by
+       .hint-box's existing 52px min-height so the bar's height is unchanged.
+       Pinned at 72px by "the longer hint copy does not grow the top bar"
+       (e2e/mobile.spec.ts); the measured baseline is 68px. */
+    .top-bar {
+        flex-wrap: nowrap;
+        justify-content: center;
+        gap: 10px;
+        padding: 8px 12px;
+        margin: 10px auto;
+    }
+
+    .stat-box {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+        flex: 0 0 auto;
+        white-space: nowrap;
+    }
+
+    /* Third item in a bar that is pinned to ONE row (see the .top-bar note
+       above), so every pixel it takes comes out of the hint chip's flex share -
+       and once the chip is squeezed far enough its sentence wraps to another
+       line and the BAR grows, which is the vertical space the tree can least
+       spare. Measured on /practice/ against / at the pinned widths:
+
+         label        393px      360px       320px
+         "New game"   68 -> 79   79 -> 107   79 -> 107
+         "New"        68 -> 79   79 ->  79   79 -> 107
+
+       So the label sheds " game" here (`.new-game-word`), which buys back the
+       whole 28px at 360px. At 320px the bar still grows a row's worth; that is
+       accepted rather than hidden.
+
+       Those heights are the MEASUREMENT that chose the label, not a guard:
+       e2e/mobile.spec.ts asserts the invariants (the bar stays one row, the
+       chip is wholly on screen and unclipped) at all three widths and now runs
+       them over /practice/ as well as /, so the crowded bar is exercised rather
+       than assumed - but a future change that put 393px back to 107px would
+       still pass. A height threshold was deliberately rejected for the one-row
+       check (see the .top-bar note above); it is not reintroduced here. */
+    .new-game-btn {
+        padding: 6px 8px;
+        font-size: 0.7rem;
+        flex: 0 0 auto;
+    }
+
+    /* Hidden from the eye, NOT from the accessibility tree: `display: none`
+       would drop " game" from the button's accessible name, leaving speech-input
+       users saying "click New game" with nothing to match (WCAG 2.5.3, Label in
+       Name). The name stays "New game" at every width, which is also why the
+       button carries no aria-label - one that did not contain the visible text
+       would reintroduce the same mismatch. */
+    .new-game-word {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+        white-space: nowrap;
+    }
+
+    .hint-box {
+        padding: 6px 12px;
+        gap: 8px;
+        /* Takes the room the counter leaves and no more. min-width: 0 is what
+           actually lets a flex item shrink below its content width. */
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+
+    /* Kept at 0.7rem rather than shrunk to fit. This line is the whole point of
+       the change - it is where the hint finally names its product - so it is
+       the wrong text to make small. Below ~360px it wraps to two lines and the
+       chip grows a few px; that is accepted. What was rejected was a separate
+       always-on line in the top bar, not a slightly taller chip, and the E2E
+       guard pins that distinction directly (the bar stays ONE row) instead of
+       proxying it with a pixel count. */
+    .hint-text {
+        font-size: 0.7rem;
+        letter-spacing: 0.3px;
+        line-height: 1.25;
+    }
+
+    .hint-text strong {
+        font-size: 0.85rem;
+    }
+
+    .onboarding-brief {
+        margin-top: 20px;
+        padding: 14px 16px;
+        font-size: 0.85rem;
+    }
+
+    .onboarding-brief .brief-objective {
+        font-size: 1rem;
+    }
+
+    /* The desktop `has-brief` anchor would fight the 56px set below for
+       20260729-141414's own reason, and `.arena.has-brief` outranks `.arena`.
+       Restate it so the phone keeps its pull-tab clearance. */
+    .arena.has-brief {
+        padding-top: 56px;
+        padding-bottom: 24px;
+    }
+
+    .info-panel {
+        width: 100%;
+        box-sizing: border-box;
+        border-left: none;
+        border-top: 1px solid var(--glass-border);
+        padding: 54px 16px 20px 16px;
+        overflow-y: auto;
+    }
+
+    .info-panel.active {
+        box-shadow: -5px 0 20px rgba(0, 0, 0, 0.8);
+    }
+
+    .ad-container {
+        display: none;
+    }
+
+    .arena-wrapper.panel-open {
+        margin-right: 0;
+    }
+
+    /* Anchor the tree near the top of the arena instead of pushing it down by
+       the desktop 120px, which on a phone left the two-node starting tree
+       floating mid-arena between two large blank bands (playtest F3.9). The
+       remaining 56px is clearance for the .panel-pull tab; the empty room now
+       sits BELOW the tree, which is the direction it grows as guesses land, so
+       the tree also stops sliding upward on every guess. */
+    .arena {
+        padding-top: 56px;
+        padding-bottom: 24px;
+    }
+
+    /* Mobile-specific tree adjustments. The padding is on the canvas, which is
+       the element that holds the tree; .tree is only the sizing box. */
+    .tree-canvas {
+        padding: 0 20px;
+    }
+
+    .node-box {
+        padding: 10px 14px;
+        font-size: 0.9rem;
+    }
+
+    .tree li {
+        padding: 15px 10px 0 10px;
+    }
+
+    .card-title {
+        font-size: 1.4rem;
+    }
+
+    .card-header {
+        padding: 16px 16px 10px;
+    }
+
+    .card-image-area {
+        height: 160px;
+        min-height: 160px;
+        margin: 0 14px;
+    }
+
+    .card-content {
+        padding: 14px 16px;
+    }
+
+    .bottom-bar {
+        padding: 16px 12px;
+    }
+
+    .player-input {
+        padding: 12px 18px;
+        font-size: 1rem;
+    }
+
+    .modal {
+        padding: 28px 24px;
+        /* The outer cap for THIS padding step: 420 content + 48 padding + 2
+           border, the width master rendered here. Without it the 518px cap set
+           for the desktop padding carries into the 576-768px band and, with
+           border-box, hands the extra 48px to the content box instead - a
+           tablet modal 48px wider than before, on a change that is meant to fix
+           clipping and nothing else (measured at 600/700/768px: master 470px
+           outer with a 420px row, uncapped branch 518px with a 468px row). */
+        max-width: 470px;
+    }
+
+    /* 80px of horizontal padding per button (the desktop `10px 40px`) is what
+       made the three actions need 421.6px against a 305.7px content box at
+       393px wide. 18px keeps them on ONE row on a Pixel 5 - 285.6px of buttons
+       in a 303.7px row, so 18.1px to spare - and lets 360px and 320px take the
+       second row `flex-wrap` provides, which is the honest outcome at those
+       widths.
+       Read that margin before spending it: 151.6px of the 285.6px is label
+       TEXT, so labels rendering ~12% wider wrap the row. The stack is
+       `"Segoe UI", Tahoma, sans-serif` and neither named face exists here or on
+       the CI runner, so both fall through to the generic - which `fc-match
+       sans-serif` resolves to DejaVu Sans on this machine, the same wide
+       default `ubuntu-latest` uses, so 18.1px is the margin on the widest face
+       in play rather than on a flattering local one. If a runner ever does wrap
+       it, the fix is a smaller padding here, not a weaker assertion: the row
+       wrapping is correct behaviour, and `e2e/modal.spec.ts`'s
+       `expectActionsOnOneRow` is what would report it.
+       Deliberately NO `min-width: 0` here. It was tried, and it makes an
+       overflow impossible for the wrong reason: with the floor removed the
+       pills shrink below their own labels and squeeze the text instead of
+       spilling, which kept every viewport assertion GREEN on a layout with no
+       `flex-wrap` and the old 40px padding - i.e. it silenced the exact failure
+       this task exists to catch. The default `min-width: auto` keeps a pill at
+       its label's width, so a row that does not fit has to wrap, and a row that
+       cannot wrap fails the test out loud. */
+    .modal-actions {
+        gap: 10px;
+    }
+
+    .modal-btn {
+        padding: 10px 18px;
+    }
+
+    footer {
+        flex-wrap: wrap;
+        gap: 12px;
+        padding: 10px 12px;
+    }
+
+    footer a {
+        font-size: 0.8rem;
+    }
+
+    .archive-carousel {
+        padding: 10px 16px 16px;
+        gap: 16px;
+    }
+
+    .archive-card {
+        flex: 0 0 280px;
+        max-height: calc(100vh - 180px);
+        min-height: min(380px, calc(100vh - 180px));
+    }
+
+    .archive-title {
+        font-size: 1.5rem;
+    }
+
+    .carousel-btn {
+        display: none;
+    }
+
+    .profile-carousel {
+        padding: 10px 16px 16px;
+        gap: 16px;
+    }
+
+    .profile-carousel .archive-card {
+        flex: 0 0 280px;
+        max-height: 380px;
+        min-height: 380px;
+    }
+
+    .profile-carousel-title {
+        font-size: 1.5rem;
+    }
+
+    .profile-carousel-subtitle {
+        font-size: 0.85rem;
+    }
+
+    .profile-carousel-header {
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        padding: 0 16px;
+        text-align: center;
+    }
+
+    .profile-filter-toggle {
+        width: 100%;
+        max-width: 200px;
+        justify-content: center;
+    }
+}
+
+/* Short windows. The brief is never allowed to be clipped, so on a short
+   viewport the room it takes comes out of #arena's scroll box instead - and the
+   pre-guess tree is what ends up scrolled. That arena already overflowed on
+   master at these heights (measured: 19px at 1440x660, 84px at 1366x600), but
+   the brief made it worse, so it gets compact here to hand most of that back.
+   Height-based, not width-based: this is a vertical-room problem and a short
+   desktop window hits it exactly like a small laptop does. */
+@media (max-height: 700px) {
+    .onboarding-brief {
+        font-size: 0.8rem;
+        line-height: 1.3;
+        padding: 8px 16px;
+        margin: 4px auto 6px;
+    }
+
+    .onboarding-brief .brief-objective {
+        font-size: 0.92rem;
+    }
+
+    .brief-line {
+        margin-bottom: 3px;
+    }
+
+    .onboarding-brief .brief-budget {
+        margin-bottom: 7px;
+    }
+
+    .brief-how-to-play {
+        padding: 4px 10px;
+        font-size: 0.78rem;
+    }
+}
+
+/* One step shorter again. At 320x568 the brief had 1px of slack, so the ~43px
+   that an inline error adds to .bottom-bar was enough to slice the How to play
+   button in half (review round 3, R3.1). Only the spacing goes - the copy stays
+   the size it is at the step above, because the text is the point. */
+@media (max-height: 620px) {
+    .onboarding-brief {
+        margin: 2px auto 4px;
+        padding: 6px 14px;
+    }
+
+    .brief-line {
+        margin-bottom: 2px;
+    }
+
+    .onboarding-brief .brief-budget {
+        margin-bottom: 5px;
+    }
+}

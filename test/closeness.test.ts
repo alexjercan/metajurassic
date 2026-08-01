@@ -171,7 +171,14 @@ describe("the stylesheet covers the scale", () => {
     // an unstyled node, which looks like a bug rather than a cold guess. This
     // reads the shipped stylesheet so adding a sixth tier without its colour
     // fails here instead of in someone's browser.
-    const css = readFileSync(join(__dirname, "..", "src", "style.css"), "utf8");
+    // src/style.css is now only @tailwind directives plus one @import per
+    // partial, so follow the imports: a partial dropped from that list is as
+    // broken as a missing rule and must fail here too.
+    const srcDir = join(__dirname, "..", "src");
+    const entry = readFileSync(join(srcDir, "style.css"), "utf8");
+    const css = Array.from(entry.matchAll(/@import\s+"(.+?)";/g))
+        .map((m) => readFileSync(join(srcDir, m[1]), "utf8"))
+        .join("\n");
 
     test.each(Array.from({ length: CLOSENESS_TIER_COUNT }, (_, tier) => tier))(
         "tier %i has a .node-close rule",

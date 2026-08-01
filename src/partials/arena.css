@@ -1,0 +1,104 @@
+.arena-wrapper {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    transition: margin-right 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.arena-wrapper.panel-open {
+    margin-right: 0;
+}
+
+.arena {
+    flex-grow: 1;
+    overflow: auto;
+    padding-top: 120px;
+    padding-bottom: 50px;
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    touch-action: pan-x pan-y;
+}
+
+/* Pre-guess onboarding brief. It fills the band 20260729-141414 left empty
+   below the tree, and is removed once the round is under way, because the tree
+   grows downward into that exact space.
+   See tasks/20260729-092327/DECISION.md.
+
+   It is a flex SIBLING of #arena inside .arena-wrapper, not a child of #arena.
+   Inside the arena its height competed with the tree's for a fixed height and
+   the brief lost - it was sliced off at 1440x660 and 1366x600, and at 1280x720
+   the slack was exactly zero. As a sibling it takes its natural height and the
+   arena, which flex-grows and scrolls, yields the room instead. Pinned at four
+   desktop sizes by "is not clipped at ..." in e2e/onboarding.spec.ts. */
+.onboarding-brief {
+    /* A flex sibling of #arena inside .arena-wrapper. flex-shrink: 0 is what
+       makes the arena, not the brief, absorb a short window: without it the
+       brief is the thing that gets squeezed. */
+    flex-shrink: 0;
+    width: calc(100% - 32px);
+    margin: 8px auto 10px;
+    max-width: 620px;
+    padding: 10px 18px;
+    box-sizing: border-box;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-left: 3px solid var(--amber-glow);
+    border-radius: 8px;
+    color: #b9c2d0;
+    font-size: 0.85rem;
+    line-height: 1.35;
+    text-align: left;
+}
+
+.brief-line {
+    margin: 0 0 4px 0;
+}
+
+.onboarding-brief .brief-objective {
+    color: var(--amber-glow);
+    font-weight: bold;
+    font-size: 0.98rem;
+}
+
+.onboarding-brief .brief-budget {
+    margin-bottom: 10px;
+}
+
+.brief-how-to-play {
+    background: none;
+    border: 1px solid var(--glass-border);
+    border-radius: 6px;
+    color: var(--amber-glow);
+    padding: 5px 12px;
+    font: inherit;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.brief-how-to-play:hover {
+    border-color: var(--amber-glow);
+    filter: brightness(1.2);
+}
+
+
+
+/* With the brief present the tree is anchored near the top of the arena, so the
+   brief below it is readable without a scroll. The desktop 120px pushed the
+   two-node starting tree far enough down that the brief fell past the fold -
+   and on a phone this is what 20260729-141414 already does for its own reason
+   (F3.9). Pre-guess only: `has-brief` comes off with the brief. */
+.arena.has-brief {
+    /* Zero, not merely reduced. The desktop 120px/50px is room for a tree that
+       is not there yet, and pre-guess the arena can be almost exactly the
+       two-node tree's height - at 1440x660 it is, so any padding here IS the
+       arena's overflow and scrolls the tree. The pull-tab clearance that
+       justifies padding on a phone is set separately in the 768px block. */
+    padding-top: 0;
+    padding-bottom: 0;
+}

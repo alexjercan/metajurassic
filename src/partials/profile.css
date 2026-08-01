@@ -1,0 +1,445 @@
+/* Profile page */
+
+.profile-container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 60px 24px 40px;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+.profile-title {
+    font-size: 2rem;
+    color: var(--amber-glow);
+    margin: 0 0 24px 0;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+.profile-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 32px;
+}
+
+.profile-tab {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px 8px 0 0;
+    padding: 12px 32px;
+    color: #8a93a5;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.profile-tab:hover {
+    color: var(--amber-glow);
+    border-bottom-color: var(--amber-glow);
+}
+
+.profile-tab.active {
+    background: var(--glass-border);
+    color: var(--amber-glow);
+    border-bottom: 2px solid var(--amber-glow);
+}
+
+.profile-stats-content {
+    animation: fadeIn 0.3s ease-in;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.profile-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+    max-width: 100%;
+}
+
+@media (max-width: 600px) {
+    .profile-stats-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.profile-stat-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.profile-stat-value {
+    font-size: 2rem;
+    color: var(--amber-glow);
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.profile-stat-label {
+    font-size: 0.9rem;
+    color: #8a93a5;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.profile-section {
+    margin-bottom: 32px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.profile-section-title {
+    font-size: 1.4rem;
+    color: var(--amber-glow);
+    margin: 0 0 16px 0;
+    letter-spacing: 1px;
+}
+
+.profile-stat-full {
+    text-align: left;
+}
+
+.profile-stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.profile-stat-row:last-child {
+    border-bottom: none;
+}
+
+.profile-stat-row .profile-stat-label {
+    text-transform: none;
+    font-size: 1rem;
+}
+
+.profile-stat-row .profile-stat-value {
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.profile-stat-progress {
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px 0;
+}
+
+.profile-stat-progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.profile-progress-bar {
+    width: 100%;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid rgba(230, 168, 97, 0.2);
+}
+
+.profile-progress-fill {
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        var(--amber-dim) 0%,
+        var(--amber-glow) 100%
+    );
+    border-radius: 14px;
+    transition: width 0.6s ease-out;
+    box-shadow: 0 0 10px rgba(230, 168, 97, 0.4);
+    min-width: 0;
+}
+
+.profile-distribution {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.profile-dist-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.profile-dist-label {
+    width: 30px;
+    text-align: right;
+    color: var(--amber-glow);
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.profile-dist-bar-container {
+    flex: 1;
+    position: relative;
+    height: 24px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.profile-dist-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--amber-dim), var(--amber-glow));
+    border-radius: 4px;
+    transition: width 0.3s ease;
+    min-width: 2px;
+}
+
+.profile-dist-count {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.profile-no-data {
+    text-align: center;
+    color: #8a93a5;
+    font-style: italic;
+    margin: 20px 0;
+}
+
+.profile-rolling-average {
+    position: relative;
+    height: 250px;
+    padding: 20px 10px 40px 45px;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.profile-graph-svg {
+    width: 100%;
+    height: 100%;
+}
+
+.profile-graph-line {
+    fill: none;
+    stroke: var(--amber-glow);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.profile-graph-point {
+    fill: var(--amber-glow);
+    stroke: var(--bg-dark);
+    stroke-width: 2;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.profile-graph-point:hover {
+    fill: #fff;
+    r: 6;
+}
+
+.profile-graph-grid-line {
+    stroke: rgba(255, 255, 255, 0.1);
+    stroke-width: 1;
+}
+
+.profile-graph-axis-label {
+    fill: #8a93a5;
+    font-size: 12px;
+}
+
+.profile-graph-axis-title {
+    fill: var(--amber-glow);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.profile-graph-tooltip {
+    position: absolute;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: 10;
+    font-size: 0.85rem;
+}
+
+.profile-graph-tooltip.visible {
+    opacity: 1;
+}
+
+.profile-graph-tooltip-date {
+    color: var(--amber-glow);
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.profile-graph-tooltip-value {
+    color: #fff;
+}
+
+.profile-back {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.profile-back a {
+    color: var(--amber-glow);
+    text-decoration: none;
+    font-size: 1rem;
+    border: 1px solid var(--glass-border);
+    padding: 10px 28px;
+    border-radius: 30px;
+    transition: 0.2s;
+}
+
+.profile-back a:hover {
+    background: var(--amber-dim);
+}
+
+/* Profile carousel section */
+
+.profile-carousel-section {
+    width: 100%;
+    max-width: 100%;
+    padding: 3vh 0 2vh;
+    background: linear-gradient(
+        180deg,
+        rgba(10, 12, 16, 0.5) 0%,
+        rgba(20, 24, 32, 0.8) 100%
+    );
+    border-top: 1px solid var(--glass-border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 600px;
+}
+
+.profile-carousel-header {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    margin-bottom: 1vh;
+}
+
+.profile-carousel-title {
+    font-size: 1.8rem;
+    color: var(--amber-glow);
+    margin: 0 0 0.5vh 0;
+    letter-spacing: 1px;
+}
+
+.profile-carousel-subtitle {
+    font-size: 0.9rem;
+    color: #8a93a5;
+    margin: 0;
+}
+
+.profile-filter-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    padding: 10px 16px;
+    border-radius: 20px;
+    transition: all 0.2s ease;
+}
+
+.profile-filter-toggle:hover {
+    background: var(--amber-dim);
+    border-color: var(--amber-glow);
+}
+
+.profile-filter-toggle input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: var(--amber-glow);
+}
+
+.profile-filter-toggle span {
+    color: #8a93a5;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.profile-filter-toggle:hover span {
+    color: var(--amber-glow);
+}
+
+.profile-carousel-wrapper {
+    position: relative;
+    width: 100%;
+    flex: 1;
+    min-height: 550px;
+    display: flex;
+    align-items: center;
+}
+
+.profile-carousel {
+    display: flex;
+    height: 100%;
+    gap: 24px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 10px 40px 20px;
+    width: 100%;
+    box-sizing: border-box;
+    scrollbar-width: none;
+}
+
+.profile-carousel::-webkit-scrollbar {
+    display: none;
+}
+
+.profile-carousel .archive-card {
+    flex: 0 0 340px;
+    height: auto;
+    max-height: 620px;
+    min-height: 420px;
+    scroll-snap-align: center;
+}

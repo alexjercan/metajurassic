@@ -1,0 +1,258 @@
+/* The tree is drawn as a sizing box (.tree) wrapping a canvas (.tree-canvas)
+   that carries the scale transform. `layoutTree` in src/ui/treeScroll.ts
+   sets .tree's width and height inline to the SCALED size of the canvas.
+
+   The two-element split is what makes #arena's scroll range honest. A transform
+   leaves the layout box it is applied to at full size, so the previous
+   single-element version (a `transform: scale()` straight on .tree, at
+   `transform-origin: center top`, in four fixed buckets) gave the arena a
+   scroll range the size of the UNSCALED tree: measured at 12 guesses, 2152px of
+   scroll for 1291px of painted tree, so a third of the range at each end was
+   empty, and the render then parked the player in the middle of that emptiness.
+   See tasks/20260729-092339/DECISION.md.
+
+   `margin: 0 auto` centres the tree while it fits and resolves to zero once it
+   overflows, which is what the old `min-width: max-content` plus
+   `justify-content: center` was for. */
+.tree {
+    position: relative;
+    margin: 0 auto;
+}
+
+.tree-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* Explicit max-content, not the shrink-to-fit an absolutely positioned box
+       would otherwise get. Its containing block is .tree, whose width is set to
+       the SCALED size, so shrink-to-fit would squeeze the flex rows of nodes to
+       that smaller width and the tree would be measured against its own
+       compressed self. */
+    width: max-content;
+    display: flex;
+    justify-content: center;
+    padding: 0 50px;
+    /* Top left, not centre top: the canvas has to paint from the container's
+       own origin, or the painted tree and the box sized to it do not line up. */
+    transform-origin: top left;
+}
+
+/* No `transition: all` inside the tree. It has nothing to animate here - the
+   list has no state changes - and `all` catches the properties a media query
+   switches, so a rotation ANIMATED font-size and padding from the phone values
+   to the desktop ones over 0.3s. The renderer measures the tree to size it, and
+   any measurement taken during that window read a font part-way between the two
+   (14.5px of a 14.4 -> 16 transition) and scaled the tree to a floor that
+   belonged to neither viewport. See tasks/20260729-092339/RETRO.md. */
+.tree ul {
+    padding-top: 20px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    padding-left: 0;
+}
+
+.tree li {
+    float: left;
+    text-align: center;
+    list-style-type: none;
+    position: relative;
+    padding: 20px 15px 0 15px;
+}
+
+.tree li::before,
+.tree li::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 50%;
+    border-top: 2px solid var(--line-color);
+    width: 50%;
+    height: 20px;
+}
+
+.tree li::after {
+    right: auto;
+    left: 50%;
+    border-left: 2px solid var(--line-color);
+}
+
+.tree li:only-child::after,
+.tree li:only-child::before {
+    display: none;
+}
+
+.tree li:only-child {
+    padding-top: 0;
+}
+
+.tree li:first-child::before,
+.tree li:last-child::after {
+    border: 0 none;
+}
+
+.tree li:last-child::before {
+    border-right: 2px solid var(--line-color);
+    border-radius: 0 5px 0 0;
+}
+
+.tree li:first-child::after {
+    border-radius: 5px 0 0 0;
+}
+
+.tree ul ul::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    border-left: 2px solid var(--line-color);
+    width: 0;
+    height: 20px;
+}
+
+.node-box {
+    display: inline-block;
+    padding: 12px 18px;
+    border-radius: 8px;
+    background: var(--node-bg);
+    border: 2px solid var(--line-color);
+    font-weight: bold;
+    font-size: 1rem;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    white-space: nowrap;
+    cursor: pointer;
+    /* Named properties rather than `all`, for the same reason as .tree ul
+       above: these are what :hover and the guess-feedback colours change, and
+       leaving font-size and padding out of it keeps a media-query switch from
+       animating the geometry the renderer is trying to measure. */
+    transition:
+        filter 0.2s ease,
+        transform 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        color 0.2s ease;
+    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.node-box:hover {
+    filter: brightness(1.2);
+    transform: scale(1.04);
+}
+
+.node-root {
+    border-color: #888;
+    color: #ccc;
+    font-size: 1.05rem;
+    background: #222;
+}
+
+.node-clade {
+    color: var(--amber-glow);
+    border-color: var(--amber-glow);
+}
+
+.node-species {
+    color: #a1bced;
+    border-color: #5b7199;
+}
+
+/* How close a guess landed, cold (0) to hot (4). These are the hues of the
+   share grid's cells - ⬛ 🟦 🟨 🟧 🟩 - on purpose: the board and the grid the
+   player pastes are meant to be one language, so a guess that reads orange
+   here pastes as 🟧. The tier index comes from `closenessTier`
+   (src/closeness.ts), which is also what picks the cell.
+
+   Ordering is load-bearing twice over, because all of these match at the same
+   specificity as `.node-species` and as each other. They come AFTER
+   `.node-species`, so they win its blue; and BEFORE `.node-mystery`,
+   `.node-winner` and `.node-revealed`, which must keep winning - those three
+   are the target's own encodings and must never read as temperatures. (The
+   renderer also never puts a tier on the target's node, so this is the second
+   of two locks, not the only one.) See LESSONS.md
+   `css-media-blocks-on-different-axes-are-resolved-by-file-order`.
+
+   Each tier is a solid border, a faint tint FILL, and lightened text. The fill
+   is what separates a guess from a clade: tier 3's orange sits close to
+   `--amber-glow`, and clade nodes keep the flat dark `--node-bg`, so kind
+   stays readable where hue alone stops saying it.
+   See tasks/20260729-182255/DECISION.md. */
+.node-close-0 {
+    color: #b6bcc6;
+    border-color: #6b7280;
+    background: rgba(107, 114, 128, 0.14);
+}
+
+.node-close-1 {
+    color: #a1bced;
+    border-color: #5b7199;
+    background: rgba(91, 113, 153, 0.14);
+}
+
+.node-close-2 {
+    color: #ebdd92;
+    border-color: #d8c04a;
+    background: rgba(216, 192, 74, 0.14);
+}
+
+.node-close-3 {
+    color: #f2b884;
+    border-color: #e08a3c;
+    background: rgba(224, 138, 60, 0.14);
+}
+
+.node-close-4 {
+    color: #8fdca8;
+    border-color: #4ca86a;
+    background: rgba(76, 168, 106, 0.14);
+}
+
+.node-mystery {
+    border: 2px dashed var(--danger-red);
+    color: var(--danger-red);
+    background: rgba(255, 74, 74, 0.1);
+    font-size: 1.05rem;
+    animation: pulseMystery 2s infinite alternate;
+    cursor: default;
+    pointer-events: none;
+}
+
+.node-winner {
+    border-color: var(--victory-gold);
+    background: var(--victory-gold);
+    color: #000;
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+    transform: scale(1.08);
+    z-index: 10;
+}
+
+.node-revealed {
+    border: 2px solid var(--danger-red);
+    color: var(--danger-red);
+    background: rgba(255, 74, 74, 0.15);
+    box-shadow: 0 0 15px rgba(255, 74, 74, 0.4);
+    transform: scale(1.08);
+    z-index: 10;
+}
+
+@keyframes pulseMystery {
+    from {
+        box-shadow: 0 0 5px rgba(255, 74, 74, 0.2);
+    }
+    to {
+        box-shadow: 0 0 20px rgba(255, 74, 74, 0.6);
+    }
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0.5) translateY(-10px);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+}

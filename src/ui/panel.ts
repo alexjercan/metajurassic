@@ -19,7 +19,8 @@ let unseenCardTitle: string | null = null;
 
 const DEFAULT_PULL_LABEL = "Info";
 
-// MIRRORS the `@media (max-width: 768px)` block in src/style.css, where
+// MIRRORS the `@media (max-width: 768px)` block in
+// src/partials/responsive.css, where
 // `.info-panel` becomes `width: 100%` and overlays the arena instead of
 // sitting beside it. Do not move one number without the other: a stale query
 // auto-opens the panel over the tree. e2e/mobile.spec.ts (Pixel 5) and

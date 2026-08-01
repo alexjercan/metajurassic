@@ -1,0 +1,203 @@
+/* Game over modal */
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(6px);
+    z-index: 100;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal {
+    background: linear-gradient(160deg, #141820 0%, #0a0c10 100%);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 40px 48px;
+    text-align: center;
+    /* border-box, or `width: 90%` is the CONTENT width and the padding and
+       border are added OUTSIDE it: the box then measures 0.9v + 96 + 2, which
+       is wider than the viewport for anything under 960px. Above ~467px the old
+       `max-width` capped the content box first and hid it; below that it clipped
+       both edges (measured: 5.3px each side at 393px, 9.0px at 320px).
+       The cap is restated as the same OUTER width that rule produced -
+       420 content + 96 padding + 2 border - so the modal keeps the size it has
+       always had and only the narrow-viewport clipping changes. Because the cap
+       is now an outer width it has to be restated per padding step: the 768px
+       block below sets its own, or the tablet band would silently gain the 48px
+       of padding the desktop step accounts for. */
+    box-sizing: border-box;
+    max-width: 518px;
+    width: 90%;
+    /* The vertical escape hatch. Without it a modal taller than the screen was
+       simply cut off at BOTH ends - the overlay is `position: fixed` with
+       `overflow: visible`, the document does not scroll, so the overflow existed
+       and nothing could reach it. Measured on a landscape phone before this:
+       568x320 clipped the box 5.6px top and bottom, and 360x320 (narrow AND
+       short, so the action row wraps to 92px and the modal is 381.2px) put the
+       Share button 1.6px below the fold - 11.6px at 360x300.
+
+       `calc(100% - 32px)`, NOT `100vh`. The percentage resolves against
+       `.modal-overlay`, which is `position: fixed; inset: 0` and therefore the
+       box actually on screen; `100vh` is the LARGE viewport on a mobile browser
+       with a dynamic toolbar, i.e. a height the player cannot see - the same
+       class of lie this rule exists to remove. And unlike the `max-width` above
+       it, a percentage cap does not read the padding, so it needs no restatement
+       in the 768px block (LESSONS.md:
+       converting-a-css-property-between-coordinate-systems-must-be-restated-per-media-block).
+
+       It does read `box-sizing`, though, and depends on the `border-box` set a
+       few lines above: that is what makes this an OUTER height, so the cap is the
+       box the assertions measure. Dropping `box-sizing` turns it back into a
+       CONTENT height and the box grows past the viewport again by the padding and
+       border - observed while re-running the 20260729-141428 revert, which takes
+       `box-sizing` out: `.modal` was clipped 5.6px at 320px tall with this cap
+       still in place. The two declarations are one mechanism; do not separate
+       them.
+
+       `overflow-y: auto` also computes `overflow-x` to `auto`, so this is a
+       scroll container on both axes. That does NOT weaken the horizontal
+       guarantees. The attack that 20260729-141428 fixed - its whole parent CSS,
+       which is the combination its own review found to be the discriminating one,
+       single reverts having all been green - was re-run with this rule in place
+       and is still rejected, and `expectModalFitsViewport` checks the horizontal
+       rects BEFORE anything that scrolls so it still reports the measured
+       overflow rather than a clipped control. See
+       tasks/20260730-111003/DECISION.md. */
+    max-height: calc(100% - 32px);
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9);
+    animation: modalIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.modal-win {
+    border-color: var(--victory-gold);
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.9),
+        0 0 40px rgba(255, 215, 0, 0.15);
+}
+
+.modal-loss {
+    border-color: var(--danger-red);
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.9),
+        0 0 40px rgba(255, 74, 74, 0.1);
+}
+
+.modal-icon {
+    font-size: 3.5rem;
+    margin-bottom: 12px;
+}
+
+.modal-title {
+    font-size: 1.8rem;
+    margin: 0 0 12px 0;
+    letter-spacing: 1px;
+}
+
+.modal-title-win {
+    color: var(--victory-gold);
+}
+
+.modal-title-loss {
+    color: var(--danger-red);
+}
+
+.modal-message {
+    color: #ccc;
+    font-size: 1.05rem;
+    margin: 0 0 20px 0;
+    line-height: 1.5;
+}
+
+.modal-message strong {
+    color: var(--amber-glow);
+}
+
+.modal-stats {
+    display: inline-block;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: var(--amber-glow);
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 24px;
+    /* The guarantee that this row can never spill off the screen again. The
+       three actions want 421.6px at the desktop padding, so on a phone they do
+       not fit on one line at any honest padding below ~360px - and without
+       `wrap` the row simply overflowed its box in both directions
+       (`justify-content: center` splits the overshoot). The mobile block below
+       trims the button padding so the common phone width still gets ONE row;
+       this line is what makes a narrower screen, a longer label or a wider font
+       stack take a second row instead of hanging off the edge. */
+    flex-wrap: wrap;
+}
+
+.share-icon {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) invert(1);
+}
+
+.modal-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    /* 32px, not the 40px this used to be. At 40px the three actions need
+       421.6px against the modal's 420px content box - they overflowed on the
+       DESKTOP too, by 1.6px, invisibly, because the 48px padding absorbed it.
+       Adding `flex-wrap` to fix the phone turned that hairline overflow into a
+       wrapped second row at 1280px, so the row is given room to be honestly
+       one line: 373.6px of buttons in 420px. */
+    padding: 10px 32px;
+    background: transparent;
+    border: 1px solid var(--glass-border);
+    border-radius: 30px;
+    color: #ccc;
+    font-size: 1rem;
+    cursor: pointer;
+    /* Named properties, not the bare `0.2s` (which is `all`) this used to be.
+       :hover only changes these three, so the hover feel is unchanged - but
+       `all` also animated PADDING, so crossing the 768px breakpoint spent 0.2s
+       sliding the buttons between their two sizes. That made the row's width
+       mid-resize a value belonging to NEITHER layout (measured 31.0px, then
+       28.9px, then 23.9px of padding on successive samples while it settled),
+       which is not a size any layout rule asked for. */
+    transition:
+        background 0.2s,
+        color 0.2s,
+        border-color 0.2s;
+    text-decoration: none;
+}
+
+.modal-btn:hover {
+    background: var(--amber-dim);
+    color: var(--amber-glow);
+    border-color: var(--amber-glow);
+}
+
+@keyframes modalIn {
+    0% {
+        transform: scale(0.8) translateY(20px);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+}

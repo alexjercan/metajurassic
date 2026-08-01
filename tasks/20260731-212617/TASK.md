@@ -1,10 +1,10 @@
 # Decide and, if safe, split src/style.css by surface
 
-- STATUS: OPEN
+- STATUS: CLOSED
 - PRIORITY: 50
 - TAGS: refactor, ui, css
 - KIND: STORY
-- FLOW STEP: PLANNED
+- FLOW STEP: DONE
 - PLAN STATUS: APPROVED
 - PARENT: 20260731-212345
 - DEPENDS ON: 20260731-212557
@@ -33,34 +33,34 @@ A split that reorders declarations changes rendering, which this epic forbids.
       order is preserved exactly, byte-identity is not (Tailwind reserializes
       imported rules' whitespace). Proceed, with the relaxed proof in
       `DECISION.md`.
-- [ ] On master, BEFORE any edit, capture the baseline and the walkthrough
+- [x] On master, BEFORE any edit, capture the baseline and the walkthrough
       captures:
       `nix develop --command node tasks/20260801-113802/prototype/compile.js > /tmp/.../baseline.css`,
       then `npm run playtest:walkthrough` and keep `playtest-shots/`. There is
       no emitted `.css` asset - `style-loader` inlines CSS into `dist/*.js`, so
       the postcss compile is the comparison surface.
-- [ ] Create `src/partials/` and move the 2400 body lines of `src/style.css`
+- [x] Create `src/partials/` and move the 2400 body lines of `src/style.css`
       into the 14 partials in the table under `## Notes`, in file order, cutting
       only at blank lines at brace depth 0 so a rule's leading doc comment
       travels with it. `src/style.css` keeps the three `@tailwind` directives
       and gains one `@import "./partials/<name>.css";` per partial in that same
       order. Move text verbatim: do not merge, dedupe, reorder, or reformat
       declarations.
-- [ ] Keep the three trailing media blocks together in `responsive.css`, last.
+- [x] Keep the three trailing media blocks together in `responsive.css`, last.
       Splitting them per surface into the surface partials would put a
       surface's base rules after another surface's `768px` rules, which is a
       reorder - see `## Notes`.
-- [ ] Prove the compiled output is unchanged: recompile with the same command,
+- [x] Prove the compiled output is unchanged: recompile with the same command,
       `diff -u` against the baseline and confirm every hunk is whitespace, then
       confirm the whitespace-normalised pair is byte-identical. Any
       non-whitespace hunk means the split changed the cascade; fix the order or
       abandon the split. Record both the diff line count and the `cmp` result
       in the task record.
-- [ ] Re-render and look at every surface at desktop, narrow, and short
+- [x] Re-render and look at every surface at desktop, narrow, and short
       viewports, comparing against the pre-split captures - an identical
       bundle still deserves eyes
       (`LESSONS.md`: `re-render-and-look-after-every-layout-change-not-once-per-task`).
-- [ ] Run `npm run ci` and `npm run build`. Confirm `dist/*.js` hashes match
+- [x] Run `npm run ci` and `npm run build`. Confirm `dist/*.js` hashes match
       `tasks/20260801-113802/prototype/baseline/SHA256` modulo the expected
       whitespace shrink, and record the actual sizes.
 
@@ -140,3 +140,83 @@ collides at equal specificity is exactly the reasoning this epic forbids
 - Reusing the spike's `compile.js` from `tasks/20260801-113802/prototype/`
   rather than promoting it to `scripts/`. One caller, one task - promoting it
   would add repo surface a check must then keep green (YAGNI).
+
+## Close-out
+
+### What and why
+
+`src/style.css` went from 2403 lines to 18: three `@tailwind` directives plus
+14 `@import` lines. The 2400 body lines moved verbatim into `src/partials/`,
+in file order, cut only at blank lines at brace depth 0. Every partial matches
+the planned partition; `responsive.css` keeps the three media blocks together
+and last.
+
+`test/closeness.test.ts` read `src/style.css` to assert every closeness tier
+has a `.node-close-<n>` rule. It now follows the entry file's `@import` list
+and concatenates the partials, so a partial dropped from that list fails the
+same way a missing rule does.
+
+### Alternatives
+
+- Splitting the `768px` block per surface: rejected in the plan and unchanged
+  here. It reorders base rules after another surface's media rules.
+- Promoting the spike's `compile.js` to `scripts/`: not done. One caller.
+- Pointing the test at `src/partials/*.css` by glob instead of the import
+  list: rejected. A glob passes even when a partial is never imported, which
+  is the failure the split introduces.
+
+### Difficulties and diagnosis
+
+- The split script's first reassembly check failed at body line 363. Cause was
+  the check, not the split: the original has one run of three blank lines
+  (lines 367-369, inside `arena.css`) which the comparison collapsed on one
+  side only. Normalising both sides made the reassembly exact.
+- `npm run ci` failed on the first run with 5 failures in
+  `test/closeness.test.ts` - the invalidated stylesheet read above. Green after
+  the fix, and re-falsified by removing the `tree.css` import: 5 failures
+  return.
+- Playtest PNGs are not byte-reproducible. A split-vs-split control run
+  differed on 21 of 22 shots (confetti, and the rotating `--card-glow-angle`
+  border). Byte-cmp is therefore not a signal here; the shots were compared by
+  eye.
+
+### Evidence
+
+| Proof | Result |
+|---|---|
+| `wc -l src/style.css` | 2403 -> 18; `src/partials/` holds 14 files, 2386 lines total |
+| compiled CSS | baseline 43729 B, split 43253 B |
+| `diff -u` baseline split | 210 lines, 15 hunks, every hunk whitespace (multi-line selector lists and multi-line values collapsed onto one line, exactly as `DECISION.md` predicted) |
+| whitespace-normalised `cmp` | exit 0, both 39902 B - byte-identical |
+| `npm run ci` | pass (323 Jest tests, 126 Playwright) |
+| `npm run build` | pass; every bundle shrank by exactly 533 B (`index.js` 191678 -> 191145, `practice.js` 199151 -> 198618, `profile.js` 126752 -> 126219, `clades.js` 87020 -> 86487, `species.js` 87088 -> 86555, `faq.js` 70319 -> 69786). Hashes differ, as the whitespace shrink requires |
+| `npm run playtest:walkthrough` | 22 shots before and after, reviewed side by side: identical layout |
+| faq, species, clades, profile at 1280x800, 390x844, 900x500 | captured before and after with a throwaway rig; faq and profile byte-identical, species and clades identical by eye (card-glow phase only) |
+
+The walkthrough never visits faq/species/clades/profile, so those four were
+captured separately by stashing the split and re-capturing. The rig was
+deleted after use - the compiled-CSS proof is the durable guard.
+
+### Reflection
+
+The uniform 533-byte shrink across six independent bundles was the cheapest
+confirmation that the change is purely serialisation: a cascade change would
+not move every bundle by the same amount.
+
+The one test that had to change is the one that read the stylesheet as a file
+rather than through the build. That is the real cost of the split, and it is
+worth naming for the epic: any check that treats a source file as the artifact
+breaks when the file stops being the artifact.
+
+## Review round 1 responses
+
+| Finding | Response |
+|---|---|
+| 1 MAJOR - `src/ui/panel.ts:22` drift guard names `src/style.css` | Fixed: points at `src/partials/responsive.css` |
+| 2 MINOR - stale pointers in `src/closeness.ts:38`, `src/index.html:93` | Fixed: `partials/tree.css`, `partials/input.css` |
+| 3 MINOR - import order not documented as load-bearing | Fixed: comment above the import list in `src/style.css` naming the cascade rule, "responsive.css last", and the LESSONS.md entry |
+
+All accepted; no pushback. Comments only, so the compiled CSS is unchanged:
+recompiling after the fixes is byte-identical to the round-1 split output
+(43253 B, `cmp` exit 0) - the new comment never reaches the artifact.
+`npm run ci` on `E2E_PORT=8282`: pass (323 Jest, 126 Playwright).
