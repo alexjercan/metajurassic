@@ -3,16 +3,16 @@
 Metajurassic: static TypeScript/webpack dinosaur-guessing game, deployed to
 GitHub Pages. Guesses reveal distance from the target on an evolutionary tree.
 
-Start here, then run `tatr ls --sort priority` and grep `LESSONS.md` for the
-work area.
+Start here, then run `tatr ls --sort priority`.
 
 ## Agent workflow
 
 - Tracker/epics: `tatr`; records under `tasks/<id>/`; flow is `/flow` -> `/work` -> `/review` -> `/compound`.
-- Examples/retention: runnable examples in `e2e/seed.spec.ts` and `scripts/playtest/`; findings in task records; durable lessons in `LESSONS.md`.
+- Examples/retention: runnable examples in `e2e/seed.spec.ts` and `scripts/playtest/`; findings stay in task records.
 - Domain docs: `README.md`, shipped code under `src/`, and task `DECISION.md` files; code defines current behavior.
 - Research/network: prefer local code and records; store research in `tasks/<id>/NOTES.md` or `SPIKE.md`; use network only when required.
-- Checks/records: `npm run ci`, `tatr check`, and `tatr check --ledger LESSONS.md`; keep code and task records green.
+- Checks/records: `npm run ci` and `tatr check`; keep code and task records green.
+- Knowledge: central repo `/home/alex/personal/agent-knowledge`; project=metajurassic; tags=typescript,game,content. Advisory only; failed writes stay in RETRO.
 
 ## Repository map
 
@@ -27,7 +27,6 @@ work area.
 | `test/` | Jest tests. |
 | `e2e/` | Playwright browser tests. |
 | `tasks/` | Versioned tatr task, review, decision, retro, and notes records. |
-| `LESSONS.md` | Durable lessons ledger. |
 
 Ignored outputs: `dist/`, `*.csv`, `*metajurassic.json`, `coverage/`,
 `test-results/`, `playtest-shots/`.
@@ -81,7 +80,7 @@ Author markdown first. Regenerate the checked-in runtime graph.
 - Content tests use the real `src/jurassic/index.json`, not mocks.
 - `test/contentSource.test.ts`: markdown/JSON round-trip and stale payload guard.
 - `test/dataIntegrity.test.ts`: graph, uniqueness, media, and render-safety rules.
-- Related history: `tasks/20260729-092352/` and `LESSONS.md`.
+- Related history: `tasks/20260729-092352/`.
 
 ## Deterministic practice games
 
@@ -200,4 +199,4 @@ done without changing behaviour, it is a different task.
 - Sprout worktree with symlinked `node_modules`: stage explicit paths. Never
   `git add -A`.
 - Meaningful change: record rationale, tradeoffs, fixes, and next-time lessons
-  in the task records and `LESSONS.md`.
+  in task records.
