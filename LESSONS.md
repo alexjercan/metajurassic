@@ -953,14 +953,14 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
 
 ## Pending promotions (3+ occurrences, user decides)
 
-- `mock-fixtures-hide-real-data-defects-test-the-real-payload` (x3) -> AGENTS.md
+- `mock-fixtures-hide-real-data-defects-test-the-real-payload` (x3, PROMOTE 2026-08-01 -> 20260801-113136) -> AGENTS.md
   already carries this rule and it recurred anyway, so prose is not holding it.
   Proposal: name `test/dataIntegrity.test.ts` in AGENTS.md as THE home for any
   "holds for the shipped data" claim, so a new content test has an obvious place
   to go rather than a rule to remember. User decides.
   20260729-092352, 20260729-101740.
 
-- `absence-proving-greps-must-be-run-when-written` (x3) -> plan skill. Three
+- `absence-proving-greps-must-be-run-when-written` (x3, PROMOTE 2026-08-01 -> 20260801-113145) -> plan skill. Three
   times a DoD has shipped a `cmd:` absence proof that could never go clean, and
   the third time (20260729-130138) one of TWO such greps in the same DoD was
   narrowed while its sibling four lines away was not. Prose in the plan skill
@@ -971,7 +971,7 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   is per-DoD rather than per-item. User decides.
   20260729-101823, 20260729-092327, 20260729-130138.
 
-- `open-a-neighbouring-record-before-writing-a-new-one` (x3) -> tatr CLI, not
+- `open-a-neighbouring-record-before-writing-a-new-one` (x3, PROMOTE 2026-08-01 -> 20260801-113123) -> tatr CLI, not
   prose. The rule itself was FOLLOWED the third time and still failed: the
   neighbour that was opened predates the v2 schema migration, so it taught a
   grandfathered shape. Prose cannot distinguish a canonical sibling from a
@@ -981,7 +981,7 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   refused at write time instead of found after the first commit. User decides.
   20260729-182255, 20260730-111003, 20260731-212557.
 
-- `derive-every-number-in-a-table-from-the-same-rig` (x3) -> tooling, not prose.
+- `derive-every-number-in-a-table-from-the-same-rig` (x3, PROMOTE 2026-08-01 -> 20260801-113157) -> tooling, not prose.
   All three hits are the same shape: a measured table sits in the record and a
   figure in the prose beside it disagrees with the table - hand-counted the
   first time, measured under a pre-split scope the second, read off the table's
@@ -994,7 +994,7 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   own correction sitting in plain sight. User decides.
   20260731-212557, 20260731-212611, 20260731-212612.
 
-- `search-the-whole-record-tree-before-declaring-a-rationale-unrecorded` (x4)
+- `search-the-whole-record-tree-before-declaring-a-rationale-unrecorded` (x4, PROMOTE 2026-08-01 -> 20260801-113128)
   -> tooling, not prose. Three times a comment has been judged "unrecorded" and
   been recorded all along, each time for a DIFFERENT reason: the grep was scoped
   to the records the comment named (20260731-212610); the terms came from the
@@ -1015,7 +1015,7 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   cannot chase only the first. User decides.
   20260731-212610, 20260731-212612, 20260731-212613, 20260731-212615.
 
-- `a-correction-is-a-new-claim-re-derive-it` (x4) -> tooling, not prose. Four
+- `a-correction-is-a-new-claim-re-derive-it` (x4, DEFER 2026-08-01 at x4: The x4 hit (20260731-212616) was prose, not a figure: a rewritten comment contradicting a flag documented ten lines below it. The proposed figure cross-check (20260801-113157) would not have caught it, so the lesson stays pending until the prose half has a mechanism.) -> tooling, not prose. Four
   hits, each one a FIX that shipped a fresh wrong claim: a corrected colour-scale
   fact reasoned from the palette's order (20260729-092452); a method-level
   finding fixed only at the two instances it named (20260731-212612); and a
@@ -1033,7 +1033,7 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   decides.
   20260729-092452, 20260731-212612, 20260731-212615, 20260731-212616.
 
-- `close-a-task-with-its-review-and-retro-not-just-the-status` (x3) -> tatr CLI
+- `close-a-task-with-its-review-and-retro-not-just-the-status` (x3, PROMOTE 2026-08-01 -> 20260801-113117) -> tatr CLI
   guard, not prose. Three sessions have flipped STATUS to CLOSED before the
   REVIEW/RETRO artifacts existed, each time caught after the fact by
   `tatr check`. Prose has not held it. Proposal: make `tatr` REFUSE the
