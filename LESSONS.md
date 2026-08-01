@@ -1038,7 +1038,7 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   impossible rather than merely detectable. 20260729-092239, 20260729-092339,
   20260729-141427.
 
-- `when-a-fix-changes-an-invariant-grep-its-callers-for-documented-dependencies` (x3)
+- `when-a-fix-changes-an-invariant-grep-its-callers-for-documented-dependencies` (x3, PROMOTE 2026-08-01 -> 20260801-124740)
   -> tooling, not prose. Three hits, each a stated dependency left behind by a
   change that was itself careful: a comment in `src/game.ts` naming the
   auto-open invariant a fix was removing (20260729-141414); `AGENTS.md`'s
