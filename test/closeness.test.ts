@@ -113,7 +113,7 @@ describe("tree closeness tiers", () => {
         // (`guessTier(...) - 1` in buildGuessTree, say) still yields five
         // distinct ascending values, so the weaker form let it through - and
         // an off-the-end tier has no `.node-close-N` rule, so it renders as an
-        // unstyled node. Exact indices catch both. Found in review, R1.1.
+        // unstyled node. Exact indices catch both.
         const roots = buildGuessTree(playedGame(LADDER));
         const tiers = LADDER.map(
             (name) => nodeFor(roots, idFor(name)).closenessTier

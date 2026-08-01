@@ -45,7 +45,7 @@ describe("the lint script", () => {
         // substring of "npm run lint:fix", the one script this repo
         // deliberately leaves non-strict. A plain substring check passed
         // happily with the gate rewired to `lint:fix` - i.e. with the flag
-        // above no longer running at all. See REVIEW.md round 1, MAJOR.
+        // above no longer running at all.
         expect(pkg.scripts.ci).toMatch(stepPattern("lint"));
     });
 
@@ -54,7 +54,7 @@ describe("the lint script", () => {
         // invokes `npm run lint` rather than spelling out its own eslint
         // command. AGENTS.md states that inheritance as fact, so assert it
         // against the workflow file instead of just reasoning about it in a
-        // comment (REVIEW.md round 1, first MINOR).
+        // comment.
         const workflow = fs.readFileSync(
             path.join(__dirname, "..", ".github", "workflows", "ci.yml"),
             "utf8",
@@ -84,7 +84,7 @@ describe("the ci script", () => {
         // Asserted as two separate properties rather than one exact array, so
         // that legitimately appending a step to `ci` fails the "includes"
         // check above (pointing at the real omission) instead of failing here
-        // on a separator count (REVIEW.md round 1, third MINOR).
+        // on a separator count.
         const separators = pkg.scripts.ci.match(/&&|\|\||;/g) ?? [];
         expect(separators.length).toBeGreaterThanOrEqual(steps.length - 1);
         expect(separators.every((s) => s === "&&")).toBe(true);
@@ -92,11 +92,11 @@ describe("the ci script", () => {
 
     it("does not pipe a step's output anywhere", () => {
         // A trailing `| grep ...` or `| tee ...` reports the LAST command's
-        // status, so a failed compile can arrive as exit 0. See this task's
-        // Notes and the global "never end a build command with a pipe" rule.
+        // status, so a failed compile can arrive as exit 0. See the global
+        // "never end a build command with a pipe" rule.
         //
-        // Any `|` at all: the earlier `/\|[^|]/` missed a script ENDING in a
-        // pipe, since it demanded a following character. This also flags `||`,
+        // Any `|` at all: a narrower `/\|[^|]/` misses a script ENDING in a
+        // pipe, since it demands a following character. This also flags `||`,
         // which the separator assertion above independently forbids anyway.
         expect(pkg.scripts.ci).not.toMatch(/\|/);
     });

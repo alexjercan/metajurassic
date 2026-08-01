@@ -1,4 +1,4 @@
-// Difficulty simulation for the playtest pass (tasks/20260729-092435).
+// Difficulty simulation: how hard is a round, for how good a player?
 //
 // Plays every target in the REAL content graph (`src/jurassic/index.json`) with
 // several player policies and reports the guess distribution, the loss rate at

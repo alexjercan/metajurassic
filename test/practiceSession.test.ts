@@ -87,8 +87,8 @@ describe("resolvePracticeSeed", () => {
     test("resumes a round that has been started but not yet guessed in", () => {
         // `startNewPracticeRound` writes the pointer; `saveGameState` only
         // writes the round on the first guess. A reload in between must NOT
-        // re-roll, or the bug this task fixes just moves to the first second of
-        // the round.
+        // re-roll, or the re-roll bug just moves to the first second of the
+        // round.
         const storage = new MemoryStorage();
         storage.setItem(CURRENT_SEED_KEY, "4321");
 
@@ -272,7 +272,8 @@ describe("abandonPracticeRound", () => {
     test("KEEPS a finished round - it is a practice stat now", () => {
         // "I won -> New game" is the end of every round, and it runs through
         // here. Deleting the entry would erase the player's own record of the
-        // game they just played from the profile page. DECISION.md fork 2.
+        // game they just played from the profile page.
+        // tasks/20260729-101754/DECISION.md fork 2.
         const storage = new MemoryStorage();
         storage.setItem(CURRENT_SEED_KEY, "1234");
         writeRound(storage, 1234, { targetId: "trex", guesses: ["trex"] });
@@ -424,8 +425,8 @@ describe("prunePracticeEntries", () => {
     });
 
     test("a long run of rounds stays bounded at MAX_PRACTICE_ENTRIES", () => {
-        // The end-to-end property the DoD asks for: play many rounds back to
-        // back and localStorage does not grow without bound.
+        // The end-to-end property: play many rounds back to back and
+        // localStorage does not grow without bound.
         const storage = new MemoryStorage();
         let draw = 0;
         const rng = () => {

@@ -5,8 +5,8 @@ import rawGameData from "../src/jurassic/index.json";
 
 // These run against the REAL species list (`src/jurassic/index.json`), in the
 // same order the game builds it (`src/game.ts`: `data.species.map(s => s.species)`),
-// because both bugs this task fixes are about ORDER: which names survive the
-// truncation to 8, and which of the survivors comes first. A hand-written
+// because both defects these tests pin are about ORDER: which names survive
+// the truncation to 8, and which of the survivors comes first. A hand-written
 // fixture would let the list be reordered underneath the assertions.
 const speciesNames = buildGameData(
     rawGameData as unknown as RawGameData
@@ -83,9 +83,9 @@ describe("findMatches ranking", () => {
 
 describe("findMatches truncation vs guessed species", () => {
     it("still offers a full list after the first 8 suggestions are guessed", () => {
-        // The exact repro from the task: guessing what the box offered used to
-        // empty it, because the slice to 8 happened BEFORE guessed names were
-        // dropped. 83 species match "saur", so the box has plenty left.
+        // The repro: guessing what the box offered used to empty it, because
+        // the slice to 8 happened BEFORE guessed names were dropped. 83 species
+        // match "saur", so the box has plenty left.
         const first = findMatches(speciesNames, "saur", noneGuessed);
         expect(first).toHaveLength(MAX_SUGGESTIONS);
 

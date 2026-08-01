@@ -124,9 +124,8 @@ describe("GameState", () => {
 
     test("canAffordHint returns false when not enough guesses left", () => {
         const data = makeGameData();
-        // Fill up most of the guesses budget with hints
-        // MAX_GUESSES = 25, each hint costs 3
-        // 8 hints = 24 guesses used, leaving 1 (< HINT_COST)
+        // MAX_GUESSES = 25 and a hint costs 3, so 8 hints spend 24 and leave
+        // 1 - less than HINT_COST.
         const state = new GameState(
             data,
             "trex",

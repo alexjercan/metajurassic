@@ -5,10 +5,10 @@ import {
     computeTreeScale,
 } from "../src/ui/treeLayout";
 
-// The arithmetic behind the tree's sizing and resting scroll position
-// (task 20260729-092339). The browser specs in e2e/tree.spec.ts and
-// e2e/mobile.spec.ts prove the DOM actually ends up where these say; this
-// covers the edges that are awkward to stage in a real round.
+// The arithmetic behind the tree's sizing and resting scroll position. The
+// browser specs in e2e/tree.spec.ts and e2e/mobile.spec.ts prove the DOM
+// actually ends up where these say; this covers the edges that are awkward to
+// stage in a real round.
 
 describe("computeTreeScale", () => {
     // Desktop and phone node text, the two sizes the game actually renders at.

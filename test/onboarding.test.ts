@@ -13,7 +13,7 @@ describe("onboarding brief copy", () => {
     test("carries all four facts the first screen used to omit", () => {
         const copy = briefCopy();
 
-        // Playtest F3.1: the first screen stated none of these.
+        // The first screen used to state none of these.
         expect(copy.objective).toMatch(/find the mystery dinosaur/i);
         expect(copy.mystery).toMatch(/\?/);
         expect(copy.feedback).toMatch(/clade/i);

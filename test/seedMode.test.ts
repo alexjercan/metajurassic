@@ -70,9 +70,8 @@ describe("parseSeedParam", () => {
         expect(parseSeedParam("?seed=abc")).toBeNull();
         expect(parseSeedParam("?seed=4.2")).toBeNull();
         expect(parseSeedParam("?seed=1e3")).toBeNull();
-        // Overflows Number.isSafeInteger - the guard for the "huge" edge case
-        // the task called out. All-digits, so the regex passes; the safe-integer
-        // check is what rejects it.
+        // Overflows Number.isSafeInteger. All-digits, so the regex passes; the
+        // safe-integer check is what rejects it.
         expect(parseSeedParam("?seed=99999999999999999999")).toBeNull();
     });
 });

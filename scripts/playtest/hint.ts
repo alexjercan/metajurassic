@@ -1,21 +1,28 @@
-// Spike instrumentation (tasks/20260729-160500): what is a hint WORTH, in the
-// same currency as a guess - and, in section 5, does it RESCUE the player it is
-// aimed at?
+// What is a hint WORTH, in the same currency as a guess - and does it RESCUE
+// the player it is aimed at? Compares the shipped hint rule against candidate
+// alternatives over the REAL content graph (`src/jurassic/index.json`).
 //
-// SHIPPED DESIGN (tasks/20260729-141424/DECISION.md, landed): threshold split at
-// HINT_SPLIT_FRACTION = 1/2, HINT_COST unchanged at 3, MAX_HINTS = -1
-// (uncapped). Sections 1-4 measure return on investment and pointed at 1/4 +
-// cost 2; section 5 measures rescue, which is the bar that was accepted. Where
-// they disagree, section 5 wins.
+// Prints six numbered sections (pacing is emitted before full-round cost):
+//   0. shape of the lineage ladder - how much of the field each level holds
+//   1. what one guess is worth in bits, i.e. the price a hint must beat
+//   2. what one hint is worth, per policy and per board state
+//   3. full-round cost, and the break-even HINT_COST each policy implies
+//   4. pacing - how many hints a policy has on offer from a cold board
+//   5. rescue - the loss rate for players who cannot read the tree
 //
-// Measures over the REAL content graph (`src/jurassic/index.json`):
-//   1. the information a guess delivers (bits), i.e. the price a hint must beat
-//   2. the information the CURRENT hint delivers, up front and mid-round
-//   3. the same for candidate alternative hint-selection policies
-//   4. the break-even HINT_COST each policy implies, and a full round
-//      simulation at cost 1/2/3
+// Cross-checks on every full run: `sanityCheck` replays the reproduced shipped
+// policy against `findNextHintCladeId`, so a change in `src/` surfaces as a
+// mismatch instead of a silently stale comparison. `PLAYTEST_ONLY=rescue`
+// returns before it - that path is for iterating on section 5, not for
+// trusting the comparison.
+//
+// Investment (0-3) and rescue (5) can disagree; rescue is the accepted bar, and
+// the shipped rule follows it - threshold split at HINT_SPLIT_FRACTION = 1/2,
+// HINT_COST 3, uncapped. Rationale: tasks/20260729-141424/DECISION.md.
 //
 // Game logic is imported from `src/`, never re-implemented (difficulty.ts rule).
+//
+// Run: npm run playtest:hint   (PLAYTEST_ONLY=rescue for section 5 alone)
 
 import * as fs from "fs";
 import * as path from "path";
@@ -102,9 +109,8 @@ interface HintContext {
 
 type HintPolicy = (ctx: HintContext) => string | null;
 
-// What the game did BEFORE 20260729-141424: the first unrevealed clade below
-// the deepest revealed one, one level per hint. Kept as the baseline every
-// alternative is measured against - it is why the hint was a trap.
+// Baseline rule: the first unrevealed clade below the deepest revealed one, one
+// level per hint. Every alternative is measured against it.
 const topDown: HintPolicy = ({ lineage, revealed }) => {
     let deepestRevealedIdx = -1;
     for (let i = 0; i < lineage.length; i++) {
@@ -120,8 +126,8 @@ const topDown: HintPolicy = ({ lineage, revealed }) => {
     return null;
 };
 
-// The other half of the fork in tasks/20260729-141424: reveal the most
-// specific unrevealed clade, i.e. essentially name the target's own family.
+// Deepest-clade rule: reveal the most specific unrevealed clade, i.e.
+// essentially name the target's own family.
 const bottomUp: HintPolicy = ({ lineage, revealed }) => {
     for (let i = 0; i < lineage.length; i++) {
         if (!revealed.has(lineage[i])) return lineage[i];
@@ -134,11 +140,10 @@ const bottomUp: HintPolicy = ({ lineage, revealed }) => {
 // that cuts the candidate set to at most `frac` of its size. Shallowest keeps
 // the reveal incremental (the top-down feel the user asked to keep) while the
 // threshold skips the levels that narrow nothing.
-// Review finding (REVIEW.md, M1): the threshold rule has a fallback branch -
-// when NO unrevealed clade meets the threshold it returns the deepest one, i.e.
-// it degrades to bottom-up and can name the target's own family. This counter
-// measures how often that branch actually fires, so the fallback is a measured
-// choice rather than an unnoticed hole in the recommendation.
+// The rule has a fallback branch: when NO unrevealed clade meets the threshold
+// it returns the deepest one, degrading to the deepest-clade rule above and
+// naming the target's own family. This counter measures how often that branch
+// fires, so the fallback stays a measured choice rather than an unnoticed hole.
 const fallbackHits = {
     fired: 0,
     total: 0,
@@ -219,10 +224,10 @@ const splitHalfNearest: HintPolicy = ({
     return best;
 };
 
-// The rule the game now ships (20260729-141424). Reproduced here so the
-// policies can be compared like-for-like; `sanityCheck` verifies the
-// reproduction against the real function on every run, so a change to `src/`
-// shows up as a mismatch instead of a silently stale comparison.
+// The rule the game ships. Reproduced here so the policies can be compared
+// like-for-like; `sanityCheck` verifies the reproduction against the real
+// function on every run, so a change to `src/` shows up as a mismatch instead
+// of a silently stale comparison.
 const shipped: HintPolicy = splitThreshold(HINT_SPLIT_FRACTION);
 
 const POLICIES: { name: string; play: HintPolicy }[] = [
@@ -274,7 +279,7 @@ function contextFor(
 }
 
 // ---------------------------------------------------------------------------
-// 1. What is a guess worth, in bits?
+// What is a guess worth, in bits?
 // ---------------------------------------------------------------------------
 
 const consistentPick = (candidates: Species[], rand: () => number): Species =>
@@ -333,7 +338,7 @@ function bitsPerGuess(data: GameData, trials: number): void {
 }
 
 // ---------------------------------------------------------------------------
-// 2 + 3. What is a HINT worth, per policy, at various board states?
+// What is a HINT worth, per policy, at various board states?
 // ---------------------------------------------------------------------------
 
 function hintValue(data: GameData, afterGuesses: number[], trials: number) {
@@ -395,7 +400,7 @@ function hintValue(data: GameData, afterGuesses: number[], trials: number) {
 }
 
 // ---------------------------------------------------------------------------
-// 4. Full-round simulation: does a hint lower TOTAL cost, at cost 1/2/3?
+// Full-round simulation: does a hint lower TOTAL cost, at cost 1/2/3?
 // ---------------------------------------------------------------------------
 
 type Narrowing = "deduce" | "read-tree";
@@ -557,7 +562,7 @@ function simulate(data: GameData, trials: number): void {
 }
 
 // ---------------------------------------------------------------------------
-// 5. Sanity: the reproduced shipped policy matches the real function
+// Sanity: the reproduced shipped policy matches the real function
 // ---------------------------------------------------------------------------
 
 function sanityCheck(data: GameData): void {
@@ -621,7 +626,7 @@ function cladeSizeShape(data: GameData): void {
 }
 
 // ---------------------------------------------------------------------------
-// 6. Pacing: how many hints does a policy have to give, from a cold board?
+// Pacing: how many hints does a policy have to give, from a cold board?
 // ---------------------------------------------------------------------------
 //
 // A hint people can spam until it names the answer is a different game. This
@@ -678,13 +683,13 @@ function pacing(data: GameData): void {
 const TRIALS = Number(process.env.PLAYTEST_TRIALS ?? 5);
 
 // ---------------------------------------------------------------------------
-// 7. Rescue: does a hint save the player who cannot read the tree?
+// Rescue: does a hint save the player who cannot read the tree?
 // ---------------------------------------------------------------------------
 //
-// Sections 1-4 ask "does a hint pay for itself", i.e. is it a good INVESTMENT.
-// That is the wrong bar if a hint is meant to be a desperate move rather than
-// an edge (user, 20260729). The bar here instead: a hint should rescue a player
-// who cannot play, without ever helping one who can.
+// The earlier sections ask "does a hint pay for itself", i.e. is it a good
+// INVESTMENT. That is the wrong bar for a hint meant to be a desperate move
+// rather than an edge. The bar here instead: a hint should rescue a player who
+// cannot play, without ever helping one who can.
 //
 // Two player models, neither of which reads the tree:
 //
@@ -694,9 +699,10 @@ const TRIALS = Number(process.env.PLAYTEST_TRIALS ?? 5);
 //                    CANNOT move this number. It is the wrong target.
 //   hint-follower  - cannot deduce from join points, but CAN act on a clade
 //                    named in plain words: it guesses at random from inside the
-//                    deepest hinted clade. This is the player a hint is for, and
-//                    it only exists in the real game if a surface maps a clade to
-//                    its member species (task 20260729-141425).
+//                    deepest hinted clade. This is the player a hint is for,
+//                    and it only exists in the real game once a surface maps a
+//                    clade to its member species.
+//                    NOTE: that surface is unbuilt - tatr 20260729-141425.
 
 type RescueModel = "blind" | "hint-follower";
 
@@ -810,7 +816,7 @@ function rescue(data: GameData, trials: number): void {
 
 function main(): void {
     const data = loadRealGameData();
-    console.log("Metajurassic hint-value spike (tasks/20260729-160500)");
+    console.log("Metajurassic hint-value report");
     console.log(
         `payload: ${path.relative(REPO_ROOT, PAYLOAD)}  species: ${data.species.length}  clades: ${Object.keys(data.clades).length}  trials/target: ${TRIALS}\n`
     );

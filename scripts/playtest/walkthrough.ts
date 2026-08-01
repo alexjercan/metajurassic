@@ -1,4 +1,4 @@
-// Screen capture walkthrough for the playtest pass (tasks/20260729-092435).
+// Screen capture walkthrough.
 //
 // Drives the real running game and photographs the moments a player actually
 // meets - first screen, after the first guess, after a hint, game over - for
@@ -12,7 +12,7 @@
 //   npm run playtest:walkthrough
 //
 // Shots land in `playtest-shots/` (gitignored - they are evidence for one pass,
-// not repository content). Findings go in tasks/20260729-092435/NOTES.md.
+// not repository content). Findings belong in the task record that ran it.
 
 import * as fs from "fs";
 import * as path from "path";
@@ -270,10 +270,9 @@ async function returningDaily(browser: Browser): Promise<void> {
 //
 // `findMatches` in src/ui/autocomplete.ts used to truncate to 8 BEFORE
 // filtering out guessed species, so guessed names kept consuming suggestion
-// slots and the box went empty with dozens of candidates left (task
-// 20260729-141427). It now filters first, so this plays out the endurance case
-// against the real widget: guess everything the box offers, and it must offer a
-// full list again.
+// slots and the box went empty with dozens of candidates left. It now filters
+// first, so this plays out the endurance case against the real widget: guess
+// everything the box offers, and it must offer a full list again.
 
 async function autocompleteEndurance(
     browser: Browser,

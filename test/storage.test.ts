@@ -1,6 +1,5 @@
 import { BrowserStorage, defaultStorage } from "../src/storage";
 
-// Mock localStorage
 class MockLocalStorage {
     private store: Map<string, string> = new Map();
 
@@ -149,7 +148,6 @@ describe("defaultStorage", () => {
         const storage1 = defaultStorage();
         const storage2 = defaultStorage();
 
-        // Should be different instances (not singleton)
         expect(storage1).not.toBe(storage2);
     });
 });

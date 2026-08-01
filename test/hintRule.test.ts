@@ -131,9 +131,9 @@ describe("findNextHintCladeId over the real payload", () => {
     });
 
     test("the old one-level-down behaviour is gone", () => {
-        // Regression pin for the bug this task fixed. Tyrannosaurus used to be
-        // offered `saurischia` (99 of 150 species) as its first hint; whatever
-        // it is offered now must be a real cut.
+        // Regression pin. Tyrannosaurus used to be offered `saurischia` (99 of
+        // 150 species) as its first hint; whatever it is offered now must be a
+        // real cut.
         const trex = data.species.find((s) =>
             s.species.toLowerCase().includes("tyrannosaurus")
         );

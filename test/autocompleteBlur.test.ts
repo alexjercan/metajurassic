@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-// The blur-timer race, and who owns the Enter key (20260729-130138).
+// The blur-timer race, and who owns the Enter key.
 //
 // The rest of the suite runs in the `node` environment; the docblock above
 // scopes jsdom to this file, as `test/cardRendering.test.ts` does.

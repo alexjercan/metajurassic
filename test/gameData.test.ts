@@ -109,7 +109,8 @@ describe("GameData", () => {
     });
 
     test("lineage handles circular references", () => {
-        // The lineage function protects against circular references with a visited set
+        // `lineage` breaks on a revisited node, so a cycle yields a short
+        // lineage rather than hanging.
         const circularClades: Record<string, Clade> = {
             clade1: {
                 id: "clade1",
@@ -126,7 +127,6 @@ describe("GameData", () => {
         };
         const circularData = new GameData([], circularClades);
         const lineage = circularData.lineage("clade1");
-        // Should break the cycle and return a finite lineage
         expect(lineage.length).toBeLessThanOrEqual(2);
     });
 

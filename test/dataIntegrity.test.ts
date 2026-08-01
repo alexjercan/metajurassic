@@ -169,8 +169,7 @@ describe("Jurassic media references", () => {
         // badge. Pinning the relation rather than just the URL shape means a
         // well-formed but WRONG icon (a copy-paste from the neighbouring
         // species, say) fails too. This is the invariant the stringified-list
-        // defect broke, repaired in the same change as this test
-        // (20260729-092404, folded into 20260729-092352).
+        // defect broke.
         const wrong = data.species
             .map((s) => ({ s, clade: data.findCladeById(s.clade) }))
             .filter(({ s, clade }) => !clade || s.icon !== clade.image)

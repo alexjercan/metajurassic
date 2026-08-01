@@ -208,6 +208,16 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   string on the first try). Instance of
   [[an-edit-you-believe-you-made-is-a-hypothesis-until-the-artifact-shows-it]]
   where the artifact was never even written. 20260729-092504.
+- `once-a-sprout-exists-run-tatr-inside-it` (x1): `tatr flow` was run from the
+  MAIN checkout while the task's TASK.md lived in the sprout worktree, so it
+  advanced the stale master copy (PLANNED -> WORKING) while the branch copy sat
+  at REVIEWING. It reported success both times; nothing distinguishes the two
+  files from the CLI's point of view. Caught by reading FLOW STEP in both trees
+  before the next commit and reverted with `git checkout --`. The state a task
+  ships with is the one on the branch, so every `tatr` call after `sprout new`
+  belongs inside the worktree. Sibling of
+  [[a-string-replace-that-matches-nothing-is-a-silent-no-op]] - same root cause,
+  two copies of one record, and the wrong one was edited. 20260731-212616.
 - `anchor-programmatic-edits-on-code-not-prose-and-read-the-diff-back` (x1): a
   scripted insertion anchored on a comment string landed INSIDE another symbol's
   doc block, splitting `ShareStats`'s documentation in half and re-attributing
@@ -239,7 +249,7 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   written from a task's title and outcome instead of the code it describes. A
   task record says what was DECIDED; only the function says what SHIPPED.
   20260729-092452.
-- `a-correction-is-a-new-claim-re-derive-it` (x3, PENDING PROMOTION): the fix
+- `a-correction-is-a-new-claim-re-derive-it` (x4, PENDING PROMOTION): the fix
   warning introduced a second wrong claim ("the INVERSE direction of Metazooa's
   green-to-red") by reasoning from the palette's written order rather than from
   what the scale is keyed on - `level` is distance from the answer, so green is
@@ -256,6 +266,12 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   correcting those raised a third stale site the round after. A fix that
   changes a measured quantity must RE-RUN the measurement; the blast radius of
   an edit is not something to derive in your head.
+  Fourth hit (20260731-212616): a playtest header was rewritten to drop its
+  archaeology and, in the same edit, gained "Cross-checks on every run" three
+  lines above the `PLAYTEST_ONLY=rescue` flag that skips the cross-check. The
+  deletion got all the attention; the replacement prose was treated as a summary
+  of code already read rather than as a claim of its own. Running the rig both
+  ways - a minute - is what review did to catch it.
 
 - `check-what-lives-at-a-path-a-task-names-as-a-reference` (x1): this task's step
   1 said to compare the game against "the local `~/personal/metazooa` helper
@@ -472,7 +488,7 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   Mirror image of the second hit on
   [[when-a-fix-changes-an-invariant-grep-its-callers-for-documented-dependencies]],
   where the miss was a path that ceased to exist. 20260731-212611.
-- `a-figure-restated-in-n-places-goes-stale-in-n-minus-one` (x1): one record
+- `a-figure-restated-in-n-places-goes-stale-in-n-minus-one` (x2): one record
   restated the same comment census - before, after, byte-identical, changed - in
   six independent places, with none marked authoritative. Three consecutive
   review rounds each corrected some sites and missed a different one, because
@@ -485,6 +501,12 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   measures a different population, and a REVIEW.md quoting figures as they stood
   when a finding was written, are legitimate and must be named as exceptions
   rather than swept. 20260731-212615.
+  Second hit (20260731-212616): the same shape twice in one task. `hint.ts`
+  carried two contradicting section numberings - in-file banners numbered 1-7
+  against printed headings numbered 0-5 - and the record's line-count figures,
+  transcribed into prose in three places, all went stale the moment the review
+  fixes changed two files. Fix for the code was to delete the second numbering
+  and let the printed headings be the only one.
 - `a-split-buys-seams-not-lines` (x1): splitting `game.ts` and `gameState.ts`
   into five files raised the cluster's line total by 17, because every new file
   pays for its own import block. What moved is the largest file a reader must
@@ -493,7 +515,10 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   from a pure split is the expected result, not a warning sign.
   20260731-212610. Confirmed, not a second hit, by 20260731-212611: the tree
   cluster went 973 -> 974 lines (+1) while its largest file went 443 -> 291.
-  The count stays at one because the rule was stated up front and held.
+  The count stays at one because the rule was stated up front and held. Confirmed
+  again by 20260731-212616: the Jest/playtest cluster went 7711 -> 7710 (-1)
+  while its largest file went 1110 -> 603. Three clusters, three flat totals,
+  three halved maxima - the pattern is now the expected result of a split.
 
 ## Testing
 
@@ -990,13 +1015,15 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   cannot chase only the first. User decides.
   20260731-212610, 20260731-212612, 20260731-212613, 20260731-212615.
 
-- `a-correction-is-a-new-claim-re-derive-it` (x3) -> tooling, not prose. Three
+- `a-correction-is-a-new-claim-re-derive-it` (x4) -> tooling, not prose. Four
   hits, each one a FIX that shipped a fresh wrong claim: a corrected colour-scale
   fact reasoned from the palette's order (20260729-092452); a method-level
   finding fixed only at the two instances it named (20260731-212612); and a
   compaction recorded with "so no other figure moves", reasoned from an
   unchanged line count rather than re-measured, which took two further review
-  rounds to unwind (20260731-212615). Prose cannot catch this because in each
+  rounds to unwind (20260731-212615); and a comment rewritten for honesty that
+  contradicted a flag documented ten lines below it (20260731-212616), which the
+  figure-oriented proposal below would NOT have caught. Prose cannot catch this because in each
   case the author had just done careful work and the correction felt like the
   end of the task, not a new claim. Proposal: fold it into the same `tatr check`
   cross-check proposed for
@@ -1004,7 +1031,7 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   changes any figure should have to re-print the block that figure came from, so
   "nothing else moved" is a regenerated table rather than a sentence. User
   decides.
-  20260729-092452, 20260731-212612, 20260731-212615.
+  20260729-092452, 20260731-212612, 20260731-212615, 20260731-212616.
 
 - `close-a-task-with-its-review-and-retro-not-just-the-status` (x3) -> tatr CLI
   guard, not prose. Three sessions have flipped STATUS to CLOSED before the
