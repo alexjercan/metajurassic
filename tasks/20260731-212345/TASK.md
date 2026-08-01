@@ -136,6 +136,6 @@ all apply.
 | 20260731-212612 | 66 | metajurassic | KISS pass: profile page and stats maths | landed |
 | 20260731-212613 | 64 | metajurassic | KISS pass: practice session, storage, and content loaders | landed |
 | 20260731-212614 | 62 | metajurassic | KISS pass: src/ui widget family | landed |
-| 20260731-212615 | 60 | metajurassic | Split e2e/helpers.ts into focused helper modules | |
+| 20260731-212615 | 60 | metajurassic | Split e2e/helpers.ts into focused helper modules | landed |
 | 20260731-212616 | 58 | metajurassic | KISS pass: Jest suites and playtest rigs | |
 | 20260731-212617 | 50 | metajurassic | Decide and, if safe, split src/style.css by surface | |

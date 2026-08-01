@@ -3,7 +3,7 @@ import {
     computeDailyKey,
     seedFinishedDailyGame,
     wrongGuessIds,
-} from "./helpers";
+} from "./helpers/content";
 import { MAX_GUESSES } from "../src/constants";
 
 // The share button, end to end in a real browser: both the native share sheet

@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { guessFirstSuggestion, loadContent } from "./helpers";
+import { guessFirstSuggestion } from "./helpers/guessing";
+import { loadContent } from "./helpers/content";
 
 // The guess flow from typing through rendered feedback: type a partial name,
 // navigate the suggestion list with the keyboard, submit, and confirm the
@@ -33,12 +34,10 @@ test.describe("autocomplete guess flow", () => {
         const itemCount = await items.count();
         expect(itemCount).toBeGreaterThan(0);
 
-        // Navigate down one and submit the highlighted suggestion.
         await input.press("ArrowDown");
         await expect(box.locator(".autocomplete-active")).toHaveCount(1);
         await input.press("Enter");
 
-        // Guesses left decremented by exactly one, input cleared, tree changed.
         await expect(statBox).toContainText("Guesses Left: 24");
         await expect(input).toHaveValue("");
         await expect

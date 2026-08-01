@@ -1,9 +1,7 @@
 import { test, expect } from "@playwright/test";
-import {
-    expectPullTabInsideViewport,
-    guessFirstSuggestion,
-    loadContent,
-} from "./helpers";
+import { guessFirstSuggestion } from "./helpers/guessing";
+import { loadContent } from "./helpers/content";
+import { expectPullTabInsideViewport } from "./helpers/panel";
 
 // The info panel can be opened and closed, shows clade/species card content,
 // and closing it leaves the control path (the guess input) usable. Runs on the
@@ -28,18 +26,15 @@ test.describe("info panel", () => {
         await expect(input).toBeEditable();
         await expect(card).not.toBeEmpty();
 
-        // Toggle open: the pre-rendered hint card is shown.
         await toggle.click();
         await expect(panel).toHaveClass(/active/);
         await expect(card.locator(".card-title")).toBeVisible();
 
-        // Toggle closed: panel is dismissed and the input remains usable.
         await toggle.click();
         await expect(panel).not.toHaveClass(/active/);
         await expect(input).toBeVisible();
         await expect(input).toBeEditable();
 
-        // Toggle open again: card content is shown once more.
         await toggle.click();
         await expect(panel).toHaveClass(/active/);
         await expect(card.locator(".card-title")).toBeVisible();

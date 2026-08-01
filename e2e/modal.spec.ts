@@ -1,13 +1,11 @@
 import { test, expect } from "@playwright/test";
-import {
-    loadContent,
-    seedFinishedDailyGame,
-    expectActionsOnOneRow,
-} from "./helpers";
+import { loadContent, seedFinishedDailyGame } from "./helpers/content";
+import { expectActionsOnOneRow } from "./helpers/modal";
 
 // End-of-game modal smoke coverage. The finished game state is injected into
-// localStorage keyed off a frozen clock (see helpers.ts and DECISION.md), so
-// the modal renders deterministically without a real playthrough.
+// localStorage keyed off a frozen clock (see e2e/helpers/content.ts and
+// tasks/20260729-092258/DECISION.md), so the modal renders deterministically
+// without a real playthrough.
 test.describe("end-of-game modal", () => {
     test.beforeEach(async ({ page }) => {
         // Freeze time so the daily storage key is stable across the reload.

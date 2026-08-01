@@ -164,7 +164,7 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   - real (streaks count wins, so a loss does not break one) but not the shared
   round's to claim. For any displayed value ask "did THIS event earn it?", not
   just "is it true?". 20260729-101823.
-- `absence-claims-need-a-listing-not-a-recollection` (x1): the playtest notes
+- `absence-claims-need-a-listing-not-a-recollection` (x2): the playtest notes
   asserted "no surface in the game maps a clade to its member species" after
   enumerating three surfaces from memory - and missed `src/species.ts`, which
   lists all 150 species with their clade and sits right next to the
@@ -173,6 +173,11 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   from the files you happen to have opened. Same family as
   [[absence-proving-greps-must-be-run-when-written]]: both are proofs of a
   negative that were asserted rather than executed. 20260729-092435.
+  Second hit (20260731-212615): a record claimed "no `SPIKE.md` exists for any
+  record cited in this file" and NAMED four spike IDs as the listing. None of
+  the four exists; `ls tasks/*/SPIKE.md` returns one file. Inventing the
+  listing is worse than omitting it, because the fabricated evidence is what
+  makes the claim look checked.
 - `a-measurement-licenses-a-claim-only-over-the-range-it-swept` (x2): the
   difficulty simulation measured hints bought BEFORE the first guess and the
   write-up concluded "it is never correct to buy one" - but the hint reveals one
@@ -234,7 +239,7 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   written from a task's title and outcome instead of the code it describes. A
   task record says what was DECIDED; only the function says what SHIPPED.
   20260729-092452.
-- `a-correction-is-a-new-claim-re-derive-it` (x2): the fix for a wrong colour-scale
+- `a-correction-is-a-new-claim-re-derive-it` (x3, PENDING PROMOTION): the fix
   warning introduced a second wrong claim ("the INVERSE direction of Metazooa's
   green-to-red") by reasoning from the palette's written order rather than from
   what the scale is keyed on - `level` is distance from the answer, so green is
@@ -245,6 +250,12 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   fix re-ran the method for those two and left the other six on the discredited
   pass, so round 2 raised two more findings on the same defect. When a finding
   faults a method, its scope is the method, not the instances it names.
+  Third hit (20260731-212615): a compaction made in response to a MAJOR was
+  recorded with "so no other figure moves" - reasoned from the fact that the
+  file's line count was unchanged, not re-measured. Two figures had moved, and
+  correcting those raised a third stale site the round after. A fix that
+  changes a measured quantity must RE-RUN the measurement; the blast radius of
+  an edit is not something to derive in your head.
 
 - `check-what-lives-at-a-path-a-task-names-as-a-reference` (x1): this task's step
   1 said to compare the game against "the local `~/personal/metazooa` helper
@@ -287,7 +298,7 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   (053fe72), so it is grandfathered, not canonical. A committed sibling cannot
   tell you which of its properties the linter currently requires; `tatr scaffold`
   can, and prints the template. 20260731-212557.
-- `a-regex-over-source-is-not-a-parse` (x1): the comment inventory's first pass
+- `a-regex-over-source-is-not-a-parse` (x2): the comment inventory's first pass
   used `ts.createScanner`, which resolves `/` without parser context and read the
   regex `/\.md$/` in `src/markdownLoader.ts:29` as the start of a comment,
   swallowing the rest of the file - reporting 115 comments in `src/` where there
@@ -299,6 +310,13 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   PARSER, and check the result against a number produced outside the session
   before building on it. Sibling of
   [[absence-claims-need-a-listing-not-a-recollection]]. 20260731-212557.
+  Second hit (20260731-212615): the parser was used this time, but its walk
+  recursed with `forEachChild`, which skips punctuation and keyword tokens, so
+  a comment attached to one was never seen - 889 / 1 / 1 against a known
+  889 / 10 / 18. The `wc -l` cross-check AGREED, because line counting and
+  comment counting fail independently. A counter's cheap proxy is not a check
+  on it; validate against a known answer produced outside the session, which
+  is the only thing that caught this.
 - `tick-a-step-against-its-clauses-not-in-one-bulk-edit` (x1): the seven Steps
   were ticked with a single `- [ ]` -> `- [x]` replace across `TASK.md`. Step 1
   asked for two tables and the record had one; the bulk edit is precisely what
@@ -367,7 +385,7 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   that merely contains it. Grep as widely as possible and filter the output by
   reading it. Sibling of [[absence-proving-greps-must-be-run-when-written]].
   20260731-212610.
-- `search-the-whole-record-tree-before-declaring-a-rationale-unrecorded` (x3,
+- `search-the-whole-record-tree-before-declaring-a-rationale-unrecorded` (x4,
   PENDING PROMOTION):
   the comment policy allows compacting a comment only towards an existing
   record, so "is this recorded" decides whether a long comment is cut or kept.
@@ -390,6 +408,12 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   verbatim - and the literal `grep -rn isResumable tasks/`, one hit, was never
   run. A negative claim needs its own evidence: grep the literal SYMBOL NAME as
   a second pass, and read every record KIND in the folder, not just DECISION.
+  Fourth hit (20260731-212615): the comment cited TWO task IDs and only the
+  first was chased. `20260331-154614` has no compaction-target record, so the
+  comment was cleared as a keep - while the second ID's
+  `20260729-092339/DECISION.md` `## Fork 3` restated its first paragraph nearly
+  clause for clause. Every ID a comment cites is a separate question; clearing
+  it on the first one answers none of the others.
 - `inherited-figures-do-not-satisfy-a-sentence-that-says-measured` (x2): a
   DECISION.md paragraph opened "Confirmed against the file rather than inherited
   from the plan" and then quoted the plan's "about 60 lines" for the seam it was
@@ -448,6 +472,19 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   Mirror image of the second hit on
   [[when-a-fix-changes-an-invariant-grep-its-callers-for-documented-dependencies]],
   where the miss was a path that ceased to exist. 20260731-212611.
+- `a-figure-restated-in-n-places-goes-stale-in-n-minus-one` (x1): one record
+  restated the same comment census - before, after, byte-identical, changed - in
+  six independent places, with none marked authoritative. Three consecutive
+  review rounds each corrected some sites and missed a different one, because
+  every re-measure was a manual fan-out. The remedy is structural, not another
+  proofreading pass: put the figures in ONE measured block with its reproduction
+  command, and have every other site name the group ("the byte-identical keeps")
+  instead of the number. Two caveats learned the same round: the block must be
+  internally correct, since a wrong single source of truth is worse than the
+  duplication it replaces, and its scope must be stated - a per-file table that
+  measures a different population, and a REVIEW.md quoting figures as they stood
+  when a finding was written, are legitimate and must be named as exceptions
+  rather than swept. 20260731-212615.
 - `a-split-buys-seams-not-lines` (x1): splitting `game.ts` and `gameState.ts`
   into five files raised the cluster's line total by 17, because every new file
   pays for its own import block. What moved is the largest file a reader must
@@ -932,7 +969,7 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   own correction sitting in plain sight. User decides.
   20260731-212557, 20260731-212611, 20260731-212612.
 
-- `search-the-whole-record-tree-before-declaring-a-rationale-unrecorded` (x3)
+- `search-the-whole-record-tree-before-declaring-a-rationale-unrecorded` (x4)
   -> tooling, not prose. Three times a comment has been judged "unrecorded" and
   been recorded all along, each time for a DIFFERENT reason: the grep was scoped
   to the records the comment named (20260731-212610); the terms came from the
@@ -946,8 +983,28 @@ frontmatter in `src/jurassic/` into `src/jurassic/index.json`.
   printing every hit WITH its record KIND, so the author reads a labelled
   listing instead of deciding when to stop scrolling - and so the KIND question
   (is this record a compaction target?) is answered by the tool rather than
-  remembered. User decides.
-  20260731-212610, 20260731-212612, 20260731-212613.
+  remembered. A fourth hit (20260731-212615) adds a fourth distinct reason: the
+  comment cited TWO task IDs, the first had no compaction-target record, and the
+  comment was cleared without opening the second - whose `DECISION.md` restated
+  it. That strengthens the same proposal, since a tool fed every ID in a comment
+  cannot chase only the first. User decides.
+  20260731-212610, 20260731-212612, 20260731-212613, 20260731-212615.
+
+- `a-correction-is-a-new-claim-re-derive-it` (x3) -> tooling, not prose. Three
+  hits, each one a FIX that shipped a fresh wrong claim: a corrected colour-scale
+  fact reasoned from the palette's order (20260729-092452); a method-level
+  finding fixed only at the two instances it named (20260731-212612); and a
+  compaction recorded with "so no other figure moves", reasoned from an
+  unchanged line count rather than re-measured, which took two further review
+  rounds to unwind (20260731-212615). Prose cannot catch this because in each
+  case the author had just done careful work and the correction felt like the
+  end of the task, not a new claim. Proposal: fold it into the same `tatr check`
+  cross-check proposed for
+  [[derive-every-number-in-a-table-from-the-same-rig]] - a record whose diff
+  changes any figure should have to re-print the block that figure came from, so
+  "nothing else moved" is a regenerated table rather than a sentence. User
+  decides.
+  20260729-092452, 20260731-212612, 20260731-212615.
 
 - `close-a-task-with-its-review-and-retro-not-just-the-status` (x3) -> tatr CLI
   guard, not prose. Three sessions have flipped STATUS to CLOSED before the

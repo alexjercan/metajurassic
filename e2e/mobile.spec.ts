@@ -1,25 +1,34 @@
 import { test, expect } from "@playwright/test";
+import { guessFirstSuggestion } from "./helpers/guessing";
+import { loadContent, seedFinishedDailyGame } from "./helpers/content";
 import {
-    expectPullTabInsideViewport,
-    guessFirstSuggestion,
-    expectTreeNotOccludedByPanel,
-    expectNoBoxOverlap,
-    expectFullyVisibleWithin,
     playWideTree,
-    expectNodeVisibleInArena,
-    expectNewestGuessFramed,
-    expectNoDeadScrollBand,
-    expectEveryNodeReachable,
-    expectNodeTextReadable,
-    touchScrollArena,
-    MIN_PAINTED_FONT_PX,
-    expectModalFitsViewport,
-    expectActionsOnOneRow,
-    loadContent,
-    seedFinishedDailyGame,
     playSeededPracticeToWin,
     playSeededPracticeToLoss,
-} from "./helpers";
+} from "./helpers/rounds";
+import {
+    MIN_PAINTED_FONT_PX,
+    expectNodeVisibleInArena,
+    expectNewestGuessFramed,
+    expectNodeTextReadable,
+} from "./helpers/tree";
+import {
+    expectNoDeadScrollBand,
+    expectEveryNodeReachable,
+    touchScrollArena,
+} from "./helpers/arena";
+import {
+    expectPullTabInsideViewport,
+    expectTreeNotOccludedByPanel,
+} from "./helpers/panel";
+import {
+    expectModalFitsViewport,
+    expectActionsOnOneRow,
+} from "./helpers/modal";
+import {
+    expectNoBoxOverlap,
+    expectFullyVisibleWithin,
+} from "./helpers/viewport";
 import { MAX_GUESSES } from "../src/constants";
 
 // Phone sizes the game-over modal must hold at. 393px is the Pixel 5 this
@@ -108,12 +117,11 @@ test.describe("mobile game layout", () => {
         await input.click({ trial: true });
     });
 
-    // Was a test.fixme left by 20260729-092258 and owned by this task: on first
-    // load the info panel auto-opened and, on a phone viewport, overlayed the
-    // arena exactly (panel and #arena share the same box), so the tree - the
-    // primary game surface - was hidden behind the hint card. 20260729-092315
-    // stopped the first-load auto-open, so this is now a live regression pin on
-    // the "player can see the primary surface" invariant.
+    // The info panel used to auto-open on first load and, on a phone viewport,
+    // overlayed the arena exactly (panel and #arena share the same box), so the
+    // tree - the primary game surface - was hidden behind the hint card.
+    // 20260729-092315 stopped the first-load auto-open; this is the regression
+    // pin on the "player can see the primary surface" invariant.
     test("primary surface is not occluded by the info panel on first load", async ({
         page,
     }) => {
@@ -241,8 +249,7 @@ test.describe("mobile game layout", () => {
     // something. Dropping the auto-open on phones broke that for the MID-GAME
     // hint specifically: `updateUI()` no longer opens the panel there, and
     // src/game.ts only opened it by hand before the first guess, so three spent
-    // guesses bought a tree redraw and nothing else. Found in review round 1
-    // (R1.4).
+    // guesses bought a tree redraw and nothing else.
     test("a mid-game hint on a phone still shows its clade", async ({
         page,
     }) => {
@@ -296,9 +303,8 @@ test.describe("mobile game layout", () => {
         // viewport rects. #arena is a scroll container and renderTree scrolls it,
         // so a viewport-relative gap already has the auto-scroll subtracted out
         // and reads nearly the same however much padding sits above the tree -
-        // it cannot tell the two layouts apart. Review round 2 caught exactly
-        // that: with the anchor reverted to the desktop 120px, the
-        // viewport-relative form read 25px and PASSED.
+        // it cannot tell the two layouts apart: with the anchor reverted to the
+        // desktop 120px, the viewport-relative form read 25px and PASSED.
         const offset = await page.evaluate(() => {
             const arena = document.getElementById("arena");
             const tree = document.getElementById("tree-container");
@@ -658,12 +664,12 @@ test.describe("many-guess tree on a phone", () => {
         ).toBeLessThan(afterRight);
     });
 
-    // The other half of the resize story, and a regression this task's own
-    // relayout listener introduced before review round 1 caught it: a resize
-    // that does NOT change the picture must leave the player where they
-    // scrolled to. On Android Chrome the URL bar hiding during a drag resizes
-    // the layout viewport and fires `resize`; re-centring there would eat the
-    // gesture, which is the same family of symptom as the original report.
+    // The other half of the resize story, and a regression the relayout
+    // listener itself introduced: a resize that does NOT change the picture
+    // must leave the player where they scrolled to. On Android Chrome the URL
+    // bar hiding during a drag resizes the layout viewport and fires `resize`;
+    // re-centring there would eat the gesture, which is the same family of
+    // symptom as the original report.
     // `computeTreeScale` is a function of WIDTH alone, so a height-only change
     // cannot alter the scale and has nothing to re-frame.
     // Measured before the fix: scrollLeft 571 -> 0.

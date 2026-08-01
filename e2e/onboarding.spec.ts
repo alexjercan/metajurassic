@@ -1,9 +1,9 @@
 import { test, expect } from "@playwright/test";
+import { guessFirstSuggestion } from "./helpers/guessing";
 import {
-    guessFirstSuggestion,
     expectNoBoxOverlap,
     expectFullyVisibleWithin,
-} from "./helpers";
+} from "./helpers/viewport";
 import { MAX_GUESSES, HINT_COST } from "../src/constants";
 
 // Desktop coverage for the in-board onboarding brief and the hint chip copy.
@@ -65,7 +65,7 @@ test.describe("onboarding brief", () => {
         { width: 1280, height: 620 },
         // The shortest viewport in the sweep, and the tightest: it had 1px of
         // slack, so the height an inline error adds to .bottom-bar was enough to
-        // slice the How to play button in half (round 3, R3.1).
+        // slice the How to play button in half.
         { width: 320, height: 568 },
     ]) {
         for (const withError of [false, true]) {
@@ -143,7 +143,7 @@ test.describe("onboarding brief", () => {
         // The message itself must be readable. It is in normal flow, so it
         // grows .bottom-bar rather than being drawn over the footer - the
         // opposite trade from the first attempt, which kept the board rigid and
-        // hid the text (review round 2, R2.1).
+        // hid the text.
         await expectFullyVisibleWithin(page, "#input-error", ".bottom-bar");
     });
 

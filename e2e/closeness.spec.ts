@@ -1,5 +1,7 @@
 import { test, expect } from "@playwright/test";
-import { guessNamedSpecies, treeNode, WIDE_TREE_SEED } from "./helpers";
+import { guessNamedSpecies } from "./helpers/guessing";
+import { treeNode } from "./helpers/tree";
+import { WIDE_TREE_SEED } from "./helpers/rounds";
 
 // The board says warmer/colder (task 20260729-182255). Jest pins the TIER a
 // guess earns, over the real content graph; what only a browser can prove is

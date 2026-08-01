@@ -1,6 +1,6 @@
 import { test, expect, Page } from "@playwright/test";
 import rawGameData from "../src/jurassic/index.json";
-import { guessNamedSpecies } from "./helpers";
+import { guessNamedSpecies } from "./helpers/guessing";
 
 // The practice round lifecycle, driven through the real screen: a reload brings
 // the round back, starting a new one is an explicit mid-round action, and a

@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { isStructurallyValidImageSrc } from "./helpers";
+import { isStructurallyValidImageSrc } from "./helpers/content";
 
 // Image integrity, checked structurally and offline (see DECISION.md choice 4):
 // every rendered <img> must have a well-formed URL src. This catches the real,
@@ -37,10 +37,9 @@ test.describe("image integrity", () => {
         expect(isStructurallyValidImageSrc(src)).toBe(true);
     });
 
-    // Was `test.fixme` while every species `icon` field held a stringified
-    // Python list ("['https://...svg']"). The media was repaired and the data
-    // pinned by 20260729-092352 (which folded in 20260729-092404), so the
-    // invariant this test always encoded is now asserted for real.
+    // Every species `icon` field once held a stringified Python list
+    // ("['https://...svg']"). The media was repaired and the data pinned by
+    // 20260729-092352; this asserts the invariant that defect broke.
     test("a representative species card has a valid icon", async ({ page }) => {
         await page.goto("/species/");
         const icon = page.locator(".archive-card .card-icon").first();

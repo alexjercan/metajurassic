@@ -1,11 +1,11 @@
 # Split e2e/helpers.ts into focused helper modules
 
-- STATUS: OPEN
+- STATUS: CLOSED
 - PRIORITY: 60
-- TAGS: refactor,testing,e2e
+- TAGS: refactor, testing, e2e
 - KIND: STORY
-- FLOW STEP: BACKLOG
-- PLAN STATUS: DRAFT
+- FLOW STEP: DONE
+- PLAN STATUS: APPROVED
 - PARENT: 20260731-212345
 - DEPENDS ON: 20260731-212557
 
@@ -30,22 +30,32 @@ compacts only genuine narration; it does not thin out contract documentation.
 
 ## Steps
 
-- [ ] Follow the rules from the policy task, with the test-comment carve-out:
-      a comment stating why an assertion is shaped as it is, or which mutation
-      it must reject, is a KEEP.
-- [ ] Split `e2e/helpers.ts` into focused modules along the seams above. Keep a
-      re-export barrel only if the spec import churn is otherwise large; prefer
-      updating imports. Record the split boundaries.
-- [ ] Give each exported helper a one-line docstring stating its promise, and
-      delete the narration that a docstring replaces.
-- [ ] Compact the essays in `e2e/mobile.spec.ts` (248 comment lines) and the
-      other specs. Preserve every "this must fail when X is reverted" note -
-      those are the ledger's non-vacuity discipline in the code.
-- [ ] Change no assertion anywhere. Moving a helper between files is allowed;
-      changing what it checks is not.
-- [ ] Prove it: the full E2E suite passes, and a spot-check mutation still goes
-      red through the moved helpers (`LESSONS.md`:
+- [x] Stand up the parser rig from `tasks/20260731-212557/NOTES.md` and validate
+      it BOTH ways before use: against two landed sibling tables and against
+      this task's own `e2e/` baseline. Record the validation in NOTES.md.
+- [x] Move `e2e/helpers.ts` into `e2e/helpers/`, eight modules, no barrel:
+      `guessing.ts`, `content.ts`, `rounds.ts`, `tree.ts`, `arena.ts`,
+      `panel.ts`, `modal.ts`, `viewport.ts`. Boundaries and the symbol->module
+      map go in DECISION.md.
+- [x] Update the 11 importing specs' import lines only. List every edited line
+      in NOTES.md; no other change to a spec's body in this step.
+- [x] Comment pass over the eight new modules and over `e2e/mobile.spec.ts`
+      plus the other specs, under `AGENTS.md` `## Comments` with no extra
+      brevity rule. For EVERY keep and every compaction, grep `tasks/` on the
+      comment's subject AND on the literal symbol name, read every record KIND
+      found, and record the evidence. Compact only towards a DECISION.md,
+      SPIKE.md or NOTES.md.
+- [x] Change no assertion anywhere. Moving a helper between files is allowed;
+      changing what it checks is not. Helper bodies stay byte-identical apart
+      from indentation and comments.
+- [x] Prove it: `npm run test:e2e` and `npm run ci` inside `nix develop`, and
+      the recorded mutation (`.modal` `overflow-y: auto` -> `hidden` in
+      `src/style.css`, the R1.1 attack `expectActionsReachable` documents) goes
+      red before AND after, through the moved helper (`LESSONS.md`:
       `verify-a-guard-fix-with-the-attack-that-defeated-it`).
+- [x] NOTES.md carries: rig validation, before/after `lines / comments /
+      comment lines` per file from the rig, the per-comment "what happened to
+      X" table built FROM `git diff master`, and the import-line edit list.
 
 ## Definition of Done
 

@@ -1,14 +1,16 @@
 import { test, expect } from "@playwright/test";
+import { playWideTree } from "./helpers/rounds";
 import {
-    playWideTree,
+    MIN_PAINTED_FONT_PX,
+    treeNode,
     expectNodeVisibleInArena,
     expectNewestGuessFramed,
+    expectNodeTextReadable,
+} from "./helpers/tree";
+import {
     expectNoDeadScrollBand,
     expectEveryNodeReachable,
-    expectNodeTextReadable,
-    treeNode,
-    MIN_PAINTED_FONT_PX,
-} from "./helpers";
+} from "./helpers/arena";
 
 // Desktop coverage for the many-guess tree (task 20260729-092339). The mobile
 // half lives in mobile.spec.ts, because playwright.config.ts binds the phone

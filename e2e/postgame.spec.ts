@@ -1,7 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import rawGameData from "../src/jurassic/index.json";
 import { MAX_GUESSES } from "../src/constants";
-import { seedFinishedDailyGame, wrongGuessIds } from "./helpers";
+import { seedFinishedDailyGame, wrongGuessIds } from "./helpers/content";
 
 // The post-game journey on the DAILY page: what the player can still do once the
 // round is over. `e2e/modal.spec.ts` pins that the right modal APPEARS; this
