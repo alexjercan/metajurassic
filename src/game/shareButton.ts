@@ -3,6 +3,7 @@ import { GameState } from "../gameState";
 import { computeGameStats } from "../gameStats";
 import { ShareContext, formatGameStateForSharing } from "../shareText";
 import { defaultStorage } from "../storage";
+import { clearModalError, showModalError } from "../ui/modal";
 import { shareResult } from "../ui/share";
 
 export function wireShareButton(
@@ -28,6 +29,10 @@ export function wireShareButton(
 
         shareResult(shareData)
             .then((outcome) => {
+                // A share that got somewhere clears the previous failure; the
+                // line would otherwise still accuse the retry that worked.
+                clearModalError();
+
                 // The native sheet gives its own feedback, and a cancelled
                 // share deserves none; only the silent clipboard write needs a
                 // confirmation.
@@ -44,7 +49,7 @@ export function wireShareButton(
             })
             .catch((err) => {
                 console.error("Failed to share game state: ", err);
-                alert("Failed to share game state. Please try again.");
+                showModalError("Failed to share game state. Please try again.");
             });
     });
 }

@@ -152,6 +152,12 @@
                         <img class="share-icon" alt="" />
                     </button>
                 </div>
+                <!-- Inline feedback for a modal action that failed, in place
+                     of a browser alert(). role="alert" for the same reason
+                     #input-error carries one: the dialog it replaces announced
+                     itself, and a silently revealed line would not. Ships
+                     hidden - this template is the practice page too. -->
+                <p class="modal-error" id="modal-error" role="alert" hidden></p>
             </div>
         </div>
         <div id="footer"></div>

@@ -16,6 +16,7 @@ const modalWinRate = document.getElementById("modal-win-rate");
 const modalStreak = document.getElementById("modal-streak");
 const modalAvg = document.getElementById("modal-avg");
 const modalCountdown = document.getElementById("modal-countdown");
+const modalError = document.getElementById("modal-error");
 
 // The four banked numbers the daily close shows, already formatted: the modal
 // is a widget and does not decide how a win rate rounds. `src/game/index.ts`
@@ -85,7 +86,26 @@ function renderExtras(daily?: ModalStats) {
     startCountdown();
 }
 
+// A modal action that failed reports here, never in a browser alert(): the
+// system dialog interrupts the round and reads as a page error rather than as
+// part of the game. See tasks/20260730-165921/DECISION.md, and the same move
+// for a rejected guess in tasks/20260729-092327/DECISION.md.
+export function showModalError(message: string) {
+    if (!modalError) return;
+    modalError.textContent = message;
+    modalError.hidden = false;
+}
+
+export function clearModalError() {
+    if (!modalError) return;
+    modalError.textContent = "";
+    modalError.hidden = true;
+}
+
 function showModal() {
+    // A failure from an earlier open of this same finished round must not come
+    // back with it.
+    clearModalError();
     overlay?.classList.add("active");
 }
 

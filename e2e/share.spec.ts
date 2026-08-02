@@ -194,12 +194,11 @@ test.describe("sharing a finished game", () => {
         const shareBtn = page.locator("#modal-share-btn");
         const originalLabel = await shareBtn.locator("span").textContent();
 
-        // The shipped failure handler raises a system alert (src/game.ts). That
-        // choice is contested - guesses moved off `alert()` to the inline
-        // `#input-error` for exactly this reason, and 20260730-165921 owns the
-        // change - so this pins the CURRENT behaviour rather than blessing it.
-        // Capturing the dialog also proves the failure branch actually ran:
-        // Playwright would auto-dismiss it and the test could not tell.
+        // The failure is reported INSIDE the game, never by a system dialog:
+        // guesses moved off `alert()` to the inline `#input-error` for exactly
+        // this reason, and the share path followed. The recorder stays so a
+        // regression back to `alert()` is caught rather than auto-dismissed by
+        // Playwright and silently passed.
         const dialogs: string[] = [];
         page.on("dialog", (dialog) => {
             dialogs.push(dialog.message());
@@ -209,14 +208,16 @@ test.describe("sharing a finished game", () => {
         await shareBtn.click();
 
         // The write was attempted...
+        const modalError = page.locator("#modal-error");
         await expect
             .poll(() => page.evaluate(() => window.__clipboardWrites?.length))
             .toBe(1);
-        // ...it failed, and the player was told something.
-        await expect.poll(() => dialogs.length).toBe(1);
-        expect(dialogs[0]).toContain("Failed to share");
+        // ...it failed, and the player was told so in the modal itself.
+        await expect(modalError).toBeVisible();
+        await expect(modalError).toContainText("Failed to share");
+        expect(dialogs).toEqual([]);
 
-        // The label must never have said "Copied!". Asserted after the alert
+        // The label must never have said "Copied!". Asserted after the message
         // has been observed, so the confirmation window has already passed:
         // a `toHaveText` poll alone would resolve on the first sample and could
         // step over a flash of the wrong label.
