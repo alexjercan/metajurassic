@@ -1,6 +1,12 @@
 import { GameData, dateToSeed, seedToDate } from "../src/gameData";
 import { expectPinnedZone } from "./timeZone";
-import { computeGameStats, loadAllGames } from "../src/gameStats";
+import {
+    GameStats,
+    computeGameStats,
+    formatAverageGuesses,
+    formatWinRate,
+    loadAllGames,
+} from "../src/gameStats";
 import { GameState, saveGameState } from "../src/gameState";
 import { gameStateKey } from "../src/puzzleKey";
 import { MockLocalStorage, clades, species } from "./statsFixtures";
@@ -599,5 +605,55 @@ describe("daily profile dating and streaks (round-trip regression)", () => {
         } finally {
             jest.useRealTimers();
         }
+    });
+});
+
+describe("the shared stat formatters", () => {
+    // The rounding and the no-wins case are a RULE, not a rendering detail: the
+    // profile panel and the game-over modal both show these two figures, and
+    // the same round must not read differently in the two places. That is why
+    // they live in gameStats.ts rather than in either caller.
+
+    function statsWith(partial: Partial<GameStats>): GameStats {
+        return {
+            gamesPlayed: 0,
+            wins: 0,
+            losses: 0,
+            averageGuesses: 0,
+            guessDistribution: new Map(),
+            currentStreak: 0,
+            longestStreak: 0,
+            uniqueDinosaursDiscovered: 0,
+            discoveredDinosaurs: new Set(),
+            allGuessedDinosaurs: new Set(),
+            ...partial,
+        };
+    }
+
+    test("the win rate is a whole percent", () => {
+        expect(formatWinRate(statsWith({ gamesPlayed: 3, wins: 1 }))).toBe(
+            "33%"
+        );
+        expect(formatWinRate(statsWith({ gamesPlayed: 4, wins: 4 }))).toBe(
+            "100%"
+        );
+    });
+
+    test("no games played is 0%, not a division by zero", () => {
+        expect(formatWinRate(statsWith({}))).toBe("0%");
+    });
+
+    test("the average is one decimal place", () => {
+        expect(
+            formatAverageGuesses(statsWith({ wins: 2, averageGuesses: 4.25 }))
+        ).toBe("4.3");
+    });
+
+    test("no win means there is no average to report", () => {
+        // `averageGuesses` is 0 with no wins, and "0.0" would read as a round
+        // solved in no guesses at all.
+        expect(
+            formatAverageGuesses(statsWith({ losses: 3, averageGuesses: 0 }))
+        ).toBe("0");
     });
 });

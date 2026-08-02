@@ -1,6 +1,6 @@
 import { test, expect, Page } from "@playwright/test";
 import rawGameData from "../src/jurassic/index.json";
-import { MAX_GUESSES } from "../src/constants";
+import { HINT_COST, MAX_GUESSES } from "../src/constants";
 import { seedFinishedDailyGame, wrongGuessIds } from "./helpers/content";
 
 // The post-game journey on the DAILY page: what the player can still do once the
@@ -202,6 +202,157 @@ test.describe("post-game daily journey after a win", () => {
         // Every species guessed is a dinosaur discovered, including the target.
         await expect(page.locator("#unique-dinos-daily")).toHaveText(
             `${WIN_GUESSES.length}/${Object.keys(RAW.species).length}`
+        );
+    });
+});
+
+// The countdown as a number of seconds, read off the rendered text rather than
+// from the clock. A string comparison would work for a fixed-width HH:MM:SS,
+// but it is not a comparison of the quantity the player is reading.
+async function countdownSeconds(page: Page): Promise<number> {
+    const text = (await page.locator("#modal-countdown").textContent()) ?? "";
+    const match = text.match(/(\d{2}):(\d{2}):(\d{2})/);
+    expect(match, `no HH:MM:SS in "${text}"`).not.toBeNull();
+    if (!match) return -1;
+    return Number(match[1]) * 3600 + Number(match[2]) * 60 + Number(match[3]);
+}
+
+test.describe("the daily stats card and countdown", () => {
+    test.beforeEach(async ({ page }) => {
+        await openDaily(page);
+        // PAUSED, not merely installed. `clock.install` keeps advancing with
+        // real time, so a countdown read at the start of a test and again at
+        // the end differs by however long the test took - measured 5s apart
+        // here, against an assertion about an exact 90s fast-forward. Pausing
+        // makes the only thing that moves the clock the fast-forward itself.
+        //
+        // 12:30, not the 12:00 `openDaily` installs: `pauseAt` fast-forwards TO
+        // the given time and rejects a time already behind the running clock,
+        // which 12:00 is by however many milliseconds the page load took. Same
+        // calendar day either way, so the daily storage key is unchanged.
+        await page.clock.pauseAt(new Date("2026-06-15T12:30:00"));
+    });
+
+    test("a daily win shows the stats card this round is counted in", async ({
+        page,
+    }) => {
+        await seedAndReload(page, WIN_GUESSES);
+
+        await expect(page.locator("#modal-extras")).toBeVisible();
+        // The values `computeGameStats` reports for this seeded round: it is
+        // the player's only daily game, a win in four, dated today by the
+        // frozen clock so the streak is live. The round being SHOWN is the
+        // round being counted - a card computed before the save would read
+        // 0 / 0% / 0 / 0 here.
+        await expect(page.locator("#modal-played")).toHaveText("1");
+        await expect(page.locator("#modal-win-rate")).toHaveText("100%");
+        await expect(page.locator("#modal-streak")).toHaveText("1");
+        await expect(page.locator("#modal-avg")).toHaveText(
+            WIN_GUESSES.length.toFixed(1)
+        );
+    });
+
+    test("a daily loss shows the stats card with the loss in it", async ({
+        page,
+    }) => {
+        const wrong = await wrongGuessIds(page, TARGET);
+        await seedAndReload(page, wrong);
+
+        await expect(page.locator("#modal-extras")).toBeVisible();
+        await expect(page.locator("#modal-played")).toHaveText("1");
+        await expect(page.locator("#modal-win-rate")).toHaveText("0%");
+        await expect(page.locator("#modal-streak")).toHaveText("0");
+        // No win yet, so there is no average to report - the same "0" the
+        // profile page shows, via the shared formatter.
+        await expect(page.locator("#modal-avg")).toHaveText("0");
+    });
+
+    test("the countdown reads HH:MM:SS and counts DOWN", async ({ page }) => {
+        await seedAndReload(page, WIN_GUESSES);
+
+        const countdown = page.locator("#modal-countdown");
+        await expect(countdown).toBeVisible();
+        await expect(countdown).toContainText(/\d{2}:\d{2}:\d{2}/);
+
+        // The clock is installed but frozen, so nothing moves until it is
+        // fast-forwarded: this proves the modal is TICKING, not that it
+        // rendered one number once.
+        const before = await countdownSeconds(page);
+        await page.clock.fastForward(90_000);
+        await expect.poll(() => countdownSeconds(page)).toBe(before - 90);
+    });
+
+    test("the countdown stops when the modal is dismissed", async ({
+        page,
+    }) => {
+        // A tick left running writes to a hidden element forever, and a second
+        // game-over in the same document would then have two of them.
+        await seedAndReload(page, WIN_GUESSES);
+        const before = await countdownSeconds(page);
+
+        await page.locator("#modal-close-btn").click();
+        await expect(page.locator("#modal-overlay")).not.toHaveClass(/active/);
+        await page.clock.fastForward(120_000);
+
+        expect(await countdownSeconds(page)).toBe(before);
+    });
+});
+
+test.describe("hint-aware game-over copy", () => {
+    // A clade in the target's own lineage, so the saved hint is one the round
+    // could really have bought.
+    const HINT_CLADE = "tyrannosauridae";
+
+    test.beforeEach(async ({ page }) => {
+        await openDaily(page);
+    });
+
+    test("a loss with a hint spent names guesses and hints separately", async ({
+        page,
+    }) => {
+        // One hint costs HINT_COST against the budget, so the round is over at
+        // MAX_GUESSES - HINT_COST named species. "You used all 25 guesses"
+        // would be a lie about three guesses the player never made.
+        const wrong = await wrongGuessIds(page, TARGET);
+        const guesses = wrong.slice(0, MAX_GUESSES - HINT_COST);
+        await seedFinishedDailyGame(page, {
+            targetId: TARGET,
+            guesses,
+            lastGuessId: guesses[guesses.length - 1],
+            hintClades: [HINT_CLADE],
+        });
+        await page.reload();
+        await expect(page.locator("#modal-overlay")).toHaveClass(/active/);
+
+        await expect(page.locator("#modal-stats")).toHaveText(
+            `You used all ${MAX_GUESSES}: ${guesses.length} guesses + 1 hint`
+        );
+    });
+
+    test("a win with a hint spent names them separately too", async ({
+        page,
+    }) => {
+        const guesses = [...WIN_GUESSES];
+        await seedFinishedDailyGame(page, {
+            targetId: TARGET,
+            guesses,
+            lastGuessId: TARGET,
+            hintClades: [HINT_CLADE],
+        });
+        await page.reload();
+        await expect(page.locator("#modal-overlay")).toHaveClass(/active/);
+
+        const total = guesses.length + HINT_COST;
+        await expect(page.locator("#modal-stats")).toHaveText(
+            `Solved in ${total} / ${MAX_GUESSES}: ${guesses.length} guesses + 1 hint`
+        );
+    });
+
+    test("a round with no hint keeps today's wording", async ({ page }) => {
+        await seedAndReload(page, WIN_GUESSES);
+
+        await expect(page.locator("#modal-stats")).toHaveText(
+            `Solved in ${WIN_GUESSES.length} / ${MAX_GUESSES} guesses`
         );
     });
 });

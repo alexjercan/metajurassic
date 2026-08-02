@@ -132,6 +132,91 @@
     letter-spacing: 0.5px;
 }
 
+/* The daily close: four banked numbers and the wait until tomorrow. Only the
+   daily branch of src/ui/modal.ts unhides this, so `display: block` would
+   otherwise beat the `hidden` attribute the shared template ships it with. */
+.modal-extras {
+    display: block;
+    margin-top: 20px;
+}
+
+.modal-extras[hidden] {
+    display: none;
+}
+
+.modal-extras-grid {
+    display: flex;
+    /* Wrap rather than a media block: at 320px four cells do not fit one line
+       at any honest size (a 240px content box would need 60px cells with no
+       gap at all), and taking a second line is the same answer `.modal-actions`
+       below already gives. A width breakpoint would have to be restated against
+       the modal's two padding steps, as the `max-width` above documents.
+
+       The cell floor and this gap are what buy ONE row on the 393px Pixel 5
+       this project runs: 282px of cells in the 303.7px content box there, 21.7px
+       to spare. Before the cells were given `box-sizing: border-box` the row
+       measured 314px and wrapped 3+1 - the same overspend the button padding
+       above was trimmed for. `e2e/mobile.spec.ts` pins both outcomes, so a font
+       stack that ate the margin would be reported rather than silently
+       reflowed. */
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+}
+
+.modal-extra {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    /* Same glass treatment as `.modal-stats` above, so the card reads as one
+       surface with the summary line it sits under. */
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    padding: 8px;
+    /* border-box, so the floor below is the OUTER width - the number the row's
+       arithmetic is done in. Left as the default content-box it silently added
+       the 16px of padding and the 2px of border on top: a 56px floor rendered
+       74px cells, 314px of row against the 303.7px content box at 393px, and a
+       3+1 wrap. Same trap, and same fix, as the `max-width` on `.modal` above. */
+    box-sizing: border-box;
+    /* A floor, not a width: the four labels differ in length ("Avg" is half of
+       "Streak"), and without it the cells would be visibly uneven. Set just
+       above the widest label's own box (47.8px + 18px of padding and border on
+       DejaVu Sans, the wide generic both this machine and the CI runner fall
+       through to) so the LABEL still decides the cell and a longer one widens
+       it rather than being squeezed - the same reason `.modal-btn` keeps its
+       default `min-width: auto`. */
+    min-width: 66px;
+}
+
+.modal-extra-value {
+    font-size: 1.15rem;
+    font-weight: bold;
+    color: var(--amber-glow);
+    line-height: 1.2;
+}
+
+.modal-extra-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #999;
+}
+
+.modal-countdown {
+    margin: 14px 0 0 0;
+    font-size: 0.9rem;
+    color: #ccc;
+    letter-spacing: 0.5px;
+}
+
+.modal-countdown strong {
+    color: var(--amber-glow);
+    font-variant-numeric: tabular-nums;
+}
+
 .modal-actions {
     display: flex;
     gap: 12px;

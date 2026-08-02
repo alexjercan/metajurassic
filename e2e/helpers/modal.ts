@@ -443,3 +443,121 @@ export async function expectActionsOnOneRow(page: Page): Promise<void> {
         `at ${row.viewportWidth}px the actions need ${row.needed.toFixed(1)}px of the row's ${row.available.toFixed(1)}px`
     ).toBeLessThanOrEqual(row.available);
 }
+
+// The daily stats card fits inside the modal's own content box.
+//
+// `expectModalFitsViewport` walks `.modal-actions` and nothing else, so the
+// four stat cells this modal grew are unmeasured by it. The comparison is
+// against the modal's PADDING box for the same reason it is there: at 320px
+// the un-wrapped action row measured [17.2, 302.8] - inside the viewport, so a
+// viewport-only check passed - while sitting 24px out over the modal's padding
+// on each side.
+//
+// What this does and does not catch, checked by mutation rather than assumed.
+// The cells wrap AND shrink, so most overspends resolve themselves: giving them
+// `width: 300px` leaves this green, because flex shrinks them back. What it
+// does catch is a cell that CANNOT shrink - raising `.modal-extra`'s
+// `min-width` to 300px reddens it at every narrow size - which is the failure
+// mode that floor introduces and the one thing wrapping cannot absorb. The
+// wrap itself is not a defect here and is deliberately not asserted; that is
+// `expectStatCardOnOneRow`'s question, at the one width where it is a promise.
+export async function expectStatCardFits(page: Page): Promise<void> {
+    await waitForModalToSettle(page);
+
+    const measured = await page.evaluate(() => {
+        const modal = document.getElementById("modal");
+        const cells = Array.from(
+            document.querySelectorAll(".modal-extras-grid > *")
+        );
+        if (!modal) return null;
+        const r = modal.getBoundingClientRect();
+        const cs = getComputedStyle(modal);
+        const px = (v: string) => parseFloat(v || "0");
+        return {
+            cells: cells.map((c, i) => {
+                const box = c.getBoundingClientRect();
+                return {
+                    name:
+                        (
+                            c.querySelector(".modal-extra-label")
+                                ?.textContent ?? ""
+                        ).trim() || `cell ${i + 1}`,
+                    left: box.left,
+                    right: box.right,
+                };
+            }),
+            inner: {
+                left: r.left + px(cs.borderLeftWidth) + px(cs.paddingLeft),
+                right: r.right - px(cs.borderRightWidth) - px(cs.paddingRight),
+            },
+            viewportWidth: window.innerWidth,
+        };
+    });
+
+    expect(measured, "#modal is absent").not.toBeNull();
+    if (!measured) return;
+    // A loop over nothing passes every assertion inside it.
+    expect(
+        measured.cells.length,
+        "the stats card rendered no cells"
+    ).toBeGreaterThan(0);
+
+    for (const cell of measured.cells) {
+        expect(
+            cell.left,
+            `the "${cell.name}" stat starts ${Math.round(measured.inner.left - cell.left)}px left of the modal's own content box at ${measured.viewportWidth}px`
+        ).toBeGreaterThanOrEqual(measured.inner.left - 1);
+        expect(
+            cell.right,
+            `the "${cell.name}" stat extends ${Math.round(cell.right - measured.inner.right)}px past the right of the modal's own content box at ${measured.viewportWidth}px`
+        ).toBeLessThanOrEqual(measured.inner.right + 1);
+    }
+}
+
+// The stats card is a SINGLE row, with the margin stated.
+//
+// Like `expectActionsOnOneRow`, this is not true at every size - four cells
+// genuinely do not fit a 320px phone, where the card wraps to 2x2 - so it is
+// the promise made at the 393px width this project runs, and the only thing
+// that distinguishes "fits" from "wrapped to two lines".
+export async function expectStatCardOnOneRow(page: Page): Promise<void> {
+    await waitForModalToSettle(page);
+
+    const row = await page.evaluate(() => {
+        const grid = document.querySelector(".modal-extras-grid");
+        if (!grid) return null;
+        const kids = Array.from(grid.children);
+        const gap = parseFloat(getComputedStyle(grid).columnGap || "0");
+        return {
+            cells: kids.length,
+            distinctTops: new Set(
+                kids.map((c) => Math.round(c.getBoundingClientRect().top))
+            ).size,
+            needed:
+                kids.reduce(
+                    (sum, c) => sum + c.getBoundingClientRect().width,
+                    0
+                ) +
+                gap * (kids.length - 1),
+            available: grid.getBoundingClientRect().width,
+            viewportWidth: window.innerWidth,
+        };
+    });
+
+    expect(row, ".modal-extras-grid is absent").not.toBeNull();
+    if (!row) return;
+
+    // The four cells are asserted PRESENT, so a half-rendered card fails here
+    // rather than passing a one-row check vacuously.
+    expect(row.cells, "the stats card rendered the wrong number of cells").toBe(
+        4
+    );
+    expect(
+        row.distinctTops,
+        `at ${row.viewportWidth}px the ${row.needed.toFixed(1)}px of stat cells wrapped inside a ${row.available.toFixed(1)}px row`
+    ).toBe(1);
+    expect(
+        row.needed,
+        `at ${row.viewportWidth}px the stat cells need ${row.needed.toFixed(1)}px of the row's ${row.available.toFixed(1)}px`
+    ).toBeLessThanOrEqual(row.available);
+}

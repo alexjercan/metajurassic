@@ -24,6 +24,8 @@ import {
 import {
     expectModalFitsViewport,
     expectActionsOnOneRow,
+    expectStatCardFits,
+    expectStatCardOnOneRow,
 } from "./helpers/modal";
 import {
     expectNoBoxOverlap,
@@ -803,6 +805,48 @@ test.describe("mobile game-over modal", () => {
 
             await expect(page.locator("#modal-title")).toHaveText("Game Over");
             await expectModalFitsViewport(page);
+        });
+
+        // The daily stats card is the other row in this box that can wrap, and
+        // it is the one this modal grew. `expectModalFitsViewport` walks
+        // `.modal-actions`, so nothing there measures these four cells at all.
+        test("the stats card fits the modal at every narrow width", async ({
+            page,
+        }) => {
+            const { speciesIds } = await loadContent(page);
+            const target = speciesIds[0];
+            await seedFinishedDailyGame(page, {
+                targetId: target,
+                guesses: [target],
+                lastGuessId: target,
+            });
+            await page.reload();
+            await expect(page.locator("#modal-extras")).toBeVisible();
+
+            for (const size of NARROW_VIEWPORTS) {
+                await page.setViewportSize(size);
+                await expectStatCardFits(page);
+            }
+        });
+
+        // The promise the cell floor and gap buy, stated as a number. Fitting
+        // the modal does not prove it: a card wrapped to 3+1 - which is what
+        // the cells rendered before they were given `box-sizing: border-box` -
+        // fits too, and looks unfinished.
+        test("the stats card is one row on the 393px phone", async ({
+            page,
+        }) => {
+            const { speciesIds } = await loadContent(page);
+            const target = speciesIds[0];
+            await seedFinishedDailyGame(page, {
+                targetId: target,
+                guesses: [target],
+                lastGuessId: target,
+            });
+            await page.reload();
+            await expect(page.locator("#modal-extras")).toBeVisible();
+
+            await expectStatCardOnOneRow(page);
         });
 
         // A single viewport is a sample of one (LESSONS.md:

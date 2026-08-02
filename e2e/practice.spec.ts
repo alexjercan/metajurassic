@@ -299,6 +299,40 @@ test.describe("finished practice rounds", () => {
     });
 });
 
+test.describe("the practice close stays lightweight", () => {
+    test("a finished round shows no stats card and no countdown", async ({
+        page,
+    }) => {
+        // The divergence guard for the SHARED template: src/index.html carries
+        // the daily stats card and countdown on both pages, and only the daily
+        // branch of src/ui/modal.ts unhides them. There is no next practice
+        // puzzle to wait for, and a daily streak shown here would be a number
+        // about a different mode entirely.
+        await winUnseededRound(page);
+
+        // ATTACHED first: `toBeHidden` also passes for an element that does not
+        // exist, so on its own it would go green against a template that never
+        // gained the card at all - the same trap the daily new-game test below
+        // documents.
+        const extras = page.locator("#modal-extras");
+        await expect(extras).toBeAttached();
+        await expect(extras).toBeHidden();
+        await expect(page.locator("#modal-countdown")).toBeHidden();
+        // Empty, not merely hidden: a tick writing into an invisible element is
+        // still a tick running on a page that asked for none.
+        await expect(page.locator("#modal-countdown")).toHaveText("");
+
+        // What the practice close DOES offer instead: another round, straight
+        // from the modal.
+        await page.locator(".modal-btn-practice").click();
+        await expect(page.locator("#stat-box")).toContainText(
+            "Guesses Left: 25"
+        );
+        await expect(page.locator("#modal-overlay")).not.toHaveClass(/active/);
+        await expect(page.locator("#player-input")).toBeEnabled();
+    });
+});
+
 test.describe("practice new game and seed mode", () => {
     test("New game from a seeded round starts a fresh one, not an older round", async ({
         page,

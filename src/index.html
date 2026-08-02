@@ -107,6 +107,39 @@
                 <h2 class="modal-title" id="modal-title"></h2>
                 <p class="modal-message" id="modal-message"></p>
                 <div class="modal-stats" id="modal-stats"></div>
+                <!-- Ships hidden in the SHARED template: the practice page
+                     renders this same file (webpack.config.js), and only the
+                     daily branch of src/ui/modal.ts unhides it, the way
+                     #new-game-btn is handled. -->
+                <div class="modal-extras" id="modal-extras" hidden>
+                    <div class="modal-extras-grid">
+                        <div class="modal-extra">
+                            <span class="modal-extra-value" id="modal-played"
+                                >0</span
+                            >
+                            <span class="modal-extra-label">Played</span>
+                        </div>
+                        <div class="modal-extra">
+                            <span class="modal-extra-value" id="modal-win-rate"
+                                >0%</span
+                            >
+                            <span class="modal-extra-label">Win %</span>
+                        </div>
+                        <div class="modal-extra">
+                            <span class="modal-extra-value" id="modal-streak"
+                                >0</span
+                            >
+                            <span class="modal-extra-label">Streak</span>
+                        </div>
+                        <div class="modal-extra">
+                            <span class="modal-extra-value" id="modal-avg"
+                                >0</span
+                            >
+                            <span class="modal-extra-label">Avg</span>
+                        </div>
+                    </div>
+                    <p class="modal-countdown" id="modal-countdown"></p>
+                </div>
                 <div class="modal-actions">
                     <button class="modal-btn" id="modal-close-btn">OK</button>
                     <a

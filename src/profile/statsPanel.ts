@@ -1,4 +1,4 @@
-import { GameStats } from "../gameStats";
+import { GameStats, formatAverageGuesses, formatWinRate } from "../gameStats";
 import { GameData } from "../gameData";
 import { renderGuessedDinosaurs } from "./dinosaurList";
 
@@ -10,11 +10,8 @@ export function updateStatsUI(
     document.getElementById("games-played-daily").textContent =
         statsDaily.gamesPlayed.toString();
 
-    const winRateDaily =
-        statsDaily.gamesPlayed > 0
-            ? Math.round((statsDaily.wins / statsDaily.gamesPlayed) * 100)
-            : 0;
-    document.getElementById("win-rate-daily").textContent = `${winRateDaily}%`;
+    document.getElementById("win-rate-daily").textContent =
+        formatWinRate(statsDaily);
 
     document.getElementById("current-streak-daily").textContent =
         statsDaily.currentStreak.toString();
@@ -23,7 +20,7 @@ export function updateStatsUI(
         statsDaily.longestStreak.toString();
 
     document.getElementById("avg-guesses-daily").textContent =
-        statsDaily.wins > 0 ? statsDaily.averageGuesses.toFixed(1) : "0";
+        formatAverageGuesses(statsDaily);
 
     document.getElementById("total-wins-daily").textContent =
         statsDaily.wins.toString();
@@ -53,15 +50,11 @@ export function updateStatsUI(
     document.getElementById("games-played-practice").textContent =
         statsPractice.gamesPlayed.toString();
 
-    const winRatePractice =
-        statsPractice.gamesPlayed > 0
-            ? Math.round((statsPractice.wins / statsPractice.gamesPlayed) * 100)
-            : 0;
     document.getElementById("win-rate-practice").textContent =
-        `${winRatePractice}%`;
+        formatWinRate(statsPractice);
 
     document.getElementById("avg-guesses-practice").textContent =
-        statsPractice.wins > 0 ? statsPractice.averageGuesses.toFixed(1) : "0";
+        formatAverageGuesses(statsPractice);
 
     document.getElementById("total-wins-practice").textContent =
         statsPractice.wins.toString();

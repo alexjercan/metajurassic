@@ -1,11 +1,17 @@
 import { GameData } from "../gameData";
 import { GameState } from "../gameState";
+import {
+    computeGameStats,
+    formatAverageGuesses,
+    formatWinRate,
+} from "../gameStats";
+import { defaultStorage } from "../storage";
 import { loadGameData } from "../jsonLoader";
 import { getTodaySeed } from "../puzzleKey";
 import { ShareContext } from "../shareText";
 import { buildGuessTree } from "../treeBuilder";
 import { setupAutocomplete } from "../ui/autocomplete";
-import { showLossModal, showWinModal } from "../ui/modal";
+import { ModalStats, showLossModal, showWinModal } from "../ui/modal";
 import {
     closePanelManually,
     isPanelOpen,
@@ -66,13 +72,38 @@ export function initGame({ data, state, saveState, share }: GameOptions) {
         }
     }
 
+    // The banked daily numbers, read from the same storage the finished round
+    // was just saved to - the read-after-save the share button in this modal
+    // already relies on, so the round being shown is counted.
+    function dailyModalStats(): ModalStats {
+        const stats = computeGameStats(data, defaultStorage(), "daily");
+        return {
+            played: stats.gamesPlayed.toString(),
+            winRate: formatWinRate(stats),
+            streak: stats.currentStreak.toString(),
+            average: formatAverageGuesses(stats),
+        };
+    }
+
     function showGameOverModal() {
         const target = data.findSpeciesById(state.targetId);
         const targetName = target ? target.species : "Unknown";
+        // Whatever makes a round practice for SHARING makes it practice for the
+        // end screen too: one source of truth for the distinction, so a
+        // practice round can never show a daily streak or a countdown to a
+        // puzzle it is not waiting for. See tasks/20260729-101838/DECISION.md.
+        const options = {
+            speciesName: targetName,
+            guessCount: state.numberOfGuesses(),
+            hintCount: state.hintClades.size,
+            daily:
+                shareContext.mode === "daily" ? dailyModalStats() : undefined,
+        };
+
         if (state.isWin()) {
-            showWinModal(targetName, state.numberOfGuesses());
+            showWinModal(options);
         } else if (state.isLoss()) {
-            showLossModal(targetName);
+            showLossModal(options);
         }
     }
 

@@ -139,6 +139,22 @@ function calculateStreak(results: GameResult[]): {
     return { current: currentStreak, longest: longestStreak };
 }
 
+// The two figures with a rule attached, rather than a plain `toString()`: a
+// win rate rounded to whole percent, and an average that is only meaningful
+// once something has been won. Shared by the profile panel and the game-over
+// modal so the same round cannot read differently in the two places.
+export function formatWinRate(stats: GameStats): string {
+    const rate =
+        stats.gamesPlayed > 0
+            ? Math.round((stats.wins / stats.gamesPlayed) * 100)
+            : 0;
+    return `${rate}%`;
+}
+
+export function formatAverageGuesses(stats: GameStats): string {
+    return stats.wins > 0 ? stats.averageGuesses.toFixed(1) : "0";
+}
+
 export function computeGameStats(
     gameData: GameData,
     storage: StorageProvider = defaultStorage(),

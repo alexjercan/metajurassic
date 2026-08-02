@@ -70,3 +70,24 @@ button, with no histogram).
   regression net and must stay green without being relaxed.
 - A finished round can render its modal more than once per document, so a tick
   started on show without a stop on hide leaks a timer per open.
+
+## Addendum, at implementation (2026-08-02)
+
+5. **The two formatted figures live in `src/gameStats.ts`, not in either
+   caller.** `formatWinRate` and `formatAverageGuesses` encode rules - a whole
+   percent, and "0" rather than "0.0" with no win to average - that the profile
+   panel and the game-over modal must agree on for the same round.
+   `src/profile/statsPanel.ts` was moved onto them for daily and practice
+   alike. The alternative, formatting inside `src/ui/modal.ts`, is a third copy
+   of a two-line rule and the kind of hand-kept mirror this repo has been
+   bitten by before; the modal takes ready-made strings (`ModalStats`) and
+   decides nothing.
+
+6. **`.modal-extra` is `box-sizing: border-box`, and the one-row promise is
+   made at 393px only.** `min-width` sizes the CONTENT box by default, so the
+   floor silently gained the padding and border and the row wrapped 3+1 on the
+   Pixel 5. The floor is now the outer width the row's arithmetic uses.
+   TASK.md's step 6 asked for one line at 320px "by letting it wrap"; the two
+   halves cannot both hold, since four cells do not fit a 238px content box at
+   any size that still shows their labels. One row at 393px, 2x2 below,
+   pinned by `expectStatCardOnOneRow` and `expectStatCardFits`.
