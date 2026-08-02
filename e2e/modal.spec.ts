@@ -1,6 +1,9 @@
 import { test, expect } from "@playwright/test";
 import { loadContent, seedFinishedDailyGame } from "./helpers/content";
-import { expectActionsOnOneRow } from "./helpers/modal";
+import {
+    expectActionsOnOneRow,
+    expectModalNeedsNoScroll,
+} from "./helpers/modal";
 
 // End-of-game modal smoke coverage. The finished game state is injected into
 // localStorage keyed off a frozen clock (see e2e/helpers/content.ts and
@@ -73,5 +76,36 @@ test.describe("end-of-game modal on desktop", () => {
         await page.reload();
 
         await expectActionsOnOneRow(page);
+    });
+
+    // The OTHER axis of the 20260730-160720 compaction, and the case without
+    // which that change would be untested where it is hardest. 900px is wide
+    // enough that `@media (max-width: 768px)` does NOT apply, so the modal is at
+    // its DESKTOP padding step (40px 48px, not 28px 24px) while the height block
+    // trims it - which is the only place the height block has to stand on its
+    // own. Every short size in e2e/mobile.spec.ts is also narrow, so all of them
+    // get both blocks and a trim that silently depended on the width block would
+    // pass the whole mobile sweep (LESSONS.md:
+    // css-media-blocks-on-different-axes-are-resolved-by-file-order).
+    test("the whole modal is visible in a short desktop window", async ({
+        page,
+    }) => {
+        await page.clock.install({ time: new Date("2026-06-15T12:00:00") });
+        await page.goto("/");
+        const { speciesIds } = await loadContent(page);
+        const target = speciesIds[0];
+        await seedFinishedDailyGame(page, {
+            targetId: target,
+            guesses: [target],
+            lastGuessId: target,
+        });
+        // Before the reload, so the modal is laid out at the size under test and
+        // never at the project's default - a modal measured after a resize has
+        // been through a reflow the player never performs.
+        await page.setViewportSize({ width: 900, height: 400 });
+        await page.reload();
+        await expect(page.locator("#modal-title")).toHaveText("You found it!");
+
+        await expectModalNeedsNoScroll(page);
     });
 });

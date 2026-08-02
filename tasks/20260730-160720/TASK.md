@@ -3,9 +3,9 @@
 - PRIORITY: 58
 - TAGS: bug, ui, mobile, ux
 - KIND: TASK
-- ACTIVITY: WORKING
-- GATES: PLAN
-- RESOLUTION: -
+- ACTIVITY: COMPOUNDING
+- GATES: PLAN REVIEW RETRO
+- RESOLUTION: DONE
 
 ## Story
 
@@ -62,7 +62,7 @@ wide, where the two wraps make it an honestly scrolling modal.
 
 ## Steps
 
-- [ ] Record the shape in `DECISION.md`: compaction, not a scroll affordance,
+- [x] Record the shape in `DECISION.md`: compaction, not a scroll affordance,
       and VERTICAL-ONLY. Only `padding-top`/`padding-bottom`, `margin-top`/
       `margin-bottom` and `font-size` are trimmed - never `max-width` or
       horizontal padding. That is what lets the block sit on the height axis
@@ -71,7 +71,7 @@ wide, where the two wraps make it an honestly scrolling modal.
       `converting-a-css-property-between-coordinate-systems-must-be-restated-per-media-block`,
       and the `max-width: 470px` restatement at `src/partials/responsive.css`
       that lesson produced).
-- [ ] Add one `@media (max-height: 480px)` block at the END of
+- [x] Add one `@media (max-height: 480px)` block at the END of
       `src/partials/responsive.css`, after the `max-width: 768px` block and
       after the existing 700px/620px brief blocks. Threshold: the uncompacted
       card needs 433 + 32 = 465px of viewport height, so 480 is the first
@@ -79,7 +79,7 @@ wide, where the two wraps make it an honestly scrolling modal.
       LOAD-BEARING (LESSONS.md:
       `css-media-blocks-on-different-axes-are-resolved-by-file-order`) - a
       height block above the width block never applies on a phone.
-- [ ] Trim to the measured budget. The prototype that reached 271px:
+- [x] Trim to the measured budget. The prototype that reached 271px:
       `.modal` padding-block 28 -> 12; `.modal-icon` 3.5rem -> 1.75rem and
       margin-bottom 12 -> 4; `.modal-title` 1.8rem -> 1.3rem, margin-bottom
       12 -> 6; `.modal-message` 1.05rem -> 0.95rem, margin-bottom 20 -> 10;
@@ -89,21 +89,21 @@ wide, where the two wraps make it an honestly scrolling modal.
       14 -> 8, 0.9rem -> 0.8rem; `.modal-actions` margin-top 24 -> 10;
       `.modal-btn` padding-block 10 -> 6. Re-measure rather than trusting
       these: they were read off an `addStyleTag` overlay, not the cascade.
-- [ ] Add `expectModalNeedsNoScroll` to `e2e/helpers/modal.ts`: assert
+- [x] Add `expectModalNeedsNoScroll` to `e2e/helpers/modal.ts`: assert
       `#modal.scrollHeight <= clientHeight + 1`, with the shortfall in pixels
       in the message. It settles the modal first, like every other helper
       there.
-- [ ] Apply it in `e2e/mobile.spec.ts` at the sizes where fitting is the
+- [x] Apply it in `e2e/mobile.spec.ts` at the sizes where fitting is the
       promise, not at all five: tag `SHORT_VIEWPORTS` with a per-size `fits`
       flag (true for 568x320, 480x320, 640x360; false for 360x320, 360x300)
       and call the new helper only where it is true. Both variants, as now.
       The escape-hatch tests stay untouched at every size.
-- [ ] Cover the OTHER axis in `e2e/modal.spec.ts`'s desktop describe: one
+- [x] Cover the OTHER axis in `e2e/modal.spec.ts`'s desktop describe: one
       900x400 viewport, wide enough that the `max-width: 768px` block does NOT
       apply, so the height block is exercised against the desktop padding step
       too. Without it nothing would notice a trim that only works below 768px
       wide - which is the whole failure mode the ordering lesson describes.
-- [ ] Read the rendered screens again after the trim, win AND loss, at 568x320
+- [x] Read the rendered screens again after the trim, win AND loss, at 568x320
       and 900x400. A compaction that makes the icon or the stats card look
       wrong has traded one defect for another (LESSONS.md:
       `re-render-and-look-after-every-layout-change-not-once-per-task`).
@@ -139,3 +139,45 @@ wide, where the two wraps make it an honestly scrolling modal.
   font stack could eat it; the assertion names the shortfall so a regression
   reports a number rather than a reflow. The runner's generic sans is DejaVu
   Sans here and on `ubuntu-latest`, per `src/partials/responsive.css`.
+
+## Close-out
+
+WHAT. One `@media (max-height: 480px)` block at the END of
+`src/partials/responsive.css` trims the game-over card's block padding, block
+margins and font sizes; `expectModalNeedsNoScroll` and `expectModalStillScrolls`
+in `e2e/helpers/modal.ts` state the two halves of the outcome, applied per size
+in `e2e/mobile.spec.ts` and at 900x400 in `e2e/modal.spec.ts`.
+
+WHY this shape. The card was reachable but not visible, and 147px of its 433
+was spacing and one oversized emoji, so nothing had to be cut. Vertical-only
+trims are what let a height block avoid restating anything against `.modal`'s
+two padding steps; the block goes last because different-axis media blocks are
+resolved by file order. Both are argued in `DECISION.md`.
+
+ALTERNATIVES. A scroll affordance (scrollbar, fade, chevron) was rejected: it
+buys a hint at the cost of keeping space nobody asked for. Dropping content or
+narrowing the card was out of scope and unnecessary.
+
+EVIDENCE. Red on base for the intended reason at the planned numbers: 433 in
+286 at 568x320 and 480x320, 433 in 326 at 640x360, plus the desktop 900x400
+case. Green after the trim at 271 in 271 at every fitting size, i.e. 15px of
+slack against the 286px budget at 568x320 and 97px against 368 at 900x400. The
+two 360px sizes still measure 362 and keep the hatch. `npm run ci` green (150
+tests, exit 0); `npm run build` green.
+
+DIFFICULTIES. None in the trim itself - the plan's prototype values reproduced
+in the cascade almost exactly (271 predicted, 271 measured). Two corrections
+came out of measuring rather than trusting: at 360px the stat grid wraps 3+1,
+not 2x2 as the problem statement said (the CSS comment, DECISION.md and the
+spec comment say two rows instead), and the plan's four Definition of Done
+clauses left the "360x320/360x300 still scroll" half unasserted -
+`expectActionsReachable` only checks the hatch is scrollable WHERE THERE IS
+OVERFLOW, so a future change that made every swept size fit would retire
+`overflow-y: auto` with the suite green. `expectModalStillScrolls` closes that;
+it is the one addition beyond the literal Steps.
+
+REFLECTION. The screenshots were the point again: 271-in-271 is a number that
+proves the scroll is gone and says nothing about whether a 1.75rem trophy still
+reads as a trophy. Win and loss at 568x320 and 900x400 were looked at, and the
+smaller icon is proportionate rather than lost. The measuring spec was again a
+throwaway - deleted after the numbers were recorded here.

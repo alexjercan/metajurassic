@@ -23,6 +23,8 @@ import {
 } from "./helpers/panel";
 import {
     expectModalFitsViewport,
+    expectModalNeedsNoScroll,
+    expectModalStillScrolls,
     expectActionsOnOneRow,
     expectStatCardFits,
     expectStatCardOnOneRow,
@@ -78,12 +80,26 @@ const NARROW_VIEWPORTS = [
 // exists and nothing can reach it. (640x360 has no overflow to reach - measured
 // scrollHeight 360 against clientHeight 360 - which is what makes it the control
 // size.)
+//
+// `fits` is the no-scroll promise, which is NOT made at every size here.
+// 20260730-160720 compacts the card below 480px of height so the whole thing is
+// visible at once at the three widest sizes; at 360px BOTH rows wrap
+// (both .modal-extras-grid and .modal-actions take a second line) and the compacted
+// card is still 362px against a 266px budget, so those two keep the scroll
+// deliberately. Reachability - the escape hatch - is asserted at all five either
+// way. Measured on master at bb17dcd, win and loss identical:
+//
+//   568x320  433px of content in a 286px box, 147px below the fold
+//   480x320  the same 433 against 286
+//   640x360  433 against 326, 107px below
+//   360x320  543 against 286 (both rows wrapped), 257px below
+//   360x300  543 against 266, 277px below
 const SHORT_VIEWPORTS = [
-    { width: 568, height: 320 },
-    { width: 480, height: 320 },
-    { width: 640, height: 360 },
-    { width: 360, height: 320 },
-    { width: 360, height: 300 },
+    { width: 568, height: 320, fits: true },
+    { width: 480, height: 320, fits: true },
+    { width: 640, height: 360, fits: true },
+    { width: 360, height: 320, fits: false },
+    { width: 360, height: 300, fits: false },
 ];
 
 // Mobile viewport coverage (runs on the Pixel 5 project). The player must be
@@ -920,6 +936,16 @@ test.describe("mobile game-over modal", () => {
                     );
 
                     await expectModalFitsViewport(page);
+                    // And at the sizes the compaction reaches, reachable is not
+                    // enough: the whole card is on screen at once, with no
+                    // scroll to discover. The other two are asserted to STILL
+                    // overflow, because they are what keeps the escape hatch
+                    // exercised - see `expectModalStillScrolls`.
+                    if (size.fits) {
+                        await expectModalNeedsNoScroll(page);
+                    } else {
+                        await expectModalStillScrolls(page);
+                    }
                 });
             }
         }

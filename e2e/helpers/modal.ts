@@ -400,6 +400,81 @@ export async function expectModalFitsViewport(page: Page): Promise<void> {
     ).toBeLessThanOrEqual(vh + 1);
 }
 
+// The whole card is VISIBLE at once: `#modal` has nothing under its own fold.
+//
+// The stronger half of `expectModalFitsViewport`'s vertical promise, and
+// deliberately a separate helper because it is not true at every size.
+// Reachability is what the scroll container guarantees everywhere; no-scroll is
+// what the `max-height: 480px` compaction buys at the sizes where the trimmed
+// card fits. At 360x320 and 360x300 both rows wrap and it is still 362px
+// against a 266px budget, so there the hatch is the answer and this must not be
+// asserted (see tasks/20260730-160720/DECISION.md).
+//
+// `scrollHeight <= clientHeight` rather than a rect comparison: the question is
+// whether the container has content past its own fold, which is exactly what
+// those two numbers say, and it is blind to where the card happens to sit in
+// the viewport. The shortfall is named in pixels so a regression reports a
+// number rather than a reflow - the slack at 568x320 is 15px, thin enough that
+// a wider font stack could eat it.
+export async function expectModalNeedsNoScroll(page: Page): Promise<void> {
+    await waitForModalToSettle(page);
+
+    const measured = await page.evaluate(() => {
+        const modal = document.getElementById("modal");
+        if (!modal) return null;
+        return {
+            scrollHeight: modal.scrollHeight,
+            clientHeight: modal.clientHeight,
+            viewportWidth: window.innerWidth,
+            viewportHeight: window.innerHeight,
+        };
+    });
+
+    expect(measured, "#modal is absent").not.toBeNull();
+    if (!measured) return;
+
+    // One pixel of slack, as everywhere else here; the overflows under test are
+    // over a hundred pixels.
+    expect(
+        measured.scrollHeight,
+        `at ${measured.viewportWidth}x${measured.viewportHeight} the modal holds ${measured.scrollHeight}px of content in a ${measured.clientHeight}px box, so ${measured.scrollHeight - measured.clientHeight}px of it is below the fold and the player has to discover a scroll`
+    ).toBeLessThanOrEqual(measured.clientHeight + 1);
+}
+
+// The exact inverse: `#modal` DOES have content past its own fold here.
+//
+// Not a mirror written for symmetry. `expectActionsReachable` only checks the
+// hatch is a hatch - that `overflow-y` is a value a finger can scroll - WHERE
+// THERE IS OVERFLOW, so if every swept size stopped overflowing, that check
+// would be inert everywhere and `overflow-y: auto` could be deleted with the
+// suite green. 360x320 and 360x300 are the two sizes the compaction cannot
+// reach (362px against 286/266, because both the stat grid and the action row
+// take a second line at 360px), so they are what keeps the escape hatch under
+// test. If a later change ever does make them fit, this fails and says so
+// rather than quietly retiring the hatch.
+export async function expectModalStillScrolls(page: Page): Promise<void> {
+    await waitForModalToSettle(page);
+
+    const measured = await page.evaluate(() => {
+        const modal = document.getElementById("modal");
+        if (!modal) return null;
+        return {
+            scrollHeight: modal.scrollHeight,
+            clientHeight: modal.clientHeight,
+            viewportWidth: window.innerWidth,
+            viewportHeight: window.innerHeight,
+        };
+    });
+
+    expect(measured, "#modal is absent").not.toBeNull();
+    if (!measured) return;
+
+    expect(
+        measured.scrollHeight,
+        `at ${measured.viewportWidth}x${measured.viewportHeight} the modal now fits its own box (${measured.scrollHeight}px in ${measured.clientHeight}px), so the escape hatch this size exists to exercise is no longer covered anywhere`
+    ).toBeGreaterThan(measured.clientHeight + 1);
+}
+
 // Assert the modal's actions are on a SINGLE row, with the margin stated.
 //
 // Separate from `expectModalFitsViewport` because it is not true at every size:

@@ -348,3 +348,94 @@
         margin-bottom: 5px;
     }
 }
+
+/* The game-over card, compacted so a landscape phone SEES it rather than
+   scrolls it. 20260730-111003 capped `.modal` at `calc(100% - 32px)` and gave it
+   `overflow-y: auto`, which made every action reachable at every short viewport
+   - but not visible: at 568x320 the card is 433px in a 286px box, so the action
+   row is cut by the card's own bottom edge with no scrollbar or other
+   affordance to say there is more below. 147px of that 433 is spacing and one
+   3.5rem emoji, so none of the copy has to go.
+
+   THIS BLOCK MUST STAY LAST. Media blocks on different axes are resolved by
+   FILE ORDER, not by specificity, so a height block placed above the
+   `max-width: 768px` block would be overwritten by that block's
+   `.modal { padding: 28px 24px }` on every phone - i.e. on exactly the devices
+   this exists for (LESSONS.md:
+   css-media-blocks-on-different-axes-are-resolved-by-file-order).
+
+   480px, because the uncompacted card needs 433 + 32 = 465px of viewport height
+   to fit under the cap, and 480 is the first round number above that.
+
+   VERTICAL PROPERTIES ONLY - block padding, block margins and font sizes. Never
+   `max-width`, never horizontal padding. That is what lets this sit on the
+   height axis alone: `.modal`'s `max-width` is an OUTER width under
+   `border-box` and therefore has to be restated at every padding step (which is
+   why the 768px block above carries its own 470px), and a height block that
+   touched the horizontal cascade would owe the same restatement from a
+   condition on the other axis (LESSONS.md:
+   converting-a-css-property-between-coordinate-systems-must-be-restated-per-media-block).
+   The two rows whose WIDTH is load-bearing - `.modal-actions` and
+   `.modal-extras-grid` - keep their font size for the same reason, so the
+   one-row promises at 393px are computed from unchanged numbers.
+
+   Measured after the trim: 273px of content against the 286px box at 568x320,
+   and 273 against 368 at 900x400 where the width block does not apply. The
+   escape hatch STAYS - at 360px both the stat grid and the action row take a
+   second line, so the card is still 362px against 286/266 and those two sizes
+   keep the scroll deliberately. See
+   tasks/20260730-160720/DECISION.md. */
+@media (max-height: 480px) {
+    .modal {
+        padding-top: 12px;
+        padding-bottom: 12px;
+    }
+
+    .modal-icon {
+        font-size: 1.75rem;
+        margin-bottom: 4px;
+    }
+
+    .modal-title {
+        font-size: 1.3rem;
+        margin-bottom: 6px;
+    }
+
+    .modal-message {
+        font-size: 0.95rem;
+        margin-bottom: 10px;
+    }
+
+    .modal-stats {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        font-size: 0.85rem;
+    }
+
+    .modal-extras {
+        margin-top: 10px;
+    }
+
+    .modal-extra {
+        padding-top: 4px;
+        padding-bottom: 4px;
+    }
+
+    .modal-extra-value {
+        font-size: 1rem;
+    }
+
+    .modal-countdown {
+        margin-top: 8px;
+        font-size: 0.8rem;
+    }
+
+    .modal-actions {
+        margin-top: 10px;
+    }
+
+    .modal-btn {
+        padding-top: 6px;
+        padding-bottom: 6px;
+    }
+}
