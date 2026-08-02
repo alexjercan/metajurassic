@@ -2,11 +2,10 @@
 
 - STATUS: OPEN
 - PRIORITY: 60
-- TAGS: feature,ux,archive
+- TAGS: feature, ux, archive
 - KIND: TASK
-- FLOW STEP: BACKLOG
-- PLAN STATUS: DRAFT
-
+- FLOW STEP: PLANNED
+- PLAN STATUS: APPROVED
 
 ## Story
 
@@ -46,28 +45,95 @@ From the playtest pass (`20260729-092435`, NOTES.md F1.1-F1.3):
 
 ## Steps
 
-- [ ] Add a clade filter to the Species Archive (`src/species.html`,
-      `src/species.ts`). Filtering must be LINEAGE-aware: a species belongs to
-      Cerapoda if Cerapoda appears anywhere in `GameData.lineage(species.clade)`,
-      not only when it is the card's immediate clade.
-- [ ] Decide how the filter is populated and presented - every clade in the
-      graph is 108 options, so consider grouping by depth or restricting to
-      clades with more than one member. Keep it usable on a phone.
-- [ ] Consider whether `/clades` should link into the filtered species view
-      ("show the species in this clade"), since that is the same question from
-      the other direction.
-- [ ] Make the archive discoverable from somewhere other than the FAQ.
-- [ ] Coverage over the real payload, not a mock (`LESSONS.md`
-      `mock-fixtures-hide-real-data-defects-test-the-real-payload`).
+Presentation was settled with the user on 20260802; see "Presentation decision"
+below and record it in `DECISION.md` before the work lands.
+
+- [ ] Add `src/cladeFilter.ts` with two pure functions over `GameData`:
+      `speciesInClade(data, cladeId)` returning the members whose
+      `data.lineage(species.clade)` CONTAINS `cladeId` (not just the immediate
+      clade), and `cladeFilterOptions(data)` returning
+      `{ id, name, count }[]` sorted by `name.localeCompare`. Both take
+      `GameData` as an argument; no module-level data loading.
+      The membership idiom already appears at `src/hintRule.ts:93` and
+      `test/dataIntegrity.test.ts:98` - reuse its shape, do not invent a new one.
+- [ ] Add `test/cladeFilter.test.ts` over the REAL `src/jurassic/index.json`
+      (via the same loader path the other content tests use, not a mock):
+      `speciesInClade(data, "cerapoda")` has 35 members drawn from 22 distinct
+      immediate clades, none of which is `cerapoda` itself; `"dinosauria"`
+      returns all 150; every `cladeFilterOptions` count equals a brute-force
+      lineage scan; an unknown id returns `[]`.
+      Counts measured 20260802 against the checked-in payload; if content
+      changes, assert the invariant and the >1-immediate-clade property rather
+      than re-pinning a number by hand.
+- [ ] Add the filter control to `src/species.html`: a single native
+      `<select id="clade-filter">` in a labelled row between `.archive-subtitle`
+      and `.archive-carousel-wrapper`, with `All clades (150)` first and one
+      option per clade, alphabetical, labelled `Cerapoda (35)`.
+      Native `<select>` is the phone picker; no new widget.
+- [ ] Rework `src/species.ts` around the filter. Attach `setupCarouselNav` ONCE,
+      outside the re-render, and re-render only the cards on `change`.
+      `src/profile/dinosaurList.ts:48` re-runs `setupCarouselNav` inside its
+      render and stacks a duplicate listener set on every toggle; do not copy
+      that. Reset `carousel.scrollLeft = 0` after a re-render so the nav buttons
+      re-evaluate from the start.
+- [ ] Read `?clade=<id>` from `location.search` on load: lowercase it, accept it
+      only if `data.findCladeById` resolves it, otherwise fall back to all
+      species. On `change`, keep the URL coherent with
+      `history.replaceState` (needed because the `/clades` deep link below
+      arrives with a param that would otherwise go stale).
+- [ ] Link each clade card on `/clades` into the filtered view: in
+      `src/clades.ts`, append an anchor to `/species/?clade=<clade.id>` to the
+      card after `createCladeCard` returns. Do NOT add the link inside
+      `createCladeCard` (`src/ui/card.ts:117`) - that builder is shared with the
+      in-round panel, which must not offer this route.
+- [ ] Add one `Archive` link to `src/_footer.html` pointing at
+      `<%= basePath %>species`, so the filter is reachable without the FAQ.
+      Cross-links between the two archives are deferred; `/clades` stays
+      FAQ-reachable.
+- [ ] Style the filter row in `src/partials/archive.css` (the archive partial,
+      after `.archive-subtitle`), following the `.profile-filter-toggle`
+      precedent at `src/partials/profile.css:377`. `/species` is a
+      `page-fixed` page: confirm the new row does not push the carousel out of
+      view, and if it does, adjust the `.archive-card` `max-height` /
+      `min-height` `calc(100vh - 200px)` at `src/partials/archive.css:50` and
+      its narrow-viewport override at `src/partials/responsive.css:248`
+      together. Keep the `src/style.css` import order untouched.
+- [ ] Add `e2e/archiveFilter.spec.ts` for the two browser-level DoD items
+      (see Definition of Done for the exact assertions).
 
 ## Definition of Done
 
 - The Species Archive can be filtered to the members of any clade, including
-  higher clades that are no card's immediate clade. (test: browser E2E over the
-  real payload, asserting a higher clade returns members drawn from more than
-  one immediate clade)
-- The filter is reachable without going through the FAQ. (test: browser E2E)
+  higher clades that are no card's immediate clade. (test: `e2e/archiveFilter.spec.ts`
+  selects `cerapoda`, asserts 35 `.archive-card` remain, and reads the rendered
+  `Clade:` line off the cards to assert more than one distinct immediate clade
+  and that none of them is Cerapoda)
+- Arriving at `/species/?clade=cerapoda` applies the filter, and an unknown
+  `?clade=` value falls back to all 150 species rather than an empty page.
+  (test: `e2e/archiveFilter.spec.ts`)
+- A clade card on `/clades` links into its filtered species view.
+  (test: `e2e/archiveFilter.spec.ts` clicks the link on a named clade card and
+  asserts the landed page is filtered)
+- The filter is reachable without going through the FAQ. (test:
+  `e2e/archiveFilter.spec.ts` starts at `/`, clicks the footer Archive link,
+  and asserts `#clade-filter` is visible)
+- Lineage-aware membership holds over the real payload, not a mock. (test:
+  `test/cladeFilter.test.ts`; `LESSONS.md`
+  `mock-fixtures-hide-real-data-defects-test-the-real-payload`)
 - `npm run ci` passes. (cmd: `npm run ci`)
+
+## Presentation decision (20260802, with the user)
+
+- **Native `<select>`, alphabetical, with member counts.** The player arrives
+  already knowing a clade NAME - from a hint (`20260729-141424`) or from a
+  card - so alphabetical is the fastest lookup for the actual entry path.
+- Rejected: `<optgroup>` grouped by tree DEPTH. It teaches the hierarchy but
+  buries a known name across 16 levels, which is the opposite of the entry path.
+- Rejected: a typeahead reusing `findMatches` (`src/ui/autocomplete.ts:18`). It
+  is a new widget on the page and removes any way to BROWSE what clades exist.
+- Restricting the list to clades with more than one member was considered and
+  dropped: measured 20260802, 107 of the 108 clades already have more than one
+  member, so the restriction prunes one option and buys nothing.
 
 ## Notes
 
