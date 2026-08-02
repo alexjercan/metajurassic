@@ -1,10 +1,10 @@
 # Filter the species archive by clade
 
-- STATUS: OPEN
+- STATUS: CLOSED
 - PRIORITY: 60
 - TAGS: feature, ux, archive
 - KIND: TASK
-- FLOW STEP: PLANNED
+- FLOW STEP: DONE
 - PLAN STATUS: APPROVED
 
 ## Story
@@ -46,9 +46,9 @@ From the playtest pass (`20260729-092435`, NOTES.md F1.1-F1.3):
 ## Steps
 
 Presentation was settled with the user on 20260802; see "Presentation decision"
-below and record it in `DECISION.md` before the work lands.
+below. Recorded in `DECISION.md`.
 
-- [ ] Add `src/cladeFilter.ts` with two pure functions over `GameData`:
+- [x] Add `src/cladeFilter.ts` with two pure functions over `GameData`:
       `speciesInClade(data, cladeId)` returning the members whose
       `data.lineage(species.clade)` CONTAINS `cladeId` (not just the immediate
       clade), and `cladeFilterOptions(data)` returning
@@ -56,7 +56,7 @@ below and record it in `DECISION.md` before the work lands.
       `GameData` as an argument; no module-level data loading.
       The membership idiom already appears at `src/hintRule.ts:93` and
       `test/dataIntegrity.test.ts:98` - reuse its shape, do not invent a new one.
-- [ ] Add `test/cladeFilter.test.ts` over the REAL `src/jurassic/index.json`
+- [x] Add `test/cladeFilter.test.ts` over the REAL `src/jurassic/index.json`
       (via the same loader path the other content tests use, not a mock):
       `speciesInClade(data, "cerapoda")` has 35 members drawn from 22 distinct
       immediate clades, none of which is `cerapoda` itself; `"dinosauria"`
@@ -65,40 +65,39 @@ below and record it in `DECISION.md` before the work lands.
       Counts measured 20260802 against the checked-in payload; if content
       changes, assert the invariant and the >1-immediate-clade property rather
       than re-pinning a number by hand.
-- [ ] Add the filter control to `src/species.html`: a single native
+- [x] Add the filter control to `src/species.html`: a single native
       `<select id="clade-filter">` in a labelled row between `.archive-subtitle`
       and `.archive-carousel-wrapper`, with `All clades (150)` first and one
       option per clade, alphabetical, labelled `Cerapoda (35)`.
       Native `<select>` is the phone picker; no new widget.
-- [ ] Rework `src/species.ts` around the filter. Attach `setupCarouselNav` ONCE,
+- [x] Rework `src/species.ts` around the filter. Attach `setupCarouselNav` ONCE,
       outside the re-render, and re-render only the cards on `change`.
       `src/profile/dinosaurList.ts:48` re-runs `setupCarouselNav` inside its
       render and stacks a duplicate listener set on every toggle; do not copy
-      that. Reset `carousel.scrollLeft = 0` after a re-render so the nav buttons
-      re-evaluate from the start.
-- [ ] Read `?clade=<id>` from `location.search` on load: lowercase it, accept it
+      that. Reset `carousel.scrollLeft = 0` after a re-render, and refresh the
+      nav button state so it re-evaluates against the new list.
+- [x] Read `?clade=<id>` from `location.search` on load: lowercase it, accept it
       only if `data.findCladeById` resolves it, otherwise fall back to all
       species. On `change`, keep the URL coherent with
       `history.replaceState` (needed because the `/clades` deep link below
       arrives with a param that would otherwise go stale).
-- [ ] Link each clade card on `/clades` into the filtered view: in
+- [x] Link each clade card on `/clades` into the filtered view: in
       `src/clades.ts`, append an anchor to `/species/?clade=<clade.id>` to the
       card after `createCladeCard` returns. Do NOT add the link inside
       `createCladeCard` (`src/ui/card.ts:117`) - that builder is shared with the
       in-round panel, which must not offer this route.
-- [ ] Add one `Archive` link to `src/_footer.html` pointing at
+- [x] Add one `Archive` link to `src/_footer.html` pointing at
       `<%= basePath %>species`, so the filter is reachable without the FAQ.
       Cross-links between the two archives are deferred; `/clades` stays
       FAQ-reachable.
-- [ ] Style the filter row in `src/partials/archive.css` (the archive partial,
+- [x] Style the filter row in `src/partials/archive.css` (the archive partial,
       after `.archive-subtitle`), following the `.profile-filter-toggle`
       precedent at `src/partials/profile.css:377`. `/species` is a
       `page-fixed` page: confirm the new row does not push the carousel out of
-      view, and if it does, adjust the `.archive-card` `max-height` /
-      `min-height` `calc(100vh - 200px)` at `src/partials/archive.css:50` and
-      its narrow-viewport override at `src/partials/responsive.css:248`
-      together. Keep the `src/style.css` import order untouched.
-- [ ] Add `e2e/archiveFilter.spec.ts` for the two browser-level DoD items
+      view. The `calc(100vh - 200px)` budget this step proposed adjusting was
+      replaced rather than tuned - see the close-out - and its declarations are
+      now removed as dead. Keep the `src/style.css` import order untouched.
+- [x] Add `e2e/archiveFilter.spec.ts` for the two browser-level DoD items
       (see Definition of Done for the exact assertions).
 
 ## Definition of Done
@@ -160,3 +159,84 @@ Partly falsifies the parity framing behind this task. Full context in
   measured gap is real either way; the justification changes.
 - Decide this consistently with `20260729-182320` (rank-ladder summary), the
   other "give the player more information" fork the alignment pass filed.
+
+## Close-out (20260802)
+
+### What and why
+
+`/species` gained a native `<select>` clade filter, and clade membership became
+lineage-aware so a higher clade like Cerapoda - which is no card's immediate
+clade - resolves to its 35 members instead of nothing. The clade-to-species
+mapping stays out of a round by design (`DECISION.md`); this is the page a
+player goes to instead.
+
+- `src/cladeFilter.ts`: `speciesInClade` and `cladeFilterOptions`, pure over
+  `GameData`, both reusing the `lineage(...).includes(...)` idiom already at
+  `src/hintRule.ts:93`.
+- `src/species.ts`: reworked around the filter, reading `?clade=` on load and
+  keeping the URL coherent with `history.replaceState` on change.
+- `src/clades.ts`: each clade card gained a `See species in X` deep link,
+  appended OUTSIDE `createCladeCard` so the shared in-round panel does not get
+  the route.
+- `src/_footer.html`: an `Archive` link, so the filter is reachable without the
+  FAQ.
+
+### Alternatives and difficulties
+
+- **Carousel nav listener stacking.** The plan warned that
+  `src/profile/dinosaurList.ts:48` re-runs `setupCarouselNav` inside its render
+  and stacks a listener set per toggle. Attaching once was not sufficient on its
+  own: the plan's `carousel.scrollLeft = 0` was meant to re-run the button check
+  via the `scroll` event, but that event does NOT fire when the position was
+  already 0, so a filter change from one short list to another left the nav
+  buttons in a stale disabled state. `setupCarouselNav` now RETURNS its
+  `updateButtons` and the render calls it explicitly.
+- **Deep-link base path.** First draft derived the base from
+  `location.pathname`. Replaced with `__webpack_public_path__`, the precedent
+  already at `src/game/hintChip.ts:20`, which is correct under the
+  `/metajurassic/` GitHub Pages prefix without regex guessing.
+- **The deep link was unclickable.** `.museum-card::after` paints a backdrop at
+  `z-index: 1`, so a link appended outside `.museum-card-inner` rendered and
+  received clicks BEHIND it. Playwright caught it as "card intercepts pointer
+  events". Fixed with `position: relative; z-index: 2`, matching
+  `.museum-card-inner`.
+- **The filter row broke the fixed-height page.** `/species` is `page-fixed`,
+  and `.archive-card`'s `min-height: min(420px, calc(100vh - 200px))` floor does
+  not know about the new row: the card overflowed the carousel by 9px at
+  1280x720. The plan offered subtracting more from the shared `100vh` budget,
+  but 420px is the binding term at that viewport, so a bigger subtrahend changes
+  nothing. Instead the budget is scoped to the archives that need it
+  (`.archive-container-fitted .archive-card { max-height: 100%; min-height: 0 }`),
+  which sizes against the carousel's own box and adds no second magic number.
+  Review round 2 found `/clades` needed the same rule - its cards were already
+  taller than their carousel, so the appended members link fell 38px into the
+  clipped zone at 320x568 - so the class is on both archives and named for what
+  it does rather than for the filter. `/profile` card geometry is untouched.
+- **The footer link regressed the onboarding brief.** See `DECISION.md`; the
+  fourth link wrapped the footer at 320px and clipped the brief by 12px. Fixed
+  by shortening the longest label at narrow widths, not by weakening the test.
+
+### Evidence
+
+- `test/cladeFilter.test.ts`: 6 tests over the REAL `src/jurassic/index.json`.
+  Cerapoda has 35 members across 22 distinct immediate clades, none of them
+  Cerapoda; every option count matches a brute-force lineage scan.
+- `e2e/archiveFilter.spec.ts`: 13 tests covering all four browser-level DoD
+  items, plus the fixed-height layout at desktop AND narrow viewports, the
+  carousel nav across re-renders, and the clade card's link at 320x568, reusing
+  `expectFullyVisibleWithin` from `e2e/helpers/viewport.ts`.
+- `npm run ci`: green - 336 unit tests, 139 E2E. `npm run build`: compiles.
+
+### Reflection
+
+Two of the three real defects here were caught only because an assertion
+measured GEOMETRY rather than presence: the clipped card and the clipped
+onboarding brief would both have passed any `toBeVisible` check. Reaching for
+the existing `expectFullyVisibleWithin` helper instead of the hand-rolled
+viewport comparison in the first draft is what turned the card overflow from
+green to red - the hand-rolled version compared against the viewport only and
+missed the clipping ancestor.
+
+The onboarding regression is the more general lesson: a footer is shared by
+every page, so "add one link" is a global layout change, and the smallest
+supported viewport is where it gets paid for.

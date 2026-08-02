@@ -64,3 +64,37 @@ the critical path for whether a lost player can recover.
 Implementation note carried into the task: each species card names only its
 IMMEDIATE clade, so filtering by a higher clade (Cerapoda) needs lineage-aware
 matching (`GameData.lineage`), not a string comparison against the card text.
+
+## Presentation: native `<select>`, alphabetical, with member counts (20260802)
+
+Settled with the user before implementation. The player arrives already knowing
+a clade NAME - from a hint (`20260729-141424`) or from a card - so alphabetical
+is the fastest lookup for the actual entry path, and the counts turn the control
+into a preview of how big each clade is.
+
+- Rejected: `<optgroup>` grouped by tree DEPTH. It teaches the hierarchy but
+  buries a known name across 16 levels, which is the opposite of the entry path.
+- Rejected: a typeahead reusing `findMatches` (`src/ui/autocomplete.ts`). It is
+  a new widget on the page and removes any way to BROWSE what clades exist.
+- Restricting the list to clades with more than one member was considered and
+  dropped: measured 20260802, 107 of the 108 clades already have more than one
+  member, so the restriction prunes one option and buys nothing.
+
+Native `<select>` is also the phone picker, so the mobile case needs no second
+design.
+
+## Consequence taken during the work: the footer's narrow-viewport budget
+
+The `Archive` footer link the task adds is a FOURTH link, and at 320px the
+footer wraps: measured 36px -> 63px, which clipped the onboarding brief by 12px
+and failed `e2e/onboarding.spec.ts` at 320x568.
+
+The invariant that test defends (the first screen is not cut off on the smallest
+supported phone) is worth more than the footer's full label, so the fix shrinks
+the label rather than the brief: `.footer-label-long` hides the "Inspired by "
+prefix under the existing responsive breakpoint, leaving "Metazooa". All four
+links fit one row again and the footer returns to 36px.
+
+Rejected: raising the onboarding brief's height budget, which would have paid
+for a footer link out of the game's first screen; and dropping the footer link,
+which is the task's own reachability criterion.

@@ -30,6 +30,68 @@
     flex-shrink: 0;
 }
 
+.archive-filter-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 1.5vh 0;
+    flex-shrink: 0;
+}
+
+.archive-filter-row label {
+    color: #8a93a5;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.archive-filter-row select {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 8px 16px;
+    color: var(--amber-glow);
+    font-family: inherit;
+    font-size: 0.9rem;
+    cursor: pointer;
+    max-width: 60vw;
+    transition: all 0.2s ease;
+}
+
+.archive-filter-row select:hover {
+    background: var(--amber-dim);
+    border-color: var(--amber-glow);
+}
+
+/* The native picker paints its own list; the glass background is unreadable
+   there on Firefox/Linux, which honours option colours. */
+.archive-filter-row select option {
+    background: #12161f;
+    color: #e6e9ef;
+}
+
+/* Appended to the clade card on /clades, outside `.museum-card-inner`. The
+   card's `::after` backdrop sits at z-index 1, so without a stacking context of
+   its own this link renders and CLICKS behind it. */
+.clade-card-members-link {
+    position: relative;
+    z-index: 2;
+    flex-shrink: 0;
+    margin: 0 16px 16px;
+    padding: 8px 14px;
+    text-align: center;
+    color: var(--amber-glow);
+    text-decoration: none;
+    font-size: 0.85rem;
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    transition: 0.2s;
+}
+
+.clade-card-members-link:hover {
+    background: var(--amber-dim);
+}
+
 .archive-carousel {
     display: flex;
     height: 100%;
@@ -50,9 +112,18 @@
 .archive-card {
     flex: 0 0 340px;
     height: auto;
-    max-height: calc(100vh - 200px);
-    min-height: min(420px, calc(100vh - 200px));
     scroll-snap-align: center;
+}
+
+/* Size the card against the carousel's own box. Both archives need this and for
+   the same reason: /species adds a filter row above, /clades adds the members
+   link inside the card, and on these `page-fixed` pages either one pushes card
+   content past the bottom of the carousel. Set on the container, not
+   `.archive-card`, because /profile shares that class and sets its own budget
+   through `.profile-carousel`. */
+.archive-container-fitted .archive-card {
+    max-height: 100%;
+    min-height: 0;
 }
 
 .archive-back {
