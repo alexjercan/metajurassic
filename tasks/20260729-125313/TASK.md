@@ -1,10 +1,10 @@
 # Stop the info panel auto-opening on a mid-game reload
 
-- STATUS: OPEN
+- STATUS: CLOSED
 - PRIORITY: 60
-- TAGS: bug,ui,ux,mobile
+- TAGS: bug, ui, ux, mobile
 - KIND: TASK
-- FLOW STEP: BACKLOG
+- FLOW STEP: DROPPED
 - PLAN STATUS: DRAFT
 
 ## Story
@@ -29,17 +29,17 @@ was before 20260729-092315 - just for a returning player instead of a new one.
 
 ## Steps
 
-- [ ] Decide how "render triggered by page load" is distinguished from "render
-      triggered by a fresh guess" - this changes `renderLastGuess`'s contract,
-      so weigh an explicit parameter against having `initGame` suppress the open
-      on its first `updateUI()`, and record the choice in `DECISION.md`.
-- [ ] Consider whether the manual-close preference should persist across loads
-      (localStorage) instead of resetting, and whether that is a better fix.
-- [ ] Implement the chosen behavior without disturbing the post-guess auto-open
-      or the hint-purchase open (both pinned by `e2e/panel.spec.ts`).
-- [ ] Add an E2E test that seeds a mid-game state into localStorage (see
-      `e2e/helpers.ts` `seedFinishedDailyGame` for the pattern) and asserts the
-      panel is closed after the reload.
+- [x] Decide how "render triggered by page load" is distinguished from "render
+      triggered by a fresh guess" - resolved as NOT NEEDED: `20260729-141414`
+      made the tail open conditional on `!isNarrowViewport()`, which is
+      indifferent to the trigger. See `DECISION.md`.
+- [x] Consider whether the manual-close preference should persist across loads
+      (localStorage) instead of resetting - a real but separate desktop-only
+      question, deferred to its own task. See `DECISION.md`.
+- [x] Implement the chosen behavior - no code change lands; the behavior is
+      already shipped.
+- [x] Add an E2E test - already exists as `e2e/mobile.spec.ts:193`, "the tree
+      stays visible after a mid-game reload", verified green on 2026-08-02.
 
 ## Definition of Done
 
@@ -48,6 +48,13 @@ was before 20260729-092315 - just for a returning player instead of a new one.
 - The panel still auto-opens after a fresh guess and on a hint purchase.
   (test: `e2e/panel.spec.ts`)
 - `npm run ci` passes. (cmd: `npm run ci`)
+
+## Resolution (2026-08-02)
+
+Closed as already fixed, no code change. `20260729-141414` suppressed the
+auto-open on narrow viewports regardless of what triggered the render, which
+covers the reload. Verified green on both viewports; the desktop residue and the
+localStorage question are judged out of scope. See `DECISION.md`.
 
 ## Playtest evidence (2026-07-29, from `20260729-092435`)
 
@@ -84,3 +91,9 @@ two ways.
   hint on DESKTOP still yields to a manual close - which is deliberate and pinned
   by "a mid-game hint does not resurrect the panel for later guesses" in
   `e2e/panel.spec.ts`. Do not "fix" that desktop case; it has a test.
+
+
+## Dropped
+
+- REASON: Already fixed: 20260729-141414 made the renderLastGuess auto-open conditional on !isNarrowViewport(), which suppresses the reload open on a phone whatever triggered the render. Verified green 2026-08-02 via e2e/mobile.spec.ts:193. Desktop residue and the localStorage manual-close question are out of scope; see DECISION.md.
+- SUPERSEDED BY: 20260729-141414
