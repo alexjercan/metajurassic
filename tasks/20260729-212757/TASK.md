@@ -1,11 +1,11 @@
 # Drive the guess budget in markup from MAX_GUESSES
 
-- STATUS: OPEN
 - PRIORITY: 40
-- TAGS: chore,content
+- TAGS: chore, content
 - KIND: TASK
-- FLOW STEP: BACKLOG
-- PLAN STATUS: DRAFT
+- ACTIVITY: -
+- GATES: -
+- RESOLUTION: -
 
 ## Story
 

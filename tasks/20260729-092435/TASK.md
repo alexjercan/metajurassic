@@ -1,11 +1,11 @@
 # Run a structured Metajurassic playtest pass
 
-- STATUS: CLOSED
 - PRIORITY: 86
 - TAGS: ux, gameplay, research
 - KIND: TASK
-- FLOW STEP: DONE
-- PLAN STATUS: APPROVED
+- ACTIVITY: COMPOUNDING
+- GATES: PLAN REVIEW RETRO
+- RESOLUTION: DONE
 
 ## Story
 

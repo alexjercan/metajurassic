@@ -1,12 +1,11 @@
 # Delete or wire up the dead markdownLoader
 
-- STATUS: OPEN
 - PRIORITY: 40
-- TAGS: chore,cleanup
+- TAGS: chore, cleanup
 - KIND: TASK
-- FLOW STEP: BACKLOG
-- PLAN STATUS: DRAFT
-
+- ACTIVITY: -
+- GATES: -
+- RESOLUTION: -
 
 ## Story
 

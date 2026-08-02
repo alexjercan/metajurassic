@@ -1,11 +1,11 @@
 # Replace the share-failure alert with inline feedback
 
-- STATUS: OPEN
 - PRIORITY: 58
-- TAGS: bug,ux,ui
+- TAGS: bug, ux, ui
 - KIND: TASK
-- FLOW STEP: BACKLOG
-- PLAN STATUS: DRAFT
+- ACTIVITY: -
+- GATES: -
+- RESOLUTION: -
 
 ## Story
 

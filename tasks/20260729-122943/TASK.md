@@ -1,11 +1,11 @@
 # Fix DST drift in seedToDate/dateToSeed shifting daily profile dates
 
-- STATUS: CLOSED
 - PRIORITY: 80
-- TAGS: bug,testing
+- TAGS: bug, testing
 - KIND: TASK
-- FLOW STEP: DONE
-- PLAN STATUS: APPROVED
+- ACTIVITY: COMPOUNDING
+- GATES: PLAN REVIEW RETRO
+- RESOLUTION: DONE
 
 ## Story
 

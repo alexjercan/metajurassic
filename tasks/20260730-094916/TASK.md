@@ -1,11 +1,11 @@
 # Name the closeness colour in the how-to-play copy
 
-- STATUS: OPEN
 - PRIORITY: 55
-- TAGS: docs,ux
+- TAGS: docs, ux
 - KIND: TASK
-- FLOW STEP: BACKLOG
-- PLAN STATUS: DRAFT
+- ACTIVITY: -
+- GATES: -
+- RESOLUTION: -
 
 ## Story
 

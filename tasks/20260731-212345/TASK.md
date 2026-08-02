@@ -1,11 +1,11 @@
 # Epic: KISS pass over every module - smaller files, comments that earn their place
 
-- STATUS: CLOSED
 - PRIORITY: 72
 - TAGS: goal, refactor, docs
 - KIND: EPIC
-- FLOW STEP: DONE
-- PLAN STATUS: APPROVED
+- ACTIVITY: COMPOUNDING
+- GATES: PLAN
+- RESOLUTION: DONE
 
 ## Story
 

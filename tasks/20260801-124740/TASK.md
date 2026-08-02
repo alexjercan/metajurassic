@@ -1,11 +1,11 @@
 # Tool the stale-pointer check: grep what a diff moved code out of
 
-- STATUS: OPEN
 - PRIORITY: 55
-- TAGS: tooling,tatr,process
+- TAGS: tooling, tatr, process
 - KIND: TASK
-- FLOW STEP: BACKLOG
-- PLAN STATUS: DRAFT
+- ACTIVITY: -
+- GATES: -
+- RESOLUTION: -
 
 ## Problem
 

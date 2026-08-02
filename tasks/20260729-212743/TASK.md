@@ -1,11 +1,11 @@
 # Make the hint chip keyboard reachable
 
-- STATUS: OPEN
 - PRIORITY: 55
-- TAGS: a11y,ux
+- TAGS: a11y, ux
 - KIND: TASK
-- FLOW STEP: BACKLOG
-- PLAN STATUS: DRAFT
+- ACTIVITY: -
+- GATES: -
+- RESOLUTION: -
 
 ## Story
 

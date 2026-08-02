@@ -1,11 +1,11 @@
 # Rank-ladder summary of what the guesses have narrowed
 
-- STATUS: OPEN
 - PRIORITY: 58
-- TAGS: feature,ux,gameplay
+- TAGS: feature, ux, gameplay
 - KIND: TASK
-- FLOW STEP: BACKLOG
-- PLAN STATUS: DRAFT
+- ACTIVITY: -
+- GATES: -
+- RESOLUTION: -
 
 ## Story
 

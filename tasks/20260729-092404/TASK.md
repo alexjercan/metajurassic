@@ -1,11 +1,11 @@
 # Repair broken Jurassic media references
 
-- STATUS: CLOSED
 - PRIORITY: 70
-- TAGS: bug,content,ui
+- TAGS: bug, content, ui
 - KIND: TASK
-- FLOW STEP: DONE
-- PLAN STATUS: APPROVED
+- ACTIVITY: COMPOUNDING
+- GATES: PLAN REVIEW RETRO
+- RESOLUTION: DONE
 
 ## Story
 

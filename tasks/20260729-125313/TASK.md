@@ -1,11 +1,11 @@
 # Stop the info panel auto-opening on a mid-game reload
 
-- STATUS: CLOSED
 - PRIORITY: 60
 - TAGS: bug, ui, ux, mobile
 - KIND: TASK
-- FLOW STEP: DROPPED
-- PLAN STATUS: DRAFT
+- ACTIVITY: -
+- GATES: RETRO
+- RESOLUTION: WONTDO
 
 ## Story
 

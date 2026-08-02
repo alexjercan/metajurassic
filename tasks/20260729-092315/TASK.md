@@ -1,11 +1,11 @@
 # Fix first-run mobile game focus
 
-- STATUS: CLOSED
 - PRIORITY: 90
-- TAGS: bug,ui,ux,mobile
+- TAGS: bug, ui, ux, mobile
 - KIND: TASK
-- FLOW STEP: DONE
-- PLAN STATUS: APPROVED
+- ACTIVITY: COMPOUNDING
+- GATES: PLAN REVIEW RETRO
+- RESOLUTION: DONE
 
 ## Story
 

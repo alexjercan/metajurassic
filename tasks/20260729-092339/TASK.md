@@ -1,11 +1,11 @@
 # Harden tree scaling and mobile scroll behavior
 
-- STATUS: CLOSED
 - PRIORITY: 80
-- TAGS: bug,ui,mobile,testing
+- TAGS: bug, ui, mobile, testing
 - KIND: TASK
-- FLOW STEP: DONE
-- PLAN STATUS: APPROVED
+- ACTIVITY: COMPOUNDING
+- GATES: PLAN REVIEW RETRO
+- RESOLUTION: DONE
 
 ## Story
 

@@ -1,11 +1,11 @@
 # Validate Jurassic data and media integrity
 
-- STATUS: CLOSED
 - PRIORITY: 75
-- TAGS: testing,data,content
+- TAGS: testing, data, content
 - KIND: TASK
-- FLOW STEP: DONE
-- PLAN STATUS: APPROVED
+- ACTIVITY: COMPOUNDING
+- GATES: PLAN REVIEW RETRO
+- RESOLUTION: DONE
 
 ## Story
 

@@ -1,11 +1,11 @@
 # Align Metajurassic flow with Metazooa expectations
 
-- STATUS: CLOSED
 - PRIORITY: 84
 - TAGS: ux, gameplay, design
 - KIND: TASK
-- FLOW STEP: DONE
-- PLAN STATUS: APPROVED
+- ACTIVITY: COMPOUNDING
+- GATES: PLAN REVIEW RETRO
+- RESOLUTION: DONE
 
 ## Story
 

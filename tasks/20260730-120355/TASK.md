@@ -1,12 +1,11 @@
 # Make the generated content graph deterministically ordered
 
-- STATUS: OPEN
 - PRIORITY: 35
-- TAGS: chore,content,tooling
+- TAGS: chore, content, tooling
 - KIND: TASK
-- FLOW STEP: BACKLOG
-- PLAN STATUS: DRAFT
-
+- ACTIVITY: -
+- GATES: -
+- RESOLUTION: -
 
 ## Story
 

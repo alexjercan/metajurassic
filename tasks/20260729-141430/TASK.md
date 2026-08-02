@@ -1,12 +1,11 @@
 # Normalize typographic punctuation in Jurassic content
 
-- STATUS: OPEN
 - PRIORITY: 30
-- TAGS: content,docs
+- TAGS: content, docs
 - KIND: TASK
-- FLOW STEP: BACKLOG
-- PLAN STATUS: DRAFT
-
+- ACTIVITY: -
+- GATES: -
+- RESOLUTION: -
 
 ## Story
 

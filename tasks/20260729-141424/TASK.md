@@ -1,11 +1,11 @@
 # Rework hint reveal order and price
 
-- STATUS: CLOSED
 - PRIORITY: 88
-- TAGS: bug,gameplay,design
+- TAGS: bug, gameplay, design
 - KIND: TASK
-- FLOW STEP: DONE
-- PLAN STATUS: APPROVED
+- ACTIVITY: COMPOUNDING
+- GATES: PLAN REVIEW RETRO
+- RESOLUTION: DONE
 
 ## Story
 

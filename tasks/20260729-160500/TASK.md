@@ -1,12 +1,11 @@
 # Spike: make the hint split the remaining candidates
 
-- STATUS: CLOSED
 - PRIORITY: 88
-- TAGS: spike,gameplay,design
+- TAGS: spike, gameplay, design
 - KIND: SPIKE
-- FLOW STEP: DONE
-- PLAN STATUS: APPROVED
-
+- ACTIVITY: COMPOUNDING
+- GATES: PLAN REVIEW RETRO
+- RESOLUTION: DONE
 
 ## Question
 

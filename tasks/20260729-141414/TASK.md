@@ -1,12 +1,11 @@
 # Keep the tree visible on mobile after a guess
 
-- STATUS: CLOSED
 - PRIORITY: 92
-- TAGS: bug,ui,ux,mobile
+- TAGS: bug, ui, ux, mobile
 - KIND: TASK
-- FLOW STEP: DONE
-- PLAN STATUS: APPROVED
-
+- ACTIVITY: COMPOUNDING
+- GATES: PLAN REVIEW RETRO
+- RESOLUTION: DONE
 
 ## Story
 

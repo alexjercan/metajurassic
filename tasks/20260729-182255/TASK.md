@@ -1,11 +1,11 @@
 # Colour the tree by guess closeness
 
-- STATUS: CLOSED
 - PRIORITY: 78
-- TAGS: feature,ux,gameplay
+- TAGS: feature, ux, gameplay
 - KIND: TASK
-- FLOW STEP: DONE
-- PLAN STATUS: APPROVED
+- ACTIVITY: COMPOUNDING
+- GATES: PLAN REVIEW RETRO
+- RESOLUTION: DONE
 
 ## Story
 

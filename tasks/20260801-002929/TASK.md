@@ -1,11 +1,11 @@
 # Fix the mis-attributed hint-cost figure in 20260729-092327/DECISION.md
 
-- STATUS: OPEN
 - PRIORITY: 30
-- TAGS: docs,bug
+- TAGS: docs, bug
 - KIND: TASK
-- FLOW STEP: BACKLOG
-- PLAN STATUS: DRAFT
+- ACTIVITY: -
+- GATES: -
+- RESOLUTION: -
 
 ## Problem
 

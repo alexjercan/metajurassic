@@ -1,11 +1,11 @@
 # Tighten CI signal and remove warning drift
 
-- STATUS: CLOSED
 - PRIORITY: 65
-- TAGS: ci,testing,lint
+- TAGS: ci, testing, lint
 - KIND: TASK
-- FLOW STEP: DONE
-- PLAN STATUS: APPROVED
+- ACTIVITY: COMPOUNDING
+- GATES: PLAN REVIEW RETRO
+- RESOLUTION: DONE
 
 ## Story
 

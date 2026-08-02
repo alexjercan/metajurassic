@@ -1,12 +1,11 @@
 # Fix the duplicated word in the share headline
 
-- STATUS: OPEN
 - PRIORITY: 50
-- TAGS: bug,ux,content
+- TAGS: bug, ux, content
 - KIND: TASK
-- FLOW STEP: BACKLOG
-- PLAN STATUS: DRAFT
-
+- ACTIVITY: -
+- GATES: -
+- RESOLUTION: -
 
 ## Story
 
