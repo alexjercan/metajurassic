@@ -3,7 +3,7 @@
 - PRIORITY: 50
 - TAGS: bug, ux, content
 - KIND: TASK
-- ACTIVITY: -
+- ACTIVITY: UNDERSTANDING
 - GATES: -
 - RESOLUTION: -
 
