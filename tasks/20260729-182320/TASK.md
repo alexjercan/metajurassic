@@ -3,8 +3,8 @@
 - PRIORITY: 58
 - TAGS: feature, ux, gameplay
 - KIND: TASK
-- ACTIVITY: -
-- GATES: -
+- ACTIVITY: WORKING
+- GATES: PLAN
 - RESOLUTION: -
 
 ## Story
@@ -19,16 +19,24 @@ As a player mid-round, I want a compact summary of what my guesses have establis
 
 ## Steps
 
-- [ ] DECIDE FIRST, and record it in a `DECISION.md` before building: should Metajurassic give the player depth-to-target at all? The options are not interchangeable - a ladder that shows unrevealed ranks as `???` rows hands out a number the tree deliberately withholds, while a ladder over only the REVEALED lineage is a restatement of the tree and may not be worth a surface. Confirm the artifact with the user.
-- [ ] If it proceeds: build the chosen surface, reusing the lineage the tree already computes (`src/treeBuilder.ts`) rather than a second traversal.
-- [ ] One ordering only to start; the second ordering is deliberately out of scope (`20260729-092452` NOTES section 5).
-- [ ] Decide the placement against the existing panel/pull-tab vocabulary - the note warns against introducing a second competing "there is something to read" affordance.
-- [ ] Tests for the summary contents over a seeded round.
+- [x] DECIDE FIRST, and record it in a `DECISION.md` before building: should Metajurassic give the player depth-to-target at all? DONE 20260803 - the user chose option B, the ladder over the REVEALED lineage only. `DECISION.md` also fixes the second fork (rows are the target's chain only; every guess is attributed to its join clade). `NOTES.md` holds the build plan the steps below execute.
+- [ ] Write `test/rankLadder.test.ts` FIRST against `test/treeFixtures.ts`'s synthetic tree (node env, no DOM): row order root -> deepest, per-row guess buckets, per-row provenance (`root` / guesses / hint), the header counts, a guess whose tree bucket is an off-chain pairwise LCA rolling up to its nearest chain ancestor, and the invariant that NO clade outside the revealed chain and NO unrevealed clade ever appears.
+- [ ] Add `src/rankLadder.ts`: `buildRankLadder(state: GameState, roots: CladeNode[]) -> LadderRow[]`. Pure, no DOM, no new state. Walks the `CladeNode[]` `buildGuessTree` already returned rather than re-traversing the graph; carries each guess's existing `SpeciesNode.closenessTier` through untouched so the card, the board and the share grid cannot disagree.
+- [ ] Add `src/ui/ladderCard.ts`: `buildLadderCard(rows) -> HTMLElement`, mirroring `createCladeCard`'s shape in `src/ui/card.ts` and mounted with the existing `mountCard`. Keep it dumb - jest excludes `src/ui/**` from coverage, so every decision belongs in `rankLadder.ts` (same argument as `SpeciesNode.closenessTier`'s doc comment).
+- [ ] Add the `Info` / `Summary` tab strip to `#info-panel` in `src/index.html`, above `#panel-card-container`. NOTE: `webpack.config.js` registers this template twice, as the daily page and as `/practice/`; the summary is valid in both, so it ships active rather than `hidden`.
+- [ ] Wire the tabs in `src/ui/panel.ts`: tab state plus `renderLadderCard(state, data, roots)`, defaulting to `Info` so a player who never taps `Summary` sees today's game unchanged. Do NOT route through `openPanel()` - it also clears `manuallyClosedPanel` (LESSONS.md read-the-helper-body-not-its-name-before-reusing-it), the exact trap `renderLastGuess` already documents.
+- [ ] Call the summary render from `updateUI()` in `src/game/index.ts`, reusing the `roots` already built there for `renderLastGuess` and `renderTree`. One `buildGuessTree` call per update, as today.
+- [ ] Style the tab strip and the ladder rows in `src/partials/panel.css`. No new partial, so `src/style.css` stays untouched; touch `src/partials/responsive.css` only if the strip needs a narrow-viewport height, and keep it last in the cascade.
+- [ ] Add `e2e/ladder.spec.ts` (Pixel 5, alongside `e2e/mobile.spec.ts`): seed a round with the existing `e2e/helpers/` round helpers, open the panel, switch to `Summary`, and assert the card does not occlude the tree and that its deepest row is a revealed clade with no `???` row present.
+- [ ] One ordering only (`Summary`); `Chronological` stays out of scope (`20260729-092452` NOTES section 5). No `Return to tree` link - the tree is never replaced.
 
 ## Definition of Done
 
-- A `DECISION.md` records the depth-to-target fork and the user's call. (cmd: `test -s tasks/<id>/DECISION.md`)
-- If built: the surface matches the decision and does not occlude the tree on a phone. (test: browser E2E layout test)
+- A `DECISION.md` records the depth-to-target fork and the user's call. (cmd: `test -s tasks/20260729-182320/DECISION.md`) - already green as of 20260803.
+- The ladder never leaks depth-to-target: no unrevealed clade, no `???` row, no remaining-rank count on the surface. (test: `test/rankLadder.test.ts` invariant case; red on base - the module does not exist)
+- A guess bucketed under an off-chain pairwise LCA still appears exactly once, under its join clade. (test: `test/rankLadder.test.ts` roll-up case)
+- The summary mounts in the existing panel behind the `Info` / `Summary` tabs, with `Info` still the default. (cmd: `grep -q 'panel-tab' src/index.html`; red on base)
+- The surface does not occlude the tree on a phone. (test: `e2e/ladder.spec.ts` on Pixel 5; red on base - the spec does not exist)
 - `npm run ci` passes. (cmd: `nix develop -c npm run ci`)
 
 ## Notes
