@@ -3,7 +3,7 @@
 - PRIORITY: 55
 - TAGS: feature, ux, content
 - KIND: TASK
-- ACTIVITY: -
+- ACTIVITY: PLANNING
 - GATES: -
 - RESOLUTION: -
 
