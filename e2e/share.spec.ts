@@ -135,7 +135,7 @@ test.describe("sharing a finished game", () => {
             () => window.__sharePayloads?.[0]?.text ?? ""
         );
 
-        expect(text).toContain("✅ Dinosaur dinosaur-#");
+        expect(text).toContain("✅ Dinosaur #");
         expect(text).toContain("I figured it out in 4 guesses!");
         expect(text).toContain(EXPECTED_GRID);
         // Real stats, computed from the storage this very game was saved to.
@@ -264,7 +264,7 @@ test.describe("sharing a lost game", () => {
             () => window.__sharePayloads?.[0]?.text ?? ""
         );
 
-        expect(text).toContain("💀 Dinosaur dinosaur-#");
+        expect(text).toContain("💀 Dinosaur #");
         expect(text).toContain(
             `I couldn't figure it out in ${MAX_GUESSES} guesses.`
         );

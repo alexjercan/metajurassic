@@ -37,12 +37,26 @@ export function parseSeedParam(search: string): number | null {
     return seed;
 }
 
-// Human-facing puzzle id for a seed. The displayed number is 1-based (the +1
-// display offset), and is wrapped by the modulus so it always fits
-// PADDING_LENGTH digits: residue 99999 renders "#00000", not a 6-digit key.
+// The 1-based puzzle number a seed displays as (the +1 display offset),
+// wrapped by the modulus so it always fits PADDING_LENGTH digits: residue
+// 99999 displays as 0, not a 6-digit number. Shared by both formatters below
+// so the key and the headline can never name different puzzles.
+function puzzleDisplayNumber(seed: number): number {
+    return (puzzleResidue(seed) + 1) % PUZZLE_ID_MODULUS;
+}
+
+// Machine-facing puzzle id for a seed. Zero-padded to PADDING_LENGTH because
+// `parseGameStateKey` is its exact inverse over a fixed-width key.
 export function formatPuzzleId(seed: number): string {
-    const display = (puzzleResidue(seed) + 1) % PUZZLE_ID_MODULUS;
+    const display = puzzleDisplayNumber(seed);
     return `dinosaur-#${display.toString().padStart(PADDING_LENGTH, "0")}`;
+}
+
+// Prose-facing puzzle number for the share headline. No `dinosaur-` prefix and
+// no padding: nothing parses this back, and "#00211" reads like a serial
+// number in the text players paste in public.
+export function formatPuzzleNumber(seed: number): string {
+    return `#${puzzleDisplayNumber(seed)}`;
 }
 
 export function gameStateKey(

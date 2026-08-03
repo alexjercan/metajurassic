@@ -130,8 +130,7 @@ describe("seeded share text does not masquerade as the daily", () => {
             seed: 42,
         });
 
-        expect(message).toContain("Practice Dinosaur");
-        expect(message).toContain("dinosaur-#00043"); // reflects the seed
+        expect(message).toContain("Practice Dinosaur #43"); // reflects the seed
     });
 
     test("daily mode output is unchanged (no Practice label)", () => {
@@ -142,6 +141,6 @@ describe("seeded share text does not masquerade as the daily", () => {
         });
 
         expect(message).not.toContain("Practice");
-        expect(message).toContain("✅ Dinosaur dinosaur-#00002");
+        expect(message).toContain("✅ Dinosaur #2");
     });
 });

@@ -259,14 +259,27 @@ describe("share message shape", () => {
         expect(message).not.toContain("hint");
     });
 
+    test("the headline names the puzzle once, in both modes", () => {
+        const daily = formatGameStateForSharing(
+            playedGame(["Tyrannosaurus"]),
+            { mode: "daily", seed: 210 }
+        );
+        const practice = formatGameStateForSharing(
+            playedGame(["Tyrannosaurus"]),
+            { mode: "practice", seed: 42 }
+        );
+
+        expect(daily.split("\n")[0]).toBe("✅ Dinosaur #211 🦖");
+        expect(practice.split("\n")[0]).toBe("✅ Practice Dinosaur #43 🦖");
+    });
+
     test("practice is labelled and carries its seed id, not a daily number", () => {
         const message = formatGameStateForSharing(
             playedGame(["Tyrannosaurus"]),
             { mode: "practice", seed: 42 }
         );
 
-        expect(message).toContain("Practice Dinosaur");
-        expect(message).toContain("dinosaur-#00043");
+        expect(message).toContain("Practice Dinosaur #43");
     });
 
     test("every message ends with the link and the tag", () => {

@@ -1,7 +1,7 @@
 import { guessTier } from "./closeness";
 import { MAX_GUESSES } from "./constants";
 import { GameState } from "./gameState";
-import { formatPuzzleId, getTodaySeed } from "./puzzleKey";
+import { formatPuzzleNumber, getTodaySeed } from "./puzzleKey";
 
 // Identifies which puzzle a share message is for. Daily rounds use today's
 // seed; practice/seeded rounds carry their own seed and a "practice" mode so
@@ -97,7 +97,7 @@ export function formatGameStateForSharing(
     context: ShareContext = { mode: "daily", seed: getTodaySeed() },
     stats?: ShareStats
 ): string {
-    const puzzleId = formatPuzzleId(context.seed);
+    const puzzleNumber = formatPuzzleNumber(context.seed);
     const guessCount = state.numberOfGuesses();
     // Practice/seeded rounds are labelled so their share text cannot be
     // mistaken for the daily puzzle. Daily output is unchanged (empty prefix).
@@ -113,14 +113,14 @@ export function formatGameStateForSharing(
         const help =
             hints > 0 ? ` (${hints} ${hints === 1 ? "hint" : "hints"})` : "";
         return shareMessage(
-            `✅ ${label}Dinosaur ${puzzleId} 🦖`,
+            `✅ ${label}Dinosaur ${puzzleNumber} 🦖`,
             `I figured it out in ${guessCount} ${noun}${help}!`,
             buildShareGrid(state),
             statsLine
         );
     } else if (state.isLoss()) {
         return shareMessage(
-            `💀 ${label}Dinosaur ${puzzleId} 🦖`,
+            `💀 ${label}Dinosaur ${puzzleNumber} 🦖`,
             `I couldn't figure it out in ${MAX_GUESSES} guesses.`,
             buildShareGrid(state),
             statsLine
