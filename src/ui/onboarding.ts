@@ -118,7 +118,9 @@ export function buildHowToPlayCard(): HTMLElement {
                     <strong>Reading the tree:</strong>
                     <span>Your guess is placed at the clade it shares with the answer -
                     the group they both belong to. A deeper shared clade means a
-                    closer guess, so the tree is telling you how warm you are.</span>
+                    closer guess, so the tree is telling you how warm you are -
+                    the node's colour runs cold to hot, brightest green
+                    closest.</span>
                 </div>
                 <div class="card-fact">
                     <strong>Budget:</strong>
