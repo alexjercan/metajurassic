@@ -22,6 +22,10 @@ export interface ShareStats {
     wins: number;
 }
 
+// Duplicated by SITE_URL in webpack.config.js (which builds og:url and
+// og:image) and in e2e/social.spec.ts. Kept in sync by hand: importing build
+// config into the runtime bundle would be the worse coupling. See
+// tasks/20260729-101751/DECISION.md.
 const SHARE_URL = "https://alexjercan.github.io/metajurassic";
 
 // One cell per tier, cold first, INDEXED BY `closenessTier`. The tier

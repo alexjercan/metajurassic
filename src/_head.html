@@ -1,0 +1,30 @@
+<!--
+    Shared social/SEO head block. webpack-partials.js injects it at the
+    social-head marker in each page. This is a PARTIAL, not a template:
+    injection happens after html-webpack-plugin's EJS pass, so
+    htmlWebpackPlugin.options is unavailable here and the plugin substitutes
+    the bare placeholders below instead.
+
+    siteUrl is the absolute production origin, deliberately not publicPath - a
+    crawler resolves these URLs without ever seeing the dev server.
+-->
+<meta name="description" content="<%= pageDescription %>" />
+<link rel="canonical" href="<%= siteUrl %>/<%= pagePath %>" />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Metajurassic" />
+<meta property="og:title" content="<%= pageTitle %>" />
+<meta property="og:description" content="<%= pageDescription %>" />
+<meta property="og:url" content="<%= siteUrl %>/<%= pagePath %>" />
+<meta property="og:image" content="<%= siteUrl %>/assets/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta
+    property="og:image:alt"
+    content="The Metajurassic title beside an evolutionary tree, one lineage lit amber and ending in a gold target node."
+/>
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="<%= pageTitle %>" />
+<meta name="twitter:description" content="<%= pageDescription %>" />
+<meta name="twitter:image" content="<%= siteUrl %>/assets/og-image.png" />

@@ -1,0 +1,176 @@
+<!doctype html>
+<!--
+    Source of the social preview card. Rendered standalone at 1200x630 by
+    `npm run og:image` into src/assets/og-image.png, which is committed and
+    copied to dist/assets/og-image.png by webpack.
+
+    It is NOT bundled: no Tailwind, no src/style.css, no webfonts. Everything is
+    inline and self-contained so the render is reproducible on any machine. The
+    palette below mirrors src/partials/tokens.css by hand - if the tokens move,
+    move these too and re-render.
+-->
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Metajurassic preview card</title>
+        <style>
+            :root {
+                --bg-dark: #0a0c10;
+                --amber-glow: #e6a861;
+                --text-main: #e0e0e0;
+                --victory-gold: #ffd700;
+                --node-bg: #151820;
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                width: 1200px;
+                height: 630px;
+                overflow: hidden;
+                background: var(--bg-dark);
+                color: var(--text-main);
+                font-family: "Segoe UI", Tahoma, sans-serif;
+            }
+
+            .card {
+                position: relative;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                padding: 0 80px;
+                gap: 56px;
+                background:
+                    radial-gradient(
+                        ellipse at 72% 50%,
+                        rgba(230, 168, 97, 0.18) 0%,
+                        rgba(10, 12, 16, 0) 62%
+                    ),
+                    var(--bg-dark);
+            }
+
+            /* The amber hairline framing the card, matching the glass borders
+               used throughout the game shell. */
+            .card::after {
+                content: "";
+                position: absolute;
+                inset: 24px;
+                border: 2px solid rgba(230, 168, 97, 0.35);
+                border-radius: 18px;
+                pointer-events: none;
+            }
+
+            .copy {
+                flex: 1 1 0;
+                min-width: 0;
+            }
+
+            .kicker {
+                font-size: 26px;
+                letter-spacing: 0.32em;
+                text-transform: uppercase;
+                color: var(--amber-glow);
+                margin-bottom: 26px;
+            }
+
+            .title {
+                font-size: 92px;
+                font-weight: 700;
+                line-height: 1;
+                letter-spacing: -0.01em;
+                color: #fff;
+                text-shadow: 0 0 42px rgba(230, 168, 97, 0.45);
+            }
+
+            .tagline {
+                margin-top: 30px;
+                font-size: 34px;
+                line-height: 1.35;
+                color: #b9c2d0;
+            }
+
+            .tree {
+                flex: 0 0 420px;
+                height: 420px;
+            }
+
+            .branch {
+                fill: none;
+                stroke: #555;
+                stroke-width: 4;
+                stroke-linecap: round;
+            }
+
+            .branch-hot {
+                stroke: var(--amber-glow);
+                stroke-width: 5;
+            }
+
+            .node {
+                fill: var(--node-bg);
+                stroke: #5b7199;
+                stroke-width: 4;
+            }
+
+            .node-warm {
+                stroke: var(--amber-glow);
+            }
+
+            .node-target {
+                fill: var(--victory-gold);
+                stroke: var(--victory-gold);
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="card">
+            <div class="copy">
+                <div class="kicker">Daily puzzle</div>
+                <div class="title">Metajurassic</div>
+                <div class="tagline">
+                    Guess today's dinosaur. Every guess reveals how close you
+                    are on the evolutionary tree.
+                </div>
+            </div>
+
+            <!-- A stylised evolutionary tree: a trunk splitting into branches,
+                 the winning lineage lit amber and the target node gold. -->
+            <svg
+                class="tree"
+                viewBox="0 0 420 420"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <path class="branch" d="M210 400 L210 300" />
+                <path class="branch" d="M210 300 L110 230" />
+                <path class="branch branch-hot" d="M210 300 L310 230" />
+                <path class="branch" d="M110 230 L60 140" />
+                <path class="branch" d="M110 230 L160 140" />
+                <path class="branch branch-hot" d="M310 230 L260 140" />
+                <path class="branch branch-hot" d="M310 230 L360 140" />
+                <path class="branch" d="M60 140 L40 60" />
+                <path class="branch" d="M160 140 L180 60" />
+                <path class="branch branch-hot" d="M260 140 L240 60" />
+                <path class="branch branch-hot" d="M360 140 L380 60" />
+
+                <circle class="node" cx="210" cy="400" r="16" />
+                <circle class="node" cx="210" cy="300" r="14" />
+                <circle class="node" cx="110" cy="230" r="14" />
+                <circle class="node node-warm" cx="310" cy="230" r="14" />
+                <circle class="node" cx="60" cy="140" r="12" />
+                <circle class="node" cx="160" cy="140" r="12" />
+                <circle class="node node-warm" cx="260" cy="140" r="12" />
+                <circle class="node node-warm" cx="360" cy="140" r="12" />
+                <circle class="node" cx="40" cy="60" r="12" />
+                <circle class="node" cx="180" cy="60" r="12" />
+                <circle class="node" cx="240" cy="60" r="12" />
+                <circle class="node node-target" cx="380" cy="60" r="16" />
+            </svg>
+        </div>
+    </body>
+</html>

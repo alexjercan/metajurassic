@@ -19,11 +19,12 @@ Start here, then run `tatr ls --sort priority`.
 | Path | Purpose |
 |------|---------|
 | `src/` | App source. Core: `game/` (DOM wiring and the round's units), `gameState.ts`, `gameData.ts`, `treeBuilder.ts`, `hintRule.ts`, `puzzleKey.ts`, `shareText.ts`, `rankLadder.ts`. UI widgets: `src/ui/`. |
-| `src/*.html`, `src/style.css`, `src/partials/` | Page templates and Tailwind styles. `src/style.css` is the entry: `@tailwind` directives plus one `@import` per surface partial, in cascade order. `webpack-partials.js` adds shared header/footer. |
+| `src/*.html`, `src/style.css`, `src/partials/` | Page templates and Tailwind styles. `src/style.css` is the entry: `@tailwind` directives plus one `@import` per surface partial, in cascade order. `webpack-partials.js` adds the shared header/footer and injects `src/_head.html` (social/SEO metadata) at each page's `<!-- social-head -->` marker, filling per-page options from `webpack.config.js`. |
 | `src/jurassic/species/*.md`, `src/jurassic/clades/*.md` | Canonical content. |
 | `src/jurassic/index.json` | Generated runtime graph. Never hand-edit. |
 | `scripts/*.py` | Content conversion and pipeline tests. |
 | `scripts/playtest/*.ts` | Game simulations and visual walkthrough. Outside CI. |
+| `scripts/og-image.ts` | Renders `src/assets/og-image.html` to the committed `src/assets/og-image.png` link-preview card. Outside CI. |
 | `test/` | Jest tests. |
 | `e2e/` | Playwright browser tests. |
 | `tasks/` | Versioned tatr task, review, decision, retro, and notes records. |
@@ -97,7 +98,7 @@ Author markdown first. Regenerate the checked-in runtime graph.
 - Design records: `tasks/20260729-101819/DECISION.md` and
   `tasks/20260729-101754/DECISION.md`.
 
-## Playtests
+## Playtests and other outside-CI rigs
 
 Outside `npm run ci`.
 
@@ -106,6 +107,7 @@ Outside `npm run ci`.
 | `npm run playtest:difficulty` | Simulate all targets and guess distribution. |
 | `npm run playtest:hint` | Compare hint value and cost. |
 | `npm run playtest:walkthrough` | Capture real screens to `playtest-shots/`; requires dev server. |
+| `npm run og:image` | Re-render the link-preview card to `src/assets/og-image.png`; commit the result. |
 
 - Difficulty and hint rigs import shipped game logic.
 - Hint rig cross-checks its rule reproduction against `findNextHintCladeId`.

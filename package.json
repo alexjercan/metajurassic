@@ -15,6 +15,7 @@
         "test": "jest",
         "test:coverage": "jest --coverage",
         "test:e2e": "playwright test",
+        "og:image": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' ts-node scripts/og-image.ts",
         "playtest:difficulty": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' ts-node scripts/playtest/difficulty.ts",
         "playtest:walkthrough": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' ts-node scripts/playtest/walkthrough.ts",
         "playtest:hint": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' ts-node scripts/playtest/hint.ts",
