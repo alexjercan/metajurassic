@@ -5,6 +5,13 @@ import {
     expectFullyVisibleWithin,
 } from "./helpers/viewport";
 import { MAX_GUESSES, HINT_COST } from "../src/constants";
+import { pinDailyClock } from "./helpers/clock";
+
+// Pin the daily puzzle so this file's verdict is a property of the content
+// rather than of the calendar. See tasks/20260804-000316/DECISION.md.
+test.beforeEach(async ({ page }) => {
+    await pinDailyClock(page);
+});
 
 // Desktop coverage for the in-board onboarding brief and the hint chip copy.
 // See tasks/20260729-092327/DECISION.md for why the explanation lives in the

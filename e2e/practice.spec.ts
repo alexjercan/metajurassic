@@ -1,6 +1,13 @@
 import { test, expect, Page } from "@playwright/test";
 import rawGameData from "../src/jurassic/index.json";
 import { guessNamedSpecies } from "./helpers/guessing";
+import { pinDailyClock } from "./helpers/clock";
+
+// Pin the daily puzzle so this file's verdict is a property of the content
+// rather than of the calendar. See tasks/20260804-000316/DECISION.md.
+test.beforeEach(async ({ page }) => {
+    await pinDailyClock(page);
+});
 
 // The practice round lifecycle, driven through the real screen: a reload brings
 // the round back, starting a new one is an explicit mid-round action, and a

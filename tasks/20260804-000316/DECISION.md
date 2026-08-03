@@ -64,3 +64,20 @@ bought. After this, no test covers "the daily page works for an arbitrary
 seed"; `e2e/seed.spec.ts` covers the seeded practice round, which is the
 closest standing cover. The guard is file-level: a new `test.describe` inside
 an already-pinned file that skips the `beforeEach` still passes it.
+
+## Amended at implementation (20260804)
+
+Every pin sits at FILE scope, in all 13 specs that open `/` - not folded in
+place at the five existing call sites as first written. `hintKeyboard.spec.ts`
+and `share.spec.ts` each hold a `goto("/")` outside the block that used to
+install the clock, so in-place folding would have left them half-pinned while
+the file-level guard read green. `page.clock.install` throws on a second call,
+so the inner installs are gone rather than nested.
+
+One assertion moved with the pin, and it is the interesting consequence:
+`mobile.spec.ts`'s pull-tab test asserts `has-unseen`, which `src/ui/panel.ts`
+only sets when a guess DEEPENS the mounted card past the root. Against the
+pinned day's Pentaceratops, the fixture's Ceratosaurus meets it at `dinosauria`
+and the card never changes, so the test now guesses `Triceratops`
+(`chasmosaurinae`) by name. That test had been passing on the calendar handing
+it a related target, not on the property it names.

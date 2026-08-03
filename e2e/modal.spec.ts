@@ -4,6 +4,15 @@ import {
     expectActionsOnOneRow,
     expectModalNeedsNoScroll,
 } from "./helpers/modal";
+import { pinDailyClock } from "./helpers/clock";
+
+// Pin the daily puzzle so this file's verdict is a property of the content
+// rather than of the calendar (tasks/20260804-000316/DECISION.md). Here it
+// also keeps the daily storage key stable across the seed-then-reload, and
+// dates the seeded round as "today" for the streak.
+test.beforeEach(async ({ page }) => {
+    await pinDailyClock(page);
+});
 
 // End-of-game modal smoke coverage. The finished game state is injected into
 // localStorage keyed off a frozen clock (see e2e/helpers/content.ts and
@@ -11,8 +20,6 @@ import {
 // without a real playthrough.
 test.describe("end-of-game modal", () => {
     test.beforeEach(async ({ page }) => {
-        // Freeze time so the daily storage key is stable across the reload.
-        await page.clock.install({ time: new Date("2026-06-15T12:00:00") });
         await page.goto("/");
     });
 
@@ -64,7 +71,6 @@ test.describe("end-of-game modal", () => {
 // actions are one row, with the margin stated rather than assumed.
 test.describe("end-of-game modal on desktop", () => {
     test("the actions sit on a single row", async ({ page }) => {
-        await page.clock.install({ time: new Date("2026-06-15T12:00:00") });
         await page.goto("/");
         const { speciesIds } = await loadContent(page);
         const target = speciesIds[0];
@@ -90,7 +96,6 @@ test.describe("end-of-game modal on desktop", () => {
     test("the whole modal is visible in a short desktop window", async ({
         page,
     }) => {
-        await page.clock.install({ time: new Date("2026-06-15T12:00:00") });
         await page.goto("/");
         const { speciesIds } = await loadContent(page);
         const target = speciesIds[0];

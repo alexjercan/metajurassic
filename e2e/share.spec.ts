@@ -5,6 +5,15 @@ import {
     wrongGuessIds,
 } from "./helpers/content";
 import { MAX_GUESSES } from "../src/constants";
+import { pinDailyClock } from "./helpers/clock";
+
+// Pin the daily puzzle so this file's verdict is a property of the content
+// rather than of the calendar (tasks/20260804-000316/DECISION.md). Here it
+// also keeps the daily storage key stable across the seed-then-reload, and
+// dates the seeded round as "today" for the streak.
+test.beforeEach(async ({ page }) => {
+    await pinDailyClock(page);
+});
 
 // The share button, end to end in a real browser: both the native share sheet
 // (the mobile affordance) and the clipboard fallback, over a finished daily
@@ -78,9 +87,6 @@ async function stubShareApis(
 }
 
 async function openFinishedGame(page: Page, guesses: string[] = GUESSES) {
-    // Freeze time so the daily storage key is stable across the reload, and so
-    // the game dates as "today" for the streak.
-    await page.clock.install({ time: new Date("2026-06-15T12:00:00") });
     await page.goto("/");
     await seedFinishedDailyGame(page, {
         targetId: TARGET,

@@ -3,9 +3,9 @@
 - PRIORITY: 60
 - TAGS: bug, e2e, ui
 - KIND: TASK
-- ACTIVITY: WORKING
-- GATES: PLAN
-- RESOLUTION: -
+- ACTIVITY: COMPOUNDING
+- GATES: PLAN REVIEW RETRO
+- RESOLUTION: DONE
 
 ## Story
 
@@ -49,24 +49,24 @@ The bug is the class, not the three instances: 13 spec files call
 
 ## Steps
 
-1. Write the guard first: `test/dailyClockPin.test.ts`, modelled on
+1. [x] Write the guard first: `test/dailyClockPin.test.ts`, modelled on
    `test/lintGate.test.ts`. Read every `e2e/*.spec.ts` with `fs`; for each file
    whose source contains `goto("/")`, assert the source also references
    `pinDailyClock`. Fail with the offending file names in the message. Run
    `npx jest test/dailyClockPin.test.ts` and watch it name the 8 unpinned
    files.
-2. Add `e2e/helpers/clock.ts`: `export const PINNED_DAY = "2026-06-15T12:00:00"`
+2. [x] Add `e2e/helpers/clock.ts`: `export const PINNED_DAY = "2026-06-15T12:00:00"`
    and `export async function pinDailyClock(page: Page): Promise<void>` calling
    `page.clock.install({ time: new Date(PINNED_DAY) })`. Comment why `install`
    and not `pauseAt` (the 100ms autocomplete blur timer and the tree settle
    waits need time to advance - `e2e/postgame.spec.ts:221`).
-3. Fold the 5 existing literals onto the helper:
+3. [x] Fold the 5 existing literals onto the helper:
    `e2e/hintKeyboard.spec.ts:68`, `e2e/postgame.spec.ts:31`,
    `e2e/share.spec.ts:83`, `e2e/modal.spec.ts:15,67,93`,
    `e2e/mobile.spec.ts:785`. Leave `e2e/postgame.spec.ts:231`'s
    `pauseAt("2026-06-15T12:30:00")` as a pause, but derive its date from
    `PINNED_DAY` so the two cannot drift.
-4. Add a top-level `test.beforeEach(pinDailyClock)` to the 8 unpinned files
+4. [x] Add a top-level `test.beforeEach(pinDailyClock)` to the 8 unpinned files
    that open the daily page: `e2e/panel.spec.ts`, `e2e/mobile.spec.ts`,
    `e2e/onboarding.spec.ts`, `e2e/smoke.spec.ts`, `e2e/social.spec.ts`,
    `e2e/images.spec.ts`, `e2e/autocomplete.spec.ts`, `e2e/practice.spec.ts`,
@@ -75,9 +75,9 @@ The bug is the class, not the three instances: 13 spec files call
    `e2e/panel.spec.ts` and `e2e/mobile.spec.ts`, comment WHY - the fixture
    always guesses Ceratosaurus and would win the round outright on a matching
    date.
-5. Run `npx playwright test e2e/panel.spec.ts:139 e2e/mobile.spec.ts:228
+5. [x] Run `npx playwright test e2e/panel.spec.ts:139 e2e/mobile.spec.ts:228
    e2e/mobile.spec.ts:271` and confirm all three pass.
-6. Run the full `npm run ci`. Pinning moves the date for OTHER assertions in
+6. [x] Run the full `npm run ci`. Pinning moves the date for OTHER assertions in
    the same files (puzzle number, archive contents, streak dates); decide each
    new failure on its merits - fix the spec, or record why the pinned day is
    wrong for it - and do not weaken an assertion to make it pass. Report any
@@ -115,3 +115,78 @@ The bug is the class, not the three instances: 13 spec files call
   and the guard leaves them alone.
 - No `src/` change is expected. If one proves necessary, that is a different
   defect than the one diagnosed here; stop and say so.
+
+## Close-out
+
+### What and why
+
+`e2e/helpers/clock.ts` names the played day once (`PINNED_DAY`) and installs it
+(`pinDailyClock`); all 13 specs that call `page.goto("/")` now pin from a
+file-level `test.beforeEach`, and `test/dailyClockPin.test.ts` holds both
+properties by reading the sources. The three reported failures pass, and
+`npm run ci` exits 0.
+
+### Deviations from the plan
+
+- **Steps 3 and 4 merged into one shape: every pin is file-level.** The plan
+  folded the 5 existing literals in place and added a `beforeEach` only to the
+  unpinned files. Doing that would have left `e2e/hintKeyboard.spec.ts:47` and
+  `e2e/share.spec.ts:238,256` opening `/` on the real clock - three
+  `goto("/")` sites the plan's file list never mentions, because the guard is
+  file-level and those files already referenced `pinDailyClock` elsewhere. So
+  the pins were hoisted to the top of all 13 files instead. Uniform, and no
+  site is left out by construction. `page.clock.install` throws if called
+  twice, so the inner calls had to go rather than stack.
+- **`e2e/mobile.spec.ts`'s pull-tab test needed a different guess** - see
+  below. No other spec's assertions moved.
+
+### The spec that was silently depending on "today" (Step 6)
+
+`e2e/mobile.spec.ts`'s "the pull tab is on screen, names the revealed clade,
+and opens it" still failed after pinning, at `expect(tab).toHaveClass(
+/has-unseen/)`.
+
+`src/ui/panel.ts`'s `noteCardRendered` only claims the unseen marker when a
+guess CHANGES the mounted card - i.e. deepens the best clade past the root card
+already on screen. On the pinned day the target is Pentaceratops (seed 166),
+and `guessFirstSuggestion(page, "saurus")` guesses Ceratosaurus, which meets a
+ceratopsian only at `dinosauria` - the root. Same card, no marker.
+
+So the test never asserted what it claimed to: it needed the day's target to
+happen to be a Ceratosaurus relative, and the calendar had been supplying one.
+Fixed on its merits by guessing `Triceratops` by name (`guessNamedSpecies`),
+which meets Pentaceratops at `chasmosaurinae`. Nothing was weakened - the
+assertion is unchanged and now has a fixture that can actually satisfy it.
+
+### Difficulties and diagnosis
+
+Determining the pinned day's target took a throwaway jest file over
+`buildGameData` + `dateToSeed` (removed); the clade chains behind the
+Ceratosaurus/Triceratops comparison came from the same scratch run.
+
+### Evidence
+
+- `test/dailyClockPin.test.ts`: red first, naming 13 unpinned files and 5
+  carrying their own date literal; green after.
+- `grep -rn 2026-06-15 e2e/*.spec.ts`: 8 hits on the base, 0 now; the date
+  lives only in `e2e/helpers/clock.ts:7`.
+- `npx playwright test e2e/panel.spec.ts:149 e2e/mobile.spec.ts:238
+  e2e/mobile.spec.ts:289`: 3 passed. NOTE the line numbers - the DoD proof
+  quotes the base-branch lines 139/228/271, which the inserted pin blocks
+  moved. Same three tests, by title.
+- `npm run ci`: exit 0, 168 e2e tests passed.
+- `manual:` proof (the pin reads as load-bearing in `panel.spec.ts` and
+  `mobile.spec.ts`) left pending for review.
+
+### Reflection
+
+The plan's file-level reasoning was right about the guard and wrong about the
+edit sites: "this file already mentions `pinDailyClock`" is exactly the blind
+spot the file-level guard has, and the plan inherited it when choosing where to
+edit. Hoisting every pin to file scope closes it for the same cost. The
+`DECISION.md` consequence about a new `describe` inside a pinned file skipping
+the pin still stands, and is now the only remaining hole.
+
+The pull-tab finding is the more useful one: pinning did not just stabilise the
+suite, it exposed a test whose assertion had been satisfied by luck. Worth
+expecting more of those the next time a date-dependent fixture is frozen.

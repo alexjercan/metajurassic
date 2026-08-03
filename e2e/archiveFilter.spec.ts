@@ -1,5 +1,12 @@
 import { test, expect } from "@playwright/test";
 import { expectFullyVisibleWithin } from "./helpers/viewport";
+import { pinDailyClock } from "./helpers/clock";
+
+// Pin the daily puzzle so this file's verdict is a property of the content
+// rather than of the calendar. See tasks/20260804-000316/DECISION.md.
+test.beforeEach(async ({ page }) => {
+    await pinDailyClock(page);
+});
 
 // The archive's clade filter, at the browser level. Counts are measured against
 // the checked-in `src/jurassic/index.json`; the assertions after each count are

@@ -2,6 +2,15 @@ import { test, expect, Page } from "@playwright/test";
 import rawGameData from "../src/jurassic/index.json";
 import { HINT_COST, MAX_GUESSES } from "../src/constants";
 import { seedFinishedDailyGame, wrongGuessIds } from "./helpers/content";
+import { pinDailyClock, pinnedDayAt } from "./helpers/clock";
+
+// Pin the daily puzzle so this file's verdict is a property of the content
+// rather than of the calendar (tasks/20260804-000316/DECISION.md). Here it
+// also keeps the daily storage key stable across the seed-then-reload, and
+// dates the seeded round as "today" for the streak.
+test.beforeEach(async ({ page }) => {
+    await pinDailyClock(page);
+});
 
 // The post-game journey on the DAILY page: what the player can still do once the
 // round is over. `e2e/modal.spec.ts` pins that the right modal APPEARS; this
@@ -25,10 +34,7 @@ function speciesName(id: string): string {
     return RAW.species[id]?.species ?? "";
 }
 
-// Freeze the clock so the daily storage key is stable across the reload and the
-// round dates as "today" for the streak, exactly as the sibling specs do.
 async function openDaily(page: Page) {
-    await page.clock.install({ time: new Date("2026-06-15T12:00:00") });
     await page.goto("/");
 }
 
@@ -228,7 +234,7 @@ test.describe("the daily stats card and countdown", () => {
         // the given time and rejects a time already behind the running clock,
         // which 12:00 is by however many milliseconds the page load took. Same
         // calendar day either way, so the daily storage key is unchanged.
-        await page.clock.pauseAt(new Date("2026-06-15T12:30:00"));
+        await page.clock.pauseAt(pinnedDayAt("12:30:00"));
     });
 
     test("a daily win shows the stats card this round is counted in", async ({

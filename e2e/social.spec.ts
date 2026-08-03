@@ -1,4 +1,11 @@
 import { test, expect, Page } from "@playwright/test";
+import { pinDailyClock } from "./helpers/clock";
+
+// Pin the daily puzzle so this file's verdict is a property of the content
+// rather than of the calendar. See tasks/20260804-000316/DECISION.md.
+test.beforeEach(async ({ page }) => {
+    await pinDailyClock(page);
+});
 
 // Social/SEO head metadata on every built page.
 //

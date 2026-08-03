@@ -1,5 +1,12 @@
 import { test, expect } from "@playwright/test";
 import { isStructurallyValidImageSrc } from "./helpers/content";
+import { pinDailyClock } from "./helpers/clock";
+
+// Pin the daily puzzle so this file's verdict is a property of the content
+// rather than of the calendar. See tasks/20260804-000316/DECISION.md.
+test.beforeEach(async ({ page }) => {
+    await pinDailyClock(page);
+});
 
 // Image integrity, checked structurally and offline (see DECISION.md choice 4):
 // every rendered <img> must have a well-formed URL src. This catches the real,

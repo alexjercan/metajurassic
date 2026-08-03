@@ -1,6 +1,13 @@
 import { test, expect, Page } from "@playwright/test";
 import { HINT_COST, MAX_GUESSES } from "../src/constants";
 import { seedFinishedDailyGame, wrongGuessIds } from "./helpers/content";
+import { pinDailyClock } from "./helpers/clock";
+
+// Pin the daily puzzle so this file's verdict is a property of the content
+// rather than of the calendar. See tasks/20260804-000316/DECISION.md.
+test.beforeEach(async ({ page }) => {
+    await pinDailyClock(page);
+});
 
 // The hint chip is the round's rescue mechanic. It was a <div> with a click
 // listener, so it existed for a mouse and for nothing else. This file pins the
@@ -65,7 +72,6 @@ test.describe("buying a hint from the keyboard", () => {
     test("an unaffordable chip is out of the tab order and cannot be fired", async ({
         page,
     }) => {
-        await page.clock.install({ time: new Date("2026-06-15T12:00:00") });
         await page.goto("/");
 
         // One guess more than the hint costs would leave: the round is still

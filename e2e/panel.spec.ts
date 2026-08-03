@@ -2,6 +2,16 @@ import { test, expect } from "@playwright/test";
 import { guessFirstSuggestion } from "./helpers/guessing";
 import { loadContent } from "./helpers/content";
 import { expectPullTabInsideViewport } from "./helpers/panel";
+import { pinDailyClock } from "./helpers/clock";
+
+// Pin the daily puzzle. `guessFirstSuggestion(page, "saurus")` below always
+// guesses Ceratosaurus, so on a real-calendar day whose target IS
+// Ceratosaurus this fixture WINS on guess 1 and the win modal swallows every
+// later click. Load-bearing, not boilerplate - see
+// tasks/20260804-000316/DECISION.md.
+test.beforeEach(async ({ page }) => {
+    await pinDailyClock(page);
+});
 
 // The info panel can be opened and closed, shows clade/species card content,
 // and closing it leaves the control path (the guess input) usable. Runs on the

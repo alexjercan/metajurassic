@@ -1,6 +1,13 @@
 import { test, expect } from "@playwright/test";
 import { guessFirstSuggestion } from "./helpers/guessing";
 import { loadContent } from "./helpers/content";
+import { pinDailyClock } from "./helpers/clock";
+
+// Pin the daily puzzle so this file's verdict is a property of the content
+// rather than of the calendar. See tasks/20260804-000316/DECISION.md.
+test.beforeEach(async ({ page }) => {
+    await pinDailyClock(page);
+});
 
 // The guess flow from typing through rendered feedback: type a partial name,
 // navigate the suggestion list with the keyboard, submit, and confirm the

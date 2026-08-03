@@ -1,4 +1,11 @@
 import { test, expect } from "@playwright/test";
+import { pinDailyClock } from "./helpers/clock";
+
+// Pin the daily puzzle so this file's verdict is a property of the content
+// rather than of the calendar. See tasks/20260804-000316/DECISION.md.
+test.beforeEach(async ({ page }) => {
+    await pinDailyClock(page);
+});
 
 // First-load smoke test for the daily game on a desktop viewport: every primary
 // control is present and the main surface is not blank.

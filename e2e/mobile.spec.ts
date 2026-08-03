@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { guessFirstSuggestion } from "./helpers/guessing";
+import { guessFirstSuggestion, guessNamedSpecies } from "./helpers/guessing";
 import { loadContent, seedFinishedDailyGame } from "./helpers/content";
 import {
     playWideTree,
@@ -34,6 +34,16 @@ import {
     expectFullyVisibleWithin,
 } from "./helpers/viewport";
 import { MAX_GUESSES } from "../src/constants";
+import { pinDailyClock } from "./helpers/clock";
+
+// Pin the daily puzzle. `guessFirstSuggestion(page, "saurus")` below always
+// guesses Ceratosaurus, so on a real-calendar day whose target IS
+// Ceratosaurus this fixture WINS on guess 1 and the win modal swallows every
+// later click. Load-bearing, not boilerplate - see
+// tasks/20260804-000316/DECISION.md.
+test.beforeEach(async ({ page }) => {
+    await pinDailyClock(page);
+});
 
 // Phone sizes the game-over modal must hold at. 393px is the Pixel 5 this
 // project runs (the width the reported overflow was measured on); 360px is the
@@ -239,7 +249,15 @@ test.describe("mobile game layout", () => {
         await expect(tab).not.toHaveClass(/has-unseen/);
         await expect(tab.locator(".panel-pull-label")).toHaveText("Info");
 
-        await guessFirstSuggestion(page, "saurus");
+        // Triceratops by name, NOT the usual `guessFirstSuggestion(page,
+        // "saurus")`. The marker only lights when a guess DEEPENS the best
+        // clade past the root card already on screen, so this test needs a
+        // guess related to the day's target. Against the pinned day's
+        // Pentaceratops, Ceratosaurus meets it only at dinosauria - the root -
+        // and the card never changes. That the test used to pass was the
+        // calendar handing it a related target; see
+        // tasks/20260804-000316/TASK.md.
+        await guessNamedSpecies(page, "Triceratops");
 
         // The label matches the card that was rendered but not shown, so the
         // player is told which clade the tab holds rather than just "info".
@@ -782,7 +800,6 @@ test.describe("many-guess tree on a phone", () => {
 test.describe("mobile game-over modal", () => {
     test.describe("daily", () => {
         test.beforeEach(async ({ page }) => {
-            await page.clock.install({ time: new Date("2026-06-15T12:00:00") });
             await page.goto("/");
         });
 
