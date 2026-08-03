@@ -169,9 +169,12 @@ test.describe("onboarding brief", () => {
         await page.locator("#brief-how-to-play").click();
 
         await expect(panel).toHaveClass(/active/);
-        await expect(panel.locator(".card-title")).toContainText(
-            /how to play/i
-        );
+        // Scoped to the Info pane rather than the whole panel: the panel also
+        // holds the Summary pane's card, whose title would make a bare
+        // `#info-panel .card-title` ambiguous.
+        await expect(
+            page.locator("#panel-card-container .card-title")
+        ).toContainText(/how to play/i);
     });
 });
 

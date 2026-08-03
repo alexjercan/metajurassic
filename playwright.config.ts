@@ -18,6 +18,12 @@ import { defineConfig, devices } from "@playwright/test";
 const PORT = Number(process.env.E2E_PORT ?? 8080);
 const baseURL = `http://localhost:${PORT}`;
 
+// The specs whose subject is a PHONE rule - the panel overlaying the arena
+// under `(max-width: 768px)`, and the geometry that follows from it. Named once
+// so the two projects below cannot disagree about which set that is and quietly
+// run a spec on both viewports, or on neither.
+const MOBILE_SPECS = /(mobile|ladder)\.spec\.ts/;
+
 export default defineConfig({
     testDir: "./e2e",
     fullyParallel: true,
@@ -31,16 +37,16 @@ export default defineConfig({
     },
     projects: [
         {
-            // Everything except the mobile-only spec runs on a desktop viewport.
+            // Everything except the mobile-only specs runs on a desktop viewport.
             name: "desktop-chromium",
             use: { ...devices["Desktop Chrome"] },
-            testIgnore: /mobile\.spec\.ts/,
+            testIgnore: MOBILE_SPECS,
         },
         {
-            // The mobile-only spec runs on a phone viewport.
+            // The mobile-only specs run on a phone viewport.
             name: "mobile-chromium",
             use: { ...devices["Pixel 5"] },
-            testMatch: /mobile\.spec\.ts/,
+            testMatch: MOBILE_SPECS,
         },
     ],
     webServer: {

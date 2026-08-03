@@ -32,6 +32,145 @@
     flex-direction: column;
 }
 
+/* `display: flex` above beats the UA's `[hidden] { display: none }` on
+   specificity, so without this the inactive tab's container stays on screen and
+   the two panes stack. Do not drop it when tidying. */
+.panel-card-container[hidden] {
+    display: none;
+}
+
+/* Info / Summary. Two panes in one panel rather than a second pull tab: the
+   panel already owns the "there is something to read" affordance
+   (tasks/20260729-092327/DECISION.md). */
+.panel-tabs {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+    margin-bottom: 10px;
+}
+
+.panel-tab {
+    flex: 1;
+    padding: 7px 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: var(--text-main);
+    background: transparent;
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.panel-tab:hover {
+    background: var(--amber-glow-faint);
+}
+
+.panel-tab.active {
+    color: var(--bg-dark);
+    background: var(--amber-glow);
+    border-color: var(--amber-glow);
+}
+
+/* The ladder card has no hero image, so its rows get the whole card height.
+   Scoped under `.ladder-card` on purpose: card.css is imported AFTER this file,
+   so a bare `.card-header` override here would lose the cascade. */
+.ladder-card .card-header {
+    flex-direction: column;
+    gap: 4px;
+}
+
+.ladder-counts {
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    color: var(--amber-glow);
+}
+
+.ladder-rows {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.ladder-row {
+    border-left: 2px solid var(--amber-dim);
+    padding-left: 10px;
+}
+
+/* The deepest revealed clade is where the answer currently sits, so it is the
+   one row worth finding at a glance. It is the deepest REVEALED rung and says
+   nothing about how many rungs are left (tasks/20260729-182320/DECISION.md). */
+.ladder-row-deepest {
+    border-left-color: var(--amber-glow);
+}
+
+.ladder-clade {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.ladder-clade-name {
+    font-weight: 600;
+    color: var(--amber-glow);
+}
+
+.ladder-provenance {
+    font-size: 0.72rem;
+    letter-spacing: 0.03em;
+    color: #9aa0ac;
+    white-space: nowrap;
+}
+
+.ladder-guesses {
+    list-style: none;
+    margin: 6px 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+/* Colour comes from the board's `.node-close-*` classes in
+   src/partials/tree.css, reused rather than restyled so a chip and its node
+   cannot disagree about how warm a guess was. Hence border-width/style and NOT
+   the `border` shorthand: this file is imported after tree.css, and the
+   shorthand would reset the tier's border-color back to currentcolor. */
+.ladder-guess {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 8px;
+    font-size: 0.82rem;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 999px;
+}
+
+.ladder-guess-found {
+    color: var(--victory-gold);
+    border-color: var(--victory-gold);
+    background: rgba(255, 215, 0, 0.12);
+}
+
+.ladder-guess-last {
+    box-shadow: 0 0 0 1px currentcolor;
+}
+
+.ladder-guess-badge {
+    font-size: 0.66rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    opacity: 0.75;
+}
+
 /* The only route back to the info panel, so it must be wholly on screen and say
    what it does. It used to be a 36px square of unlabelled glyph at right: -5px,
    clipped by the viewport edge on both desktop and mobile (playtest F3.3), which

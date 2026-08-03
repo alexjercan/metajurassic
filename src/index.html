@@ -65,10 +65,56 @@
                             >Info</span
                         >
                     </button>
-                    <div class="info-panel" id="info-panel">
+                    <!-- `inert` because a CLOSED panel is only pushed off-screen
+                    by a transform (src/partials/panel.css), which leaves its tab
+                    buttons in the tab order. Toggled by openPanel/closePanel in
+                    src/ui/panel.ts; do not drop it without removing every
+                    focusable control from this subtree. -->
+                    <div class="info-panel" id="info-panel" inert>
+                        <!-- Info is the default tab, so a player who never taps
+                        Summary sees the game unchanged. Both tabs ship active
+                        on the practice page too: webpack.config.js registers
+                        this template twice, and the summary is a pure read of
+                        the round, valid in either mode. -->
+                        <div
+                            class="panel-tabs"
+                            id="panel-tabs"
+                            role="tablist"
+                            aria-label="Info panel views"
+                        >
+                            <button
+                                type="button"
+                                class="panel-tab active"
+                                id="panel-tab-info"
+                                role="tab"
+                                aria-selected="true"
+                                aria-controls="panel-card-container"
+                            >
+                                Info
+                            </button>
+                            <button
+                                type="button"
+                                class="panel-tab"
+                                id="panel-tab-summary"
+                                role="tab"
+                                aria-selected="false"
+                                aria-controls="panel-summary-container"
+                            >
+                                Summary
+                            </button>
+                        </div>
                         <div
                             class="panel-card-container"
                             id="panel-card-container"
+                            role="tabpanel"
+                            aria-labelledby="panel-tab-info"
+                        ></div>
+                        <div
+                            class="panel-card-container"
+                            id="panel-summary-container"
+                            role="tabpanel"
+                            aria-labelledby="panel-tab-summary"
+                            hidden
                         ></div>
                     </div>
                 </div>

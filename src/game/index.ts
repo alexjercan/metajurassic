@@ -18,7 +18,9 @@ import {
     openPanel,
     renderCladeCard,
     renderLastGuess,
+    renderRoundSummary,
     renderSpeciesCard,
+    showCardPane,
 } from "../ui/panel";
 import { renderTree } from "../ui/treeVisualizer";
 import { updateHintButton, wireHintPurchase } from "./hintChip";
@@ -176,6 +178,7 @@ export function initGame({ data, state, saveState, share }: GameOptions) {
         updateHintButton(state, hintBox);
         const roots = buildGuessTree(state, state.isGameOver());
         renderLastGuess(state, data, roots);
+        renderRoundSummary(state, roots);
         const treeContainer = document.getElementById("tree-container");
         if (treeContainer) {
             renderTree({
@@ -193,6 +196,10 @@ export function initGame({ data, state, saveState, share }: GameOptions) {
                         if (!clade) return;
                         renderCladeCard(clade);
                     }
+                    // Tapping a node is an explicit request for THAT card, so
+                    // its pane comes forward even when the tap re-selects the
+                    // card already mounted and `noteCardRendered` stays quiet.
+                    showCardPane();
                     openPanel();
                 },
             });
