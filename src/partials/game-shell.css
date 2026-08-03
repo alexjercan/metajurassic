@@ -78,7 +78,21 @@ main {
     transform: translateY(2px);
 }
 
+/* Stated rather than left to the UA sheet, for the same reason as
+   .new-game-btn above: `display: flex` below beats `[hidden]`, so the slot's
+   two occupants would otherwise both paint at once. */
+.hint-box[hidden] {
+    display: none;
+}
+
 .hint-box {
+    /* The live chip is a <button> and the game-over route an <a>; these four
+       neutralise UA button styling so both paint exactly as the old <div> did. */
+    font: inherit;
+    color: inherit;
+    text-align: left;
+    width: auto;
+    text-decoration: none;
     background: linear-gradient(180deg, #1c2028 0%, #0d0f14 100%);
     border: 2px solid #3a4150;
     border-bottom: 4px solid var(--amber-glow);
@@ -94,25 +108,30 @@ main {
     transition: 0.2s;
 }
 
-.hint-box:hover {
+.hint-box:hover:not(:disabled) {
     border-bottom: 4px solid #fff;
     transform: translateY(2px);
     filter: brightness(1.2);
 }
 
-.hint-box.disabled {
+/* The app's first focus style. Amber matches the chip's own accent; a global
+   :focus-visible convention is a follow-up, not this rule's job. */
+.hint-box:focus-visible {
+    outline: 2px solid var(--amber-glow);
+    outline-offset: 2px;
+}
+
+/* Native `disabled`, so the chip leaves the tab order and cannot be fired by
+   either input. `pointer-events: none` was the old guard and stopped a pointer
+   and nothing else. */
+.hint-box:disabled {
     opacity: 0.5;
-    pointer-events: none;
+    cursor: default;
     border-bottom: 4px solid #444;
 }
 
 .hint-box.practice {
     border-bottom: 4px solid var(--amber-glow);
-}
-
-.hint-box.practice a {
-    text-decoration: none;
-    color: inherit;
 }
 
 .hint-text {

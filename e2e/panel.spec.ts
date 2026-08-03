@@ -75,7 +75,7 @@ test.describe("info panel", () => {
         const panel = page.locator("#info-panel");
         const hint = page.locator("#hint-box");
         await expect(panel).not.toHaveClass(/active/);
-        await expect(hint).not.toHaveClass(/disabled/);
+        await expect(hint).not.toBeDisabled();
 
         await hint.click();
 
@@ -152,7 +152,7 @@ test.describe("info panel", () => {
 
         // Buy a hint mid-game: the preference stands.
         const hint = page.locator("#hint-box");
-        await expect(hint).not.toHaveClass(/disabled/);
+        await expect(hint).not.toBeDisabled();
         await hint.click();
         await expect(page.locator("#stat-box")).toContainText(
             "Guesses Left: 21"

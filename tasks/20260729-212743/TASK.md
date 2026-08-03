@@ -3,9 +3,9 @@
 - PRIORITY: 55
 - TAGS: a11y, ux
 - KIND: TASK
-- ACTIVITY: WORKING
-- GATES: PLAN
-- RESOLUTION: -
+- ACTIVITY: COMPOUNDING
+- GATES: PLAN REVIEW RETRO
+- RESOLUTION: DONE
 
 ## Story
 
@@ -37,7 +37,7 @@ choices (native `disabled`; two elements rather than a link inside a button).
 
 ## Steps
 
-- [ ] Write the failing E2E proofs first, in a new `e2e/hintKeyboard.spec.ts`.
+- [x] Write the failing E2E proofs first, in a new `e2e/hintKeyboard.spec.ts`.
       Three tests, all red on this base:
       (a) on `/`, Tab from the document start until `document.activeElement` is
       `#hint-box` within a bounded number of presses, assert it was reached,
@@ -51,7 +51,7 @@ choices (native `disabled`; two elements rather than a link inside a button).
       times asserting focus never lands on `#hint-box` while it DOES land on at
       least one other real control (the delivery guard that the presses ran),
       and assert the counter still reads `Guesses Left: 2`.
-- [ ] `src/index.html`: `#hint-box` div -> `<button type="button"
+- [x] `src/index.html`: `#hint-box` div -> `<button type="button"
       class="hint-box" id="hint-box">`, keeping the `#hint-text` child and the
       existing comment. Add a sibling
       `<a class="hint-box practice" id="hint-practice"
@@ -60,7 +60,7 @@ choices (native `disabled`; two elements rather than a link inside a button).
       the template's existing idiom (`src/index.html:194`), and this template is
       registered twice (daily and `/practice/`), so both builds get the same
       correct href.
-- [ ] `src/partials/game-shell.css`: add `.hint-box[hidden] { display: none; }`
+- [x] `src/partials/game-shell.css`: add `.hint-box[hidden] { display: none; }`
       BEFORE `.hint-box` - `display: flex` otherwise beats the UA `[hidden]`
       rule, the trap already documented at `game-shell.css:53` and
       `panel.css:35`. Add button resets to `.hint-box` (`font: inherit`,
@@ -72,29 +72,29 @@ choices (native `disabled`; two elements rather than a link inside a button).
       DECISION.md). `.hint-box.practice` and `.hint-box.practice a` stay: the
       anchor still carries `.practice`; the inner `a` rule is now dead and is
       removed with it.
-- [ ] `src/game/hintChip.ts`: `updateHintButton(state, hintBox, hintPractice)`
+- [x] `src/game/hintChip.ts`: `updateHintButton(state, hintBox, hintPractice)`
       and `wireHintPurchase(state, hintBox, ...)` take
       `HTMLButtonElement | null` / `HTMLAnchorElement | null`. Game-over branch
       hides `#hint-box` and unhides `#hint-practice` and returns; the live
       branch does the inverse and sets `hintBox.disabled = !canHint`. All
       `classList` juggling of `disabled`/`practice` goes.
-- [ ] `src/game/index.ts:59`: cast `#hint-box` to `HTMLButtonElement`, look up
+- [x] `src/game/index.ts:59`: cast `#hint-box` to `HTMLButtonElement`, look up
       `#hint-practice` as `HTMLAnchorElement | null`, thread it through the
       `updateHintButton` call at :178. `wireHintPurchase` at :235 is unchanged
       but for the type.
-- [ ] Migrate the specs that lose their hook, in the same change, or they pass
+- [x] Migrate the specs that lose their hook, in the same change, or they pass
       vacuously forever: `e2e/panel.spec.ts:78,155` and `e2e/mobile.spec.ts:283`
       `not.toHaveClass(/disabled/)` -> `not.toBeDisabled()`;
       `e2e/postgame.spec.ts:143-166` retargets the practice assertions from
       `#hint-box` / `#hint-text a` to `#hint-practice` (and asserts `#hint-box`
       is now hidden), `:465` `toHaveClass(/practice/)` -> `#hint-practice`
       visible.
-- [ ] Confirm the chip in a real browser at desktop and at 360px, in all three
+- [x] Confirm the chip in a real browser at desktop and at 360px, in all three
       states (affordable, disabled, game over): UA button styling is the
       standing visual risk. `npm run playtest:walkthrough` already drives
       `#hint-box` (`scripts/playtest/walkthrough.ts:134,175`) and shoots the
       board; use it plus a manual look.
-- [ ] Out of scope, decided: tree nodes (`src/ui/treeVisualizer.ts` `onSelect`,
+- [x] Out of scope, decided: tree nodes (`src/ui/treeVisualizer.ts` `onSelect`,
       a click listener on a plain `div`). Keyboard-operating a rendered
       phylogeny is a roving-`tabindex` / `role="tree"` focus-management design,
       not a chip swap. Seed it as its own task at the end of this one.
@@ -138,3 +138,67 @@ choices (native `disabled`; two elements rather than a link inside a button).
 - The focus ring is the app's first: nothing else defines `:focus-visible`.
   Amber is chosen to match the chip's own accent; a global focus convention is
   a follow-up, not this task.
+
+## Close-out
+
+### What and why
+
+The hint chip is now a real `<button id="hint-box">` and the game-over practice
+route a sibling `<a id="hint-practice" class="hint-box practice">`; the two
+share the slot and swap `hidden`. Unaffordable is native `disabled`. Both forks
+landed as DECISION.md accepted them, unchanged.
+
+`updateHintButton` lost its `__webpack_public_path__` import and its
+`innerHTML` anchor build: the practice link is markup in `src/index.html`, so
+the href comes from the template's `basePath` idiom. The build emits
+`href="/practice"` on both the daily page and `/practice/`, checked in `dist/`.
+
+CSS: `.hint-box[hidden] { display: none; }` sits before `.hint-box` (the
+`display: flex` trap already documented for `.new-game-btn`). `.hint-box` gained
+`font`/`color`/`text-align`/`width` resets plus `text-decoration: none` - the
+last one because `.hint-box.practice a` was deleted and the anchor itself now
+carries `.hint-box`. Hover excludes `:disabled`; `:focus-visible` is the app's
+first focus style.
+
+### Alternatives
+
+None reopened. The two rejected in DECISION.md (`role="button"` + `tabindex`;
+`aria-disabled` over native `disabled`) stayed rejected, and the `aria-disabled`
+variant remains a one-attribute reversal if a playtest asks for it.
+
+### Difficulties and diagnosis
+
+- The worktree had no `node_modules`; `npm install` inside `nix develop` first.
+  The repo already serves on 8080, so the run used `E2E_PORT=8181`.
+- The visual check needed the disabled and game-over states on a real page. A
+  throwaway script seeded them by rewriting the app's OWN daily storage key
+  rather than recomputing it - but the app writes that key only after a guess,
+  so the script submits one real guess before rewriting the round. Deleted
+  after use; the shots are evidence for one pass, not repo content.
+
+### Evidence
+
+- `e2e/hintKeyboard.spec.ts` red first for the intended reasons: (a) and (b)
+  `Tab never reached #hint-box in 40 presses`, (c) `locator resolved to <div
+  id="hint-box" class="hint-box disabled"> - unexpected value "enabled"`.
+- `npm run ci` green: format, lint, pipeline, Jest coverage, 168 Playwright
+  tests.
+- `npm run build` exit 0; both emitted pages carry `href="/practice"`.
+- The DoD grep now returns no hits (exit 1) against the 9 it returned at plan
+  time.
+- Six `.top-bar` screenshots (desktop and 360px x affordable / disabled /
+  game over) plus one focused-chip shot: geometry, copy and colour unchanged,
+  greying visible in the disabled state, PRACTICE alone in the slot at game
+  over, amber ring on focus. The `manual:` DoD line stays pending - that is the
+  user's judgement, not the agent's.
+
+### Reflection
+
+The step list named the `[hidden]`-versus-`display: flex` trap and the UA button
+resets up front, and both were exactly the two things that would otherwise have
+shipped as visual regressions with green tests. The one thing planning missed is
+small: `text-decoration: none` had to move onto `.hint-box` when
+`.hint-box.practice a` was deleted, because the plan tracked the rule's deletion
+but not the property it was carrying.
+
+Follow-up seeded as planned: `20260803-233105`, keyboard-operable tree nodes.

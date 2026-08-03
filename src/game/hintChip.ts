@@ -3,33 +3,31 @@ import { findNextHintCladeId } from "../hintRule";
 import { hintChipCopy } from "../ui/onboarding";
 import { isNarrowViewport, openPanel } from "../ui/panel";
 
-declare const __webpack_public_path__: string;
-
 export function updateHintButton(
     state: GameState,
-    hintBox: HTMLDivElement | null
+    hintBox: HTMLButtonElement | null,
+    hintPractice: HTMLAnchorElement | null
 ) {
     if (!hintBox) return;
 
     const hintText = document.getElementById("hint-text");
 
+    // The slot holds two elements and shows exactly one. The practice route is
+    // markup, not an innerHTML string, so it can be a real link.
     if (state.isGameOver()) {
-        hintBox.classList.remove("disabled");
-        hintBox.classList.add("practice");
-        if (hintText) {
-            hintText.innerHTML = `<a href="${__webpack_public_path__}practice"><strong>Practice</strong></a>`;
-        }
+        hintBox.hidden = true;
+        if (hintPractice) hintPractice.hidden = false;
         return;
     }
 
-    // Set in BOTH branches, not only at game over: the chip has to change
-    // back if this function ever runs again on a live round, and driving it
-    // from here is what keeps the price out of the markup.
+    hintBox.hidden = false;
+    if (hintPractice) hintPractice.hidden = true;
+
+    // Driving the copy from here is what keeps the price out of the markup.
     if (hintText) {
         const { label, detail } = hintChipCopy();
         hintText.innerHTML = `<strong>${label}</strong><span>${detail}</span>`;
     }
-    hintBox.classList.remove("practice");
 
     const nextCladeId = findNextHintCladeId(state);
     const canHint =
@@ -39,16 +37,12 @@ export function updateHintButton(
         // per-round MAX_HINTS cap, not only the guess budget.
         state.canUseHint();
 
-    if (canHint) {
-        hintBox.classList.remove("disabled");
-    } else {
-        hintBox.classList.add("disabled");
-    }
+    hintBox.disabled = !canHint;
 }
 
 export function wireHintPurchase(
     state: GameState,
-    hintBox: HTMLDivElement | null,
+    hintBox: HTMLButtonElement | null,
     save: () => void,
     updateUI: () => void,
     showGameOverModal: () => void

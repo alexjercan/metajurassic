@@ -56,7 +56,10 @@ export function initGame({ data, state, saveState, share }: GameOptions) {
     const openPanelBtn = document.getElementById(
         "open-panel"
     ) as HTMLButtonElement;
-    const hintBox = document.getElementById("hint-box") as HTMLDivElement;
+    const hintBox = document.getElementById("hint-box") as HTMLButtonElement;
+    const hintPractice = document.getElementById(
+        "hint-practice"
+    ) as HTMLAnchorElement | null;
     const inputError = document.getElementById(
         "input-error"
     ) as HTMLParagraphElement | null;
@@ -175,7 +178,7 @@ export function initGame({ data, state, saveState, share }: GameOptions) {
             statBox.textContent = `Guesses Left: ${state.guessesLeft()}`;
         }
 
-        updateHintButton(state, hintBox);
+        updateHintButton(state, hintBox, hintPractice);
         const roots = buildGuessTree(state, state.isGameOver());
         renderLastGuess(state, data, roots);
         renderRoundSummary(state, roots);

@@ -280,7 +280,7 @@ test.describe("mobile game layout", () => {
         await expect(panel).not.toHaveClass(/active/);
 
         const hint = page.locator("#hint-box");
-        await expect(hint).not.toHaveClass(/disabled/);
+        await expect(hint).not.toBeDisabled();
         await hint.click();
 
         await expect(page.locator("#stat-box")).toContainText(

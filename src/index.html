@@ -22,11 +22,24 @@
             <div class="game-container">
                 <div class="top-bar">
                     <div class="stat-box" id="stat-box">Guesses Left: 25</div>
-                    <div class="hint-box" id="hint-box">
+                    <button type="button" class="hint-box" id="hint-box">
                         <!-- Filled by updateHintButton(); the price comes from
                              HINT_COST rather than being typed in here. -->
                         <div class="hint-text" id="hint-text"></div>
-                    </div>
+                    </button>
+                    <!-- The game-over occupant of the same slot. A link inside a
+                         button is invalid and resolves unpredictably, so the
+                         practice route is a sibling <a> and the two swap
+                         `hidden`. See tasks/20260729-212743/DECISION.md, fork 2.
+                         -->
+                    <a
+                        class="hint-box practice"
+                        id="hint-practice"
+                        href="<%= htmlWebpackPlugin.options.basePath %>practice"
+                        hidden
+                    >
+                        <div class="hint-text"><strong>Practice</strong></div>
+                    </a>
                     <!-- Practice-only, and hidden by default. This template is
                          registered TWICE in webpack.config.js - once as the
                          daily page, once as /practice/ - so a practice-only

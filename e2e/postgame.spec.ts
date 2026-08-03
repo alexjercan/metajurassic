@@ -135,29 +135,27 @@ test.describe("post-game daily journey after a win", () => {
         ).toHaveCount(1);
     });
 
-    test("the hint slot has become the practice route, not a dead hint", async ({
+    test("the hint slot has become a standalone practice link", async ({
         page,
     }) => {
         await page.locator("#modal-close-btn").click();
 
-        const chip = page.locator("#hint-box");
-        // Promoted, not greyed out: `updateHintButton` drops `.disabled` and
-        // adds `.practice` at game over. This is the step-3 question in
-        // TASK.md - a player cannot read it as a disabled hint, because no hint
-        // wording survives in it.
-        await expect(chip).toHaveClass(/practice/);
-        await expect(chip).not.toHaveClass(/disabled/);
+        // Two elements share the slot and exactly one shows. At game over the
+        // hint button is gone rather than greyed out - this is the step-3
+        // question in TASK.md, a player cannot read it as a disabled hint,
+        // because no hint wording survives in the slot.
+        const link = page.locator("#hint-practice");
+        await expect(page.locator("#hint-box")).toBeHidden();
+        await expect(link).toBeVisible();
+        await expect(link).toHaveJSProperty("tagName", "A");
 
-        const text = (await page.locator("#hint-text").textContent()) ?? "";
+        const text = (await link.textContent()) ?? "";
         expect(text.trim()).toBe("Practice");
         expect(text).not.toMatch(/hint/i);
 
-        const link = page.locator("#hint-text a");
         await expect(link).toHaveAttribute("href", /practice$/);
 
-        // And it is a route a player can actually take, not just an href:
-        // `.hint-box.disabled` sets `pointer-events: none`, so "reachable" is a
-        // separate property from "has a link".
+        // And it is a route a player can actually take, not just an href.
         await link.click();
         await page.waitForURL(/\/practice\/?$/);
         await expect(page.locator("#stat-box")).toContainText(
@@ -462,7 +460,7 @@ test.describe("post-game daily journey after a loss", () => {
         await expect(page.locator("#modal-share-btn")).toBeEnabled();
 
         await page.locator("#modal-close-btn").click();
-        await expect(page.locator("#hint-box")).toHaveClass(/practice/);
+        await expect(page.locator("#hint-practice")).toBeVisible();
         await expect(page.locator("#player-input")).toBeDisabled();
     });
 });
