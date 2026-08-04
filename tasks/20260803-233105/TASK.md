@@ -1,9 +1,9 @@
 # Make tree nodes keyboard operable
 
 - PRIORITY: 45
-- TAGS: a11y,ux
+- TAGS: a11y, ux
 - KIND: TASK
-- ACTIVITY: -
+- ACTIVITY: UNDERSTANDING
 - GATES: -
 - RESOLUTION: -
 
