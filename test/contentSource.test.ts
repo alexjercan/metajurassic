@@ -99,8 +99,8 @@ describe("authored markdown source", () => {
             clades: raw.clades as unknown as Record<string, unknown>,
         };
 
-        // Key order differs (directory order vs sorted); `toEqual` compares
-        // structurally, which is the property that matters.
+        // Both sides are sorted by id now, but `toEqual` compares
+        // structurally, which is the property that matters here.
         expect(fromSource).toEqual(committed);
     });
 

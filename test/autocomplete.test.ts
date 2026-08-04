@@ -28,11 +28,11 @@ describe("findMatches fixture", () => {
     it("the shipped species list still has the shape these tests assert", () => {
         expect(speciesNames).toHaveLength(150);
         expect(substringMatches("tyr")).toEqual([
-            "Yutyrannus",
-            "Styracosaurus",
-            "Tyrannotitan",
-            "Tyrannosaurus",
             "Nanotyrannus",
+            "Styracosaurus",
+            "Tyrannosaurus",
+            "Tyrannotitan",
+            "Yutyrannus",
         ]);
         expect(substringMatches("saur")).toHaveLength(83);
     });
@@ -41,14 +41,14 @@ describe("findMatches fixture", () => {
 describe("findMatches ranking", () => {
     it("ranks prefix matches above interior matches, source order within each group", () => {
         // Source order alone puts the two names that START with "tyr" third and
-        // fourth: ["Yutyrannus", "Styracosaurus", "Tyrannotitan",
-        // "Tyrannosaurus", "Nanotyrannus"]. The prefix group must come first.
+        // fourth: ["Nanotyrannus", "Styracosaurus", "Tyrannosaurus",
+        // "Tyrannotitan", "Yutyrannus"]. The prefix group must come first.
         expect(findMatches(speciesNames, "tyr", noneGuessed)).toEqual([
-            "Tyrannotitan",
             "Tyrannosaurus",
-            "Yutyrannus",
-            "Styracosaurus",
+            "Tyrannotitan",
             "Nanotyrannus",
+            "Styracosaurus",
+            "Yutyrannus",
         ]);
     });
 
@@ -60,12 +60,12 @@ describe("findMatches ranking", () => {
         expect(matches).toEqual([
             "Sauropelta",
             "Sauroposeidon",
-            "Ceratosaurus",
-            "Proceratosaurus",
-            "Saltasaurus",
-            "Edmontosaurus",
-            "Pachyrhinosaurus",
-            "Nodosaurus",
+            "Acrocanthosaurus",
+            "Alamosaurus",
+            "Albertosaurus",
+            "Allosaurus",
+            "Amargasaurus",
+            "Ankylosaurus",
         ]);
     });
 

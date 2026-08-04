@@ -184,7 +184,7 @@ test.describe("autocomplete stays usable deep in a round", () => {
         // so this also proves the raw text was not what got submitted.
         await expect(
             page.locator("#tree-container .node-box").filter({
-                hasText: /^Tyrannosaurus$/,
+                hasText: /^Tyrannotitan$/,
             })
         ).toHaveCount(1);
 
@@ -207,15 +207,16 @@ test.describe("autocomplete stays usable deep in a round", () => {
         await expect(items.first()).toBeVisible();
 
         // Source order alone puts both "Tyranno..." names third and fourth,
-        // behind Yutyrannus and Styracosaurus. This asserts the rendered order,
-        // so it also proves `setupAutocomplete` paints what `findMatches`
-        // returns; the exact ranking is pinned in test/autocomplete.test.ts.
+        // behind Nanotyrannus and Styracosaurus. This asserts the rendered
+        // order, so it also proves `setupAutocomplete` paints what
+        // `findMatches` returns; the exact ranking is pinned in
+        // test/autocomplete.test.ts.
         expect((await items.allTextContents()).map((t) => t.trim())).toEqual([
-            "Tyrannotitan",
             "Tyrannosaurus",
-            "Yutyrannus",
-            "Styracosaurus",
+            "Tyrannotitan",
             "Nanotyrannus",
+            "Styracosaurus",
+            "Yutyrannus",
         ]);
     });
 });

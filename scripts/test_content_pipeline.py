@@ -155,6 +155,28 @@ class MarkdownToJsonTest(unittest.TestCase):
         self.assertFalse(os.path.exists(self.index))
         self.assertFalse(os.path.exists(self.tree))
 
+    def test_sorts_ids_regardless_of_creation_order(self):
+        # index.json key order picks the daily answer (src/gameData.ts), so an
+        # order that follows os.listdir re-points every puzzle whenever the
+        # content directory churns. Files are written in deliberately
+        # non-alphabetical order so directory order cannot pass by accident.
+        for species_id in ("zuniceratops", "allosaurus", "triceratops", "brachiosaurus"):
+            path = os.path.join(self.content, "species", species_id + ".md")
+            with open(path, "w") as f:
+                f.write(SPECIES_MD.format(icon=GOOD_ICON))
+        for clade_id in ("zephyrosauria", "allosauroidea", "titanosauria"):
+            path = os.path.join(self.content, "clades", clade_id + ".md")
+            with open(path, "w") as f:
+                f.write(CLADE_MD.replace("---\n", "---\nparent: ceratopsoidea\n", 1))
+
+        result = self.generate()
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        with open(self.index) as f:
+            data = json.load(f)
+        self.assertEqual(list(data["species"]), sorted(data["species"]))
+        self.assertEqual(list(data["clades"]), sorted(data["clades"]))
+
     def test_leaves_an_existing_payload_untouched_when_it_refuses(self):
         self.write_species(GOOD_ICON)
         self.generate()

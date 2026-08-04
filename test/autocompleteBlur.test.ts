@@ -38,10 +38,10 @@ const QUERY = "tyrann";
 // moves these, this fails here instead of turning a selection assertion
 // vacuously green below.
 const EXPECTED_MATCHES = [
-    "Tyrannotitan",
     "Tyrannosaurus",
-    "Yutyrannus",
+    "Tyrannotitan",
     "Nanotyrannus",
+    "Yutyrannus",
 ];
 
 type Harness = {

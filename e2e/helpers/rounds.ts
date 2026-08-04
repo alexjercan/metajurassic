@@ -16,7 +16,7 @@ import { waitForTreeToSettle } from "./tree";
 export const WIDE_TREE_SEED = 42;
 
 // The same seed 42 round, guessed so that all five closeness tiers land on the
-// board at once: seed 42 resolves to Struthiomimus, whose 11-clade lineage has
+// board at once: seed 42 resolves to Camarasaurus, whose 10-clade lineage has
 // real species at every rung. Coldest to hottest; derived from the shipped
 // src/jurassic/index.json by running `guessTier` over every species against
 // that target, so a content change that moves one of them fails in
@@ -29,11 +29,11 @@ export const WIDE_TREE_SEED = 42;
 // copy would photograph a different board than the one under test
 // (LESSONS.md: hand-copied-logic-mirrors-rot).
 export const CLOSENESS_LADDER = [
-    { name: "Stegosaurus", tier: 0 }, // meets the target only at dinosauria
-    { name: "Apatosaurus", tier: 1 },
-    { name: "Ceratosaurus", tier: 2 },
-    { name: "Yutyrannus", tier: 3 },
-    { name: "Gallimimus", tier: 4 }, // an ornithomimid, like the target
+    { name: "Ankylosaurus", tier: 0 }, // meets the target only at dinosauria
+    { name: "Allosaurus", tier: 1 },
+    { name: "Plateosaurus", tier: 2 },
+    { name: "Mamenchisaurus", tier: 3 },
+    { name: "Apatosaurus", tier: 4 }, // a neosauropod, like the target
 ];
 
 // Twelve species covering all four branches under the root clade

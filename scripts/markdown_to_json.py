@@ -120,12 +120,12 @@ def build_tree(data: dict) -> dict:
 
 
 def load_directory(path: str) -> dict:
-    # Directory order, NOT sorted: the committed index.json is in this order,
-    # and sorting it here would bury a content change under a 1900-line
-    # reshuffle. Making the generated order deterministic is worth doing, but
-    # as its own change - filed as 20260730-120355.
+    # Sorted, NOT directory order: index.json key order picks the daily answer
+    # (src/gameData.ts), so os.listdir order would re-point every puzzle across
+    # machines and after any file churn. Guarded by
+    # `test_sorts_ids_regardless_of_creation_order`.
     entries = {}
-    for filename in os.listdir(path):
+    for filename in sorted(os.listdir(path)):
         if not filename.endswith(".md"):
             continue
         entries[filename[:-3]] = parse_markdown_file(os.path.join(path, filename))

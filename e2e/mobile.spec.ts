@@ -249,15 +249,15 @@ test.describe("mobile game layout", () => {
         await expect(tab).not.toHaveClass(/has-unseen/);
         await expect(tab.locator(".panel-pull-label")).toHaveText("Info");
 
-        // Triceratops by name, NOT the usual `guessFirstSuggestion(page,
+        // Brachiosaurus by name, NOT the usual `guessFirstSuggestion(page,
         // "saurus")`. The marker only lights when a guess DEEPENS the best
         // clade past the root card already on screen, so this test needs a
-        // guess related to the day's target. Against the pinned day's
-        // Pentaceratops, Ceratosaurus meets it only at dinosauria - the root -
-        // and the card never changes. That the test used to pass was the
-        // calendar handing it a related target; see
+        // guess related to the day's target. Against the pinned day's Eoraptor,
+        // Triceratops meets it only at dinosauria - the root - and the card
+        // never changes; Brachiosaurus meets it at sauropodomorpha. That the
+        // test used to pass was the calendar handing it a related target; see
         // tasks/20260804-000316/TASK.md.
-        await guessNamedSpecies(page, "Triceratops");
+        await guessNamedSpecies(page, "Brachiosaurus");
 
         // The label matches the card that was rendered but not shown, so the
         // player is told which clade the tab holds rather than just "info".

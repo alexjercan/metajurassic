@@ -146,9 +146,10 @@ test.describe("round summary", () => {
     // advertise it: what the tab promises and what the panel opens onto are the
     // same decision, so they are made in one place.
     //
-    // Saltasaurus is a sauropod, so its LCA with the target sits above the
-    // theropod clade Ceratosaurus already revealed - unlike CLOSENESS_LADDER[3],
-    // which deepens it and is why the case above passes either way.
+    // Tyrannosaurus is a theropod, so its LCA with the target sits above the
+    // plateosauria card Plateosaurus already revealed - unlike
+    // CLOSENESS_LADDER[3], which deepens it and is why the case above passes
+    // either way.
     test("a non-deepening guess does not advertise a card behind Summary", async ({
         page,
     }) => {
@@ -162,7 +163,7 @@ test.describe("round summary", () => {
         await page.locator("#open-panel").click();
         await expect(page.locator("#info-panel")).not.toHaveClass(/active/);
 
-        await guessNamedSpecies(page, "Saltasaurus");
+        await guessNamedSpecies(page, "Tyrannosaurus");
 
         // The premise: this guess really did leave the museum card alone.
         await expect(
