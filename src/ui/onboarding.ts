@@ -1,4 +1,5 @@
 import { MAX_GUESSES, HINT_COST } from "../constants";
+import { plural } from "../plural";
 
 /**
  * In-board onboarding copy: the pre-guess brief, the deeper how-to-play card,
@@ -24,7 +25,7 @@ export function hintChipCopy(): { label: string; detail: string } {
         label: "Stuck?",
         // Must NOT promise to halve the field: the rule falls back to a
         // smaller cut on ~19% of presses (same record).
-        detail: `Spend ${HINT_COST} guesses to reveal a clade`,
+        detail: `Spend ${plural(HINT_COST, "guess", "guesses")} to reveal a clade`,
     };
 }
 
@@ -52,7 +53,7 @@ export function briefCopy(): {
         feedback:
             "Each guess joins the tree at the clade it shares with the answer. " +
             "The deeper it joins, the closer you are.",
-        budget: `You have ${MAX_GUESSES} guesses.`,
+        budget: `You have ${plural(MAX_GUESSES, "guess", "guesses")}.`,
         howToPlay: "How to play",
     };
 }
@@ -124,12 +125,12 @@ export function buildHowToPlayCard(): HTMLElement {
                 </div>
                 <div class="card-fact">
                     <strong>Budget:</strong>
-                    <span>${MAX_GUESSES} guesses. A name the game does not know is
+                    <span>${plural(MAX_GUESSES, "guess", "guesses")}. A name the game does not know is
                     rejected without costing one.</span>
                 </div>
                 <div class="card-fact">
                     <strong>Stuck:</strong>
-                    <span>A hint spends ${HINT_COST} guesses to name a clade the answer
+                    <span>A hint spends ${plural(HINT_COST, "guess", "guesses")} to name a clade the answer
                     belongs to. It is a way out of a lost round, not a shortcut to a
                     quick one.</span>
                 </div>

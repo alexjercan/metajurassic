@@ -1,4 +1,5 @@
 import { MAX_GUESSES, HINT_COST } from "./constants";
+import { plural } from "./plural";
 
 /**
  * FAQ answer fragments whose numbers come from the constants that define them.
@@ -14,12 +15,12 @@ import { MAX_GUESSES, HINT_COST } from "./constants";
 // typed in, because nothing on this static page overwrites it - the literal
 // this replaces would simply have gone stale on a reprice.
 export function guessBudgetAnswer(): string {
-    return `You have ${MAX_GUESSES} attempts to find the target.`;
+    return `You have ${plural(MAX_GUESSES, "attempt", "attempts")} to find the target.`;
 }
 
 // Closes the "I am stuck" answer. Same reasoning as the budget above, and the
 // same guard: `test/markupConstants.test.ts` forbids the price as a literal in
 // any page template, so the sentence has to be built from HINT_COST here.
 export function hintCostAnswer(): string {
-    return `A hint costs ${HINT_COST} guesses.`;
+    return `A hint costs ${plural(HINT_COST, "guess", "guesses")}.`;
 }

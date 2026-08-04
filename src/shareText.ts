@@ -1,6 +1,7 @@
 import { guessTier } from "./closeness";
 import { MAX_GUESSES } from "./constants";
 import { GameState } from "./gameState";
+import { plural } from "./plural";
 import { formatPuzzleNumber, getTodaySeed } from "./puzzleKey";
 
 // Identifies which puzzle a share message is for. Daily rounds use today's
@@ -105,23 +106,21 @@ export function formatGameStateForSharing(
     const statsLine = formatStatsLine(stats, context.mode, state.isWin());
 
     if (state.isWin()) {
-        const noun = guessCount === 1 ? "guess" : "guesses";
         // A hint costs HINT_COST guesses but draws a single bulb, so without
         // this the sentence and the grid would give a reader two different
         // numbers. Naming the hints reconciles them, and owns up to the help.
         const hints = state.hintClades.size;
-        const help =
-            hints > 0 ? ` (${hints} ${hints === 1 ? "hint" : "hints"})` : "";
+        const help = hints > 0 ? ` (${plural(hints, "hint", "hints")})` : "";
         return shareMessage(
             `✅ ${label}Dinosaur ${puzzleNumber} 🦖`,
-            `I figured it out in ${guessCount} ${noun}${help}!`,
+            `I figured it out in ${plural(guessCount, "guess", "guesses")}${help}!`,
             buildShareGrid(state),
             statsLine
         );
     } else if (state.isLoss()) {
         return shareMessage(
             `💀 ${label}Dinosaur ${puzzleNumber} 🦖`,
-            `I couldn't figure it out in ${MAX_GUESSES} guesses.`,
+            `I couldn't figure it out in ${plural(MAX_GUESSES, "guess", "guesses")}.`,
             buildShareGrid(state),
             statsLine
         );

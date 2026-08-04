@@ -1,4 +1,5 @@
 import type { LadderGuess, LadderProvenance, RankLadder } from "../rankLadder";
+import { plural } from "../plural";
 
 /**
  * The round summary card. Deliberately dumb: `src/ui/**` is excluded from jest
@@ -14,9 +15,9 @@ const PROVENANCE_LABEL: Record<LadderProvenance, string> = {
 };
 
 function countsLine(ladder: RankLadder): string {
-    const guesses = `${ladder.guessCount} ${ladder.guessCount === 1 ? "guess" : "guesses"}`;
+    const guesses = plural(ladder.guessCount, "guess", "guesses");
     if (ladder.hintCount === 0) return guesses;
-    return `${guesses} - ${ladder.hintCount} ${ladder.hintCount === 1 ? "hint" : "hints"}`;
+    return `${guesses} - ${plural(ladder.hintCount, "hint", "hints")}`;
 }
 
 function buildGuessItem(guess: LadderGuess): HTMLElement {
