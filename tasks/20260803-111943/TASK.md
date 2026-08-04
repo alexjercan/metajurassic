@@ -1,9 +1,9 @@
 # Escape HTML in the social head partial substitution
 
 - PRIORITY: 30
-- TAGS: chore,build
+- TAGS: chore, build
 - KIND: TASK
-- ACTIVITY: -
+- ACTIVITY: UNDERSTANDING
 - GATES: -
 - RESOLUTION: -
 
