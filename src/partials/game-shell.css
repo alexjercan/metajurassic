@@ -39,6 +39,15 @@ main {
 
 .stat-box {
     pointer-events: auto;
+    /* The chip ships EMPTY and is filled by updateUI() (src/index.html), so
+       without a floor the pre-hydration frame paints a collapsed box that jumps
+       to full width on hydration - and .top-bar is space-around, so the hint
+       chip shifts with it. Same guard as .hint-box's min-height below, which is
+       why emptying #hint-text shifted nothing.
+       8em is the MEASURED content width of "Guesses Left: 25" at both the
+       1.2rem desktop and 0.9rem mobile sizes (8.02em / 7.99em), so in `em` one
+       value serves both and the floor never exceeds the hydrated width. */
+    min-width: 8em;
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
     padding: 10px 20px;

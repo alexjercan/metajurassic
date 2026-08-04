@@ -21,7 +21,10 @@
         <main>
             <div class="game-container">
                 <div class="top-bar">
-                    <div class="stat-box" id="stat-box">Guesses Left: 25</div>
+                    <!-- Filled by updateUI() in src/game/index.ts, which runs
+                         unconditionally at init; the count comes from
+                         MAX_GUESSES rather than being typed in here. -->
+                    <div class="stat-box" id="stat-box"></div>
                     <button type="button" class="hint-box" id="hint-box">
                         <!-- Filled by updateHintButton(); the price comes from
                              HINT_COST rather than being typed in here. -->
