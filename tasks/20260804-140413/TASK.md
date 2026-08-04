@@ -3,8 +3,8 @@
 - PRIORITY: 50
 - TAGS: chore, testing
 - KIND: TASK
-- ACTIVITY: PLANNING
-- GATES: -
+- ACTIVITY: WORKING
+- GATES: PLAN
 - RESOLUTION: -
 
 ## Story
@@ -35,26 +35,52 @@ drop the measured percentages sharply, so this task has to decide per module
 whether it belongs in the gate (and gets tests) or is explicitly excluded like
 `src/ui/**` already is, and then re-baseline the floors.
 
+Settled during planning: all 12 newly visible modules are DOM entry points or
+DOM components and are excluded, which leaves the measured set and the floors
+byte-identical to the baseline. See DECISION.md; the numbers above are the
+first, pre-`markdownLoader`-deletion measurement and NOTES.md carries the
+current ones.
+
 ## Steps
 
-- [ ] Add `<rootDir>/src` to `roots` in `jest.config.js` and record the
-      resulting per-file numbers.
-- [ ] Confirm `testMatch`/`testPathIgnorePatterns` still discover exactly the
-      32 suites under `test/` and no stray file under `src/`.
-- [ ] Decide per newly visible module: exclude in `collectCoverageFrom` with a
-      stated reason (DOM entry points, mirroring the existing `src/ui/**`
-      exclusion), or keep it in the gate.
-- [ ] Re-baseline `coverageThreshold` to the new real numbers and update the
-      `// Current:` comments beside them.
+- [ ] `jest.config.js`: add `<rootDir>/src` to `roots`, and rewrite the comment
+      above it to say `src` is there for coverage discovery, not test
+      discovery.
+- [ ] `jest.config.js`: extend `collectCoverageFrom` with the four negative
+      globs that exclude the 12 newly visible DOM modules - `!src/game/**/*.ts`
+      and `!src/profile/**/*.ts` (DOM components, same reason as `src/ui/**`),
+      and `!src/clades.ts`, `!src/faq.ts`, `!src/practice.ts`,
+      `!src/species.ts` grouped with the existing `!src/index.ts` under one
+      "page entry points" comment. See DECISION.md.
+- [ ] Confirm suite discovery is unchanged: `npx jest --listTests | wc -l`
+      still reports 32 and lists nothing under `src/`.
+- [ ] Confirm the measured file set is still the 21 baseline files and the four
+      percentages are unchanged, then update the stale `// Current:` comments
+      beside `coverageThreshold` to the measured 81.83 / 99.31 / 98.22 / 95.39.
+      Leave the floors at 78 / 98 / 97 / 94.
 
 ## Definition of Done
 
-- Coverage instruments the modules the config claims. (cmd: `npx jest --coverage --coverageReporters=json-summary --coverageThreshold='{}' && node -e "const s=require('./coverage/coverage-summary.json');const k=Object.keys(s).filter(f=>f!=='total');if(!k.some(f=>f.includes('src/game/index.ts')))process.exit(1)"`)
-- `npm run ci` passes. (cmd: `npm run ci`)
+- `roots` reaches `src/`, so a `src/` module no test imports is instrumented
+  rather than absent. Red on base: the explicit glob matches zero files.
+  (cmd: `npx jest --coverage --coverageReporters=json-summary --coverageThreshold='{}' --collectCoverageFrom='src/game/**/*.ts' && node -e "const s=require('./coverage/coverage-summary.json');const k=Object.keys(s).filter(f=>f!=='total');if(k.length!==4)process.exit(1)"`)
+- Suite discovery unchanged by the new root. (cmd: `test "$(npx jest --listTests | wc -l)" = 32 && ! npx jest --listTests | grep -q '/src/'`)
+- `npm run ci` passes - regression guard for stray test discovery and for the
+  floors, not a discriminating proof. (cmd: `npm run ci`)
 
 ## Notes
 
 - The `src/ui/**` exclusion plus the two re-includes (`treeLayout.ts`,
   `treeNav.ts`) show the intended pattern for opting a pure module back in.
-- `src/markdownLoader.ts` is being deleted by `20260730-120401`, so it will
-  not be among the newly visible files by the time this runs.
+- `src/markdownLoader.ts` was deleted by `20260730-120401` (commit `4a1d8b5`),
+  so it is no longer among the newly visible files.
+- Probed on base with CLI overrides, not predicted: `--roots test --roots src`
+  plus the four planned exclusions yields 32 suites, 411 tests, 21 measured
+  files, totals 95.39 / 81.83 / 99.31 / 98.22 - all above the existing floors.
+  So `coverageThreshold` needs no re-baselining; only its comments are stale.
+- The first DoD proof deliberately does not assert `src/game/index.ts` is in
+  the default report - the recommended decision excludes it. It overrides
+  `collectCoverageFrom` on the CLI to isolate the one thing this task changes:
+  whether jest looks under `src/` at all.
+- Assumption: excluding the 12 DOM modules is preferred over keeping them and
+  re-baselining the floors to ~56/58/64/56. Recorded in DECISION.md.
