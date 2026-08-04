@@ -3,7 +3,7 @@
 - PRIORITY: 30
 - TAGS: content, docs
 - KIND: TASK
-- ACTIVITY: -
+- ACTIVITY: UNDERSTANDING
 - GATES: -
 - RESOLUTION: -
 
