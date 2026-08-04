@@ -30,7 +30,9 @@ jobs:
             - name: Setup Node.js
               uses: actions/setup-node@v3
               with:
-                  node-version: "18"
+                  # Matches the versions ci.yml tests. Node 18 here meant the
+                  # deploy path ran a version nothing gated on.
+                  node-version: "22"
 
             - name: Setup Pages
               uses: actions/configure-pages@v3
@@ -38,7 +40,11 @@ jobs:
             - name: Install npm dependencies
               run: npm install
 
-            - name: Build with webpack
+            # One script, two builders: webpack for the game, then VitePress for
+            # the docs site into dist/docs/. No second step - the order is
+            # load-bearing and lives in package.json, pinned by
+            # test/docsGate.test.ts.
+            - name: Build the game and the docs site
               run: npm run build
               env:
                   PUBLIC_PATH: /metajurassic/

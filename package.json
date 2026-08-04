@@ -6,10 +6,12 @@
     "author": "",
     "type": "commonjs",
     "scripts": {
-        "build": "webpack --config webpack.config.js",
+        "build": "webpack --config webpack.config.js && npm run docs:build",
         "serve": "webpack serve --config webpack.config.js",
-        "format": "prettier --write \"src/**/*.ts\" \"src/**/*.html\" \"e2e/**/*.ts\" \"scripts/**/*.ts\" webpack.config.js playwright.config.ts",
-        "format:check": "prettier --check \"src/**/*.ts\" \"src/**/*.html\" \"e2e/**/*.ts\" \"scripts/**/*.ts\" webpack.config.js playwright.config.ts",
+        "docs:dev": "vitepress dev docs",
+        "docs:build": "vitepress build docs",
+        "format": "prettier --write \"src/**/*.ts\" \"src/**/*.html\" \"e2e/**/*.ts\" \"scripts/**/*.ts\" \"docs/**/*.md\" \"docs/**/*.mts\" webpack.config.js playwright.config.ts",
+        "format:check": "prettier --check \"src/**/*.ts\" \"src/**/*.html\" \"e2e/**/*.ts\" \"scripts/**/*.ts\" \"docs/**/*.md\" \"docs/**/*.mts\" webpack.config.js playwright.config.ts",
         "lint": "eslint \"src/**/*.ts\" \"test/**/*.ts\" \"e2e/**/*.ts\" \"scripts/**/*.ts\" playwright.config.ts --max-warnings=0",
         "lint:fix": "eslint \"src/**/*.ts\" \"test/**/*.ts\" \"e2e/**/*.ts\" \"scripts/**/*.ts\" playwright.config.ts --fix",
         "test": "jest",
@@ -48,6 +50,7 @@
         "ts-loader": "^9.5.4",
         "ts-node": "^10.9.2",
         "typescript-eslint": "^8.57.1",
+        "vitepress": "^1.6.4",
         "webpack": "^5.105.1",
         "webpack-cli": "^6.0.1",
         "webpack-dev-server": "^5.2.3"

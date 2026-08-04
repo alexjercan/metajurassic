@@ -24,6 +24,9 @@ npm run ci         # the full gate
 
 ## More
 
+- [Documentation site](https://alexjercan.github.io/metajurassic/docs/) -
+  gameplay, practice seeds, the content pipeline, and the architecture. Sources
+  in [docs/](docs/); `npm run docs:dev` to serve it locally.
 - [CHANGELOG.md](CHANGELOG.md) - releases and what shipped in each.
 - [AGENTS.md](AGENTS.md) - repository map, environment, and workflow.
 - [e2e/seed.spec.ts](e2e/seed.spec.ts) - a runnable walkthrough of a fixed
