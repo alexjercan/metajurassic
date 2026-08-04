@@ -1,9 +1,9 @@
 # Pluralize HINT_COST and MAX_GUESSES prose off the constant
 
 - PRIORITY: 20
-- TAGS: docs,polish
+- TAGS: docs, polish
 - KIND: TASK
-- ACTIVITY: -
+- ACTIVITY: UNDERSTANDING
 - GATES: -
 - RESOLUTION: -
 
