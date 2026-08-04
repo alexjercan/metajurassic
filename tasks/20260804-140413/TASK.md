@@ -3,9 +3,9 @@
 - PRIORITY: 50
 - TAGS: chore, testing
 - KIND: TASK
-- ACTIVITY: WORKING
-- GATES: PLAN
-- RESOLUTION: -
+- ACTIVITY: COMPOUNDING
+- GATES: PLAN REVIEW RETRO
+- RESOLUTION: DONE
 
 ## Story
 
@@ -43,18 +43,18 @@ current ones.
 
 ## Steps
 
-- [ ] `jest.config.js`: add `<rootDir>/src` to `roots`, and rewrite the comment
+- [x] `jest.config.js`: add `<rootDir>/src` to `roots`, and rewrite the comment
       above it to say `src` is there for coverage discovery, not test
       discovery.
-- [ ] `jest.config.js`: extend `collectCoverageFrom` with the four negative
+- [x] `jest.config.js`: extend `collectCoverageFrom` with the four negative
       globs that exclude the 12 newly visible DOM modules - `!src/game/**/*.ts`
       and `!src/profile/**/*.ts` (DOM components, same reason as `src/ui/**`),
       and `!src/clades.ts`, `!src/faq.ts`, `!src/practice.ts`,
       `!src/species.ts` grouped with the existing `!src/index.ts` under one
       "page entry points" comment. See DECISION.md.
-- [ ] Confirm suite discovery is unchanged: `npx jest --listTests | wc -l`
+- [x] Confirm suite discovery is unchanged: `npx jest --listTests | wc -l`
       still reports 32 and lists nothing under `src/`.
-- [ ] Confirm the measured file set is still the 21 baseline files and the four
+- [x] Confirm the measured file set is still the 21 baseline files and the four
       percentages are unchanged, then update the stale `// Current:` comments
       beside `coverageThreshold` to the measured 81.83 / 99.31 / 98.22 / 95.39.
       Leave the floors at 78 / 98 / 97 / 94.
@@ -84,3 +84,35 @@ current ones.
   whether jest looks under `src/` at all.
 - Assumption: excluding the 12 DOM modules is preferred over keeping them and
   re-baselining the floors to ~56/58/64/56. Recorded in DECISION.md.
+
+## Close-out
+
+What and why: `jest.config.js` only. `roots` gains `<rootDir>/src` so jest
+instruments `src/` modules no test imports, and `collectCoverageFrom` gains four
+negative globs so the 12 DOM modules that newly become visible are excluded on
+their merits rather than by accident. The `roots` comment now says why `src` is
+there, and the stale `// Current:` figures beside `coverageThreshold` were
+refreshed to the measured values. Floors untouched.
+
+Alternatives: keeping the 12 in the gate and re-baselining the floors to
+~56/58/64/56 (guts the gate for the modules that ARE tested), or writing tests
+for all 12 (~590 statements of DOM bootstrap, a separate task). See DECISION.md.
+
+Difficulties: none. Planning had already probed the post-change numbers with CLI
+overrides, so the edit landed on measured values instead of predicted ones. The
+only wrinkle was the first DoD proof, written before the exclusion decision - it
+overrides `collectCoverageFrom` on the CLI precisely so it tests "does jest look
+under `src/`" and not "did `src/game` survive the exclusions".
+
+Evidence:
+
+- Proof 1 red on base (0 of 4 `src/game` files instrumented), green after (4).
+- Proof 2: `npx jest --listTests` still 32, nothing under `src/`.
+- Proof 3: `npm run ci` exit 0 - 411 jest tests, 184 playwright tests.
+- Default coverage run: 21 measured files, totals 95.39 / 81.83 / 99.31 / 98.22,
+  byte-identical to the baseline.
+
+Reflection: the exclusion list is now the maintenance surface. A new page entry
+point under `src/` lands at 0% and fails the floors unless it is added - loud and
+at authoring time, which is the intended mode, but worth remembering when an
+unrelated PR goes red on coverage.
