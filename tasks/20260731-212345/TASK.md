@@ -2,7 +2,6 @@
 
 - PRIORITY: 72
 - TAGS: goal, refactor, docs
-- KIND: EPIC
 - ACTIVITY: COMPOUNDING
 - GATES: PLAN
 - RESOLUTION: DONE

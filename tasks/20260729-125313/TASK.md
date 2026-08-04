@@ -2,7 +2,6 @@
 
 - PRIORITY: 60
 - TAGS: bug, ui, ux, mobile
-- KIND: TASK
 - ACTIVITY: -
 - GATES: RETRO
 - RESOLUTION: WONTDO
