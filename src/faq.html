@@ -70,21 +70,102 @@
                 </div>
 
                 <div class="faq-item">
+                    <h2 class="faq-question">I am stuck. Can I get a hint?</h2>
+                    <p class="faq-answer">
+                        Yes, for a price. A hint reveals the shallowest
+                        unrevealed clade in the answer's lineage that
+                        meaningfully cuts the remaining field, so it narrows the
+                        field without ever naming the answer.
+                        <!-- Filled by src/faq.ts from hintCostAnswer(); the
+                             price comes from HINT_COST rather than being typed
+                             in here. -->
+                        <span id="faq-hint-cost"></span>
+                        That makes it a way out of a round you were going to
+                        lose, not a shortcut to a quick win.
+                    </p>
+                </div>
+
+                <div class="faq-item">
+                    <h2 class="faq-question">What is the round summary?</h2>
+                    <p class="faq-answer">
+                        When a round ends, the summary lists the clades your
+                        guesses established, root-first, each one next to the
+                        guesses that revealed it. It is a read of the tree you
+                        already played, so it stops at the deepest clade you
+                        reached - it never tells you how much further down the
+                        answer was.
+                    </p>
+                </div>
+
+                <div class="faq-item">
                     <h2 class="faq-question">
                         Is there a new puzzle every day?
                     </h2>
                     <p class="faq-answer">
-                        Yes! A new mystery species is selected each day. Come
-                        back tomorrow for a fresh challenge.
+                        Yes! A new mystery species is selected each day. The
+                        puzzle rolls over at your local midnight, and the
+                        end-of-round screen counts down to it.
+                    </p>
+                </div>
+
+                <div class="faq-item">
+                    <h2 class="faq-question">
+                        Can I play more than once a day?
+                    </h2>
+                    <p class="faq-answer">
+                        Practice mode deals a random dinosaur as often as you
+                        like, and it is kept apart from the daily puzzle
+                        everywhere - its own saved rounds, its own stats, its
+                        own share text. Adding <code>?seed=42</code> to the
+                        practice page loads a chosen, reproducible round; seeds
+                        are folded into <code>seed mod 100000</code>, so
+                        <code>?seed=100042</code> is the same round as
+                        <code>?seed=42</code>. Practice rounds resume, seeded
+                        ones included, so returning to a seed you have played
+                        brings that round back. Press
+                        <strong>New game</strong> to deal a fresh, unseeded one.
+                    </p>
+                </div>
+
+                <div class="faq-item">
+                    <h2 class="faq-question">How does sharing work?</h2>
+                    <p class="faq-answer">
+                        The share text is one square per guess, in the order you
+                        made them, coloured by how close that guess landed - the
+                        same cold-to-hot steps the tree uses. A bulb marks each
+                        hint you bought. Practice rounds are labelled as
+                        practice, so a share never passes one off as the daily.
+                    </p>
+                </div>
+
+                <div class="faq-item">
+                    <h2 class="faq-question">
+                        What does the profile page track?
+                    </h2>
+                    <p class="faq-answer">
+                        Games played, win rate, current and longest streak,
+                        average guesses, the distribution of your winning guess
+                        counts, how much of the collection you have discovered,
+                        and a rolling average of your recent rounds. Daily and
+                        practice are counted separately, on their own tabs, so
+                        practice cannot inflate a daily streak.
+                    </p>
+                </div>
+
+                <div class="faq-item">
+                    <h2 class="faq-question">What is in the archives?</h2>
+                    <p class="faq-answer">
+                        The species archive is every dinosaur the game can pick,
+                        each with its own page. The clades archive is the
+                        taxonomic groups those species are sorted into - the
+                        same groups the tree reveals as you guess. Both are
+                        browsable at any time and give nothing away about
+                        today's answer.
                     </p>
                 </div>
 
                 <div class="faq-archive">
                     <h2>Archive</h2>
-                    <p>
-                        Browse the full museum collection of dinosaur species
-                        and taxonomic clades.
-                    </p>
                     <div class="archive-links">
                         <a
                             href="<%= htmlWebpackPlugin.options.basePath %>species"

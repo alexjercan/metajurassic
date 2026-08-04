@@ -3,9 +3,9 @@
 - PRIORITY: 90
 - TAGS: docs, release
 - KIND: TASK
-- ACTIVITY: WORKING
-- GATES: PLAN
-- RESOLUTION: -
+- ACTIVITY: COMPOUNDING
+- GATES: PLAN REVIEW RETRO
+- RESOLUTION: DONE
 
 ## Story
 
@@ -42,7 +42,7 @@ Out of scope: the docs site (separate task) and any gameplay change.
 
 ## Steps
 
-- [ ] Write `CHANGELOG.md`: Keep a Changelog headings, an empty
+- [x] Write `CHANGELOG.md`: Keep a Changelog headings, an empty
       `## [Unreleased]`, and one `## [1.0.0] - 2026-08-04` section carrying
       `### Added` only - one bullet per shipped surface (daily game, tree and
       closeness colours, info panel, guess budget, hints, practice + `?seed=`,
@@ -52,19 +52,19 @@ Out of scope: the docs site (separate task) and any gameplay change.
       with a link section holding the `v1.0.0` tag URL. No `Changed`/`Fixed`:
       a first release has no prior release to differ from (DECISION.md, fork
       1).
-- [ ] Trim `README.md` to a quickstart: what the game is, `npm install` /
+- [x] Trim `README.md` to a quickstart: what the game is, `npm install` /
       `npm run serve` / `npm run build`, the three test one-liners, and links
       to `CHANGELOG.md`, `AGENTS.md`, and `e2e/seed.spec.ts`. Delete the
       `### Seed mode` section and the Nix/Playwright procedure - both already
       live in `AGENTS.md` (`## Deterministic practice games`,
       `## Environment and commands`). Prettier does not cover `*.md`, so
       format by hand.
-- [ ] Add `hintCostAnswer()` to `src/faqCopy.ts` beside `guessBudgetAnswer()`,
+- [x] Add `hintCostAnswer()` to `src/faqCopy.ts` beside `guessBudgetAnswer()`,
       reading `HINT_COST`, and cover it in `test/faqCopy.test.ts` with the two
       cases the budget fragment has (contains the constant; carries no other
       integer). The exported function is in the coverage gate's scope, so it
       needs a test in this change.
-- [ ] Extend `src/faq.html` with new `.faq-item` blocks for: playing more than
+- [x] Extend `src/faq.html` with new `.faq-item` blocks for: playing more than
       once a day (practice + `?seed=N`, `seed mod 100000`, seeded rounds
       resume, **New game** deals unseeded), hints (reveals the shallowest
       unrevealed clade in the answer's lineage, never the answer; price via an
@@ -78,19 +78,17 @@ Out of scope: the docs site (separate task) and any gameplay change.
       what the two archives hold). Rewrite the "new puzzle every day" answer to
       state the reset is local midnight with a live countdown. Only existing
       `src/partials/faq.css` classes; no new CSS.
-- [ ] Mount the new fragment in `src/faq.ts`: look up `#faq-hint-cost` and
+- [x] Mount the new fragment in `src/faq.ts`: look up `#faq-hint-cost` and
       throw with the same shape as the existing `#faq-guess-budget` guard.
-- [ ] Extend `e2e/faq.spec.ts` with a hint-price test in the existing style -
+- [x] Extend `e2e/faq.spec.ts` with a hint-price test in the existing style -
       parse the number out of the board's `#hint-text` chip (filled by
       `hintChipCopy()`), then assert `#faq-hint-cost` against a whole-shape
       regex built from it, never a bare substring. Comment why the shape
       matters, as the budget test does.
-- [ ] Fix `pyproject.toml`'s placeholder `description`. Leave
+- [x] Fix `pyproject.toml`'s placeholder `description`. Leave
       `version = "0.1.0"`: 1.0.0 is the game and the site, not the Python
       content pipeline (DECISION.md, fork 2).
-- [ ] Verify: `npm run ci` and `npm run build` inside `nix develop`.
-- [ ] Landing only, after the branch is on master: `git tag v1.0.0`. The
-      CHANGELOG link section written in step 1 already points at it.
+- [x] Verify: `npm run ci` and `npm run build` inside `nix develop`.
 
 ## Definition of Done
 
@@ -139,6 +137,74 @@ ones are in `DECISION.md`.
 - Cost accepted: ~12 flat FAQ items is near the limit of a scroll with no
   accordion, and only one new answer gets a CI assertion - the rest can rot the
   way the daily-only FAQ did. Name both in the retro.
+
+## Close-out
+
+### What and why
+
+`CHANGELOG.md` ships `Added`-only for 1.0.0 as `DECISION.md` fork 1 settled,
+dated `2026-08-04`, with an empty `## [Unreleased]` above it and a link section
+pointing at the not-yet-cut `v1.0.0` tag. Bullets are one per shipped surface,
+written from `src/` (thirteen bullets: daily game, tree/closeness, info panel,
+budget, hints, practice + seeds, archives, profile, round summary, share text,
+countdown, onboarding, FAQ). `README.md` went from 65 lines of mixed
+quickstart/seed-mode/Playwright procedure to 30 lines of quickstart plus three
+links; the deleted material already lives in `AGENTS.md`.
+
+The FAQ gained six `.faq-item` blocks (hints, round summary, practice +
+`?seed=`, sharing, profile, archives) and a rewritten daily-reset answer that
+states local midnight and the countdown. `.faq-archive` was kept as the bare
+link affordance: its heading and the two archive links stay where returning
+readers expect them, but its prose was dropped in review round 1 because the
+new archives answer eleven lines above now says the same thing. No new CSS:
+every block reuses `.faq-item` / `.faq-question` / `.faq-answer`.
+
+`hintCostAnswer()` joins `guessBudgetAnswer()` in `src/faqCopy.ts` reading
+`HINT_COST`, mounted into an empty `#faq-hint-cost` span by `src/faq.ts` with
+the same top-level `throw` guard the budget span has.
+
+### Alternatives
+
+Deleting the `.faq-archive` block outright once its prose went: rejected - the
+two archive links are the only navigation off this page and returning readers
+look for them at the bottom. Reusing `hintChipCopy()` from `src/ui/onboarding.ts`
+instead of a new `faqCopy.ts` export: rejected for the reason
+`tasks/20260729-212757/DECISION.md` already records - the shared thing is the
+constant, not the sentence, and importing onboarding would drag its DOM
+builders into the FAQ bundle.
+
+### Difficulties
+
+None material during implementation. The worktree needed its own `npm install`
+before Jest could resolve `ts-jest`.
+
+Review round 1 caught the one real defect: the hint answer in `src/faq.html`
+described a one-level-per-hint walk, which is the rule `findNextHintCladeId`
+replaced. Step 4 of this plan specified that wording verbatim, so it was
+written from memory of the rule rather than from `src/hintRule.ts:6-25`, and
+implementation copied it through. The CHANGELOG bullet in the same change had
+it right; the FAQ now uses that same phrasing. Nothing in CI could have caught
+it - the guard only exists where a constant is involved, which is the cost the
+Reflection below names.
+
+### Evidence
+
+- `test/faqCopy.test.ts` red on `no exported member 'hintCostAnswer'`, green
+  after the export: 4 passed.
+- `e2e/faq.spec.ts` hint-price case red on `#faq-hint-cost` not found, green
+  after the span and mount: 2 passed.
+- The three `cmd:` proofs (CHANGELOG, README, pyproject) confirmed exit 1
+  before the edits and exit 0 after.
+- `npm run ci` exit 0 (185 E2E passed). `npm run build` exit 0.
+- Landing check `git tag --list v1.0.0` and both `manual:` proofs stay pending.
+
+### Reflection
+
+The cost the plan accepted is now real and worth naming in the retro: the FAQ
+is twelve flat items on one scroll with no accordion, and of the six new
+answers only the hint price has a CI assertion. The other five are prose that
+can rot exactly the way the daily-only FAQ did - the guard only exists where a
+constant is involved.
 
 ## Inspection
 

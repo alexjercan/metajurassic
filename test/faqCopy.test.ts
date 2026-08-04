@@ -5,8 +5,8 @@
 // FAQ contradicting the game (LESSONS.md:
 // hand-copied-logic-mirrors-rot-update-them-in-the-same-change).
 
-import { MAX_GUESSES } from "../src/constants";
-import { guessBudgetAnswer } from "../src/faqCopy";
+import { MAX_GUESSES, HINT_COST } from "../src/constants";
+import { guessBudgetAnswer, hintCostAnswer } from "../src/faqCopy";
 
 describe("guessBudgetAnswer", () => {
     it("states the budget from MAX_GUESSES", () => {
@@ -19,5 +19,18 @@ describe("guessBudgetAnswer", () => {
         // constant and leaves a "25" behind in the prose around it.
         const numbers = guessBudgetAnswer().match(/\d+/g) ?? [];
         expect(numbers).toEqual([String(MAX_GUESSES)]);
+    });
+});
+
+describe("hintCostAnswer", () => {
+    it("states the price from HINT_COST", () => {
+        expect(hintCostAnswer()).toContain(String(HINT_COST));
+    });
+
+    it("carries no integer other than HINT_COST", () => {
+        // Same trap as the budget fragment: a second number would be either a
+        // second hardcoded fact or a stale copy of this one.
+        const numbers = hintCostAnswer().match(/\d+/g) ?? [];
+        expect(numbers).toEqual([String(HINT_COST)]);
     });
 });

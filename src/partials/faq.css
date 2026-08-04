@@ -64,14 +64,8 @@
 .faq-archive h2 {
     font-size: 1.4rem;
     color: var(--amber-glow);
-    margin: 0 0 12px 0;
-    letter-spacing: 1px;
-}
-
-.faq-archive p {
-    font-size: 0.95rem;
-    color: #bbb;
     margin: 0 0 20px 0;
+    letter-spacing: 1px;
 }
 
 .archive-links {

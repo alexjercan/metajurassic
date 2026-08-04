@@ -1,4 +1,4 @@
-import { MAX_GUESSES } from "./constants";
+import { MAX_GUESSES, HINT_COST } from "./constants";
 
 /**
  * FAQ answer fragments whose numbers come from the constants that define them.
@@ -15,4 +15,11 @@ import { MAX_GUESSES } from "./constants";
 // this replaces would simply have gone stale on a reprice.
 export function guessBudgetAnswer(): string {
     return `You have ${MAX_GUESSES} attempts to find the target.`;
+}
+
+// Closes the "I am stuck" answer. Same reasoning as the budget above, and the
+// same guard: `test/markupConstants.test.ts` forbids the price as a literal in
+// any page template, so the sentence has to be built from HINT_COST here.
+export function hintCostAnswer(): string {
+    return `A hint costs ${HINT_COST} guesses.`;
 }

@@ -1,7 +1,7 @@
 [project]
 name = "metajurassic"
 version = "0.1.0"
-description = "Add your description here"
+description = "Content pipeline for Metajurassic: converts the species and clade Markdown under src/jurassic/ into the runtime graph src/jurassic/index.json"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [

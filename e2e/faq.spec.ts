@@ -29,4 +29,27 @@ test.describe("guess budget across surfaces", () => {
             new RegExp(`You have ${budget} attempts`)
         );
     });
+
+    test("the FAQ states the hint price the board charges", async ({
+        page,
+    }) => {
+        await pinDailyClock(page);
+
+        await page.goto("/");
+        // The board's price lives in the hint chip, written by
+        // `hintChipCopy()` through `updateHintButton()`.
+        const hintText = page.locator("#hint-text");
+        await expect(hintText).toContainText(/Spend \d+ guesses/);
+        const chipText = (await hintText.textContent()) ?? "";
+        const price = /Spend (\d+) guesses/.exec(chipText)?.[1] ?? "";
+        expect(price).not.toBe("");
+
+        await page.goto("/faq/");
+        // Whole-shape for the same reason the budget assertion is: prices
+        // collide as substrings, so a bare `toContainText(price)` would pass
+        // against a re-hardcoded stale number.
+        await expect(page.locator("#faq-hint-cost")).toContainText(
+            new RegExp(`A hint costs ${price} guesses`)
+        );
+    });
 });
