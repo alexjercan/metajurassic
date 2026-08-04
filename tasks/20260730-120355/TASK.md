@@ -3,7 +3,7 @@
 - PRIORITY: 35
 - TAGS: chore, content, tooling
 - KIND: TASK
-- ACTIVITY: UNDERSTANDING
+- ACTIVITY: PLANNING
 - GATES: -
 - RESOLUTION: -
 
