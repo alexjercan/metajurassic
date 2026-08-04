@@ -1,6 +1,10 @@
 import { GameState } from "../src/gameState";
 import { CLOSENESS_CELLS, formatGameStateForSharing } from "../src/shareText";
-import { CLOSENESS_TIER_COUNT, closenessTier } from "../src/closeness";
+import {
+    CLOSENESS_LABELS,
+    CLOSENESS_TIER_COUNT,
+    closenessTier,
+} from "../src/closeness";
 import {
     buildGuessTree,
     isSpeciesNode,
@@ -124,6 +128,17 @@ describe("tree closeness tiers", () => {
 
     test("one scale: a cell exists for every tier", () => {
         expect(CLOSENESS_CELLS).toHaveLength(CLOSENESS_TIER_COUNT);
+    });
+
+    test("every tier has a screen-reader label", () => {
+        // The third per-tier array, held to the scale exactly as the cells are:
+        // the board's warm/cold feedback is a colour and a share cell for a
+        // sighted player and these words for everyone else, so a tier without
+        // one is announced as nothing at all.
+        expect(CLOSENESS_LABELS).toHaveLength(CLOSENESS_TIER_COUNT);
+        for (const label of CLOSENESS_LABELS) {
+            expect(label.trim()).not.toBe("");
+        }
     });
 
     test("closenessTier stays inside the scale for out-of-range input", () => {

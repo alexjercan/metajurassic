@@ -43,6 +43,21 @@ const TIER_UPPER_BOUNDS = [0.2, 0.4, 0.6, 0.8, Infinity];
 export const CLOSENESS_TIER_COUNT = TIER_UPPER_BOUNDS.length;
 
 /**
+ * How warm a guess was, in words, cold first: the tier as a screen reader
+ * announces it on the node's `aria-label`. The THIRD per-tier array, and it
+ * must stay in step with the other two - `CLOSENESS_CELLS` in shareText.ts and
+ * the `.node-close-*` rules in partials/tree.css - all three indexed by what
+ * `closenessTier` returns. test/closeness.test.ts holds the length.
+ */
+export const CLOSENESS_LABELS = [
+    "ice cold",
+    "cold",
+    "warm",
+    "hot",
+    "scorching",
+];
+
+/**
  * Which tier a closeness falls in: 0 is the coldest (the guess met the target
  * only near the root), CLOSENESS_TIER_COUNT - 1 the hottest. Anything above the
  * last finite bound - including a nonsensically large input - lands in the top

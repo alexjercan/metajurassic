@@ -100,6 +100,23 @@
     border-radius: 5px 0 0 0;
 }
 
+/* The focus ring for the keyboard-operable tree. Its SHAPE - 2px solid at a 2px
+   offset - is the convention the hint chip introduced (20260729-212743); the
+   hue is white rather than that chip's amber because amber IS `.node-clade`'s
+   own border colour and the ring would vanish on half the board. The offset
+   puts the ring over the page background `--bg-dark` rather than over any node
+   fill, so one contrast ratio covers all seven node states. It paints on the
+   `.node-box` rather than around the `li`, whose padding holds the connector
+   lines. See tasks/20260803-233105/DECISION.md fork 3. */
+.tree li:focus-visible {
+    outline: none;
+}
+
+.tree li:focus-visible > .node-box {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+}
+
 .tree ul ul::before {
     content: "";
     position: absolute;

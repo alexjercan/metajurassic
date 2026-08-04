@@ -17,6 +17,7 @@ module.exports = {
         "!src/**/*.d.ts",
         "!src/ui/**/*.ts", // Exclude UI components (DOM-heavy, hard to unit test)
         "src/ui/treeLayout.ts", // ...except this one: pure geometry, no DOM
+        "src/ui/treeNav.ts", // ...and this one: pure traversal, no DOM
         "!src/index.ts", // Exclude entry point
     ],
     // Raised with the data-integrity suite (20260729-092352), which pulled the
@@ -24,10 +25,10 @@ module.exports = {
     // be deleted without the gate noticing.
     coverageThreshold: {
         global: {
-            branches: 78, // Current: 79.06%
-            functions: 98, // Current: 99%
-            lines: 97, // Current: 97.79%
-            statements: 94, // Current: 94.4%
+            branches: 78, // Current: 81.75%
+            functions: 98, // Current: 99.31%
+            lines: 97, // Current: 98.21%
+            statements: 94, // Current: 95.37%
         },
     },
     coverageReporters: ["text", "lcov", "html"],
