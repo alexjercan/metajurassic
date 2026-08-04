@@ -2,7 +2,7 @@
 species: Protoceratops
 translation: First Horned Face
 clade: coronosauria
-period: Late Cretaceous (75–71 Ma)
+period: Late Cretaceous (75-71 Ma)
 size: 1.8 meters
 weight: 100 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/protoceratops.png

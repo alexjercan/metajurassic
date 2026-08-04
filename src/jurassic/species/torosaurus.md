@@ -2,7 +2,7 @@
 species: Torosaurus
 translation: Perforated Lizard
 clade: triceratopsini
-period: Late Cretaceous (68–66 Ma)
+period: Late Cretaceous (68-66 Ma)
 size: 8 meters
 weight: 6,000 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/torosaurus.png

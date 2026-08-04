@@ -2,7 +2,7 @@
 species: Coelophysis
 translation: Hollow Form
 clade: theropoda
-period: Late Triassic (225–190 Ma)
+period: Late Triassic (225-190 Ma)
 size: 3 meters
 weight: 27 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/coelophysis.png

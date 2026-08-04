@@ -44,6 +44,16 @@ function isWellFormedMediaRef(value: string): boolean {
 // the day that assumption changes.
 const HTMLISH = /[<>]|&[a-zA-Z]+;|&#\d+;/;
 
+// AGENTS.md asks for ASCII-adjacent punctuation everywhere, and content is no
+// exception - it is the surface the player actually reads, on every guess. The
+// ban is a punctuation SET rather than "non-ASCII" on purpose: `Hateg` and
+// `Ruben` are spelled with `t-comma` and `e-acute` in the content and those are
+// correct, so a blanket rule would delete real information. Written with
+// `\uXXXX` escapes so this file stays ASCII and does not trip its own rule.
+// U+2010-U+2015 dashes, curly quotes, ellipsis, minus sign.
+const TYPOGRAPHIC =
+    /[\u2010-\u2015\u2018\u2019\u201C\u201D\u2026\u2212]/;
+
 function textFieldsOf(species: Species): [string, string][] {
     return [
         ["species", species.species],
@@ -235,6 +245,29 @@ describe("Jurassic text content", () => {
                 ["description", clade.description],
             ] as [string, string][]) {
                 if (HTMLISH.test(value)) {
+                    offenders.push(`${clade.id}.${field}: ${value}`);
+                }
+            }
+        }
+
+        expect(offenders).toEqual([]);
+    });
+
+    it("keeps typographic punctuation out of authored content", () => {
+        const offenders: string[] = [];
+        for (const species of data.species) {
+            for (const [field, value] of textFieldsOf(species)) {
+                if (TYPOGRAPHIC.test(value)) {
+                    offenders.push(`${species.id}.${field}: ${value}`);
+                }
+            }
+        }
+        for (const clade of Object.values(data.clades)) {
+            for (const [field, value] of [
+                ["name", clade.name],
+                ["description", clade.description],
+            ] as [string, string][]) {
+                if (TYPOGRAPHIC.test(value)) {
                     offenders.push(`${clade.id}.${field}: ${value}`);
                 }
             }

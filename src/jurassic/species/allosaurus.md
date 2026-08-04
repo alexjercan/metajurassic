@@ -2,7 +2,7 @@
 species: Allosaurus
 translation: Different Lizard
 clade: allosauria
-period: Late Jurassic (155–145 Ma)
+period: Late Jurassic (155-145 Ma)
 size: 9.5 meters
 weight: 2,000 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/allosaurus.png

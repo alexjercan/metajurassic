@@ -2,7 +2,7 @@
 species: Australotitan
 translation: Southern Titan
 clade: titanosauria
-period: Late Cretaceous (96–92 Ma)
+period: Late Cretaceous (96-92 Ma)
 size: 30 meters
 weight: 65,000 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/australotitan.png

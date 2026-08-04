@@ -2,7 +2,7 @@
 species: Sinosauropteryx
 translation: Chinese Lizard Wing
 clade: coelurosauria
-period: Early Cretaceous (124–122 Ma)
+period: Early Cretaceous (124-122 Ma)
 size: 1 meter
 weight: 1 kilogram
 image: https://alexjercan.github.io/metajurassic-images/species/sinosauropteryx.png

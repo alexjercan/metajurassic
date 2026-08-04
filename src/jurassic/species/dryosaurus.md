@@ -2,7 +2,7 @@
 species: Dryosaurus
 translation: Oak Lizard
 clade: dryomorpha
-period: Late Jurassic (155–150 Ma)
+period: Late Jurassic (155-150 Ma)
 size: 4 meters
 weight: 90 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/dryosaurus.png

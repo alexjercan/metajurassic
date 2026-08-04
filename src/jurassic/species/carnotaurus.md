@@ -2,7 +2,7 @@
 species: Carnotaurus
 translation: Meat-Eating Bull
 clade: abelisauridae
-period: Late Cretaceous (72–69 Ma)
+period: Late Cretaceous (72-69 Ma)
 size: 8 meters
 weight: 1,350 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/carnotaurus.png

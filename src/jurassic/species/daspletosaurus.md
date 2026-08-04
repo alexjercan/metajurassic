@@ -2,7 +2,7 @@
 species: Daspletosaurus
 translation: Frightful Lizard
 clade: tyrannosaurinae
-period: Late Cretaceous (77–74 Ma)
+period: Late Cretaceous (77-74 Ma)
 size: 9 meters
 weight: 3,000 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/daspletosaurus.png

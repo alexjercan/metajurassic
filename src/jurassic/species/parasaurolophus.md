@@ -2,7 +2,7 @@
 species: Parasaurolophus
 translation: Near Crested Lizard
 clade: lambeosaurinae
-period: Late Cretaceous (76–73 Ma)
+period: Late Cretaceous (76-73 Ma)
 size: 10 meters
 weight: 2,500 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/parasaurolophus.png

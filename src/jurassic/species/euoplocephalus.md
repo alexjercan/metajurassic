@@ -2,7 +2,7 @@
 species: Euoplocephalus
 translation: Well-Armored Head
 clade: ankylosaurini
-period: Late Cretaceous (76–75 Ma)
+period: Late Cretaceous (76-75 Ma)
 size: 6 meters
 weight: 2,500 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/euoplocephalus.png

@@ -2,7 +2,7 @@
 species: Ceratosaurus
 translation: Horned Lizard
 clade: ceratosauria
-period: Late Jurassic (153–148 Ma)
+period: Late Jurassic (153-148 Ma)
 size: 6 meters
 weight: 700 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/ceratosaurus.png

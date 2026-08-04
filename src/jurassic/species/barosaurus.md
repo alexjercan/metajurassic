@@ -2,7 +2,7 @@
 species: Barosaurus
 translation: Heavy Lizard
 clade: diplodocidae
-period: Late Jurassic (155–145 Ma)
+period: Late Jurassic (155-145 Ma)
 size: 27 meters
 weight: 15,000 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/barosaurus.png

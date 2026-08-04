@@ -2,7 +2,7 @@
 species: Lambeosaurus
 translation: Lambe's Lizard
 clade: lambeosaurini
-period: Late Cretaceous (76–75 Ma)
+period: Late Cretaceous (76-75 Ma)
 size: 9 meters
 weight: 3,000 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/lambeosaurus.png

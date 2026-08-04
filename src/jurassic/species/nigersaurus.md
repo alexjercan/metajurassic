@@ -2,7 +2,7 @@
 species: Nigersaurus
 translation: Niger Lizard
 clade: diplodocoidea
-period: Early Cretaceous (115–105 Ma)
+period: Early Cretaceous (115-105 Ma)
 size: 9 meters
 weight: 4,000 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/nigersaurus.png

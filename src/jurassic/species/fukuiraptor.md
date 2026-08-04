@@ -2,7 +2,7 @@
 species: Fukuiraptor
 translation: Thief from Fukui
 clade: megaraptora
-period: Early Cretaceous (127–115 Ma)
+period: Early Cretaceous (127-115 Ma)
 size: 4.2 meters
 weight: 300 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/fukuiraptor.png

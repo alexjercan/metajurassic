@@ -2,7 +2,7 @@
 species: Edmontosaurus
 translation: Edmonton Lizard
 clade: edmontosaurini
-period: Late Cretaceous (73–66 Ma)
+period: Late Cretaceous (73-66 Ma)
 size: 12 meters
 weight: 4,000 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/edmontosaurus.png

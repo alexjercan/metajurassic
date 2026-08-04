@@ -2,7 +2,7 @@
 species: Heterodontosaurus
 translation: Different-Toothed Lizard
 clade: ornithischia
-period: Early Jurassic (200–190 Ma)
+period: Early Jurassic (200-190 Ma)
 size: 1.2 meters
 weight: 3 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/heterodontosaurus.png

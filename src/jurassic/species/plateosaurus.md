@@ -2,7 +2,7 @@
 species: Plateosaurus
 translation: Broad Lizard
 clade: plateosauridae
-period: Late Triassic (214–204 Ma)
+period: Late Triassic (214-204 Ma)
 size: 8 meters
 weight: 4,000 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/plateosaurus.png

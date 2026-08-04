@@ -3,9 +3,9 @@
 - PRIORITY: 30
 - TAGS: content, docs
 - KIND: TASK
-- ACTIVITY: WORKING
-- GATES: PLAN
-- RESOLUTION: -
+- ACTIVITY: COMPOUNDING
+- GATES: PLAN REVIEW RETRO
+- RESOLUTION: DONE
 
 ## Story
 
@@ -21,10 +21,10 @@ From the playtest pass (`20260729-092435`, NOTES.md F5.1), MEASURED.
 
 ## Steps
 
-- [ ] Add the failing guard FIRST, in `test/dataIntegrity.test.ts`: a `TYPOGRAPHIC` regex constant beside the existing `HTMLISH` one, written with `\uXXXX` escapes so the test source itself stays ASCII, and one case in the existing `describe("Jurassic text content")` that walks `textFieldsOf(species)` plus each clade `name`/`description` and collects offenders into an array asserted `toEqual([])`, exactly like the HTML case above it. Ban punctuation only (`‐-―`, `‘’“”`, `…`, `−`), never all non-ASCII: `Hațeg` and `Rubén` are correct spellings and must survive. Confirm it is RED before continuing.
-- [ ] Replace the 97 en dashes in the MARKDOWN source under `src/jurassic/species/*.md` with `-`. All 97 sit in the `period:` frontmatter between two digits (measured, no exceptions), so this is mechanical.
-- [ ] Replace the 37 em dashes in the markdown bodies under `src/jurassic/species/*.md` and `src/jurassic/clades/*.md` with ` -- `. All 37 are unspaced `word—word` (measured), so a single substitution yields `word -- word`; re-read the 4 paired-parenthetical files (`stegosaurus`, `corythosaurus`, `edmontosaurini`, `acrocanthosaurus`) to confirm both sides still read.
-- [ ] Regenerate the payload with `python scripts/markdown_to_json.py`, then confirm the Step 1 guard and `test/contentSource.test.ts` both go green. Never hand-edit `src/jurassic/index.json`.
+- [x] Add the failing guard FIRST, in `test/dataIntegrity.test.ts`: a `TYPOGRAPHIC` regex constant beside the existing `HTMLISH` one, written with `\uXXXX` escapes so the test source itself stays ASCII, and one case in the existing `describe("Jurassic text content")` that walks `textFieldsOf(species)` plus each clade `name`/`description` and collects offenders into an array asserted `toEqual([])`, exactly like the HTML case above it. Ban punctuation only (`‐-―`, `‘’“”`, `…`, `−`), never all non-ASCII: `Hațeg` and `Rubén` are correct spellings and must survive. Confirm it is RED before continuing.
+- [x] Replace the 97 en dashes in the MARKDOWN source under `src/jurassic/species/*.md` with `-`. All 97 sit in the `period:` frontmatter between two digits (measured, no exceptions), so this is mechanical.
+- [x] Replace the 37 em dashes in the markdown bodies under `src/jurassic/species/*.md` and `src/jurassic/clades/*.md` with ` -- `. All 37 are unspaced `word—word` (measured), so a single substitution yields `word -- word`; re-read the 4 paired-parenthetical files (`stegosaurus`, `corythosaurus`, `edmontosaurini`, `acrocanthosaurus`) to confirm both sides still read.
+- [x] Regenerate the payload with `python scripts/markdown_to_json.py`, then confirm the Step 1 guard and `test/contentSource.test.ts` both go green. Never hand-edit `src/jurassic/index.json`.
 
 ## Definition of Done
 
@@ -42,3 +42,38 @@ From the playtest pass (`20260729-092435`, NOTES.md F5.1), MEASURED.
 - A payload-level ban does cover the markdown source, transitively: `test/contentSource.test.ts` asserts the parsed markdown equals `index.json` exactly, so a typographic dash authored in a `.md` reaches the payload and trips the guard. A byte grep over `index.json` would NOT - `json.dump` defaults to `ensure_ascii=True`, so the file stores `\\u2013` escapes.
 - Assumption taken, from NOTES.md's open question: the six `—` empty-field placeholders in `src/ui/card.ts` (lines 98-105) and the one in a `test/hintSelection.test.ts` comment stay. They are outside `src/jurassic/`, they are a UI glyph choice rather than authored content, and the card ones are unreachable in practice because `dataIntegrity` already asserts every field is non-empty. Widening the ban to source files is a separate, cheap follow-up.
 - `python scripts/markdown_to_json.py` also rewrites `commontree-metajurassic.json`, which `.gitignore` covers; the `git diff --exit-code` proof is unaffected.
+
+## Close-out
+
+WHAT/WHY. Added a payload-level Jest guard (`TYPOGRAPHIC` in
+`test/dataIntegrity.test.ts`) banning typographic punctuation in Jurassic text,
+then removed the 97 en dashes and 37 em dashes from the markdown source and
+regenerated `index.json`. The rule from AGENTS.md now has a red gate behind it
+instead of only a convention.
+
+ALTERNATIVES. As recorded in DECISION.md: a second source-file guard over
+`src/jurassic/**/*.md` (redundant, `contentSource.test.ts` already pins source
+== payload), widening the ban to all of `src/` (defers the `card.ts`
+placeholders), and grep-only CI enforcement (the shape LESSONS.md says decays).
+No alternative changed during implementation.
+
+DIFFICULTIES. Two, both minor. Writing the regex through an editing tool
+normalized the `\uXXXX` escapes into literal characters, which would have made
+the test file trip its own rule; rewritten via a Python substitution and
+re-verified with a non-ASCII grep over the file. And the sync proof
+(`git diff --exit-code src/jurassic/index.json`) is red until the regeneration
+is committed, which is expected rather than a defect.
+
+EVIDENCE. The guard was confirmed RED before any content edit (14 offenders,
+all clade descriptions). The mutation proof passes: injecting `Late-Jurassic`
+with an em dash into the shipped payload turns `dataIntegrity` red, and the
+file is restored from a copy. `npm run ci` exits 0: 32 suites, 411 Jest tests,
+184 Playwright tests. `rg` over `src/jurassic/` now finds only the three
+letters (`t-comma` x2, `e-acute` x1) that must survive.
+
+REFLECTION. The measurements in the plan held exactly - all 97 en dashes sat
+between digits in `period:`, all 37 em dashes were unspaced - so the
+substitution was a single pass with no exceptions. The nine files with paired
+parentheticals were re-read individually and all read correctly as ` -- x -- `.
+The one thing worth carrying forward: a test that enforces a text rule can
+violate that rule in its own source, so grep the test file, not just the target.

@@ -2,7 +2,7 @@
 species: Alamosaurus
 translation: Ojo Alamo Lizard
 clade: titanosauria
-period: Late Cretaceous (70–66 Ma)
+period: Late Cretaceous (70-66 Ma)
 size: 30 meters
 weight: 73,000 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/alamosaurus.png

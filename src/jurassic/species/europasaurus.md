@@ -2,7 +2,7 @@
 species: Europasaurus
 translation: Europe Lizard
 clade: brachiosauridae
-period: Late Jurassic (154–151 Ma)
+period: Late Jurassic (154-151 Ma)
 size: 6.2 meters
 weight: 1,000 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/europasaurus.png

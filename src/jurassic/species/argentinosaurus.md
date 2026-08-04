@@ -2,7 +2,7 @@
 species: Argentinosaurus
 translation: Argentina Lizard
 clade: titanosauria
-period: Late Cretaceous (96–92 Ma)
+period: Late Cretaceous (96-92 Ma)
 size: 35 meters
 weight: 75,000 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/argentinosaurus.png

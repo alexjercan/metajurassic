@@ -2,7 +2,7 @@
 species: Sinosaurus
 translation: Chinese Lizard
 clade: theropoda
-period: Early Jurassic (196–189 Ma)
+period: Early Jurassic (196-189 Ma)
 size: 5.6 meters
 weight: 350 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/sinosaurus.png

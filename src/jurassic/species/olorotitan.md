@@ -2,7 +2,7 @@
 species: Olorotitan
 translation: Giant Swan
 clade: lambeosaurini
-period: Late Cretaceous (70–66 Ma)
+period: Late Cretaceous (70-66 Ma)
 size: 8 meters
 weight: 3,100 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/olorotitan.png

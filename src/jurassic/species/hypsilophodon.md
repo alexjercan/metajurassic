@@ -2,7 +2,7 @@
 species: Hypsilophodon
 translation: High-Ridge Tooth
 clade: clypeodontia
-period: Early Cretaceous (130–125 Ma)
+period: Early Cretaceous (130-125 Ma)
 size: 1.8 meters
 weight: 20 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/hypsilophodon.png

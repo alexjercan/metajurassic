@@ -2,7 +2,7 @@
 species: Suchomimus
 translation: Crocodile Mimic
 clade: baryonychinae
-period: Early Cretaceous (112–110 Ma)
+period: Early Cretaceous (112-110 Ma)
 size: 11 meters
 weight: 3,800 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/suchomimus.png

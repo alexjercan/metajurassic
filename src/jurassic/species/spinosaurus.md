@@ -2,7 +2,7 @@
 species: Spinosaurus
 translation: Spine Lizard
 clade: spinosaurinae
-period: Late Cretaceous (99–93 Ma)
+period: Late Cretaceous (99-93 Ma)
 size: 14 meters
 weight: 7,400 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/spinosaurus.png

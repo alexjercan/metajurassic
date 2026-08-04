@@ -9,4 +9,4 @@ image: https://alexjercan.github.io/metajurassic-images/species/metriacanthosaur
 icon: https://alexjercan.github.io/metajurassic-images/clades/metriacanthosauridae.svg
 ---
 
-For decades, this impressive predator was completely lost in the scientific shuffle—early paleontologists had lazily dumped its fossil in as just another species of Megalosaurus because they used to assume almost every European meat-eater was the exact same animal!
+For decades, this impressive predator was completely lost in the scientific shuffle -- early paleontologists had lazily dumped its fossil in as just another species of Megalosaurus because they used to assume almost every European meat-eater was the exact same animal!

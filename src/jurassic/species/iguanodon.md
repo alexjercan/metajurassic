@@ -2,7 +2,7 @@
 species: Iguanodon
 translation: Iguana Tooth
 clade: hadrosauriformes
-period: Early Cretaceous (126–122 Ma)
+period: Early Cretaceous (126-122 Ma)
 size: 10 meters
 weight: 3,000 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/iguanodon.png

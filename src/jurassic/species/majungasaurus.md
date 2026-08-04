@@ -2,7 +2,7 @@
 species: Majungasaurus
 translation: Majunga Lizard
 clade: majungasaurinae
-period: Late Cretaceous (70–66 Ma)
+period: Late Cretaceous (70-66 Ma)
 size: 7 meters
 weight: 1,100 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/majungasaurus.png

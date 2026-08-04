@@ -2,7 +2,7 @@
 species: Camptosaurus
 translation: Flexible Lizard
 clade: ankylopollexia
-period: Late Jurassic (155–150 Ma)
+period: Late Jurassic (155-150 Ma)
 size: 6 meters
 weight: 800 kilograms
 image: https://alexjercan.github.io/metajurassic-images/species/camptosaurus.png
