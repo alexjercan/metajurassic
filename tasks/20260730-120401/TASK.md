@@ -3,7 +3,7 @@
 - PRIORITY: 40
 - TAGS: chore, cleanup
 - KIND: TASK
-- ACTIVITY: -
+- ACTIVITY: UNDERSTANDING
 - GATES: -
 - RESOLUTION: -
 
@@ -44,3 +44,9 @@ the one the pages use.
 
 - `src/` has exactly one content loader. (cmd: `grep -rn "loadGameData" src/ --include=*.ts`)
 - `npm run ci` passes. (cmd: `npm run ci`)
+
+## Notes
+
+- I would personally remove this as no longer needed we just load json, the
+  markdown is for making it easy to edit the file and then using markdown to
+  json script; So decision is: delete it
