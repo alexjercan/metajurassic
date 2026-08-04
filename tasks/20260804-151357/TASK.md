@@ -3,8 +3,8 @@
 - PRIORITY: 90
 - TAGS: docs, release
 - KIND: TASK
-- ACTIVITY: PLANNING
-- GATES: -
+- ACTIVITY: WORKING
+- GATES: PLAN
 - RESOLUTION: -
 
 ## Story
@@ -42,45 +42,109 @@ Out of scope: the docs site (separate task) and any gameplay change.
 
 ## Steps
 
-- [ ] Write `CHANGELOG.md` in Keep a Changelog format with a single
-      `## [1.0.0] - <date>` section, grouped Added/Changed/Fixed, derived from
-      `git log` and the `tasks/` records rather than pasted commit subjects.
-      Add an `## [Unreleased]` heading for the next cycle.
-- [ ] Trim `README.md` to a quickstart: what the game is, install/serve,
-      build, the one-line test commands, and links onward. Move the seed-mode
-      and E2E/Nix detail out of it - keep it in `AGENTS.md` (which already
-      carries the Nix/Playwright rules) and leave a pointer.
-- [ ] Extend `src/faq.html` to cover practice + seeds, the archives, the
-      profile/stats page and rank ladder, hints, sharing, and when the daily
-      resets. Keep the existing `faq-item` markup shape and `src/partials/faq.css`
-      classes.
-- [ ] Extend `e2e/faq.spec.ts` (or add a sibling spec) so at least one new
-      answer is asserted against the behavior it describes, in the style of the
-      existing budget assertion.
-- [ ] Verify the release: `npm run ci` and `npm run build` inside `nix develop`.
-- [ ] Tag `v1.0.0` on master after the branch lands, and note the tag in
-      `CHANGELOG.md`'s link section.
+- [ ] Write `CHANGELOG.md`: Keep a Changelog headings, an empty
+      `## [Unreleased]`, and one `## [1.0.0] - 2026-08-04` section carrying
+      `### Added` only - one bullet per shipped surface (daily game, tree and
+      closeness colours, info panel, guess budget, hints, practice + `?seed=`,
+      species and clades archives, profile/stats with the rolling average,
+      round-summary ladder, share text, daily countdown, onboarding), written
+      from `src/` and the `tasks/` records, not from commit subjects. Close
+      with a link section holding the `v1.0.0` tag URL. No `Changed`/`Fixed`:
+      a first release has no prior release to differ from (DECISION.md, fork
+      1).
+- [ ] Trim `README.md` to a quickstart: what the game is, `npm install` /
+      `npm run serve` / `npm run build`, the three test one-liners, and links
+      to `CHANGELOG.md`, `AGENTS.md`, and `e2e/seed.spec.ts`. Delete the
+      `### Seed mode` section and the Nix/Playwright procedure - both already
+      live in `AGENTS.md` (`## Deterministic practice games`,
+      `## Environment and commands`). Prettier does not cover `*.md`, so
+      format by hand.
+- [ ] Add `hintCostAnswer()` to `src/faqCopy.ts` beside `guessBudgetAnswer()`,
+      reading `HINT_COST`, and cover it in `test/faqCopy.test.ts` with the two
+      cases the budget fragment has (contains the constant; carries no other
+      integer). The exported function is in the coverage gate's scope, so it
+      needs a test in this change.
+- [ ] Extend `src/faq.html` with new `.faq-item` blocks for: playing more than
+      once a day (practice + `?seed=N`, `seed mod 100000`, seeded rounds
+      resume, **New game** deals unseeded), hints (reveals the shallowest
+      unrevealed clade in the answer's lineage, never the answer; price via an
+      empty `<span id="faq-hint-cost">`), the round summary ladder (revealed
+      clades root-first with the guesses that revealed them; it never shows
+      remaining depth), sharing (one square per guess by closeness tier, a bulb
+      per hint, practice shares labelled Practice), the profile page (daily and
+      practice stats kept separate; streaks, win rate, distribution, discovery
+      progress, rolling average), and the archives (fold the existing
+      `.faq-archive` block's prose into an answer or leave the block and say
+      what the two archives hold). Rewrite the "new puzzle every day" answer to
+      state the reset is local midnight with a live countdown. Only existing
+      `src/partials/faq.css` classes; no new CSS.
+- [ ] Mount the new fragment in `src/faq.ts`: look up `#faq-hint-cost` and
+      throw with the same shape as the existing `#faq-guess-budget` guard.
+- [ ] Extend `e2e/faq.spec.ts` with a hint-price test in the existing style -
+      parse the number out of the board's `#hint-text` chip (filled by
+      `hintChipCopy()`), then assert `#faq-hint-cost` against a whole-shape
+      regex built from it, never a bare substring. Comment why the shape
+      matters, as the budget test does.
+- [ ] Fix `pyproject.toml`'s placeholder `description`. Leave
+      `version = "0.1.0"`: 1.0.0 is the game and the site, not the Python
+      content pipeline (DECISION.md, fork 2).
+- [ ] Verify: `npm run ci` and `npm run build` inside `nix develop`.
+- [ ] Landing only, after the branch is on master: `git tag v1.0.0`. The
+      CHANGELOG link section written in step 1 already points at it.
 
 ## Definition of Done
 
-- `CHANGELOG.md` exists with a dated 1.0.0 section and an Unreleased heading.
-  (manual: user reads it and recognizes the release)
-- README is a quickstart under ~40 lines with no duplicated Nix/Playwright
-  procedure. (manual: user review)
+- `CHANGELOG.md` exists with an Unreleased heading and a dated 1.0.0 section.
+  (cmd: test -f CHANGELOG.md && grep -q '## \[1.0.0\] - 2026-08-04'
+  CHANGELOG.md && grep -q '## \[Unreleased\]' CHANGELOG.md)
+- The 1.0.0 section reads as what the game does, and a first-time reader
+  recognizes the release. (manual: user reads `CHANGELOG.md`)
+- README is a quickstart under ~40 lines with no duplicated Nix/Playwright or
+  seed-mode procedure. (cmd: test $(wc -l < README.md) -le 40 && ! grep -qi
+  'playwright install\|?seed=' README.md)
 - The FAQ page describes every shipped surface listed in Context.
-  (manual: user opens `/faq/` and finds practice, archive, profile, hints,
-  sharing)
+  (manual: user opens `/faq/` and finds practice, hints, the ladder, sharing,
+  the profile page, the archives, and the reset time)
+- The FAQ states the hint price with no hardcoded number, and it agrees with
+  the board. (test: e2e `guess budget across surfaces` new hint-price case)
 - The FAQ still states the enforced guess budget with no hardcoded number.
   (test: e2e `guess budget across surfaces`)
+- No page template carries a constant as a literal.
+  (test: jest `test/markupConstants.test.ts`)
+- `hintCostAnswer()` follows `HINT_COST`. (test: jest `test/faqCopy.test.ts`)
+- `pyproject.toml` has a real description. (cmd: ! grep -q 'Add your
+  description here' pyproject.toml)
 - Full gate green. (cmd: npm run ci)
 - Production bundle builds. (cmd: npm run build)
-- `git tag` lists `v1.0.0`. (cmd: git tag --list v1.0.0)
+- LANDING CHECK, not a branch proof - verified between LAND_READY approval and
+  DONE, since the tag is cut on master after the merge: `git tag` lists
+  `v1.0.0`. (cmd: git tag --list v1.0.0)
 
 ## Notes
 
-- Do not bump `package.json`; it is already 1.0.0. Do bump
-  `pyproject.toml`'s `version = "0.1.0"` only if the release should cover the
-  Python pipeline too - decide in planning, and fix its placeholder
-  `description` either way.
-- Changelog scope decision belongs in planning: 268 commits is too many to
-  list, so 1.0.0 should read as "what the game does", not a commit dump.
+Planning resolved the four open questions in `NOTES.md`; the two load-bearing
+ones are in `DECISION.md`.
+
+- Do not bump `package.json`; it is already 1.0.0.
+- Release date `2026-08-04` - today, and the date of the most recent commit.
+  Dating the section fixes it: re-cutting 1.0.0 later means editing the file.
+- `src/faq.ts` has no function body, so its missing-span guard is a top-level
+  `throw`, not the `if (!el) return;` the sibling entry points use. The new
+  span follows the same form.
+- `test/markupConstants.test.ts` forbids `\b25\b` and `\b3 [Gg]uesses\b` in any
+  `src/*.html`. Every number-bearing FAQ sentence must route through
+  `faqCopy.ts`; numberless answers stay entirely in the template.
+- Prettier covers `src/**/*.html` but not `*.md`, so `npm run format:check`
+  will police the FAQ markup and ignore README/CHANGELOG.
+- Cost accepted: ~12 flat FAQ items is near the limit of a scroll with no
+  accordion, and only one new answer gets a CI assertion - the rest can rot the
+  way the daily-only FAQ did. Name both in the retro.
+
+## Inspection
+
+```sh
+git log --oneline | wc -l            # 270; the changelog does not list these
+grep -rn "HINT_COST" src/            # every surface that must not be hardcoded
+npx jest test/markupConstants test/faqCopy
+npx playwright test e2e/faq.spec.ts
+```
