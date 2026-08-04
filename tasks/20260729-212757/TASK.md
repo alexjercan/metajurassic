@@ -3,7 +3,7 @@
 - PRIORITY: 40
 - TAGS: chore, content
 - KIND: TASK
-- ACTIVITY: -
+- ACTIVITY: UNDERSTANDING
 - GATES: -
 - RESOLUTION: -
 
