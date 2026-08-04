@@ -7,9 +7,10 @@
 // second seam that rots (LESSONS.md
 // `hand-copied-logic-mirrors-rot-update-them-in-the-same-change`).
 //
-// NOTE: 20260730-120401 - `src/markdownLoader.ts` is the only other importer
-// and nothing imports IT, so no shipped browser path parses frontmatter. That
-// task decides whether the loader is deleted or wired up.
+// No shipped browser path parses frontmatter - the app loads the generated
+// `src/jurassic/index.json` - so this module stays under `src/` as the
+// TypeScript mirror of `scripts/markdown_to_json.py`, not as test
+// scaffolding. See tasks/20260730-120401/DECISION.md.
 //
 // It is a deliberate re-expression of `scripts/markdown_to_json.py`'s parser,
 // not an independent format: same regex, same split-on-first-colon, same

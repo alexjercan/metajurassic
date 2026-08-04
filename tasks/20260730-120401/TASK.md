@@ -3,9 +3,9 @@
 - PRIORITY: 40
 - TAGS: chore, cleanup
 - KIND: TASK
-- ACTIVITY: WORKING
-- GATES: PLAN
-- RESOLUTION: -
+- ACTIVITY: COMPOUNDING
+- GATES: PLAN REVIEW RETRO
+- RESOLUTION: DONE
 
 ## Story
 
@@ -49,21 +49,21 @@ next reader of `jest.config.js` will hit it.
 
 ## Steps
 
-- [ ] Delete `src/markdownLoader.ts`. `DECISION.md` is already written and
+- [x] Delete `src/markdownLoader.ts`. `DECISION.md` is already written and
       binds this: delete rather than adopt it and retire `jsonLoader.ts`, and
       keep `src/frontMatter.ts` under `src/` despite having only test
       consumers.
-- [ ] Rewrite the `NOTE:` block at `src/frontMatter.ts:10-12`: no shipped
+- [x] Rewrite the `NOTE:` block at `src/frontMatter.ts:10-12`: no shipped
       browser path parses frontmatter, the module's only consumers are
       `test/contentSource.test.ts` and `test/dataIntegrity.test.ts`, and it
       stays under `src/` as the TypeScript mirror of
       `scripts/markdown_to_json.py` that the round-trip test compares against.
-- [ ] Drop the "the same one `markdownLoader` uses" clause at
+- [x] Drop the "the same one `markdownLoader` uses" clause at
       `test/contentSource.test.ts:8-9`, keeping the rest of that header intact.
-- [ ] Add a comment beside `roots` in `jest.config.js` recording that it scopes
+- [x] Add a comment beside `roots` in `jest.config.js` recording that it scopes
       coverage discovery too, so untested `src/` files are absent rather than
       0%, and citing `20260804-140413`.
-- [ ] Run `npm run ci` and confirm `coverage/lcov.info` still lists the same 19
+- [x] Run `npm run ci` and confirm `coverage/lcov.info` still lists the same 19
       `src/` files as before (deleting an uninstrumented file must not move any
       threshold).
 
@@ -91,3 +91,50 @@ next reader of `jest.config.js` will hit it.
 - `scripts/markdown_to_json.py:21` and `scripts/test_content_pipeline.py:68`
   point at `src/frontMatter.ts` by path; that stays valid and is a reason not
   to move the module into `test/`.
+
+## Close-out
+
+WHAT: deleted `src/markdownLoader.ts` (87 lines, zero importers), rewrote the
+stale `NOTE:` block in `src/frontMatter.ts` that pointed at it, dropped the
+"the same one `markdownLoader` uses" clause from the `test/contentSource.test.ts`
+header, and documented beside `roots` in `jest.config.js` that it scopes
+coverage discovery too, citing `20260804-140413`.
+
+WHY: `src/` declared `loadGameData` twice and only `jsonLoader.ts` was wired
+in, so the markdown loader read as load-bearing while running in no code path.
+DECISION.md binds the direction (delete rather than adopt); the drift cost the
+markdown loader would have avoided is already paid by
+`scripts/markdown_to_json.py` plus the round-trip test.
+
+ALTERNATIVES: adopting `markdownLoader` and retiring `jsonLoader` (~200 fetches
+vs 1, and it deletes the payload the drift gate compares against); moving
+`src/frontMatter.ts` into `test/` now that only tests import it (rejected -
+two scripts cite it by path, and it is a mirrored implementation, not test
+scaffolding). Both are argued in DECISION.md.
+
+DIFFICULTIES: none in the change. Two setup facts worth recording. The sprout
+worktree has no `node_modules`, so jest fails with "Preset ts-jest not found"
+until it is linked: `ln -s <main-tree>/node_modules node_modules` inside the
+worktree. `node_modules/` in `.gitignore` has a trailing slash and so does not
+match that symlink; it shows as untracked. It is removed again before the
+commit, and re-created to re-run checks.
+
+EVIDENCE:
+
+- Proofs 1, 2 and 3 were red on the base for the intended reason: `grep -rl`
+  returned two files, the two prose hits above, and `jest.config.js` citing
+  only `20260729-092352`. All three are green after the change.
+- `npm run ci` exits 0: format:check, lint, `test:pipeline`, jest with
+  coverage, and 184 Playwright specs.
+- CORRECTION to Step 5 and the plan prose: the `src/` file set in
+  `coverage/lcov.info` is 21 files, not 19. What matters is the invariant, and
+  it holds - the sorted `SF:` list is byte-identical before and after
+  (`diff /tmp/base-sf.txt /tmp/after-sf.txt` empty), and coverage is unmoved at
+  95.39/81.83/99.31/98.22 against thresholds 94/78/98/97. Deleting an
+  uninstrumented file cannot move a threshold, which is the finding itself.
+
+REFLECTION: the plan's greppable proofs did the whole job - each one named the
+exact residue to remove, so "delete the file" could not silently leave the
+prose behind. The one number the plan carried loosely (19 files) was the one
+thing not expressed as a proof; a `cmd:` capturing the `SF:` set would have
+caught it at planning time rather than at verification.

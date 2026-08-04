@@ -2,6 +2,10 @@
 module.exports = {
     preset: "ts-jest",
     testEnvironment: "node",
+    // Scopes coverage discovery too, not just test discovery: jest only
+    // instruments files it finds under `roots`, so a `src/` module no test
+    // imports is ABSENT from the report rather than listed at 0%, and
+    // `collectCoverageFrom` below never sees it. See tasks/20260804-140413/.
     roots: ["<rootDir>/test"],
     // Pins the suite's time zone to a DST-observing one; see the file.
     globalSetup: "<rootDir>/test/setTimeZone.js",

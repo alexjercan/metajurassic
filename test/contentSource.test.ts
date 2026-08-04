@@ -5,12 +5,12 @@
 // of truth. Validating only the JSON catches a defect one step downstream of
 // where it can be fixed, and catches nothing at all if the JSON is stale.
 //
-// So this file parses the markdown with the SHIPPED parser (`src/frontMatter`,
-// the same one `markdownLoader` uses) and asserts the reconstructed graph
-// equals the committed `index.json` exactly. That does three jobs at once: it
-// validates the frontmatter, it proves the generated payload is in sync with
-// its source, and it keeps the TypeScript parser honest against the Python one
-// in `scripts/markdown_to_json.py` - if the two ever disagree about quoting,
+// So this file parses the markdown with the SHIPPED parser (`src/frontMatter`)
+// and asserts the reconstructed graph equals the committed `index.json`
+// exactly. That does three jobs at once: it validates the frontmatter, it
+// proves the generated payload is in sync with its source, and it keeps the
+// TypeScript parser honest against the Python one in
+// `scripts/markdown_to_json.py` - if the two ever disagree about quoting,
 // colons in values, or body trimming, this test goes red instead of the
 // difference rotting unnoticed. See tasks/20260729-092352/DECISION.md choice 3.
 
