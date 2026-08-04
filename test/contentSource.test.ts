@@ -99,9 +99,20 @@ describe("authored markdown source", () => {
             clades: raw.clades as unknown as Record<string, unknown>,
         };
 
-        // Both sides are sorted by id now, but `toEqual` compares
-        // structurally, which is the property that matters here.
         expect(fromSource).toEqual(committed);
+
+        // `toEqual` is order-blind, and index.json key order is what picks the
+        // daily answer (src/gameData.ts), so the structural comparison above
+        // would not notice a re-ordered payload. Assert the committed key
+        // order against a sorted copy of itself: the invariant belongs to the
+        // shipped file, not to whatever order this test happened to read the
+        // directory in. See tasks/20260804-123559/DECISION.md choice 1.
+        expect(Object.keys(committed.species)).toEqual(
+            [...Object.keys(committed.species)].sort()
+        );
+        expect(Object.keys(committed.clades)).toEqual(
+            [...Object.keys(committed.clades)].sort()
+        );
     });
 
     it("gives every species the full set of frontmatter fields", () => {

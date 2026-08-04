@@ -159,7 +159,9 @@ class MarkdownToJsonTest(unittest.TestCase):
         # index.json key order picks the daily answer (src/gameData.ts), so an
         # order that follows os.listdir re-points every puzzle whenever the
         # content directory churns. Files are written in deliberately
-        # non-alphabetical order so directory order cannot pass by accident.
+        # non-alphabetical order, and the premise that os.listdir reports them
+        # that way is asserted below rather than assumed - on a filesystem that
+        # returns sorted names this test would otherwise pass vacuously.
         for species_id in ("zuniceratops", "allosaurus", "triceratops", "brachiosaurus"):
             path = os.path.join(self.content, "species", species_id + ".md")
             with open(path, "w") as f:
@@ -168,6 +170,17 @@ class MarkdownToJsonTest(unittest.TestCase):
             path = os.path.join(self.content, "clades", clade_id + ".md")
             with open(path, "w") as f:
                 f.write(CLADE_MD.replace("---\n", "---\nparent: ceratopsoidea\n", 1))
+
+        for kind in ("species", "clades"):
+            entries = os.listdir(os.path.join(self.content, kind))
+            self.assertNotEqual(
+                entries,
+                sorted(entries),
+                "premise lost: os.listdir already reports "
+                + kind
+                + " in sorted order, so this test cannot tell a sorting "
+                + "generator from a directory-order one",
+            )
 
         result = self.generate()
 

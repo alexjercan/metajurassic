@@ -21,7 +21,7 @@ Start here, then run `tatr ls --sort priority`.
 | `src/` | App source. Core: `game/` (DOM wiring and the round's units), `gameState.ts`, `gameData.ts`, `treeBuilder.ts`, `hintRule.ts`, `puzzleKey.ts`, `shareText.ts`, `rankLadder.ts`. UI widgets: `src/ui/`. |
 | `src/*.html`, `src/style.css`, `src/partials/` | Page templates and Tailwind styles. `src/style.css` is the entry: `@tailwind` directives plus one `@import` per surface partial, in cascade order. `webpack-partials.js` adds the shared header/footer and injects `src/_head.html` (social/SEO metadata) at each page's `<!-- social-head -->` marker, filling per-page options from `webpack.config.js`. |
 | `src/jurassic/species/*.md`, `src/jurassic/clades/*.md` | Canonical content. |
-| `src/jurassic/index.json` | Generated runtime graph. Never hand-edit. |
+| `src/jurassic/index.json` | Generated runtime graph. Never hand-edit. `species` and `clades` are in sorted id order, and that order picks the daily answer, so a re-order re-points every puzzle. |
 | `scripts/*.py` | Content conversion and pipeline tests. |
 | `scripts/playtest/*.ts` | Game simulations and visual walkthrough. Outside CI. |
 | `scripts/og-image.ts` | Renders `src/assets/og-image.html` to the committed `src/assets/og-image.png` link-preview card. Outside CI. |
