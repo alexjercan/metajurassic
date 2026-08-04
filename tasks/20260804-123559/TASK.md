@@ -3,7 +3,7 @@
 - PRIORITY: 25
 - TAGS: chore, content, testing
 - KIND: TASK
-- ACTIVITY: UNDERSTANDING
+- ACTIVITY: PLANNING
 - GATES: -
 - RESOLUTION: -
 
