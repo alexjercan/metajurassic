@@ -96,6 +96,25 @@ for (const social of PAGES) {
     });
 }
 
+// The escaping half, asserted at the served boundary rather than on `fill`
+// directly. The only escapable character in the shipped copy is the apostrophe
+// in the daily description, so this pair is deliberately coupled to that
+// wording: if it loses the apostrophe the test reddens loudly instead of going
+// vacuously green. See tasks/20260803-111943/DECISION.md.
+test("the served head escapes copy and still decodes back to it", async ({
+    page,
+}) => {
+    // Raw bytes, not the parsed DOM: a browser hands back `today's` either
+    // way, so only the source text can tell escaped from unescaped.
+    const response = await page.request.get("/");
+    expect(await response.text()).toContain("today&#39;s");
+
+    // The other direction: escaping that round-trips to the configured string,
+    // not to `today&#39;s` shown literally to a crawler.
+    await page.goto("/");
+    expect(await metaProperty(page, "og:description")).toContain("today's");
+});
+
 test("the daily page and the FAQ unfurl as different things", async ({
     page,
 }) => {
