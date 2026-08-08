@@ -1,10 +1,8 @@
 # Spike: can src/style.css split into @import partials with byte-identical compiled output
 
+- STATUS: CLOSED
 - PRIORITY: 0
 - TAGS: spike
-- ACTIVITY: COMPOUNDING
-- GATES: PLAN REVIEW RETRO
-- RESOLUTION: DONE
 
 ## Question
 

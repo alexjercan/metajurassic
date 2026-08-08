@@ -1,10 +1,8 @@
 # Pin the daily clock in every e2e spec that opens the daily page
 
+- STATUS: CLOSED
 - PRIORITY: 60
 - TAGS: bug, e2e, ui
-- ACTIVITY: COMPOUNDING
-- GATES: PLAN REVIEW RETRO
-- RESOLUTION: DONE
 
 ## Story
 

@@ -1,10 +1,8 @@
 # Make tree nodes keyboard operable
 
+- STATUS: CLOSED
 - PRIORITY: 45
 - TAGS: a11y, ux
-- ACTIVITY: COMPOUNDING
-- GATES: PLAN REVIEW RETRO
-- RESOLUTION: DONE
 
 ## Story
 

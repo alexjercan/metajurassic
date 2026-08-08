@@ -1,10 +1,8 @@
 # Fix game-over modal overflow on phone viewports
 
+- STATUS: CLOSED
 - PRIORITY: 76
 - TAGS: bug, ui, mobile
-- ACTIVITY: COMPOUNDING
-- GATES: PLAN REVIEW RETRO
-- RESOLUTION: DONE
 
 ## Story
 

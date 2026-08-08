@@ -1,10 +1,8 @@
 # Name the closeness colour in the how-to-play copy
 
+- STATUS: CLOSED
 - PRIORITY: 55
 - TAGS: docs, ux
-- ACTIVITY: COMPOUNDING
-- GATES: PLAN REVIEW RETRO
-- RESOLUTION: DONE
 
 ## Story
 

@@ -1,11 +1,8 @@
 # Publish a VitePress documentation site at /docs
 
+- STATUS: CLOSED
 - PRIORITY: 60
 - TAGS: docs, tooling
-- ACTIVITY: COMPOUNDING
-- GATES: PLAN REVIEW RETRO
-- RESOLUTION: DONE
-- DEPENDS ON: 20260804-151357
 
 ## Story
 

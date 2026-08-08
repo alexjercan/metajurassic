@@ -1,10 +1,8 @@
 # Repair broken Jurassic media references
 
+- STATUS: CLOSED
 - PRIORITY: 70
 - TAGS: bug, content, ui
-- ACTIVITY: COMPOUNDING
-- GATES: PLAN REVIEW RETRO
-- RESOLUTION: DONE
 
 ## Story
 

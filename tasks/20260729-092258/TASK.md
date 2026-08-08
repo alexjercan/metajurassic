@@ -1,10 +1,8 @@
 # Add browser E2E coverage for the playable game
 
+- STATUS: CLOSED
 - PRIORITY: 95
 - TAGS: testing, e2e, ui, flow
-- ACTIVITY: COMPOUNDING
-- GATES: PLAN REVIEW RETRO
-- RESOLUTION: DONE
 
 ## Story
 

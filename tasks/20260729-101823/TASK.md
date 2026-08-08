@@ -1,10 +1,8 @@
 # Rewrite share text with real stats and a guess-story grid
 
+- STATUS: CLOSED
 - PRIORITY: 88
 - TAGS: feature, ux, gameplay
-- ACTIVITY: COMPOUNDING
-- GATES: PLAN REVIEW RETRO
-- RESOLUTION: DONE
 
 ## Story
 

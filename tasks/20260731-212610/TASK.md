@@ -1,12 +1,8 @@
 # KISS pass: core game loop (game.ts, gameState.ts, share text)
 
+- STATUS: CLOSED
 - PRIORITY: 70
 - TAGS: refactor, gameplay
-- ACTIVITY: COMPOUNDING
-- GATES: PLAN REVIEW RETRO
-- RESOLUTION: DONE
-- PARENT: 20260731-212345
-- DEPENDS ON: 20260731-212557
 
 ## Story
 

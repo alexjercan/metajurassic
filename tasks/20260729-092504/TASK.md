@@ -1,10 +1,8 @@
 # Polish post-game flow and retention actions
 
+- STATUS: CLOSED
 - PRIORITY: 62
 - TAGS: ux, gameplay, feature
-- ACTIVITY: COMPOUNDING
-- GATES: PLAN REVIEW RETRO
-- RESOLUTION: DONE
 
 ## Story
 

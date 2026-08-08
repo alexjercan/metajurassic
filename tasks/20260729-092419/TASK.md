@@ -1,10 +1,8 @@
 # Tighten CI signal and remove warning drift
 
+- STATUS: CLOSED
 - PRIORITY: 65
 - TAGS: ci, testing, lint
-- ACTIVITY: COMPOUNDING
-- GATES: PLAN REVIEW RETRO
-- RESOLUTION: DONE
 
 ## Story
 

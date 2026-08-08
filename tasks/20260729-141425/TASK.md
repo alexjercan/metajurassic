@@ -1,10 +1,8 @@
 # Filter the species archive by clade
 
+- STATUS: CLOSED
 - PRIORITY: 60
 - TAGS: feature, ux, archive
-- ACTIVITY: COMPOUNDING
-- GATES: PLAN REVIEW RETRO
-- RESOLUTION: DONE
 
 ## Story
 

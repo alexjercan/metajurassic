@@ -1,10 +1,8 @@
 # Drive the guess budget in markup from MAX_GUESSES
 
+- STATUS: CLOSED
 - PRIORITY: 40
 - TAGS: chore, content
-- ACTIVITY: COMPOUNDING
-- GATES: PLAN REVIEW RETRO
-- RESOLUTION: DONE
 
 ## Story
 

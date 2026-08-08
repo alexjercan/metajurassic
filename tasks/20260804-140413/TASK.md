@@ -1,10 +1,8 @@
 # Make the coverage gate see untested src modules
 
+- STATUS: CLOSED
 - PRIORITY: 50
 - TAGS: chore, testing
-- ACTIVITY: COMPOUNDING
-- GATES: PLAN REVIEW RETRO
-- RESOLUTION: DONE
 
 ## Story
 

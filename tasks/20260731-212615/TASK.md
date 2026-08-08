@@ -1,12 +1,8 @@
 # Split e2e/helpers.ts into focused helper modules
 
+- STATUS: CLOSED
 - PRIORITY: 60
 - TAGS: refactor, testing, e2e
-- ACTIVITY: COMPOUNDING
-- GATES: PLAN REVIEW RETRO
-- RESOLUTION: DONE
-- PARENT: 20260731-212345
-- DEPENDS ON: 20260731-212557
 
 ## Story
 

@@ -1,10 +1,8 @@
 # Improve in-game onboarding and hint clarity
 
+- STATUS: CLOSED
 - PRIORITY: 82
 - TAGS: feature, ux, gameplay
-- ACTIVITY: COMPOUNDING
-- GATES: PLAN REVIEW RETRO
-- RESOLUTION: DONE
 
 ## Story
 

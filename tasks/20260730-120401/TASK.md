@@ -1,10 +1,8 @@
 # Delete the dead markdownLoader
 
+- STATUS: CLOSED
 - PRIORITY: 40
 - TAGS: chore, cleanup
-- ACTIVITY: COMPOUNDING
-- GATES: PLAN REVIEW RETRO
-- RESOLUTION: DONE
 
 ## Story
 

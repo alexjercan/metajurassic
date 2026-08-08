@@ -1,10 +1,8 @@
 # Write AGENTS.md with build, test, and data pipeline orientation
 
+- STATUS: CLOSED
 - PRIORITY: 96
 - TAGS: docs, process, flow
-- ACTIVITY: COMPOUNDING
-- GATES: PLAN REVIEW RETRO
-- RESOLUTION: DONE
 
 ## Story
 

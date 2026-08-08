@@ -1,10 +1,8 @@
 # Fix the duplicated word in the share headline
 
+- STATUS: CLOSED
 - PRIORITY: 50
 - TAGS: bug, ux, content
-- ACTIVITY: COMPOUNDING
-- GATES: PLAN REVIEW RETRO
-- RESOLUTION: DONE
 
 ## Story
 

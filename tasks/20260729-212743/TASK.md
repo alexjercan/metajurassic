@@ -1,10 +1,8 @@
 # Make the hint chip keyboard reachable
 
+- STATUS: CLOSED
 - PRIORITY: 55
 - TAGS: a11y, ux
-- ACTIVITY: COMPOUNDING
-- GATES: PLAN REVIEW RETRO
-- RESOLUTION: DONE
 
 ## Story
 

@@ -1,12 +1,8 @@
 # KISS pass: Jest suites and playtest rigs
 
+- STATUS: CLOSED
 - PRIORITY: 58
 - TAGS: refactor, testing
-- ACTIVITY: COMPOUNDING
-- GATES: PLAN REVIEW RETRO
-- RESOLUTION: DONE
-- PARENT: 20260731-212345
-- DEPENDS ON: 20260731-212557
 
 ## Story
 

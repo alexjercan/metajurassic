@@ -1,10 +1,8 @@
 # Add a deterministic seed mode as the runnable example primitive
 
+- STATUS: CLOSED
 - PRIORITY: 94
 - TAGS: testing, feature, e2e
-- ACTIVITY: COMPOUNDING
-- GATES: PLAN REVIEW RETRO
-- RESOLUTION: DONE
 
 ## Story
 

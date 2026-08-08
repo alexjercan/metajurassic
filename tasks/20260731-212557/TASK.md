@@ -1,11 +1,8 @@
 # Write the comment and file-size policy into AGENTS.md
 
+- STATUS: CLOSED
 - PRIORITY: 71
 - TAGS: docs, process, refactor
-- ACTIVITY: COMPOUNDING
-- GATES: PLAN REVIEW RETRO
-- RESOLUTION: DONE
-- PARENT: 20260731-212345
 
 ## Story
 

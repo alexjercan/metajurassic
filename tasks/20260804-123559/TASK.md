@@ -1,10 +1,8 @@
 # Guard the sorted graph invariant beyond the generator
 
+- STATUS: CLOSED
 - PRIORITY: 25
 - TAGS: chore, content, testing
-- ACTIVITY: COMPOUNDING
-- GATES: PLAN REVIEW RETRO
-- RESOLUTION: DONE
 
 ## Story
 

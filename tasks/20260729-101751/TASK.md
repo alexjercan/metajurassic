@@ -1,10 +1,8 @@
 # Make shared links unfurl with Open Graph and Twitter cards
 
+- STATUS: CLOSED
 - PRIORITY: 55
 - TAGS: feature, ux, content
-- ACTIVITY: COMPOUNDING
-- GATES: PLAN REVIEW RETRO
-- RESOLUTION: DONE
 
 ## Story
 

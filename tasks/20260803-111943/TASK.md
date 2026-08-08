@@ -1,10 +1,8 @@
 # Escape HTML in the social head partial substitution
 
+- STATUS: CLOSED
 - PRIORITY: 30
 - TAGS: chore, build
-- ACTIVITY: COMPOUNDING
-- GATES: PLAN REVIEW RETRO
-- RESOLUTION: DONE
 
 ## Story
 

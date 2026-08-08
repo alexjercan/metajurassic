@@ -1,10 +1,8 @@
 # Make the generated content graph deterministically ordered
 
+- STATUS: CLOSED
 - PRIORITY: 35
 - TAGS: chore, content, tooling
-- ACTIVITY: COMPOUNDING
-- GATES: PLAN REVIEW RETRO
-- RESOLUTION: DONE
 
 ## Story
 

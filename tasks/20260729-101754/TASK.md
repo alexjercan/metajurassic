@@ -1,10 +1,8 @@
 # Persist in-progress practice games across reloads
 
+- STATUS: CLOSED
 - PRIORITY: 68
 - TAGS: bug, ux, gameplay
-- ACTIVITY: COMPOUNDING
-- GATES: PLAN REVIEW RETRO
-- RESOLUTION: DONE
 
 ## Story
 

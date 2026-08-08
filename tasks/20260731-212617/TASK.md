@@ -1,12 +1,8 @@
 # Decide and, if safe, split src/style.css by surface
 
+- STATUS: CLOSED
 - PRIORITY: 50
 - TAGS: refactor, ui, css
-- ACTIVITY: COMPOUNDING
-- GATES: PLAN REVIEW RETRO
-- RESOLUTION: DONE
-- PARENT: 20260731-212345
-- DEPENDS ON: 20260731-212557
 
 ## Story
 

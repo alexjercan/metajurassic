@@ -1,10 +1,8 @@
 # Autocomplete blur timer swallows a fast re-typed guess
 
+- STATUS: CLOSED
 - PRIORITY: 70
 - TAGS: bug, ui, input
-- ACTIVITY: COMPOUNDING
-- GATES: PLAN REVIEW RETRO
-- RESOLUTION: DONE
 
 ## Story
 

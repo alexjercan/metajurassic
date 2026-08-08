@@ -1,10 +1,8 @@
 # Pluralize HINT_COST and MAX_GUESSES prose off the constant
 
+- STATUS: CLOSED
 - PRIORITY: 20
 - TAGS: docs, polish
-- ACTIVITY: COMPOUNDING
-- GATES: PLAN REVIEW RETRO
-- RESOLUTION: DONE
 
 ## Story
 

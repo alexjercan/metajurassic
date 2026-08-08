@@ -1,10 +1,8 @@
 # Fix puzzle key round-trip off-by-one breaking profile dates and streaks
 
+- STATUS: CLOSED
 - PRIORITY: 92
 - TAGS: bug, testing
-- ACTIVITY: COMPOUNDING
-- GATES: PLAN REVIEW RETRO
-- RESOLUTION: DONE
 
 ## Story
 

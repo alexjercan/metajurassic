@@ -1,10 +1,8 @@
 # Fix autocomplete filtering order and prefix ranking
 
+- STATUS: CLOSED
 - PRIORITY: 78
 - TAGS: bug, ui, input
-- ACTIVITY: COMPOUNDING
-- GATES: PLAN REVIEW RETRO
-- RESOLUTION: DONE
 
 ## Story
 

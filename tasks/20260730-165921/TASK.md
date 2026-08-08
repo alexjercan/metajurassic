@@ -1,10 +1,8 @@
 # Replace the share-failure alert with inline feedback
 
+- STATUS: CLOSED
 - PRIORITY: 58
 - TAGS: bug, ux, ui
-- ACTIVITY: COMPOUNDING
-- GATES: PLAN REVIEW RETRO
-- RESOLUTION: DONE
 
 ## Story
 

@@ -1,10 +1,8 @@
 # Normalize typographic punctuation in Jurassic content
 
+- STATUS: CLOSED
 - PRIORITY: 30
 - TAGS: content, docs
-- ACTIVITY: COMPOUNDING
-- GATES: PLAN REVIEW RETRO
-- RESOLUTION: DONE
 
 ## Story
 

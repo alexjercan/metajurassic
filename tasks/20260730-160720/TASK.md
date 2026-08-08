@@ -1,10 +1,8 @@
 # Let the game-over modal fit a landscape phone without scrolling
 
+- STATUS: CLOSED
 - PRIORITY: 58
 - TAGS: bug, ui, mobile, ux
-- ACTIVITY: COMPOUNDING
-- GATES: PLAN REVIEW RETRO
-- RESOLUTION: DONE
 
 ## Story
 

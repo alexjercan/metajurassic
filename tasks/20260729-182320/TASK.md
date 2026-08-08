@@ -1,10 +1,8 @@
 # Rank-ladder summary of what the guesses have narrowed
 
+- STATUS: CLOSED
 - PRIORITY: 58
 - TAGS: feature, ux, gameplay
-- ACTIVITY: COMPOUNDING
-- GATES: PLAN REVIEW RETRO
-- RESOLUTION: DONE
 
 ## Story
 

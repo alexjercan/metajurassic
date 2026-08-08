@@ -1,10 +1,8 @@
 # Make the tree's closeness readable without colour
 
+- STATUS: CLOSED
 - PRIORITY: 62
 - TAGS: feature, ux, a11y
-- ACTIVITY: COMPOUNDING
-- GATES: PLAN REVIEW RETRO
-- RESOLUTION: DONE
 
 ## Story
 

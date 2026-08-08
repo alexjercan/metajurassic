@@ -1,10 +1,8 @@
 # Randomize the daily puzzle sequence
 
+- STATUS: CLOSED
 - PRIORITY: 98
 - TAGS: bug, gameplay, design
-- ACTIVITY: COMPOUNDING
-- GATES: PLAN REVIEW RETRO
-- RESOLUTION: DONE
 
 ## Story
 

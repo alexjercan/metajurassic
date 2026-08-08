@@ -1,10 +1,8 @@
 # Restore flow conformance records
 
+- STATUS: CLOSED
 - PRIORITY: 100
 - TAGS: process, flow, docs
-- ACTIVITY: COMPOUNDING
-- GATES: PLAN REVIEW RETRO
-- RESOLUTION: DONE
 
 ## Story
 

@@ -1,10 +1,8 @@
 # Give the game-over modal a vertical escape hatch on short viewports
 
+- STATUS: CLOSED
 - PRIORITY: 62
 - TAGS: bug, ui, mobile
-- ACTIVITY: COMPOUNDING
-- GATES: PLAN REVIEW RETRO
-- RESOLUTION: DONE
 
 ## Story
 

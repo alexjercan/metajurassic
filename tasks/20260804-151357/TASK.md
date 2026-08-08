@@ -1,10 +1,8 @@
 # Ship the v1.0.0 release: CHANGELOG, quickstart README, refreshed FAQ
 
+- STATUS: CLOSED
 - PRIORITY: 90
 - TAGS: docs, release
-- ACTIVITY: COMPOUNDING
-- GATES: PLAN REVIEW RETRO
-- RESOLUTION: DONE
 
 ## Story
 
